@@ -45,7 +45,7 @@ Note that the scripts are written with relative paths. It is necessary to step i
 
 **Step 2:** System setup.
 
-                cd rdm32_SIGMOD21_repro
+                cd reproducibility/sigmod2021-LIMA-p32 
                 ./system_setup.sh 2>&1 | tee setup.out
 
   This script installs jdk8, maven, git, python3, r-base, and texlive. Maven and git are needed to clone and build the source code. Java 8 and python are needed to execute the scripts. r-base and texlive generate the plots and compile the paper.
