@@ -1,7 +1,7 @@
 ## Reproducibility Submission for Paper 32
 
-**Paper name: LIMA: Fine-grained Lineage Tracing and Reuse in Machine Learning Systems
-Paper link: https://dl.acm.org/doi/10.1145/3448016.3452788**
+**Paper name:** LIMA: Fine-grained Lineage Tracing and Reuse in Machine Learning Systems
+**Paper link:** https://dl.acm.org/doi/10.1145/3448016.3452788
 
 Source Code Info
  - Repository: Apache SystemDS [1] (https://github.com/apache/systemds)
@@ -23,7 +23,7 @@ Experimentation Info
 
 Execution Guide:
 
-#### Approach 1: Fully automated 
+### Approach 1: Fully automated 
 Execute `./main.sh`. `main.sh` runs all the steps and outputs a compiled paper. Although this script is thoroughly tested, fully automated execution makes it harder to follow and catch errors early. Complete execution takes approximately 44.5 hours to complete.
    
 **Step 1:** Launch an Ubuntu 20.04 system with the aforementioned configurations.   Configure sudo without password (no-password is the default for AWS instances)
@@ -37,7 +37,7 @@ Output: paper containing reproduced plots. Time to complete: ~44.5 hours
    
 **Step 3:** Find the reproduced paper, sigmod2021-LIMA-p32/*rdm32_repro.pdf*  and compare with the original submission, *rdm32_org.pdf*.
 
-#### Approach 2: Step-by-step execution
+### Approach 2: Step-by-step execution
 Note that the scripts are written with relative paths. It is necessary to step into the right directory to execute a script. Please follow `main.sh`.
 
 **Step 1:** Launch an Ubuntu 20.04 system with the aforementioned configurations and clone the reproducibility repo.
