@@ -1,0 +1,123 @@
+# Tune weight for weighted ensemble learning
+
+readNdClean = function(Boolean train=TRUE) return(Matrix[Double] X, Matrix[Double] y)
+{
+  # Read the csv file in a frame
+  if (train) {
+    A_dirty = read("../datasets/aps_failure_training_set.csv", 
+        data_type="frame", format="csv", header=TRUE, 
+        naStrings=["NA", "na", "null", "NaN", "nan", "", "?"]);
+  }
+  else {
+    A_dirty = read("../datasets/aps_failure_test_set.csv", 
+        data_type="frame", format="csv", header=TRUE, 
+        naStrings=["NA", "na", "null", "NaN", "nan", "", "?"]);
+  }
+
+  # encode the class column and "na"s to numeric and NaNs respectively.
+  jspecR = "{ids:true, recode:["+1+"]}";
+  [A, X_meta] = transformencode(target=A_dirty, spec=jspecR);
+  X_cl = A;
+  # Seperate out the labels column
+  y = X_cl[,1];
+  X = X_cl[,2:ncol(X_cl)]; 
+  # Impute the missing values
+  X = imputeByMean(X);
+
+  if (train) {
+    # Handle class imbalance for class 2
+    mask = (y == 2);
+    Xmask = X * mask;
+    minority = removeEmpty(target=Xmask, margin="rows");
+    Xtmp = smote(X=minority, s=1000);
+    # NOTE: smote's signature has changed in SystemDS 2.1, 2.2
+    # Comment the above call and enable the below lines
+    # typemask = matrix(0, rows=1, cols=ncol(minority));
+    # Xtmp = smote(X=minority, mask=typemask, s=1000);
+    X = rbind(X, Xtmp);
+    y = rbind(y, matrix(2, rows=10000, cols=1));
+  }
+}
+
+imputeByMean = function(Matrix[Double] X) return(Matrix[Double] X)
+{
+  Mask = is.nan(X);
+  X = replace(target=X, pattern=NaN, replacement=0)
+  Mask = Mask * (colMeans(X))
+  X = X + Mask;
+}
+
+######################################################
+
+dataset = $1;
+if (dataset == "APS_noprep") {
+  # Read already prepared APS dataset
+  X = read("../datasets/APS_X.csv", format="csv");
+  y = read("../datasets/APS_y.csv", format="csv");
+  test = read("../datasets/APS_testX.csv", format="csv");
+  testY = read("../datasets/APS_testY.csv", format="csv");
+}
+
+if (dataset == "APS_prep") {
+  # Read raw APS dataset, clean, transform and convert to matrix 
+  [X, y] = readNdClean(TRUE);          #training data
+  [test, testY] = readNdClean(FALSE);  #test data
+}
+
+nclass = 2;
+if (dataset == "APS_synthetic") {
+  # Read KDD-equivalent synthetic dataset
+  X = read("../datasets/APS_X_Syn.csv", header=FALSE);
+  y = read("../datasets/APS_y_Syn.csv", header=FALSE);
+  test = rand(rows=16000, cols=ncol(X));
+  testY = rand(rows=16000, cols=1, min=0, max=nclass);
+  testY = ceil(testY);
+}
+
+nweights = 5000;
+nmodels = 3; 
+M = nrow(X);
+N = ncol(X);
+test_M = nrow(test);
+
+allmodels_svm = matrix(0, rows=N+1, cols=0);
+allmodels_mlr = matrix(0, rows=N+1, cols=0);
+
+#train the models for 7 variants
+for (i in 1:nmodels) {
+  model_svm = msvm(X=X, Y=y, intercept=TRUE, epsilon=1e-12, 
+      lambda=0.0001+i, maxIterations=10);
+  allmodels_svm = cbind(allmodels_svm, model_svm);
+  nsvm = ncol(model_svm);
+  model_mlr = multiLogReg(X=X, Y=y, icpt=2, tol=0.00000001, reg=0.0001+i, 
+      maxi=5, maxii=0, verbose=FALSE);
+  allmodels_mlr = cbind(allmodels_mlr, model_mlr);
+  nmlr = ncol(model_mlr);
+}
+
+# Prdict for all the weights and models
+bestAcc = 0;
+weights = rand(rows=2, cols=nweights, min=0, max=1, seed=42);
+for (wi in 1:nweights) {
+  weightedClassProb = matrix(0, test_M, nclass);
+  for (i in 1:nmodels) {
+    model_svm1 = allmodels_svm[, (i-1)*nsvm+1:i*nsvm];
+    model_mlr1 = allmodels_mlr[, (i-1)*nmlr+1:i*nmlr];
+
+    [YRaw, Y_svm] = msvmPredict(X=test, W=model_svm1);
+    probs_svm = YRaw / rowSums(YRaw);
+
+    [prob_mlr, Y_mlr, acc] = multiLogRegPredict(X=test, B=model_mlr1, Y=testY, verbose=FALSE);
+    weightedClassProb = weightedClassProb + as.scalar(weights[1,wi])*probs_svm + as.scalar(weights[2,wi])*prob_mlr;
+
+    y_voted = rowIndexMax(weightedClassProb);
+    acc = sum(y_voted == testY) / M * 100;
+    if (acc > bestAcc) {
+      bestWeights = weights;
+      bestAcc = acc;
+    }
+  }
+}
+
+write(bestWeights, "outdml", format="binary");
+

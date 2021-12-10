@@ -1,0 +1,49 @@
+# Grid search hyper-parameter(lambda, intercept) tuning for l2svm 
+
+l2norm = function(Matrix[Double] X, Matrix[Double] y, Matrix[Double] B, Boolean icpt) 
+return (Matrix[Double] loss) {
+  if (icpt)
+    X = cbind(X, matrix(1, nrow(X), 1));
+  loss = as.matrix(sum((y - X%*%B)^2));
+}
+
+# Create datasets
+M = $1;
+N = $2;
+sp = $3;
+no_lamda = $4;
+
+X = rand(rows=$1, cols=$2, sparsity=$3, seed=42);
+y = rand(rows=$1, cols=1, min=0, max=2, seed=42);
+y = ceil(y);
+print(nrow(X));
+print(ncol(X));
+
+stp = (0.1 - 0.0001)/no_lamda;
+lamda = 0.0001;
+Rbeta = matrix(0, rows=ncol(X)+1, cols=no_lamda*2);
+Rloss = matrix(0, rows=no_lamda*2, cols=1);
+i = 1;
+
+for (l in 1:no_lamda)
+{
+  # Call with intercept False
+  beta = l2svm(X=X, Y=y, intercept=FALSE, epsilon=1e-12, 
+      lambda = lamda, verbose=FALSE);
+  Rbeta[1:nrow(beta),i] = beta;
+  Rloss[i,] = l2norm(X, y, beta, FALSE);
+  i = i + 1;
+
+  # Call with intercept True
+  beta = l2svm(X=X, Y=y, intercept=TRUE, epsilon=1e-12, 
+      lambda = lamda, verbose=FALSE);
+  Rbeta[1:nrow(beta),i] = beta;
+  Rloss[i,] = l2norm(X, y, beta, TRUE);
+  i = i + 1;
+
+  lamda = lamda + stp;
+}
+
+leastLoss = rowIndexMin(t(Rloss));
+bestModel = Rbeta[,as.scalar(leastLoss)];
+write(bestModel, "outdml", format="binary");

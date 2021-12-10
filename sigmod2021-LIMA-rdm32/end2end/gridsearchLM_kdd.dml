@@ -1,0 +1,99 @@
+l2norm = function(Matrix[Double] X, Matrix[Double] y, Matrix[Double] B, Integer icpt) 
+return (Matrix[Double] loss) {
+  if (icpt > 0)
+    X = cbind(X, matrix(1, nrow(X), 1));
+  loss = as.matrix(sum((y - X%*%B)^2));
+}
+
+randColSet = function(Matrix[Double] X, Integer seed, Double sample) return (Matrix[Double] Xi) {
+  temp = rand(rows=ncol(X), cols=1, min = 0, max = 1, sparsity=1, seed=seed) <= sample
+  Xi = removeEmpty(target = X, margin = "cols", select = temp);
+}
+
+readNdClean = function() return (Matrix[double] X, Matrix[double] y)
+{
+  Forig = read("../datasets/KDD98.csv", data_type="frame", format="csv", header=TRUE);
+  F = Forig[,1:469];
+  y = as.matrix(Forig[,472])
+
+  # data preparation
+  bin = matrix(0, ncol(F), 1);
+  bin[5,] = 1;
+  bin[8,] = 1;
+  bin[17,] = 1;
+  bin[27,] = 1;
+  bin[44:50,] = matrix(1, 7, 1);
+  bin[54,] = 1;
+  bin[76:195,] = matrix(1, 195-76+1, 1);
+  bin[199:361,] = matrix(1, 361-199+1, 1);
+  bin[408,] = 1;
+  bin[410:412,] = matrix(1, 3, 1);
+  bin[435:469,] = matrix(1, 469-435+1, 1);
+
+  recode="1";
+  for(i in 2:nrow(bin))
+    if( as.scalar(bin[i,])!=1 )
+      recode = recode+","+i;
+  binning = "{id:5, method:equi-width, numbins:10}"
+  for(i in 6:nrow(bin))
+    if( as.scalar(bin[i,])==1 )
+      binning = binning+",\n{id:"+i+", method:equi-width, numbins:10}";
+  dummy="1";
+  for (i in 2:nrow(bin))
+    if( as.scalar(bin[i,])!=1 | as.scalar(bin[i,])==1)
+      dummy = dummy+","+i;
+
+  jspec= "{ ids:true, recode:["+recode+"], bin:["+binning+"], dummycode:["+dummy+"]}"
+  [X,M] = transformencode(target=F, spec=jspec);
+  X = replace(target=X, pattern=NaN, replacement=0);
+  print("number of rows "+nrow(X) + "\n number of cols " + ncol(X));
+}
+
+######################################################
+
+dataset = $1;
+if (dataset == "KDD_noprep") {
+  # Read already prepared KDD dataset
+  X = read("../datasets/KDD_X", format="binary");
+  y = read("../datasets/KDD_y.csv", format="csv");
+}
+
+if (dataset == "KDD_prep")
+  # Read raw KDD dataset, clean, transform and convert to matrix 
+  [X, y] = readNdClean();
+
+if (dataset == "KDD_synthetic") {
+  # Read KDD-equivalent synthetic dataset
+  X = read("../datasets/KDD_X_Syn.csv", header=FALSE);
+  y = read("../datasets/KDD_y_Syn.csv", header=FALSE);
+}
+
+Rbeta = matrix(0, rows=900, cols=ncol(X)); #nrows = 10*6*3*5 = 900
+Rloss = matrix(0, rows=900, cols=1);
+k = 1;
+for (i in 1:10)
+{
+  # Randomly select 10% columns in every iteration
+  Xi = randColSet(X, i, 0.10);
+
+  # Start grid search hyper-parameter tuning for linear regression
+  for (h1 in -5:0) {       #reg - values:10^-5 to 10^0
+    for (h2 in 0:2) {      #icpt - range: 0, 1, 2
+      for (h3 in -12:-8) { #tol -values: 10^-12 to 10^-8
+        reg = 10^h1;
+        icpt = h2;
+        tol = 10^h3;
+        beta = lm(X=Xi, y=y, icpt=icpt, reg=reg, tol=tol, maxi=0, verbose=FALSE);
+        Rbeta[k, 1:nrow(beta)] = t(beta);
+        Rloss[k,] = l2norm(Xi, y, beta, icpt);
+        k = k + 1;
+      }
+    }
+  }
+}
+
+while(FALSE) {}
+# Calculate the best model
+leastLoss = rowIndexMin(t(Rloss));
+bestModel = Rbeta[as.scalar(leastLoss),];
+write(bestModel, "outdml", format="binary");

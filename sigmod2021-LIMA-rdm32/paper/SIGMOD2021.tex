@@ -1,0 +1,182 @@
+\documentclass[sigconf,screen]{acmart}
+
+\setlength{\pdfpagewidth}{8.5in}
+\setlength{\pdfpageheight}{11.0in}
+
+\usepackage{booktabs} % For formal tables
+\usepackage{amsmath}
+\let\Bbbk\relax
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage[np,autolanguage]{numprint}
+\usepackage{units}
+\usepackage{fontawesome}
+\usepackage{balance}
+\usepackage{algorithm}
+\usepackage[noend]{algorithmic}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{appendix}
+\usepackage{booktabs}
+\setcitestyle{numbers,sort}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{dkred}{rgb}{1.0,0.01,0.24}
+
+% Below is the way to create style for dml by enhancing R
+%\lstloadlanguages{R}
+%\lstdefinelanguage{dml}[]{R}{
+%	morekeywords={parfor},
+%	keywordstyle=\bfseries,
+%}
+
+\lstset{frame=tb,
+	language=R,
+	aboveskip=3mm,
+	belowskip=3mm,
+	abovecaptionskip=4pt,
+	frame=lines,
+	showstringspaces=false,
+	columns=flexible,
+	captionpos=b,
+	basicstyle={\small\ttfamily},
+	numbers=none,
+	keepspaces=true,
+	numberstyle=\tiny\color{gray},
+	otherkeywords={},
+	keywordstyle=\color{blue}\bfseries,
+	commentstyle=\color{dkgreen}\bfseries,
+	stringstyle=\color{mauve},
+	morekeywords={parfor},
+	deletekeywords={beta,function,return,nrow,eval,list,ncol,cbind,matrix,diag,solve,read,sample,print,lm,old,q,t},
+	classoffset=1, morekeywords={gridSearch,lm,lmDS,lmCG,scaleAndShift}, keywordstyle=\color{dkred}\bfseries,
+	classoffset=2, morekeywords={function,return,nrow,eval,list,ncol,cbind,matrix,diag,solve,read,sample,print,t}, keywordstyle=\bfseries,
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=3
+}
+
+% math commands
+\newcommand{\mat}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\card}[1]{\lvert #1\rvert}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\num}[1]{\numprint{#1}}
+
+% unit commands
+\newcommand{\h}{\unit{\,h}}
+\newcommand{\s}{\unit{\,s}}
+\newcommand{\ms}{\unit{\,ms}}
+\newcommand{\bb}{\unit{\,B}}
+\newcommand{\kb}{\unit{\,KB}}
+\newcommand{\mb}{\unit{\,MB}}
+\newcommand{\gb}{\unit{\,GB}}
+\newcommand{\tb}{\unit{\,TB}}
+\newcommand{\mbs}{\unit{\,MB/s}} %{~\unitfrac{MB}{s}}
+\newcommand{\gbs}{\unit{\,GB/s}} %{~\unitfrac{GB}{s}} 
+\newcommand{\gflops}{\unit{\,GFLOP/s}} %{~\unitfrac{GFLOP}{s}}
+\newcommand{\tflops}{\unit{\,TFLOP/s}} %{~\unitfrac{TFLOP}{s}}
+
+\newtheorem{example}{Example}
+\newtheorem{definition2}{Definition}
+
+% algorithm commands
+\renewcommand{\algorithmiccomment}[1]{\hfill \textit{// #1}}
+\newcommand{\COMMENTLINE}[1]{\STATE \textit{// #1}}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\renewcommand{\algorithmicrepeat}{\textbf{do}}
+\renewcommand{\algorithmicuntil}{\textbf{while}}
+
+%10pt font size required by SIGMOD
+\newcommand{\eat}[1]{}
+\setlength{\textfloatsep}{9pt}
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\clubpenalty = 10000
+\widowpenalty = 10000
+\sloppy
+\frenchspacing
+
+%% \BibTeX command to typeset BibTeX logo in the docs
+\AtBeginDocument{%
+  \providecommand\BibTeX{{%
+    \normalfont B\kern-0.5em{\scshape i\kern-0.25em b}\kern-0.8em\TeX}}}
+
+%provided meta data
+\copyrightyear{2021}
+\acmYear{2021}
+\setcopyright{acmcopyright}
+\acmConference[SIGMOD '21]{Proceedings of the 2021 International Conference on Management of Data}{June 18--27, 2021}{Virtual Event , China}
+\acmBooktitle{Proceedings of the 2021 International Conference on Management of Data (SIGMOD '21), June 18--27, 2021, Virtual Event , China}
+\acmPrice{15.00}
+\acmDOI{10.1145/3448016.3452788}
+\acmISBN{978-1-4503-8343-1/21/06}
+
+\settopmatter{printacmref=true}
+
+\begin{document}
+\fancyhead{} %remove headers for CRV
+
+% Copyright
+%\setcopyright{acmcopyright}
+%\setcopyright{acmlicensed}
+%\setcopyright{rightsretained}
+%\setcopyright{usgov}
+%\setcopyright{usgovmixed}
+%\setcopyright{cagov}
+%\setcopyright{cagovmixed}
+
+%\doi{10.475/123_4}
+%\isbn{123-4567-24-567/08/06}
+%\conferenceinfo{PLDI '13}{June 16--19, 2013, Seattle, WA, USA}
+%\acmPrice{\$15.00}
+%\conferenceinfo{WOODSTOCK}{'97 El Paso, Texas USA}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title[LIMA: Lineage Tracing and Reuse in ML Systems]{LIMA: Fine-grained Lineage Tracing and Reuse\\ in Machine Learning Systems}
+
+\author{Arnab Phani}
+\affiliation{\institution{Graz University of Technology}}
+
+\author{Benjamin Rath}
+\affiliation{\institution{Graz University of Technology}}
+
+\author{Matthias Boehm}
+\affiliation{\institution{Graz University of Technology}\vspace{0.3cm}}
+
+\renewcommand{\shortauthors}{Arnab Phani et al.}
+
+
+\begin{abstract}
+%1. State the problem
+Machine learning (ML) and data science workflows are inherently exploratory. Data scientists pose hypotheses, integrate the necessary data, and run ML pipelines of data cleaning, feature engineering, model selection and hyper-parameter tuning. The repetitive nature of these workflows, and their hierarchical composition from building blocks exhibits high computational redundancy. 
+%2. Say why it's an interesting problem
+Existing work addresses this redundancy with coarse-grained lineage tracing and reuse for ML pipelines. This approach allows using existing ML systems, but views entire algorithms as black boxes, and thus, fails to eliminate fine-grained redundancy and to handle internal non-determinism.
+%3. Say what your solution achieves
+In this paper, we introduce LIMA, a practical framework for efficient, fine-grained lineage tracing and reuse inside ML systems. Lineage tracing of individual operations creates new challenges and opportunities. We address the large size of lineage traces with multi-level lineage tracing and reuse, as well as lineage deduplication for loops and functions; exploit full and partial reuse opportunities across the program hierarchy; and integrate this framework with task parallelism and operator fusion.
+%4. Say what follows from your solution
+The resulting framework performs fine-grained lineage tracing with low overhead, provides versioning and reproducibility, and is able to eliminate fine-grained redundancy. Our experiments on a variety of ML pipelines show performance improvements up to 12.4x.
+\end{abstract}
+
+\maketitle
+
+\input{Introduction} %Section 1
+\input{Background}   %Section 2
+\input{Lineage}      %Section 3
+\input{Reuse}        %Section 4
+\input{Experiment}   %Section 5
+\input{Relatedwork}  %Section 6
+\input{Conclusion}   %Section 7
+
+%bibliography
+\balance
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{SIGMOD2021}
+
+\end{document}
+\endinput

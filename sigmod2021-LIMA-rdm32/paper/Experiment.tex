@@ -1,0 +1,190 @@
+\section{Experiments}
+\label{sec:exp}
+
+Our experiments study the behavior of LIMA under various workloads regarding runtime overhead and reuse opportunities. We first conduct micro benchmarks to understand the performance of lineage tracing and cache probing, partial and multi-level reuse, and eviction policies. Subsequently, we explore the benefits of fine-grained, lineage-based reuse for end-to-end ML pipelines, on synthetic and real datasets, and in comparison with other ML systems. Overall, we observe low runtime overhead, and substantial reuse.
+
+\subsection{Experimental Setting}
+\label{sec:expsetting}
+
+\textbf{Setup:} We ran all experiments on a Hadoop cluster with each node having a single AMD EPYC 7302 CPUs\,@\,3.0-3.3\,GHz (16 physical/32 virtual cores), and $128\gb$ DDR4 RAM (peak performance is $768 \gflops$, $183.2 \gbs$). The software stack comprises Ubuntu 20.04.1, Apache Hadoop 2.7, and Apache Spark 2.4. LIMA uses OpenJDK 1.8.0 with $110\gb$ max and initial JVM heap sizes.
+
+\textbf{Baselines:} For the sake of a holistic evaluation, we compare LIMA with multiple baselines, including different SystemDS configurations, and other state-of-the-art approaches and systems:  
+\begin{itemize}
+\item \emph{SystemDS:} Our main baseline is \textbf{Base} that refers to the default configuration of Apache SystemDS \cite{BoehmADGIKLPR20}, but without any lineage tracing or lineage-based reuse. For lineage tracing and reuse in \textbf{LIMA}, we then use different configurations \textbf{LIMA-x}, introduced along the related experiments. 
+\item \emph{Coarse-grained:} Coarse-grained reuse in HELIX \cite{XinMMLSP18} and CO \cite{DerakhshanMARM20} uses dedicated DAG optimizers for reusing persistently materialized intermediates, and pruning unnecessary operations. For a fair comparison on equal footing (same runtime, best-case reuse), we hand-optimized the top-level ML pipelines at script level with reuse from memory.
+\item \emph{ML Systems:} We compare with Scikit-learn \cite{PedregosaVGMTGBPWDVPCBPD11} (\textbf{SKlearn}) and TensorFlow~2.3~\cite{AbadiBCCDDDGIIK16} (\textbf{TF}), which are strong baselines regarding runtime and graph optimizations \cite{grappler}. We use TF function annotations with AutoGraph \cite{abs-1810-08061} to compile composite ML pipelines into a single computation graph, which allows eliminating fine-grained redundancy as well.
+\end{itemize}
+
+\textbf{Cache Configurations and Statistics:} We expose and use various configurations, including different reuse types (full, partial, hybrid; and multi-level reuse), eviction policies (LRU, DAG-Height, Cost\&Size), cache sizes, enabling disk spilling and compiler-assisted reuse. Additionally, LIMA collects various runtime statistics (e.g., cache misses, rewrite/spill times), which we report accordingly.
+
+\subsection{Micro Benchmarks}
+\label{sec:micro}
+
+Before describing the end-to-end results, we conduct an ablation study of various LIMA aspects. These micro benchmarks focus on lineage tracing, cache probing, deduplication, partial rewrites, eviction policies, and multi-level reuse. We use simplified scripts, which are inspired by real workloads, but simple to understand.
+
+\begin{figure}[!t]
+	\centering
+	\subfigure[Runtime Overhead]{
+		\label{overhead1}\includegraphics[scale=0.41]{../plots/exp_6a}}
+	\hfill	
+	\subfigure[Space Overhead]{
+		\label{overhead2}\includegraphics[scale=0.41]{../plots/exp_6b}}
+	\vspace{-0.45cm}
+	\caption{\label{fig:overhead}Lineage Tracing Overhead (for one epoch).}
+	\Description{Experimental results describing the overhead of lineage tracing on computation time and memory consumption.}
+\end{figure}
+
+\textbf{Lineage Tracing:} For understanding the overhead of lineage tracing, reuse probing, and deduplication, we explore a mini-batch scenario. We execute one epoch on a $2\text{M} \times 784$ matrix with different batch sizes $b$. Thus, we have $2\text{M}/b$ iterations, and every iteration contains 40 binary operations (ten times $\mat{X} = ((\mat{X} + \mat{X}) * i - \mat{X}) / (i+1)$). Figure~\ref{fig:overhead} shows the results. 
+%
+First, in Figure~\ref{overhead1}, we see that lineage tracing (\textbf{LT}), and lineage tracing, reuse probing (\textbf{LTP}) incurs substantial overhead for very small batch sizes ($b=2$ and $b=8$), but starting with $b=32$ the overheads become moderate. In contrast, for lineage tracing with deduplication (\textbf{LTD}), the overheads become moderate even at $b=2$ and negligible starting at $b=8$. Base shows the best performance for $b=128$ because per-operation overheads are amortized and until $b=64$ intermediates still fit into L2 cache ($b\in[128,\num{2048}]$ fit in L3 cache, while for $b=\num{8192}$ there is an additional slowdown).
+%
+Second, in Figure~\ref{overhead2}, we see similar characteristics for the space overhead of lineage tracing. Here, we use a reduced input matrix of $20\text{K} \times 784$ (as execution is substantially slower with forced garbage collection) and track\footnote{In order to overcome measurement imprecision, we request JVM garbage collection (GC) until a dummy \texttt{WeakReference} has been collected for every measurement.} the maximum memory consumption after every instruction. For a batch size $b=2$, we have $10\text{K}$ iterations and the lineage DAG of LT contains roughly $400\text{K}$ lineage items. The resulting space overhead compared to Base is about $24\mb$ (on average, $63\bb$ per lineage item). Deduplication again significantly reduces the overhead to $10\text{K}$ dedup items ($630\kb$) in this scenario. The lineage cache adds a constant $5\%$ space overhead relative to the heap size.
+
+\textbf{Partial Reuse:} Furthermore, we evaluate partial reuse with a scenario inspired by \texttt{stepLm} \cite{VenablesR02}. We create a $100\text{K} \times 500$ matrix $\mat{X}$, another $100\text{K} \times 1\text{K}$ matrix $\mat{Y}$, and compute $\mat{X}^{\top}\mat{X}$ once. In a for loop, we then execute \num{1000} iterations of $\mat{Z}^{\top}\mat{Z}$ with $\mat{Z} = \textbf{cbind}(\mat{X}, \mat{Y}_i)$ and store a summary, which is the core of \texttt{stepLm}'s inner loop. Figure~\ref{partial} shows the results of Base, LIMA, and LIMA with compiler assistance (\textbf{LIMA-CA}) for a varying number of rows. LIMA yields a 4.2x runtime improvement over Base by applying the partial rewrite $\textbf{dsyrk}(\textbf{cbind}(\mat{X},\Delta\mat{X}))$, which turns a compute-intensive $\textbf{dsyrk}$ into reuse and an inexpensive matrix-vector multiplication for compensation. However, despite this partial rewrite, we still perform $\textbf{cbind}(\mat{X},\Delta\mat{X})$, which is expensive due to allocation and copy. LIMA-CA applies this rewrite during recompilation and thus, can eliminate the $\textbf{cbind}$ for an improvement of 41x over Base.
+
+\textbf{Multi-level Reuse:} Multi-level reuse eliminates redundancies at different hierarchy levels (e.g., functions, blocks, or operations) of a program, which helps reduce interpretation overhead and cache pollution. We conduct a micro benchmark of repetitive hyper-parameter optimization for iterative multi-class logistic regression with a $50\text{K} \times 1\text{K}$ input matrix and $6$ classes. We first call \texttt{MLogReg} with 40 different values of the regularization parameter $\lambda$. Then, we repeat the entire process 20 times. Figure~\ref{multilevel} shows the runtime of Base, LIMA with full operation reuse (\textbf{LIMA-FR}), and LIMA with multi-level full reuse (\textbf{LIMA-MLR}). Both LIMA-FR and LIMA-MLR show good improvements, of 5.2x and 24.6x, respectively. MLR is 4.6x faster than FR because it avoids function interpretation overhead, whereas FR needs to retain all intermediates of the iterative computation cached, and use them one-by-one. Thus, MLR is less affected by evictions because Cost\&Size is tuned to preserve group cache entries due to their higher computation time.
+
+\begin{figure}[!t]
+	\centering
+	\subfigure[Partial Reuse]{
+		\label{partial}\includegraphics[scale=0.40]{../plots/exp_7a}}	
+	\hfill	
+	\subfigure[Multi-level Reuse]{
+		\label{multilevel}\includegraphics[scale=0.40]{../plots/exp_7b}}
+	\vspace{-0.45cm}
+	\caption{Partial Reuse and Multi-level Reuse.}
+	\Description{Experimental results describing the effects of partial and multi-level reuse.}
+\end{figure}
+
+\begin{figure}[!t]
+	\centering
+	\vspace{-0.6cm}
+	\subfigure[Pipeline with Phases (P1,P2,P3)]{
+		\label{evict1}\includegraphics[scale=0.40]{../plots/exp_8a}}	
+	\hfill
+	\subfigure[Pipeline Comparison]{
+		\label{evict2}\includegraphics[scale=0.40]{../plots/exp_8b}}	
+	\vspace{-0.45cm}
+	\caption{Cache Eviction Policies.}
+	\vspace{-0.1cm}
+	\Description{Experimental results describing the effects of different eviction policies.}
+\end{figure}
+	
+\textbf{Eviction Policies:} For evaluating eviction, we use ML pipelines with different reuse opportunities. The first pipeline has phases P1, P2, P3, where P1 is a loop of an expensive $\mat{X}\,\mat{Y}$ and $\textbf{round}(\mat{X})$ with no reuse (which fills the cache), P2 is a nested loop with inexpensive additions $\mat{X} + i$ and reuse per outer iteration, and P3 is the same as P1---but with fewer iterations. Figure~\ref{evict1} shows a breakdown of execution time for Base, LRU, Cost\&Size (C\&S) and a hypothetical policy with unlimited cache. LRU fully reuses the intermediates of P2 by evicting P1 results, which leads to no reuse in P3. In contrast, C\&S first evicts the $\mat{X} + i$ results, but due to cache misses, their score increase and they get reused. In P3, C\&S reuses all matrix multiplies from P1. Second, Figure~\ref{evict2} compares the runtime of the mini-batch and StepLM pipelines. DAG-Height performs good on the mini-batch pipeline because it can reuse preprocessed batches, whereas with LRU, these batches are pushed out of cache during an epoch. On StepLM, we see a flipped characteristic, where incrementally added features lead to reuse potential on the end of large lineage DAGs and thus, LRU performs better. Due to accounting for cost, size, and cache references, C\&S performs very good in both cases. Due to this robust behavior, C\&S is our default policy.
+
+\subsection{ML Pipelines Performance}
+\label{sec:pipe}
+
+We now describe the performance impact of lineage-based reuse on end-to-end ML pipelines. For a balanced view of reuse opportunities, we evaluate a variety of pipelines with different characteristics.
+
+\textbf{Pipeline Summary:} Table~\ref{tab:usecases} summarizes the used ML pipelines and their parameters. These include grid search hyper-parameter optimization of (1) L2SVM (HL2SVM) and (2) linear regression (HLM); (3) cross-validated linear regression (HCV); (4) a weighted ensemble (ENS) of multi-class SVM (MSVM) and multi-class logistic regression (MLRG); and (5) a pipeline for dimensionality reduction using PCA as well as LM model training and evaluation (PCALM). Some of these pipelines leverage task-parallelism (TP in Table~\ref{tab:usecases}) as described in Section~\ref{sec:advanced}. For evaluating different data characteristics, we first use synthetic but later also real datasets. Theses ML pipelines are written as user-level scripts orchestrating SystemDS' built-in functions for pre-processing and ML algorithms.
+
+\begin{table}[!t]
+	\centering \small  \setlength\tabcolsep{5.2pt}
+	\caption{\label{tab:usecases}Overview of ML Pipeline Use Cases.}
+	\vspace{-0.4cm}
+	\begin{tabular}{cccccc}
+		\toprule
+		\textbf{Use Case} & $\lambda$ & \textbf{icpt} & \textbf{tol} & \textbf{K/Wt} & \textbf{TP}\\
+		\midrule
+		HL2SVM & $\#=70$ & \{0,1\} & $10^{-12}$ & N/A &  \\
+		HLM & $[10^{-5}, 10^{0}]$ & $\{0,1,2\}$ & $[10^{-12},10^{-8}]$  & N/A & \checkmark \\
+		HCV & $[10^{-5},10^{0}]$ & $\{0,1,2\}$ & $[10^{-12},10^{-8}]$  & N/A & \checkmark \\
+		ENS & $\#=3$ & \{1,2\} & $10^{-12}$ & [1\text{K},5\text{K}] & (\checkmark) \\
+		%STEPLM &  &  &  \\
+		PCALM & N/A & N/A & N/A & $K\geq{10\%}$ & \\
+		\bottomrule
+	\end{tabular}
+	\normalsize
+	\vspace{0.1cm}
+\end{table}
+
+\textbf{Hyper-parameter Tuning (HL2SVM, HLM):} Figures~\ref{end1} and \ref{end2} show the runtime for HL2SVM and HLM. 
+%
+First, HL2SVM uses a $100\text{K} \times 1\text{K}$ input matrix $\mat{X}$, calls L2SVM for 70 different $\lambda$ values, each with and without intercept (i.e., bias), and uses the L2 norm to find the best parameters. We use an $L_2$-regularized linear SVM. Even though both outer and inner loop have no reuse opportunities, we see a nearly 2x improvement due to the reusable $\textbf{cbind}(\mat{X},\mat{1})$ for intercept, initial loss, and gradient computations.
+%
+Second, for HLM, we use the script from Example~\ref{ex:1}, and execute it for input matrices of varying number of rows $[100\text{K},1\text{M}]$ and 100 columns. We see improvements of 2.6x and 12.4x (with and without task parallelism) for reasons explained in Example~\ref{ex:1}. With task parallelism, the reuse benefits are smaller because the \texttt{parfor} optimizer \cite{BoehmTRSTBV14} reduces the parallelism of loop body operations, including $\mat{X}^{\top}\mat{X}$. With reuse, however, only a single thread executes $\mat{X}^{\top}\mat{X}$ and $\mat{X}^{\top}\mat{y}$, whereas all other threads wait for the results. Together, the HL2SVM and HLM use cases show the spectrum of common reuse opportunities.
+
+\textbf{Cross Validation (HCV):} HCV is similar to HLM but instead of LM, we use a cross-validated LM (with 16-fold, leave-one-out cross validation). We again compare Base and LIMA with and without task parallelism. Figure \ref{end3} shows the results, where we see improvements of 4x and 5.1x, respectively. Compared to HLM, we can no longer reuse $\mat{X}^{\top}\mat{X}$ and $\mat{X}^{\top}\mat{y}$ for different lambda parameters directly, but rely on partial rewrites to compute these operations once per fold and then assemble leave-one-out fold compositions. This characteristic, in turn, better utilizes task parallelism. 
+
+\textbf{Ensemble Learning (ENS):} The weighted ensemble learning pipeline has two phases. We train three multi-class SVM (MSVM) models---which internally leverage task parallelism---and three MLRG models as a weighted ensemble. Similar to L2SVM, MSVM and MLRG are also iterative with limited scope for reuse. The ensemble weights are then optimized via random search. Figure~\ref{end4} shows the results for a $50\text{K} \times 1\text{K}$ training dataset, $10\text{K} \times 1\text{K}$ test dataset, 20 classes, and a varying number of $[1\text{K},5\text{K}]$ weight configurations. We see again a solid 4.2x end-to-end improvement, which is due to reused $\mat{X}\,\mat{B}$ (of size $\textbf{nrow}(\mat{X}) \times \text{\#classes}$) matrix multiplication in the computation of weighted class probabilities.
+
+\begin{figure}[!t]
+	\vspace{-0.05cm}
+	\centering
+	\subfigure[HL2SVM]{
+		\label{end1}\includegraphics[scale=0.405]{../plots/exp_9a}}	
+	\hfill	
+	\subfigure[HLM (w/ \& w/o Task Parallelism)]{
+		\label{end2}\includegraphics[scale=0.405]{../plots/exp_9b}}~\vspace{-0.2cm}\\	
+	\subfigure[HCV (w/ \& w/o Task Parallelism)]{
+		\label{end3}\includegraphics[scale=0.400]{../plots/exp_9c}}
+	\hfill
+	\subfigure[ENS]{
+		\label{end4}\includegraphics[scale=0.400]{../plots/exp_9d}}~\vspace{-0.2cm}\\
+	\subfigure[PCALM]{
+		\label{end5}\includegraphics[scale=0.405]{../plots/exp_9e}}
+	\hfill
+	\subfigure[Synthetic Vs. Real (KDD\,98 \& APS)]{
+		\label{end6}\includegraphics[scale=0.405]{../plots/exp_9f}}
+	\vspace{-0.45cm}
+	\caption{\label{fig:end2end1}Performance of End-to-end ML Pipelines.}
+\end{figure}
+
+\textbf{Dimensionality Reduction (PCALM):} Inspired by work on dimensionality reduction for downstream tasks \cite{SuriB19}, we use a PCA pipeline, PCALM---which enumerates different K, calls PCA to project K columns, LM and a predict function, and computes the adjusted-$R^{2}$. We vary K from 10\% of all columns. Figure~\ref{end5} shows that LIMA achieves up to a 5x improvement. Different calls to PCA reuse the $\mat{A}^{\top}\mat{A}$ computation, the subsequent Eigen decomposition, and an overlapping matrix multiplication $\mat{A}\,\mat{evects}[,1{\,:\,}K]$ (of size $\textbf{nrow}(\mat{A}) \times K$). Overlapping PCA outputs (projected features) further allow partial reuse in the following LM call, specifically $\mat{X}^{\top}\mat{X}$ and $\mat{X}^{\top}\mat{y}$. This PCA pipeline is another good example of significant fine-gained redundancy, even in modestly complex ML pipelines.
+
+
+\begin{table}[!b]
+	\centering \small \setlength\tabcolsep{6pt}
+	\caption{\label{tab:data}Dataset Characteristics.}
+	\vspace{-0.4cm}
+	\begin{tabular}{cccccc}
+		\toprule
+		\textbf{Dataset} & $\text{nrow}(\mat{X}_0)$ & $\text{ncol}(\mat{X}_0)$ & $\text{nrow}(\mat{X})$ & $\text{ncol}(\mat{X})$ & ML Alg.\\
+		\midrule
+		APS & \num{60000} & 170 & \num{70000} &170 &2-Class\\
+		KDD\,98 & \num{95412} &469& \num{95412} & \num{7909} & Reg.\\
+		\bottomrule
+	\end{tabular}
+	\normalsize
+\end{table}
+
+\subsection{Real Datasets}
+\label{sec:realadata}
+
+\textbf{Dataset Description:} Lineage tracing and reuse are largely invariant to data skew. Besides synthetic data though, we also use real datasets from the UCI repository \cite{Dua2019} to confirm the relative speedups. The real datasets are summarized in Table~\ref{tab:data}. APS is collected from various components of Scania Trucks for classifying failures of an Air Pressure System (APS). We pre-process this dataset by imputing missing values with mean and oversampling the minority class. The KDD\,98 dataset is a regression problem for the return from donation campaigns. For pre-processing, we recoded categorical, binned continuous (10 equi-width bins), and one-hot encoded both binned and recoded features. Column 4 and 5 of Table~\ref{tab:data} show the data dimensions after pre-processing.
+	
+
+\begin{figure}[!t]
+	\centering
+	\subfigure[Lima vs. TF vs. Coarse-grained]{
+		\label{mlsys1}\includegraphics[scale=0.405]{../plots/exp_10a}}
+	\hfill
+	\subfigure[PCANB: Lima, SKlearn Comparison]{
+		\label{mlsys2}\includegraphics[scale=0.405]{../plots/exp_10b}}~\vspace{-0.2cm}\\
+	\subfigure[PCACV: Lima, TF Comparison]{
+		\label{mlsys3}\includegraphics[scale=0.405]{../plots/exp_10c}}
+	\hfill
+	\subfigure[PCANB: Varying \#Rows]{
+		\label{mlsys4}\includegraphics[scale=0.405]{../plots/exp_10d}}
+	\hfill
+	\vspace{-0.45cm}
+	\caption{\label{fig:mlsys}ML Systems Comparison.}
+\end{figure}
+
+\textbf{Reuse Results:} Figure~\ref{end6} compares the speedups obtained from synthetic and real datasets with and without pre-processing (Real \& RealNP). The baseline synthetic datasets are generated to match the data characteristics of the real datasets. Scenarios (a), (b), (c) and (e) show similar speedups for L2SVM, HLM, HCV, and PCALM with real data using the KDD\,98 dataset. For L2SVM (a), we converted the target column to 2-class label, and for PCALM (e), we skipped one-hot encoding to reduce the influence of Eigen decomposition. Scenario (d) shows a similar result for ENS on the APS dataset. These experiments validate that lineage-based reuse is largely independent of data skew of real datasets.
+
+\subsection{ML Systems Comparison} 
+\label{sec:syscomp}
+
+So far, we compared SystemDS and LIMA in an equivalent compiler and runtime infrastructure. Additionally, we also compare with (1) coarse-grained reuse, (2) global graph construction and CSE in TensorFlow (TF) \cite{AbadiBCCDDDGIIK16,abs-1810-08061}, and (3) Scikit-learn (SKlearn) \cite{PedregosaVGMTGBPWDVPCBPD11} as a state-of-the-art ML library. We use three new pipelines for comparison.
+
+\textbf{Autoencoder:} For comparing TF on mini-batch, NN algorithms, we use an Autoencoder with two hidden layers of sizes 500 and 2 (four weight matrices), and varying batch size. For avoiding transforming the entire input, we build a feature-wise pre-processing map including normalization, binning, recoding, and one-hot encoding, and then apply this map (as a Keras pre-processing layer) batch-wise in each iteration. SystemDS is ran with code generation (i.e., operator fusion in Section~\ref{sec:advanced}) for both Base and LIMA.
+%Due to the difference in the implementation of these preprocessing methods, we tune the bin boundaries to have similar number of features after preprocessing. 
+Figure~\ref{mlsys1} shows the results on the KDD\,98 dataset for a batch size 256 and 10 epochs. Even though Autoencoder has no reuse opportunities, LIMA shows a 15\% improvement over Base by reusing the batch-wise pre-processing. TF---a specialized system for mini-batch training---performs slightly better than LIMA in graph mode (TF-G), whereas eager mode (TF) and XLA code generation for CPU (TF-XLA) are substantially slower. In additional experiments, we found higher SystemDS overhead for small batch sizes, but converging performance with batch sizes beyond \num{2048}.
+
+\textbf{PCA and Cross Validation (PCACV):} As a pipeline for evaluating reuse, we apply PCA and cross validation in two phases. The first phase varies K for PCA, and the second varies the regularization parameter $\lambda$ for LM with cross validation (32 folds, leave-one-out), and evaluates the adjusted-$R^{2}$. PCACV is then compared with TF and coarse-grained reuse. For a fair and interpretable comparison, we disable both task parallelism in SystemDS and inter-operator parallelism in TF. Figure~\ref{mlsys1}-right shows the results for PCACV on the KDD\,98 dataset. The coarse-grained reuse shows improvements over Base (by reusing the PCA result), but is limited to top-level redundancies. In contrast, both LIMA and TF-G eliminate fine-grained redundancies (via CSE in TF-G) but LIMA yields a 25\% runtime improvement over TF-G due to partial reuse across folds. Figure~\ref{mlsys3} varies the number of rows $\in [50\text{K}, 400\text{K}]$, where we see an improvement up to 2x by LIMA over TF. For larger datasets, TF ran out-of-memory, likely because the global graph misses eviction mechanisms for reused intermediates.
+
+\textbf{PCA and Na\"ive Bayes (PCANB):} In addition, we use a PCA and Na\"ive Bayes (NB) pipeline, again with two phases: varying K for PCA, and hyper-parameter tuning for NB. Due to minor algorithmic differences, we tune Laplace smoothing in LIMA, but feature variance (var\_smoothing) in SKlearn. Figure~\ref{mlsys2} shows the results for PCANB on the KDD\,98 and APS datasets. LIMA performs 8x and 2.8x better than SKlearn for the KDD\,98 and APS datasets, respectively. LIMA reuses again full and partial PCA intermediates, as well as partial intermediates of the main \texttt{aggregate} operation in different calls to NB. Figure~\ref{mlsys4} shows the runtime with varying rows $\in [50\text{K}, 400\text{K}]$, $1\text{K}$ columns and 20 classes. LIMA is up to 10x faster than SKlearn. Due to differences in implementation of PCA (SVD vs. Eigen), SKlearn is faster for smaller data sizes, whereas Base shows better scalability with increasing data size.
+
+\textbf{Conclusion:} Overall, SystemDS with LIMA shows competitive performance, leveraging rewrite and reuse opportunities not yet exploited in other systems like TensorFlow and Scikit-learn.

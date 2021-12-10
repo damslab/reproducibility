@@ -1,0 +1,9 @@
+\section{Conclusions}
+\label{sec:conclude}
+
+% summary
+To summarize, we introduced LIMA, a framework for fine-grained lineage tracing and reuse in ML systems. Multi-level lineage tracing for functions, blocks, and operations---with deduplication for loops and functions---reduces the overhead of lineage tracing and reuse, and seamlessly supports fused operators. Compiler-assisted, full and partial reuse during runtime allows removing coarse- and fine-grained redundancy at the different levels of hierarchically composed ML pipelines. Even for modestly-sized ML pipelines, our experiments have shown robust improvements across a variety of workloads. 
+% conclusions
+In conclusion, as the complexity of ML pipelines increases both horizontally (additional sub tasks), and vertically (additional hierarchy levels), increasing redundancy is inevitable and difficult to address by library developers or users. Conditional control flow further renders global operator graphs and common subexpression elimination during compilation ineffective. In contrast, a compiler-assisted runtime-based lineage cache proved effective to overcome these challenges. Despite a dependency on system internals, the same concepts are broadly applicable in many modern ML systems.
+% future work
+Interesting future work includes (1) the combination with persistent materialization \cite{VartakTMZ18,XinMMLSP18}, especially in multi-tenant and federated environments, (2) multi-location caching for local, distributed, and multi-device settings, as well as (3) extended lineage support for model debugging and  fairness constraints \cite{mlinspect21}.

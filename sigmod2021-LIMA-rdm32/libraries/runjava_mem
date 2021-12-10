@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Run script to track memory usage
+
+java -Xmx110g -Xms110g -Xmn11g \
+    -cp ../libraries/SystemDS_mem.jar:../libraries/lib/* \
+    -Dlog4j.configuration=file:../libraries/log4j-silent.properties \
+    org.apache.sysds.api.DMLScript \
+    -exec singlenode \
+    -debug \
+    -config ../libraries/SystemDS-config.xml \
+    "$@"

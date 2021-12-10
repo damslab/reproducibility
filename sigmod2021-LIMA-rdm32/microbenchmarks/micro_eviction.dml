@@ -1,0 +1,46 @@
+# Create datasets
+X = rand(rows=10000, cols=1000, seed=42, sparsity=1.0);
+Y = rand(rows=1000, cols=1000, seed=42, sparsity=1.0);
+
+X1 = X;
+X2 = X;
+X3 = X;
+
+# Start phase P1
+t11 = time()
+for (i in 1:35) {
+  X1 = round(X1);
+  R1 = X1 %*% Y;
+}
+t12 = time();
+print("Phase1 takes: "+floor((t12-t11)/1000000) + " ms");
+write(R1, "outdml", format="binary");
+
+# Start phase P2
+S1 = 0
+t21 = time()
+for (r in 1:20) {
+  for (i in 1:7) {
+    R2 = X2 * i+1;
+  }
+  S1 += sum(R2);
+  X2 = X;
+}
+t22 = time();
+print("Phase2 takes: "+floor((t22-t21)/1000000) + " ms");
+write(S1, "outdml", format="binary");
+
+# Start phase P3
+t31 = time()
+for (i in 1:20) {
+  X3 = round(X3);
+  R2 = X3 %*% Y;
+}
+t32 = time();
+print("Phase3 takes: "+floor((t32-t31)/1000000) + " ms");
+write(R2, "outdml", format="binary");
+
+n2m = 1000000;
+print("Total time taken: "+ floor((t12-t11)/n2m+(t22-t21)/n2m+(t32-t31)/n2m) + " ms");
+
+

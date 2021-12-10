@@ -1,0 +1,58 @@
+# Tune weight for weighted ensemble learning
+
+M = $1;
+N = $2;
+sp = 1.0;
+nclass = $3;
+nweights = $4;
+nmodels = 3; 
+test_M = 10000;
+
+# Create datasets
+X = rand(rows=M, cols=N, seed=42);
+y = rand(rows=M, cols=1, min=0, max=nclass);
+y = ceil(y);
+
+test = rand(rows=test_M, cols=N);
+testY = rand(rows=test_M, cols=1, min=0, max=nclass);
+testY = ceil(testY);
+
+allmodels_svm = matrix(0, rows=N+1, cols=0);
+allmodels_mlr = matrix(0, rows=N+1, cols=0);
+
+# Train l2svm and multilogreg models for 7 variants
+for (i in 1:nmodels) {
+  model_svm = msvm(X=X, Y=y, intercept=TRUE, epsilon=1e-12, lambda=0.0001+i);
+  allmodels_svm = cbind(allmodels_svm, model_svm);
+  nsvm = ncol(model_svm);
+  model_mlr = multiLogReg(X=X, Y=y, icpt=2, tol=0.00000001, reg=0.0001+i, maxi=100, maxii=0, verbose=FALSE);
+  allmodels_mlr = cbind(allmodels_mlr, model_mlr);
+  nmlr = ncol(model_mlr);
+}
+
+# Prdict for all the weights and models
+bestAcc = 0;
+weights = rand(rows=2, cols=nweights, min=0, max=1, seed=42);
+for (wi in 1:nweights) {
+  weightedClassProb = matrix(0, test_M, nclass);
+  for (i in 1:nmodels) {
+    model_svm1 = allmodels_svm[, (i-1)*nsvm+1:i*nsvm];
+    model_mlr1 = allmodels_mlr[, (i-1)*nmlr+1:i*nmlr];
+
+    [YRaw, Y_svm] = msvmPredict(X=test, W=model_svm1);
+    probs_svm = YRaw / rowSums(YRaw);
+
+    [prob_mlr, Y_mlr, acc] = multiLogRegPredict(X=test, B=model_mlr1, Y=testY, verbose=FALSE);
+    weightedClassProb = weightedClassProb + as.scalar(weights[1,wi])*probs_svm + as.scalar(weights[2,wi])*prob_mlr;
+
+    y_voted = rowIndexMax(weightedClassProb);
+    acc = sum(y_voted == testY) / M * 100;
+    if (acc > bestAcc) {
+      bestWeights = weights;
+      bestAcc = acc;
+    }
+  }
+}
+
+write(bestWeights, "outdml", format="binary");
+

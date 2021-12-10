@@ -1,0 +1,1388 @@
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
+
+\begin{thebibliography}{111}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{}, \showDOI{}, and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showDOI}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showDOI #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showDOI      \undefined \def \showDOI       #1{#1}\fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       {\relax}        \fi
+% The following commands are used for tagged output and should be
+% invisible to TeX
+\providecommand\bibfield[2]{#2}
+\providecommand\bibinfo[2]{#2}
+\providecommand\natexlab[1]{#1}
+\providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[\protect\citeauthoryear{Abadi et~al\mbox{.}}{Abadi
+  et~al\mbox{.}}{2016}]%
+        {AbadiBCCDDDGIIK16}
+\bibfield{author}{\bibinfo{person}{Mart{\'{\i}}n Abadi} {et~al\mbox{.}}}
+  \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{{TensorFlow: A System for Large-Scale Machine
+  Learning}}. In \bibinfo{booktitle}{\emph{{OSDI}}}. \bibinfo{pages}{265--283}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Agrawal et~al\mbox{.}}{Agrawal
+  et~al\mbox{.}}{2020}]%
+        {AgrawalCCFGIJKK20}
+\bibfield{author}{\bibinfo{person}{Ashvin Agrawal} {et~al\mbox{.}}}
+  \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{{Cloudy with High Chance of DBMS: A 10-year
+  Prediction for Enterprise-Grade ML}}. In \bibinfo{booktitle}{\emph{{CIDR}}}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Agrawal, Chaudhuri, and Narasayya}{Agrawal
+  et~al\mbox{.}}{2000}]%
+        {AgrawalCN00}
+\bibfield{author}{\bibinfo{person}{Sanjay Agrawal}, \bibinfo{person}{Surajit
+  Chaudhuri}, {and} \bibinfo{person}{Vivek~R. Narasayya}.}
+  \bibinfo{year}{2000}\natexlab{}.
+\newblock \showarticletitle{{Automated Selection of Materialized Views and
+  Indexes in SQL Databases}}. In \bibinfo{booktitle}{\emph{{VLDB}}}.
+  \bibinfo{pages}{496--505}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Akoush, Sohan, and Hopper}{Akoush
+  et~al\mbox{.}}{2013}]%
+        {AkoushSH13}
+\bibfield{author}{\bibinfo{person}{Sherif Akoush}, \bibinfo{person}{Ripduman
+  Sohan}, {and} \bibinfo{person}{Andy Hopper}.}
+  \bibinfo{year}{2013}\natexlab{}.
+\newblock \showarticletitle{HadoopProv: Towards Provenance as a First Class
+  Citizen in MapReduce}. In \bibinfo{booktitle}{\emph{{TaPP}}}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Amsterdamer, Davidson, Deutch, Milo,
+  Stoyanovich, and Tannen}{Amsterdamer et~al\mbox{.}}{2011}]%
+        {AmsterdamerDDMST11}
+\bibfield{author}{\bibinfo{person}{Yael Amsterdamer}, \bibinfo{person}{Susan~B.
+  Davidson}, \bibinfo{person}{Daniel Deutch}, \bibinfo{person}{Tova Milo},
+  \bibinfo{person}{Julia Stoyanovich}, {and} \bibinfo{person}{Val Tannen}.}
+  \bibinfo{year}{2011}\natexlab{}.
+\newblock \showarticletitle{Putting Lipstick on Pig: Enabling Database-style
+  Workflow Provenance}.
+\newblock \bibinfo{journal}{\emph{{PVLDB}}} \bibinfo{volume}{5},
+  \bibinfo{number}{4} (\bibinfo{year}{2011}), \bibinfo{pages}{346--357}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Anand, Bowers, McPhillips, and
+  Lud{\"{a}}scher}{Anand et~al\mbox{.}}{2009}]%
+        {AnandBML09}
+\bibfield{author}{\bibinfo{person}{Manish~Kumar Anand}, \bibinfo{person}{Shawn
+  Bowers}, \bibinfo{person}{Timothy~M. McPhillips}, {and}
+  \bibinfo{person}{Bertram Lud{\"{a}}scher}.} \bibinfo{year}{2009}\natexlab{}.
+\newblock \showarticletitle{Exploring Scientific Workflow Provenance Using
+  Hybrid Queries over Nested Data and Lineage Graphs}. In
+  \bibinfo{booktitle}{\emph{{SSDBM}}}. \bibinfo{pages}{237--254}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Arumugam, Dobra, Jermaine, Pansare, and
+  Perez}{Arumugam et~al\mbox{.}}{2010}]%
+        {ArumugamDJPP10}
+\bibfield{author}{\bibinfo{person}{Subi Arumugam}, \bibinfo{person}{Alin
+  Dobra}, \bibinfo{person}{Christopher~M. Jermaine}, \bibinfo{person}{Niketan
+  Pansare}, {and} \bibinfo{person}{Luis~Leopoldo Perez}.}
+  \bibinfo{year}{2010}\natexlab{}.
+\newblock \showarticletitle{{The DataPath System: A Data-Centric Analytic
+  Processing Engine for Large Data Warehouses}}. In
+  \bibinfo{booktitle}{\emph{{SIGMOD}}}. \bibinfo{pages}{519--530}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Ashari, Tatikonda, Boehm, Reinwald, Campbell,
+  Keenleyside, and Sadayappan}{Ashari et~al\mbox{.}}{2015}]%
+        {AshariTBRCKS15}
+\bibfield{author}{\bibinfo{person}{Arash Ashari}, \bibinfo{person}{Shirish
+  Tatikonda}, \bibinfo{person}{Matthias Boehm}, \bibinfo{person}{Berthold
+  Reinwald}, \bibinfo{person}{Keith Campbell}, \bibinfo{person}{John
+  Keenleyside}, {and} \bibinfo{person}{P. Sadayappan}.}
+  \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{{On Optimizing Machine Learning Workloads via
+  Kernel Fusion}}. In \bibinfo{booktitle}{\emph{{PPoPP}}}.
+  \bibinfo{pages}{173--182}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Atlas}{Atlas}{2020}]%
+        {atlas}
+\bibfield{author}{\bibinfo{person}{Apache Atlas}.}
+  \bibinfo{year}{2020}\natexlab{}.
+\newblock \bibinfo{title}{Open Metadata Management and Governance}.
+\newblock
+\newblock
+\newblock
+\shownote{\url{https://atlas.apache.org/}}.
+
+
+\bibitem[\protect\citeauthoryear{Bavoil, Callahan, Scheidegger, Vo, Crossno,
+  Silva, and Freire}{Bavoil et~al\mbox{.}}{2005}]%
+        {BavoilCSVCSF05}
+\bibfield{author}{\bibinfo{person}{Louis Bavoil}, \bibinfo{person}{Steven~P.
+  Callahan}, \bibinfo{person}{Carlos~Eduardo Scheidegger},
+  \bibinfo{person}{Huy~T. Vo}, \bibinfo{person}{Patricia Crossno},
+  \bibinfo{person}{Cl{\'{a}}udio~T. Silva}, {and} \bibinfo{person}{Juliana
+  Freire}.} \bibinfo{year}{2005}\natexlab{}.
+\newblock \showarticletitle{{VisTrails: Enabling Interactive Multiple-View
+  Visualizations}}. In \bibinfo{booktitle}{\emph{{IEEE} Vis}}.
+  \bibinfo{pages}{135--142}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Baylor et~al\mbox{.}}{Baylor
+  et~al\mbox{.}}{2017}]%
+        {BaylorBCFFHHIJK17}
+\bibfield{author}{\bibinfo{person}{Denis Baylor} {et~al\mbox{.}}}
+  \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{{TFX: A TensorFlow-Based Production-Scale Machine
+  Learning Platform}}. In \bibinfo{booktitle}{\emph{{SIGKDD}}}.
+  \bibinfo{pages}{1387--1395}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Bezanson, Edelman, Karpinski, and
+  Shah}{Bezanson et~al\mbox{.}}{2017}]%
+        {BezansonEKS17}
+\bibfield{author}{\bibinfo{person}{Jeff Bezanson}, \bibinfo{person}{Alan
+  Edelman}, \bibinfo{person}{Stefan Karpinski}, {and} \bibinfo{person}{Viral~B.
+  Shah}.} \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{{Julia: A Fresh Approach to Numerical Computing}}.
+\newblock \bibinfo{journal}{\emph{SIAM Rev.}} \bibinfo{volume}{59},
+  \bibinfo{number}{1} (\bibinfo{year}{2017}), \bibinfo{pages}{65--98}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Bhardwaj, Bhattacherjee, Chavan, Deshpande,
+  Elmore, Madden, and Parameswaran}{Bhardwaj et~al\mbox{.}}{2015}]%
+        {BhardwajBCDEMP15}
+\bibfield{author}{\bibinfo{person}{Anant~P. Bhardwaj}, \bibinfo{person}{Souvik
+  Bhattacherjee}, \bibinfo{person}{Amit Chavan}, \bibinfo{person}{Amol
+  Deshpande}, \bibinfo{person}{Aaron~J. Elmore}, \bibinfo{person}{Samuel
+  Madden}, {and} \bibinfo{person}{Aditya~G. Parameswaran}.}
+  \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{{DataHub: Collaborative Data Science {\&} Dataset
+  Version Management at Scale}}. In \bibinfo{booktitle}{\emph{{CIDR}}}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Boehm et~al\mbox{.}}{Boehm
+  et~al\mbox{.}}{2016}]%
+        {BoehmDEEMPRRSST16}
+\bibfield{author}{\bibinfo{person}{Matthias Boehm} {et~al\mbox{.}}}
+  \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{{SystemML: Declarative Machine Learning on Spark}}.
+\newblock \bibinfo{journal}{\emph{PVLDB}} \bibinfo{volume}{9},
+  \bibinfo{number}{13} (\bibinfo{year}{2016}), \bibinfo{pages}{1425--1436}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Boehm et~al\mbox{.}}{Boehm
+  et~al\mbox{.}}{2020}]%
+        {BoehmADGIKLPR20}
+\bibfield{author}{\bibinfo{person}{Matthias Boehm} {et~al\mbox{.}}}
+  \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{{SystemDS: A Declarative Machine Learning System
+  for the End-to-End Data Science Lifecycle}}. In
+  \bibinfo{booktitle}{\emph{{CIDR}}}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Boehm, Burdick, Evfimievski, Reinwald, Reiss,
+  Sen, Tatikonda, and Tian}{Boehm et~al\mbox{.}}{2014a}]%
+        {BoehmBERRSTT14}
+\bibfield{author}{\bibinfo{person}{Matthias Boehm}, \bibinfo{person}{Douglas~R.
+  Burdick}, \bibinfo{person}{Alexandre~V. Evfimievski},
+  \bibinfo{person}{Berthold Reinwald}, \bibinfo{person}{Frederick~R. Reiss},
+  \bibinfo{person}{Prithviraj Sen}, \bibinfo{person}{Shirish Tatikonda}, {and}
+  \bibinfo{person}{Yuanyuan Tian}.} \bibinfo{year}{2014}\natexlab{a}.
+\newblock \showarticletitle{{SystemML's Optimizer: Plan Generation for
+  Large-Scale Machine Learning Programs}}.
+\newblock \bibinfo{journal}{\emph{{IEEE} Data Eng. Bull.}}
+  \bibinfo{volume}{37}, \bibinfo{number}{3} (\bibinfo{year}{2014}),
+  \bibinfo{pages}{52--62}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Boehm, Kumar, and Yang}{Boehm
+  et~al\mbox{.}}{2019}]%
+        {2019Boehm}
+\bibfield{author}{\bibinfo{person}{Matthias Boehm}, \bibinfo{person}{Arun
+  Kumar}, {and} \bibinfo{person}{Jun Yang}.} \bibinfo{year}{2019}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{{Data Management in Machine Learning
+  Systems}}}.
+\newblock \bibinfo{publisher}{Morgan {\&} Claypool Publishers}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Boehm, Reinwald, Hutchison, Sen, Evfimievski,
+  and Pansare}{Boehm et~al\mbox{.}}{2018}]%
+        {BoehmRHSEP18}
+\bibfield{author}{\bibinfo{person}{Matthias Boehm}, \bibinfo{person}{Berthold
+  Reinwald}, \bibinfo{person}{Dylan Hutchison}, \bibinfo{person}{Prithviraj
+  Sen}, \bibinfo{person}{Alexandre~V. Evfimievski}, {and}
+  \bibinfo{person}{Niketan Pansare}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{{On Optimizing Operator Fusion Plans for
+  Large-Scale Machine Learning in SystemML}}.
+\newblock \bibinfo{journal}{\emph{{PVLDB}}} \bibinfo{volume}{11},
+  \bibinfo{number}{12} (\bibinfo{year}{2018}), \bibinfo{pages}{1755--1768}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Boehm, Tatikonda, Reinwald, Sen, Tian,
+  Burdick, and Vaithyanathan}{Boehm et~al\mbox{.}}{2014b}]%
+        {BoehmTRSTBV14}
+\bibfield{author}{\bibinfo{person}{Matthias Boehm}, \bibinfo{person}{Shirish
+  Tatikonda}, \bibinfo{person}{Berthold Reinwald}, \bibinfo{person}{Prithviraj
+  Sen}, \bibinfo{person}{Yuanyuan Tian}, \bibinfo{person}{Douglas Burdick},
+  {and} \bibinfo{person}{Shivakumar Vaithyanathan}.}
+  \bibinfo{year}{2014}\natexlab{b}.
+\newblock \showarticletitle{{Hybrid Parallelization Strategies for Large-Scale
+  Machine Learning in SystemML}}.
+\newblock \bibinfo{journal}{\emph{{PVLDB}}} \bibinfo{volume}{7},
+  \bibinfo{number}{7} (\bibinfo{year}{2014}), \bibinfo{pages}{553--564}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Brachmann, Spoth, Kennedy, Glavic, Mueller,
+  Castelo, Bautista, and Freire}{Brachmann et~al\mbox{.}}{2020}]%
+        {BrachmannSKGMCB20}
+\bibfield{author}{\bibinfo{person}{Mike Brachmann}, \bibinfo{person}{William
+  Spoth}, \bibinfo{person}{Oliver Kennedy}, \bibinfo{person}{Boris Glavic},
+  \bibinfo{person}{Heiko Mueller}, \bibinfo{person}{Sonia Castelo},
+  \bibinfo{person}{Carlos Bautista}, {and} \bibinfo{person}{Juliana Freire}.}
+  \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{Your notebook is not crumby enough, REPLace it}. In
+  \bibinfo{booktitle}{\emph{{CIDR}}}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Buneman, Khanna, and Tan}{Buneman
+  et~al\mbox{.}}{2001}]%
+        {BunemanKT01}
+\bibfield{author}{\bibinfo{person}{Peter Buneman}, \bibinfo{person}{Sanjeev
+  Khanna}, {and} \bibinfo{person}{Wang~Chiew Tan}.}
+  \bibinfo{year}{2001}\natexlab{}.
+\newblock \showarticletitle{{Why and Where: A Characterization of Data
+  Provenance}}. In \bibinfo{booktitle}{\emph{{ICDT}}},
+  Vol.~\bibinfo{volume}{1973}. \bibinfo{pages}{316--330}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Callahan, Freire, Santos, Scheidegger, Silva,
+  and Vo}{Callahan et~al\mbox{.}}{2006}]%
+        {CallahanFSSSV06}
+\bibfield{author}{\bibinfo{person}{Steven~P. Callahan},
+  \bibinfo{person}{Juliana Freire}, \bibinfo{person}{Emanuele Santos},
+  \bibinfo{person}{Carlos~Eduardo Scheidegger},
+  \bibinfo{person}{Cl{\'{a}}udio~T. Silva}, {and} \bibinfo{person}{Huy~T. Vo}.}
+  \bibinfo{year}{2006}\natexlab{}.
+\newblock \showarticletitle{VisTrails: Visualization meets Data Management}. In
+  \bibinfo{booktitle}{\emph{{SIGMOD}}}. \bibinfo{pages}{745--747}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Chapman and Jagadish}{Chapman and
+  Jagadish}{2009}]%
+        {ChapmanJ09}
+\bibfield{author}{\bibinfo{person}{Adriane Chapman} {and}
+  \bibinfo{person}{H.~V. Jagadish}.} \bibinfo{year}{2009}\natexlab{}.
+\newblock \showarticletitle{Why Not?}. In \bibinfo{booktitle}{\emph{{SIGMOD}}}.
+  \bibinfo{pages}{523--534}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Chavan and Deshpande}{Chavan and
+  Deshpande}{2017}]%
+        {ChavanD17}
+\bibfield{author}{\bibinfo{person}{Amit Chavan} {and} \bibinfo{person}{Amol
+  Deshpande}.} \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{{DEX: Query Execution in a Delta-based Storage
+  System}}. In \bibinfo{booktitle}{\emph{{SIGMOD}}},
+  \bibfield{editor}{\bibinfo{person}{Semih Salihoglu}, \bibinfo{person}{Wenchao
+  Zhou}, \bibinfo{person}{Rada Chirkova}, \bibinfo{person}{Jun Yang}, {and}
+  \bibinfo{person}{Dan Suciu}} (Eds.). \bibinfo{pages}{171--186}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Chen et~al\mbox{.}}{Chen
+  et~al\mbox{.}}{2020}]%
+        {ChenCDD0HKMMNOP20}
+\bibfield{author}{\bibinfo{person}{Andrew Chen} {et~al\mbox{.}}}
+  \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{{Developments in MLflow: A System to Accelerate the
+  Machine Learning Lifecycle}}. In \bibinfo{booktitle}{\emph{SIGMOD Workshop
+  DEEM}}. \bibinfo{pages}{5:1--5:4}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Chen et~al\mbox{.}}{Chen
+  et~al\mbox{.}}{2018}]%
+        {ChenMJZYSCWHCGK18}
+\bibfield{author}{\bibinfo{person}{Tianqi Chen} {et~al\mbox{.}}}
+  \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{{TVM: An Automated End-to-End Optimizing Compiler
+  for Deep Learning}}. In \bibinfo{booktitle}{\emph{{OSDI}}}.
+  \bibinfo{pages}{578--594}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Cheney, Chiticariu, and Tan}{Cheney
+  et~al\mbox{.}}{2009}]%
+        {CheneyCT09}
+\bibfield{author}{\bibinfo{person}{James Cheney}, \bibinfo{person}{Laura
+  Chiticariu}, {and} \bibinfo{person}{Wang~Chiew Tan}.}
+  \bibinfo{year}{2009}\natexlab{}.
+\newblock \showarticletitle{{Provenance in Databases: Why, How, and Where}}.
+\newblock \bibinfo{journal}{\emph{Foundations and Trends in Databases}}
+  \bibinfo{volume}{1}, \bibinfo{number}{4} (\bibinfo{year}{2009}),
+  \bibinfo{pages}{379--474}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Crankshaw, Bailis, Gonzalez, Li, Zhang,
+  Franklin, Ghodsi, and Jordan}{Crankshaw et~al\mbox{.}}{2015}]%
+        {CrankshawBGLZFG15}
+\bibfield{author}{\bibinfo{person}{Daniel Crankshaw}, \bibinfo{person}{Peter
+  Bailis}, \bibinfo{person}{Joseph~E. Gonzalez}, \bibinfo{person}{Haoyuan Li},
+  \bibinfo{person}{Zhao Zhang}, \bibinfo{person}{Michael~J. Franklin},
+  \bibinfo{person}{Ali Ghodsi}, {and} \bibinfo{person}{Michael~I. Jordan}.}
+  \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{{The Missing Piece in Complex Analytics: Low
+  Latency, Scalable Model Management and Serving with Velox}}. In
+  \bibinfo{booktitle}{\emph{{CIDR}}}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Crankshaw, Wang, Zhou, Franklin, Gonzalez, and
+  Stoica}{Crankshaw et~al\mbox{.}}{2017}]%
+        {CrankshawWZFGS17}
+\bibfield{author}{\bibinfo{person}{Daniel Crankshaw}, \bibinfo{person}{Xin
+  Wang}, \bibinfo{person}{Giulio Zhou}, \bibinfo{person}{Michael~J. Franklin},
+  \bibinfo{person}{Joseph~E. Gonzalez}, {and} \bibinfo{person}{Ion Stoica}.}
+  \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{{Clipper: A Low-Latency Online Prediction Serving
+  System}}. In \bibinfo{booktitle}{\emph{{NSDI}}}. \bibinfo{pages}{613--627}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Crotty, Galakatos, Dursun, Kraska, Binnig,
+  {\c{C}}etintemel, and Zdonik}{Crotty et~al\mbox{.}}{2015}]%
+        {CrottyGDKBCZ15}
+\bibfield{author}{\bibinfo{person}{Andrew Crotty}, \bibinfo{person}{Alex
+  Galakatos}, \bibinfo{person}{Kayhan Dursun}, \bibinfo{person}{Tim Kraska},
+  \bibinfo{person}{Carsten Binnig}, \bibinfo{person}{Ugur {\c{C}}etintemel},
+  {and} \bibinfo{person}{Stan Zdonik}.} \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{{An Architecture for Compiling UDF-centric
+  Workflows}}.
+\newblock \bibinfo{journal}{\emph{{PVLDB}}} \bibinfo{volume}{8},
+  \bibinfo{number}{12} (\bibinfo{year}{2015}), \bibinfo{pages}{1466--1477}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Cui, Widom, and Wiener}{Cui
+  et~al\mbox{.}}{2000}]%
+        {CuiWW00}
+\bibfield{author}{\bibinfo{person}{Yingwei Cui}, \bibinfo{person}{Jennifer
+  Widom}, {and} \bibinfo{person}{Janet~L. Wiener}.}
+  \bibinfo{year}{2000}\natexlab{}.
+\newblock \showarticletitle{{Tracing the Lineage of View Data in a Warehousing
+  Environment}}.
+\newblock \bibinfo{journal}{\emph{{ACM} Trans. Database Syst.}}
+  \bibinfo{volume}{25}, \bibinfo{number}{2} (\bibinfo{year}{2000}),
+  \bibinfo{pages}{179--227}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Davidson, Boulakia, Eyal, Lud{\"{a}}scher,
+  McPhillips, Bowers, Anand, and Freire}{Davidson et~al\mbox{.}}{2007}]%
+        {DavidsonBELMBAF07}
+\bibfield{author}{\bibinfo{person}{Susan~B. Davidson},
+  \bibinfo{person}{Sarah~Cohen Boulakia}, \bibinfo{person}{Anat Eyal},
+  \bibinfo{person}{Bertram Lud{\"{a}}scher}, \bibinfo{person}{Timothy~M.
+  McPhillips}, \bibinfo{person}{Shawn Bowers}, \bibinfo{person}{Manish~Kumar
+  Anand}, {and} \bibinfo{person}{Juliana Freire}.}
+  \bibinfo{year}{2007}\natexlab{}.
+\newblock \showarticletitle{Provenance in Scientific Workflow Systems}.
+\newblock \bibinfo{journal}{\emph{{IEEE} Data Eng. Bull.}}
+  \bibinfo{volume}{30}, \bibinfo{number}{4} (\bibinfo{year}{2007}),
+  \bibinfo{pages}{44--50}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Dean and Ghemawat}{Dean and Ghemawat}{2004}]%
+        {DeanG04}
+\bibfield{author}{\bibinfo{person}{Jeffrey Dean} {and} \bibinfo{person}{Sanjay
+  Ghemawat}.} \bibinfo{year}{2004}\natexlab{}.
+\newblock \showarticletitle{{MapReduce: Simplified Data Processing on Large
+  Clusters}}. In \bibinfo{booktitle}{\emph{{OSDI}}}. \bibinfo{pages}{137--150}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Derakhshan, Mahdiraji, Abedjan, Rabl, and
+  Markl}{Derakhshan et~al\mbox{.}}{2020}]%
+        {DerakhshanMARM20}
+\bibfield{author}{\bibinfo{person}{Behrouz Derakhshan},
+  \bibinfo{person}{Alireza~Rezaei Mahdiraji}, \bibinfo{person}{Ziawasch
+  Abedjan}, \bibinfo{person}{Tilmann Rabl}, {and} \bibinfo{person}{Volker
+  Markl}.} \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{{Optimizing Machine Learning Workloads in
+  Collaborative Environments}}. In \bibinfo{booktitle}{\emph{{SIGMOD}}}.
+  \bibinfo{pages}{1701--1716}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Deshpande and Madden}{Deshpande and
+  Madden}{2006}]%
+        {DeshpandeM06}
+\bibfield{author}{\bibinfo{person}{Amol Deshpande} {and}
+  \bibinfo{person}{Samuel Madden}.} \bibinfo{year}{2006}\natexlab{}.
+\newblock \showarticletitle{{MauveDB: Supporting Model-based User Views in
+  Database Systems}}. In \bibinfo{booktitle}{\emph{{SIGMOD}}}.
+  \bibinfo{pages}{73--84}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Dodge, Ilharco, Schwartz, Farhadi, Hajishirzi,
+  and Smith}{Dodge et~al\mbox{.}}{2020}]%
+        {abs-2002-06305}
+\bibfield{author}{\bibinfo{person}{Jesse Dodge}, \bibinfo{person}{Gabriel
+  Ilharco}, \bibinfo{person}{Roy Schwartz}, \bibinfo{person}{Ali Farhadi},
+  \bibinfo{person}{Hannaneh Hajishirzi}, {and} \bibinfo{person}{Noah~A.
+  Smith}.} \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{{Fine-Tuning Pretrained Language Models: Weight
+  Initializations, Data Orders, and Early Stopping}}.
+\newblock \bibinfo{journal}{\emph{CoRR}}  \bibinfo{volume}{abs/2002.06305}
+  (\bibinfo{year}{2020}).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Dong and Rekatsinas}{Dong and
+  Rekatsinas}{2018}]%
+        {DongR18}
+\bibfield{author}{\bibinfo{person}{Xin~Luna Dong} {and}
+  \bibinfo{person}{Theodoros Rekatsinas}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{{Data Integration and Machine Learning: A Natural
+  Synergy}}. In \bibinfo{booktitle}{\emph{{SIGMOD}}}.
+  \bibinfo{pages}{1645--1650}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Dua and Graff}{Dua and Graff}{2017}]%
+        {Dua2019}
+\bibfield{author}{\bibinfo{person}{Dheeru Dua} {and} \bibinfo{person}{Casey
+  Graff}.} \bibinfo{year}{2017}\natexlab{}.
+\newblock \bibinfo{title}{{UCI Machine Learning Repository}}.
+\newblock
+\newblock
+\urldef\tempurl%
+\url{http://archive.ics.uci.edu/ml}
+\showURL{%
+\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Elgamal, Luo, Boehm, Evfimievski, Tatikonda,
+  Reinwald, and Sen}{Elgamal et~al\mbox{.}}{2017}]%
+        {ElgamalLBETRS17}
+\bibfield{author}{\bibinfo{person}{Tarek Elgamal}, \bibinfo{person}{Shangyu
+  Luo}, \bibinfo{person}{Matthias Boehm}, \bibinfo{person}{Alexandre~V.
+  Evfimievski}, \bibinfo{person}{Shirish Tatikonda}, \bibinfo{person}{Berthold
+  Reinwald}, {and} \bibinfo{person}{Prithviraj Sen}.}
+  \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{{SPOOF:} Sum-Product Optimization and Operator
+  Fusion for Large-Scale Machine Learning}. In
+  \bibinfo{booktitle}{\emph{{CIDR}}}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Fang, Shen, Wang, and Chen}{Fang
+  et~al\mbox{.}}{2020}]%
+        {FangSW020}
+\bibfield{author}{\bibinfo{person}{Jingzhi Fang}, \bibinfo{person}{Yanyan
+  Shen}, \bibinfo{person}{Yue Wang}, {and} \bibinfo{person}{Lei Chen}.}
+  \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{{Optimizing DNN Computation Graph using Graph
+  Substitutions}}.
+\newblock \bibinfo{journal}{\emph{{PVLDB}}} \bibinfo{volume}{13},
+  \bibinfo{number}{11} (\bibinfo{year}{2020}), \bibinfo{pages}{2734--2746}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Fernandez, Subramaniam, and
+  Franklin}{Fernandez et~al\mbox{.}}{2020}]%
+        {FernandezSF20}
+\bibfield{author}{\bibinfo{person}{Raul~Castro Fernandez},
+  \bibinfo{person}{Pranav Subramaniam}, {and} \bibinfo{person}{Michael~J.
+  Franklin}.} \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{Data Market Platforms: Trading Data Assets to Solve
+  Data Problems}.
+\newblock \bibinfo{journal}{\emph{{PVLDB}}} \bibinfo{volume}{13},
+  \bibinfo{number}{11} (\bibinfo{year}{2020}), \bibinfo{pages}{1933--1947}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Glavic and Dittrich}{Glavic and
+  Dittrich}{2007}]%
+        {GlavicD07}
+\bibfield{author}{\bibinfo{person}{Boris Glavic} {and}
+  \bibinfo{person}{Klaus~R. Dittrich}.} \bibinfo{year}{2007}\natexlab{}.
+\newblock \showarticletitle{{Data Provenance: A Categorization of Existing
+  Approaches}}. In \bibinfo{booktitle}{\emph{{BTW}}}.
+  \bibinfo{pages}{227--241}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Grafberger, Stoyanovich, and
+  Schelter}{Grafberger et~al\mbox{.}}{2021}]%
+        {mlinspect21}
+\bibfield{author}{\bibinfo{person}{Stefan Grafberger}, \bibinfo{person}{Julia
+  Stoyanovich}, {and} \bibinfo{person}{Sebastian Schelter}.}
+  \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{{Lightweight Inspection of Data Preprocessing in
+  Native Machine Learning Pipelines}}. In \bibinfo{booktitle}{\emph{{CIDR}}}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Green, Karvounarakis, Ives, and Tannen}{Green
+  et~al\mbox{.}}{2007b}]%
+        {GreenKIT07}
+\bibfield{author}{\bibinfo{person}{Todd~J. Green}, \bibinfo{person}{Grigoris
+  Karvounarakis}, \bibinfo{person}{Zachary~G. Ives}, {and} \bibinfo{person}{Val
+  Tannen}.} \bibinfo{year}{2007}\natexlab{b}.
+\newblock \showarticletitle{{Update Exchange with Mappings and Provenance}}. In
+  \bibinfo{booktitle}{\emph{{VLDB}}}. \bibinfo{pages}{675--686}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Green, Karvounarakis, and Tannen}{Green
+  et~al\mbox{.}}{2007a}]%
+        {GreenKT07}
+\bibfield{author}{\bibinfo{person}{Todd~J. Green}, \bibinfo{person}{Gregory
+  Karvounarakis}, {and} \bibinfo{person}{Val Tannen}.}
+  \bibinfo{year}{2007}\natexlab{a}.
+\newblock \showarticletitle{{Provenance Semirings}}. In
+  \bibinfo{booktitle}{\emph{{PODS}}}. \bibinfo{publisher}{{ACM}}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Halevy, Korn, Noy, Olston, Polyzotis, Roy, and
+  Whang}{Halevy et~al\mbox{.}}{2016}]%
+        {HalevyKNOPRW16}
+\bibfield{author}{\bibinfo{person}{Alon~Y. Halevy}, \bibinfo{person}{Flip
+  Korn}, \bibinfo{person}{Natalya~Fridman Noy}, \bibinfo{person}{Christopher
+  Olston}, \bibinfo{person}{Neoklis Polyzotis}, \bibinfo{person}{Sudip Roy},
+  {and} \bibinfo{person}{Steven~Euijong Whang}.}
+  \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{{Goods: Organizing Google's Datasets}}. In
+  \bibinfo{booktitle}{\emph{{SIGMOD}}}. \bibinfo{pages}{795--806}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Hartz}{Hartz}{2020}]%
+        {SAPDataHub}
+\bibfield{author}{\bibinfo{person}{Marc Hartz}.}
+  \bibinfo{year}{2020}\natexlab{}.
+\newblock \bibinfo{title}{{SAP Data Intelligence: Next evolution of SAP Data
+  Hub}}.
+\newblock
+\newblock
+\newblock
+\shownote{\url{https://blogs.sap.com/2020/03/20/sap-data-intelligence-next-evolution-of-sap-data-hub/}}.
+
+
+\bibitem[\protect\citeauthoryear{Huang, Babu, and Yang}{Huang
+  et~al\mbox{.}}{2013}]%
+        {HuangB013}
+\bibfield{author}{\bibinfo{person}{Botong Huang}, \bibinfo{person}{Shivnath
+  Babu}, {and} \bibinfo{person}{Jun Yang}.} \bibinfo{year}{2013}\natexlab{}.
+\newblock \showarticletitle{Cumulon: Optimizing Statistical Data Analysis in
+  the Cloud}. In \bibinfo{booktitle}{\emph{{SIGMOD}}}. \bibinfo{pages}{1--12}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Idreos, Kersten, and Manegold}{Idreos
+  et~al\mbox{.}}{2007}]%
+        {IdreosKM07}
+\bibfield{author}{\bibinfo{person}{Stratos Idreos}, \bibinfo{person}{Martin~L.
+  Kersten}, {and} \bibinfo{person}{Stefan Manegold}.}
+  \bibinfo{year}{2007}\natexlab{}.
+\newblock \showarticletitle{{Database Cracking}}. In
+  \bibinfo{booktitle}{\emph{{CIDR}}}. \bibinfo{pages}{68--78}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Ikeda, Park, and Widom}{Ikeda
+  et~al\mbox{.}}{2011}]%
+        {IkedaPW11}
+\bibfield{author}{\bibinfo{person}{Robert Ikeda}, \bibinfo{person}{Hyunjung
+  Park}, {and} \bibinfo{person}{Jennifer Widom}.}
+  \bibinfo{year}{2011}\natexlab{}.
+\newblock \showarticletitle{Provenance for Generalized Map and Reduce
+  Workflows}. In \bibinfo{booktitle}{\emph{{CIDR}}}. \bibinfo{pages}{273--283}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Interlandi, Shah, Tetali, Gulzar, Yoo, Kim,
+  Millstein, and Condie}{Interlandi et~al\mbox{.}}{2015}]%
+        {InterlandiSTGYK15}
+\bibfield{author}{\bibinfo{person}{Matteo Interlandi}, \bibinfo{person}{Kshitij
+  Shah}, \bibinfo{person}{Sai~Deep Tetali}, \bibinfo{person}{Muhammad~Ali
+  Gulzar}, \bibinfo{person}{Seunghyun Yoo}, \bibinfo{person}{Miryung Kim},
+  \bibinfo{person}{Todd~D. Millstein}, {and} \bibinfo{person}{Tyson Condie}.}
+  \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{Titian: Data Provenance Support in Spark}.
+\newblock \bibinfo{journal}{\emph{{PVLDB}}} \bibinfo{volume}{9},
+  \bibinfo{number}{3} (\bibinfo{year}{2015}), \bibinfo{pages}{216--227}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Ivanova, Kersten, Nes, and Goncalves}{Ivanova
+  et~al\mbox{.}}{2009}]%
+        {IvanovaKNG09}
+\bibfield{author}{\bibinfo{person}{Milena Ivanova}, \bibinfo{person}{Martin~L.
+  Kersten}, \bibinfo{person}{Niels~J. Nes}, {and} \bibinfo{person}{Romulo
+  Goncalves}.} \bibinfo{year}{2009}\natexlab{}.
+\newblock \showarticletitle{An Architecture for Recycling Intermediates in a
+  Column-store}. In \bibinfo{booktitle}{\emph{{SIGMOD}}}.
+  \bibinfo{pages}{309--320}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Ivanova, Kersten, Nes, and Goncalves}{Ivanova
+  et~al\mbox{.}}{2010}]%
+        {IvanovaKNG10}
+\bibfield{author}{\bibinfo{person}{Milena Ivanova}, \bibinfo{person}{Martin~L.
+  Kersten}, \bibinfo{person}{Niels~J. Nes}, {and} \bibinfo{person}{Romulo
+  Goncalves}.} \bibinfo{year}{2010}\natexlab{}.
+\newblock \showarticletitle{{An Architecture for Recycling Intermediates in a
+  Column-store}}.
+\newblock \bibinfo{journal}{\emph{{ACM} Trans. Database Syst.}}
+  \bibinfo{volume}{35}, \bibinfo{number}{4} (\bibinfo{year}{2010}),
+  \bibinfo{pages}{24:1--24:43}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Jia, Padon, Thomas, Warszawski, Zaharia, and
+  Aiken}{Jia et~al\mbox{.}}{2019}]%
+        {JiaPTWZA19}
+\bibfield{author}{\bibinfo{person}{Zhihao Jia}, \bibinfo{person}{Oded Padon},
+  \bibinfo{person}{James~J. Thomas}, \bibinfo{person}{Todd Warszawski},
+  \bibinfo{person}{Matei Zaharia}, {and} \bibinfo{person}{Alex Aiken}.}
+  \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{{TASO: Optimizing Deep Learning Computation with
+  Automatic Generation of Graph Substitutions}}. In
+  \bibinfo{booktitle}{\emph{{SOSP}}}. \bibinfo{pages}{47--62}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Jindal, Karanasos, Rao, and Patel}{Jindal
+  et~al\mbox{.}}{2018}]%
+        {JindalKRP18}
+\bibfield{author}{\bibinfo{person}{Alekh Jindal}, \bibinfo{person}{Konstantinos
+  Karanasos}, \bibinfo{person}{Sriram Rao}, {and} \bibinfo{person}{Hiren
+  Patel}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{{Selecting Subexpressions to Materialize at
+  Datacenter Scale}}.
+\newblock \bibinfo{journal}{\emph{{PVLDB}}} \bibinfo{volume}{11},
+  \bibinfo{number}{7} (\bibinfo{year}{2018}), \bibinfo{pages}{800--812}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Kang, Emmons, Abuzaid, Bailis, and
+  Zaharia}{Kang et~al\mbox{.}}{2017}]%
+        {KangEABZ17}
+\bibfield{author}{\bibinfo{person}{Daniel Kang}, \bibinfo{person}{John Emmons},
+  \bibinfo{person}{Firas Abuzaid}, \bibinfo{person}{Peter Bailis}, {and}
+  \bibinfo{person}{Matei Zaharia}.} \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{{NoScope: Optimizing Deep CNN-Based Queries over
+  Video Streams at Scale}}.
+\newblock \bibinfo{journal}{\emph{{PVLDB}}} \bibinfo{volume}{10},
+  \bibinfo{number}{11} (\bibinfo{year}{2017}), \bibinfo{pages}{1586--1597}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Koc and R{\'{e}}}{Koc and R{\'{e}}}{2011}]%
+        {KocR11}
+\bibfield{author}{\bibinfo{person}{Mehmet~Levent Koc} {and}
+  \bibinfo{person}{Christopher R{\'{e}}}.} \bibinfo{year}{2011}\natexlab{}.
+\newblock \showarticletitle{{Incrementally Maintaining Classification using an
+  RDBMS}}.
+\newblock \bibinfo{journal}{\emph{{PVLDB}}} \bibinfo{volume}{4},
+  \bibinfo{number}{5} (\bibinfo{year}{2011}), \bibinfo{pages}{302--313}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Kunft, Katsifodimos, Schelter, Bre{\ss}, Rabl,
+  and Markl}{Kunft et~al\mbox{.}}{2019}]%
+        {KunftKSBRM19}
+\bibfield{author}{\bibinfo{person}{Andreas Kunft}, \bibinfo{person}{Asterios
+  Katsifodimos}, \bibinfo{person}{Sebastian Schelter},
+  \bibinfo{person}{Sebastian Bre{\ss}}, \bibinfo{person}{Tilmann Rabl}, {and}
+  \bibinfo{person}{Volker Markl}.} \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{{An Intermediate Representation for Optimizing
+  Machine Learning Pipelines}}.
+\newblock \bibinfo{journal}{\emph{{PVLDB}}} \bibinfo{volume}{12},
+  \bibinfo{number}{11} (\bibinfo{year}{2019}), \bibinfo{pages}{1553--1567}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Larsen and Shpeisman}{Larsen and
+  Shpeisman}{2019}]%
+        {grappler}
+\bibfield{author}{\bibinfo{person}{Rasmus~Munk Larsen} {and}
+  \bibinfo{person}{Tatiana Shpeisman}.} \bibinfo{year}{2019}\natexlab{}.
+\newblock \bibinfo{title}{{TensorFlow Graph Optimizations}}.
+\newblock
+\newblock
+\newblock
+\shownote{Stanford guest lecture,
+  \url{https://web.stanford.edu/class/cs245/slides/TFGraphOptimizationsStanford.pdf}}.
+
+
+\bibitem[\protect\citeauthoryear{Lee, Zhou, and Liao}{Lee
+  et~al\mbox{.}}{2007}]%
+        {LeeZL07}
+\bibfield{author}{\bibinfo{person}{Rubao Lee}, \bibinfo{person}{Minghong Zhou},
+  {and} \bibinfo{person}{Huaming Liao}.} \bibinfo{year}{2007}\natexlab{}.
+\newblock \showarticletitle{Request Window: an Approach to Improve Throughput
+  of RDBMS-based Data Integration System by Utilizing Data Sharing Across
+  Concurrent Distributed Queries}. In \bibinfo{booktitle}{\emph{{VLDB}}}.
+  \bibinfo{pages}{1219--1230}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Lee, Scolari, Chun, Santambrogio, Weimer, and
+  Interlandi}{Lee et~al\mbox{.}}{2018}]%
+        {LeeSCSWI18}
+\bibfield{author}{\bibinfo{person}{Yunseong Lee}, \bibinfo{person}{Alberto
+  Scolari}, \bibinfo{person}{Byung{-}Gon Chun}, \bibinfo{person}{Marco~Domenico
+  Santambrogio}, \bibinfo{person}{Markus Weimer}, {and} \bibinfo{person}{Matteo
+  Interlandi}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{{PRETZEL: Opening the Black Box of Machine Learning
+  Prediction Serving Systems}}. In \bibinfo{booktitle}{\emph{{OSDI}}}.
+  \bibinfo{pages}{611--626}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Liberty et~al\mbox{.}}{Liberty
+  et~al\mbox{.}}{2020}]%
+        {LibertyKXRCNDSA20}
+\bibfield{author}{\bibinfo{person}{Edo Liberty} {et~al\mbox{.}}}
+  \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{Elastic Machine Learning Algorithms in Amazon
+  SageMaker}. In \bibinfo{booktitle}{\emph{{SIGMOD}}}.
+  \bibinfo{pages}{731--737}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Logothetis, De, and Yocum}{Logothetis
+  et~al\mbox{.}}{2013}]%
+        {LogothetisDY13}
+\bibfield{author}{\bibinfo{person}{Dionysios Logothetis},
+  \bibinfo{person}{Soumyarupa De}, {and} \bibinfo{person}{Kenneth Yocum}.}
+  \bibinfo{year}{2013}\natexlab{}.
+\newblock \showarticletitle{Scalable Lineage Capture for Debugging {DISC}
+  Analytics}. In \bibinfo{booktitle}{\emph{{SOCC}}}.
+  \bibinfo{pages}{17:1--17:15}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Lud{\"{a}}scher et~al\mbox{.}}{Lud{\"{a}}scher
+  et~al\mbox{.}}{2006}]%
+        {LudascherABHJJLTZ06}
+\bibfield{author}{\bibinfo{person}{Bertram Lud{\"{a}}scher} {et~al\mbox{.}}}
+  \bibinfo{year}{2006}\natexlab{}.
+\newblock \showarticletitle{Scientific Workflow Management and the KEPLER
+  System}.
+\newblock \bibinfo{journal}{\emph{Concurr. Comput. Pract. Exp.}}
+  \bibinfo{volume}{18}, \bibinfo{number}{10} (\bibinfo{year}{2006}),
+  \bibinfo{pages}{1039--1065}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Macke, Gong, Lee, Head, Xin, and
+  Parameswaran}{Macke et~al\mbox{.}}{2021}]%
+        {nbsafety21}
+\bibfield{author}{\bibinfo{person}{Stephen Macke}, \bibinfo{person}{Hongpu
+  Gong}, \bibinfo{person}{Doris Jung~Lin Lee}, \bibinfo{person}{Andrew Head},
+  \bibinfo{person}{Doris Xin}, {and} \bibinfo{person}{Aditya~G. Parameswaran}.}
+  \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{Fine-Grained Lineage for Safer Notebook
+  Interactions}.
+\newblock \bibinfo{journal}{\emph{{PVLDB}}} \bibinfo{volume}{14},
+  \bibinfo{number}{06} (\bibinfo{year}{2021}), \bibinfo{pages}{1093--1101}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Megiddo and Modha}{Megiddo and Modha}{2003}]%
+        {MegiddoM03}
+\bibfield{author}{\bibinfo{person}{Nimrod Megiddo} {and}
+  \bibinfo{person}{Dharmendra~S. Modha}.} \bibinfo{year}{2003}\natexlab{}.
+\newblock \showarticletitle{{ARC: A Self-Tuning, Low Overhead Replacement
+  Cache}}. In \bibinfo{booktitle}{\emph{{FAST}}}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Miao, Li, Davis, and Deshpande}{Miao
+  et~al\mbox{.}}{2017}]%
+        {MiaoLDD17a}
+\bibfield{author}{\bibinfo{person}{Hui Miao}, \bibinfo{person}{Ang Li},
+  \bibinfo{person}{Larry~S. Davis}, {and} \bibinfo{person}{Amol Deshpande}.}
+  \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{{ModelHub: Deep Learning Lifecycle Management}}. In
+  \bibinfo{booktitle}{\emph{{ICDE}}}. \bibinfo{pages}{1393--1394}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Moldovan et~al\mbox{.}}{Moldovan
+  et~al\mbox{.}}{2019}]%
+        {abs-1810-08061}
+\bibfield{author}{\bibinfo{person}{Dan Moldovan} {et~al\mbox{.}}}
+  \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{{AutoGraph: Imperative-style Coding with
+  Graph-based Performance}}.
+\newblock \bibinfo{journal}{\emph{SysML}} (\bibinfo{year}{2019}).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Nakandala, Kumar, and
+  Papakonstantinou}{Nakandala et~al\mbox{.}}{2019}]%
+        {NakandalaKP19}
+\bibfield{author}{\bibinfo{person}{Supun Nakandala}, \bibinfo{person}{Arun
+  Kumar}, {and} \bibinfo{person}{Yannis Papakonstantinou}.}
+  \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{{Incremental and Approximate Inference for Faster
+  Occlusion-based Deep {CNN} Explanations}}. In
+  \bibinfo{booktitle}{\emph{{SIGMOD}}}. \bibinfo{pages}{1589--1606}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Nakandala, Kumar, and
+  Papakonstantinou}{Nakandala et~al\mbox{.}}{2020}]%
+        {rh/Nakandala20}
+\bibfield{author}{\bibinfo{person}{Supun Nakandala}, \bibinfo{person}{Arun
+  Kumar}, {and} \bibinfo{person}{Yannis Papakonstantinou}.}
+  \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{{Query Optimization for Faster Deep CNN
+  Explanations}}.
+\newblock \bibinfo{journal}{\emph{{SIGMOD} Rec.}} \bibinfo{volume}{49},
+  \bibinfo{number}{1} (\bibinfo{year}{2020}), \bibinfo{pages}{61--68}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Namaki, Floratou, Psallidas, Krishnan,
+  Agrawal, Wu, Zhu, and Weimer}{Namaki et~al\mbox{.}}{2020}]%
+        {NamakiFPKAWZW20}
+\bibfield{author}{\bibinfo{person}{Mohammad~Hossein Namaki},
+  \bibinfo{person}{Avrilia Floratou}, \bibinfo{person}{Fotis Psallidas},
+  \bibinfo{person}{Subru Krishnan}, \bibinfo{person}{Ashvin Agrawal},
+  \bibinfo{person}{Yinghui Wu}, \bibinfo{person}{Yiwen Zhu}, {and}
+  \bibinfo{person}{Markus Weimer}.} \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{Vamsa: Automated Provenance Tracking in Data
+  Science Scripts}. In \bibinfo{booktitle}{\emph{{SIGKDD}}}.
+  \bibinfo{pages}{1542--1551}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Nikolic, Elseidy, and Koch}{Nikolic
+  et~al\mbox{.}}{2014}]%
+        {NikolicEK14}
+\bibfield{author}{\bibinfo{person}{Milos Nikolic}, \bibinfo{person}{Mohammed
+  Elseidy}, {and} \bibinfo{person}{Christoph Koch}.}
+  \bibinfo{year}{2014}\natexlab{}.
+\newblock \showarticletitle{{LINVIEW: Incremental View Maintenance for Complex
+  Analytical Queries}}. In \bibinfo{booktitle}{\emph{{SIGMOD}}}.
+  \bibinfo{pages}{253--264}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Nikolic and Olteanu}{Nikolic and
+  Olteanu}{2018}]%
+        {NikolicO18}
+\bibfield{author}{\bibinfo{person}{Milos Nikolic} {and} \bibinfo{person}{Dan
+  Olteanu}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{{Incremental View Maintenance with Triple Lock
+  Factorization Benefits}}. In \bibinfo{booktitle}{\emph{{SIGMOD}}}.
+  \bibinfo{pages}{365--380}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Olston, Reed, Srivastava, Kumar, and
+  Tomkins}{Olston et~al\mbox{.}}{2008}]%
+        {OlstonRSKT08}
+\bibfield{author}{\bibinfo{person}{Christopher Olston},
+  \bibinfo{person}{Benjamin Reed}, \bibinfo{person}{Utkarsh Srivastava},
+  \bibinfo{person}{Ravi Kumar}, {and} \bibinfo{person}{Andrew Tomkins}.}
+  \bibinfo{year}{2008}\natexlab{}.
+\newblock \showarticletitle{{Pig Latin: A Not-So-Foreign Language for Data
+  Processing}}. In \bibinfo{booktitle}{\emph{{SIGMOD}}}.
+  \bibinfo{pages}{1099--1110}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Ooi and Weston}{Ooi and Weston}{2019}]%
+        {Rdopar}
+\bibfield{author}{\bibinfo{person}{Hong Ooi} {and} \bibinfo{person}{Stephen
+  Weston}.} \bibinfo{year}{2019}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{{doSNOW: Foreach Parallel Adaptor for the
+  snow Package}}}.
+\newblock
+\newblock
+\shownote{\url{https://cran.r-project.org/web/packages/doSNOW/doSNOW.pdf}}.
+
+
+\bibitem[\protect\citeauthoryear{Or and Rosen}{Or and Rosen}{2015}]%
+        {UnifiedMem}
+\bibfield{author}{\bibinfo{person}{Andrew Or} {and} \bibinfo{person}{Josh
+  Rosen}.} \bibinfo{year}{2015}\natexlab{}.
+\newblock \bibinfo{title}{{Unified Memory Management in Spark 1.6}}.
+\newblock
+\newblock
+\newblock
+\shownote{\url{https://issues.apache.org/jira/secure/attachment/12765646/unified-memory-management-spark-10000.pdf}}.
+
+
+\bibitem[\protect\citeauthoryear{Palkar et~al\mbox{.}}{Palkar
+  et~al\mbox{.}}{2018}]%
+        {PalkarTNTPNSSPA18}
+\bibfield{author}{\bibinfo{person}{Shoumik Palkar} {et~al\mbox{.}}}
+  \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{{Evaluating End-to-End Optimization for Data
+  Analytics Applications in Weld}}.
+\newblock \bibinfo{journal}{\emph{{PVLDB}}} \bibinfo{volume}{11},
+  \bibinfo{number}{9} (\bibinfo{year}{2018}), \bibinfo{pages}{1002--1015}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Paszke et~al\mbox{.}}{Paszke
+  et~al\mbox{.}}{2019}]%
+        {PaszkeGMLBCKLGA19}
+\bibfield{author}{\bibinfo{person}{Adam Paszke} {et~al\mbox{.}}}
+  \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{{PyTorch: An Imperative Style, High-Performance
+  Deep Learning Library}}. In \bibinfo{booktitle}{\emph{NeurIPS}}.
+  \bibinfo{pages}{8024--8035}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Pedregosa et~al\mbox{.}}{Pedregosa
+  et~al\mbox{.}}{2011}]%
+        {PedregosaVGMTGBPWDVPCBPD11}
+\bibfield{author}{\bibinfo{person}{Fabian Pedregosa} {et~al\mbox{.}}}
+  \bibinfo{year}{2011}\natexlab{}.
+\newblock \showarticletitle{Scikit-learn: Machine Learning in Python}.
+\newblock \bibinfo{journal}{\emph{J. Mach. Learn. Res.}}  \bibinfo{volume}{12}
+  (\bibinfo{year}{2011}), \bibinfo{pages}{2825--2830}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Psallidas and Wu}{Psallidas and Wu}{2018}]%
+        {PsallidasW18}
+\bibfield{author}{\bibinfo{person}{Fotis Psallidas} {and}
+  \bibinfo{person}{Eugene Wu}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{{Smoke: Fine-grained Lineage at Interactive
+  Speed}}.
+\newblock \bibinfo{journal}{\emph{{PVLDB}}} \bibinfo{volume}{11},
+  \bibinfo{number}{6} (\bibinfo{year}{2018}), \bibinfo{pages}{719--732}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Roy, Seshadri, Sudarshan, and Bhobe}{Roy
+  et~al\mbox{.}}{2000}]%
+        {RoySSB00}
+\bibfield{author}{\bibinfo{person}{Prasan Roy}, \bibinfo{person}{S. Seshadri},
+  \bibinfo{person}{S. Sudarshan}, {and} \bibinfo{person}{Siddhesh Bhobe}.}
+  \bibinfo{year}{2000}\natexlab{}.
+\newblock \showarticletitle{{Efficient and Extensible Algorithms for Multi
+  Query Optimization}}. In \bibinfo{booktitle}{\emph{{SIGMOD}}}.
+  \bibinfo{pages}{249--260}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Ruan, Chen, Dinh, Lin, Ooi, and Zhang}{Ruan
+  et~al\mbox{.}}{2019}]%
+        {Ruan0DLOZ19}
+\bibfield{author}{\bibinfo{person}{Pingcheng Ruan}, \bibinfo{person}{Gang
+  Chen}, \bibinfo{person}{Anh Dinh}, \bibinfo{person}{Qian Lin},
+  \bibinfo{person}{Beng~Chin Ooi}, {and} \bibinfo{person}{Meihui Zhang}.}
+  \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{{Fine-Grained, Secure and Efficient Data Provenance
+  for Blockchain}}.
+\newblock \bibinfo{journal}{\emph{{PVLDB}}} \bibinfo{volume}{12},
+  \bibinfo{number}{9} (\bibinfo{year}{2019}), \bibinfo{pages}{975--988}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Sabne}{Sabne}{2020}]%
+        {XLA}
+\bibfield{author}{\bibinfo{person}{Amit Sabne}.}
+  \bibinfo{year}{2020}\natexlab{}.
+\newblock \bibinfo{title}{{XLA: Compiling Machine Learning for Peak
+  Performance}}.
+\newblock
+\newblock
+\newblock
+\shownote{SIGMOD Workshop DEEM, Industry Keynote}.
+
+
+\bibitem[\protect\citeauthoryear{Schelter}{Schelter}{2020}]%
+        {Schelter20}
+\bibfield{author}{\bibinfo{person}{Sebastian Schelter}.}
+  \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{"Amnesia" - Machine Learning Models That Can Forget
+  User Data Very Fast}. In \bibinfo{booktitle}{\emph{{CIDR}}}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Schelter, Palumbo, Quinn, Marthi, and
+  Musselman}{Schelter et~al\mbox{.}}{2016}]%
+        {MahoutSamsara}
+\bibfield{author}{\bibinfo{person}{Sebastian Schelter}, \bibinfo{person}{Andrew
+  Palumbo}, \bibinfo{person}{Shannon Quinn}, \bibinfo{person}{Suneel Marthi},
+  {and} \bibinfo{person}{Andrew Musselman}.} \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{{Samsara: Declarative Machine Learning on
+  Distributed Dataflow Systems}}.
+\newblock \bibinfo{journal}{\emph{{NIPS MLSys}}} (\bibinfo{year}{2016}).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Shang et~al\mbox{.}}{Shang
+  et~al\mbox{.}}{2019}]%
+        {ShangZBKECBUK19}
+\bibfield{author}{\bibinfo{person}{Zeyuan Shang} {et~al\mbox{.}}}
+  \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{{Democratizing Data Science through Interactive
+  Curation of ML Pipelines}}. In \bibinfo{booktitle}{\emph{{SIGMOD}}}.
+  \bibinfo{pages}{1171--1188}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Sharma and Martin}{Sharma and Martin}{2009}]%
+        {SharmaM09}
+\bibfield{author}{\bibinfo{person}{Gaurav Sharma} {and} \bibinfo{person}{Jos
+  Martin}.} \bibinfo{year}{2009}\natexlab{}.
+\newblock \showarticletitle{{MATLAB: A Language for Parallel Computing}}.
+\newblock \bibinfo{journal}{\emph{Int. J. Parallel Program.}}
+  \bibinfo{volume}{37}, \bibinfo{number}{1} (\bibinfo{year}{2009}),
+  \bibinfo{pages}{3--36}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Shin, Wu, Wang, Sa, Zhang, and R{\'{e}}}{Shin
+  et~al\mbox{.}}{2015}]%
+        {ShinWWSZR15}
+\bibfield{author}{\bibinfo{person}{Jaeho Shin}, \bibinfo{person}{Sen Wu},
+  \bibinfo{person}{Feiran Wang}, \bibinfo{person}{Christopher~De Sa},
+  \bibinfo{person}{Ce Zhang}, {and} \bibinfo{person}{Christopher R{\'{e}}}.}
+  \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{{Incremental Knowledge Base Construction Using
+  DeepDive}}.
+\newblock \bibinfo{journal}{\emph{{PVLDB}}} \bibinfo{volume}{8},
+  \bibinfo{number}{11} (\bibinfo{year}{2015}), \bibinfo{pages}{1310--1321}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Sparks, Venkataraman, Kaftan, Franklin, and
+  Recht}{Sparks et~al\mbox{.}}{2017}]%
+        {SparksVKFR17}
+\bibfield{author}{\bibinfo{person}{Evan~R. Sparks}, \bibinfo{person}{Shivaram
+  Venkataraman}, \bibinfo{person}{Tomer Kaftan}, \bibinfo{person}{Michael~J.
+  Franklin}, {and} \bibinfo{person}{Benjamin Recht}.}
+  \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{{KeystoneML: Optimizing Pipelines for Large-Scale
+  Advanced Analytics}}. In \bibinfo{booktitle}{\emph{{ICDE}}}.
+  \bibinfo{pages}{535--546}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Sujeeth et~al\mbox{.}}{Sujeeth
+  et~al\mbox{.}}{2011}]%
+        {SujeethLBRCWAOO11}
+\bibfield{author}{\bibinfo{person}{Arvind~K. Sujeeth} {et~al\mbox{.}}}
+  \bibinfo{year}{2011}\natexlab{}.
+\newblock \showarticletitle{{OptiML: An Implicitly Parallel Domain-Specific
+  Language for Machine Learning}}. In \bibinfo{booktitle}{\emph{{ICML}}}.
+  \bibinfo{pages}{609--616}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Suri and Bailis}{Suri and Bailis}{2019}]%
+        {SuriB19}
+\bibfield{author}{\bibinfo{person}{Sahaana Suri} {and} \bibinfo{person}{Peter
+  Bailis}.} \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{{DROP: A Workload-Aware Optimizer for
+  Dimensionality Reduction}}. In \bibinfo{booktitle}{\emph{SIGMOD Workshop
+  DEEM}}. \bibinfo{pages}{1:1--1:10}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Tan}{Tan}{2007}]%
+        {Tan07}
+\bibfield{author}{\bibinfo{person}{Wang~Chiew Tan}.}
+  \bibinfo{year}{2007}\natexlab{}.
+\newblock \showarticletitle{{Provenance in Databases: Past, Current, and
+  Future}}.
+\newblock \bibinfo{journal}{\emph{{IEEE} Data Eng. Bull.}}
+  \bibinfo{volume}{30}, \bibinfo{number}{4} (\bibinfo{year}{2007}),
+  \bibinfo{pages}{3--12}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Tribuo}{Tribuo}{2021}]%
+        {MachineL29:online}
+\bibfield{author}{\bibinfo{person}{Tribuo}.} \bibinfo{year}{2021}\natexlab{}.
+\newblock \bibinfo{title}{Machine Learning in Java}.
+\newblock
+\newblock
+\newblock
+\shownote{\url{https://tribuo.org/}}.
+
+
+\bibitem[\protect\citeauthoryear{Unterbrunner, Giannikis, Alonso, Fauser, and
+  Kossmann}{Unterbrunner et~al\mbox{.}}{2009}]%
+        {UnterbrunnerGAFK09}
+\bibfield{author}{\bibinfo{person}{Philipp Unterbrunner},
+  \bibinfo{person}{Georgios Giannikis}, \bibinfo{person}{Gustavo Alonso},
+  \bibinfo{person}{Dietmar Fauser}, {and} \bibinfo{person}{Donald Kossmann}.}
+  \bibinfo{year}{2009}\natexlab{}.
+\newblock \showarticletitle{{Predictable Performance for Unpredictable
+  Workloads}}.
+\newblock \bibinfo{journal}{\emph{{PVLDB}}} \bibinfo{volume}{2},
+  \bibinfo{number}{1} (\bibinfo{year}{2009}), \bibinfo{pages}{706--717}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{van~der Walt, Colbert, and Varoquaux}{van~der
+  Walt et~al\mbox{.}}{2011}]%
+        {WaltCV11}
+\bibfield{author}{\bibinfo{person}{St{\'{e}}fan van~der Walt},
+  \bibinfo{person}{S.~Chris Colbert}, {and} \bibinfo{person}{Ga{\"{e}}l
+  Varoquaux}.} \bibinfo{year}{2011}\natexlab{}.
+\newblock \showarticletitle{{The NumPy Array: A Structure for Efficient
+  Numerical Computation}}.
+\newblock \bibinfo{journal}{\emph{Comp.S\&E}} \bibinfo{volume}{13},
+  \bibinfo{number}{2} (\bibinfo{year}{2011}).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{van~der Weide, Papadopoulos, Smirnov,
+  Zielinski, and van Kasteren}{van~der Weide et~al\mbox{.}}{2017}]%
+        {WeidePSZK17}
+\bibfield{author}{\bibinfo{person}{Tom van~der Weide},
+  \bibinfo{person}{Dimitris Papadopoulos}, \bibinfo{person}{Oleg Smirnov},
+  \bibinfo{person}{Michal Zielinski}, {and} \bibinfo{person}{Tim van
+  Kasteren}.} \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{{Versioning for End-to-End Machine Learning
+  Pipelines}}. In \bibinfo{booktitle}{\emph{SIGMOD Workshop DEEM}}.
+  \bibinfo{pages}{2:1--2:9}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Vartak, da~Trindade, Madden, and
+  Zaharia}{Vartak et~al\mbox{.}}{2018}]%
+        {VartakTMZ18}
+\bibfield{author}{\bibinfo{person}{Manasi Vartak}, \bibinfo{person}{Joana M.~F.
+  da Trindade}, \bibinfo{person}{Samuel Madden}, {and} \bibinfo{person}{Matei
+  Zaharia}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{{MISTIQUE: A System to Store and Query Model
+  Intermediates for Model Diagnosis}}. In \bibinfo{booktitle}{\emph{{SIGMOD}}},
+  \bibfield{editor}{\bibinfo{person}{Gautam Das},
+  \bibinfo{person}{Christopher~M. Jermaine}, {and} \bibinfo{person}{Philip~A.
+  Bernstein}} (Eds.). \bibinfo{pages}{1285--1300}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Vartak and Madden}{Vartak and Madden}{2018}]%
+        {VartakM18}
+\bibfield{author}{\bibinfo{person}{Manasi Vartak} {and} \bibinfo{person}{Samuel
+  Madden}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{{MODELDB: Opportunities and Challenges in Managing
+  Machine Learning Models}}.
+\newblock \bibinfo{journal}{\emph{{IEEE} Data Eng. Bull.}}
+  \bibinfo{volume}{41}, \bibinfo{number}{4} (\bibinfo{year}{2018}),
+  \bibinfo{pages}{16--25}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Venables and Ripley}{Venables and
+  Ripley}{2002}]%
+        {VenablesR02}
+\bibfield{author}{\bibinfo{person}{William~N. Venables} {and}
+  \bibinfo{person}{Brian~D. Ripley}.} \bibinfo{year}{2002}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{Modern Applied Statistics with S, 4th Ed.}}
+\newblock \bibinfo{publisher}{Springer}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Wang, Hutchison, Suciu, Howe, and Leang}{Wang
+  et~al\mbox{.}}{2020}]%
+        {WangHSHL20}
+\bibfield{author}{\bibinfo{person}{Yisu~Remy Wang}, \bibinfo{person}{Shana
+  Hutchison}, \bibinfo{person}{Dan Suciu}, \bibinfo{person}{Bill Howe}, {and}
+  \bibinfo{person}{Jonathan Leang}.} \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{{SPORES: Sum-Product Optimization via Relational
+  Equality Saturation for Large Scale Linear Algebra}}.
+\newblock \bibinfo{journal}{\emph{{PVLDB}}} \bibinfo{volume}{13},
+  \bibinfo{number}{11} (\bibinfo{year}{2020}), \bibinfo{pages}{1919--1932}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Wilkinson et~al\mbox{.}}{Wilkinson
+  et~al\mbox{.}}{2016}]%
+        {fair2016}
+\bibfield{author}{\bibinfo{person}{Mark~D. Wilkinson} {et~al\mbox{.}}}
+  \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{The FAIR Guiding Principles for scientific data
+  management and stewardship}.
+\newblock \bibinfo{journal}{\emph{Scientific Data}} \bibinfo{volume}{3},
+  \bibinfo{number}{1} (\bibinfo{year}{2016}).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Wu, Alawini, Deutch, Milo, and Davidson}{Wu
+  et~al\mbox{.}}{2019}]%
+        {WuADMD19}
+\bibfield{author}{\bibinfo{person}{Yinjun Wu}, \bibinfo{person}{Abdussalam
+  Alawini}, \bibinfo{person}{Daniel Deutch}, \bibinfo{person}{Tova Milo}, {and}
+  \bibinfo{person}{Susan~B. Davidson}.} \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{{ProvCite: Provenance-based Data Citation}}.
+\newblock \bibinfo{journal}{\emph{{PVLDB}}} \bibinfo{volume}{12},
+  \bibinfo{number}{7} (\bibinfo{year}{2019}), \bibinfo{pages}{738--751}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Xin, Macke, Ma, Liu, Song, and
+  Parameswaran}{Xin et~al\mbox{.}}{2018}]%
+        {XinMMLSP18}
+\bibfield{author}{\bibinfo{person}{Doris Xin}, \bibinfo{person}{Stephen Macke},
+  \bibinfo{person}{Litian Ma}, \bibinfo{person}{Jialin Liu},
+  \bibinfo{person}{Shuchen Song}, {and} \bibinfo{person}{Aditya~G.
+  Parameswaran}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Helix: Holistic Optimization for Accelerating
+  Iterative Machine Learning}.
+\newblock \bibinfo{journal}{\emph{{PVLDB}}} \bibinfo{volume}{12},
+  \bibinfo{number}{4} (\bibinfo{year}{2018}), \bibinfo{pages}{446--460}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Yan, Tannen, and Ives}{Yan
+  et~al\mbox{.}}{2016}]%
+        {YanTI16}
+\bibfield{author}{\bibinfo{person}{Zhepeng Yan}, \bibinfo{person}{Val Tannen},
+  {and} \bibinfo{person}{Zachary~G. Ives}.} \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{{Fine-grained Provenance for Linear Algebra
+  Operators}}. In \bibinfo{booktitle}{\emph{{TaPP}}},
+  \bibfield{editor}{\bibinfo{person}{Sarah~Cohen Boulakia}} (Ed.).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Zaharia et~al\mbox{.}}{Zaharia
+  et~al\mbox{.}}{2012}]%
+        {ZahariaCDDMMFSS12}
+\bibfield{author}{\bibinfo{person}{Matei Zaharia} {et~al\mbox{.}}}
+  \bibinfo{year}{2012}\natexlab{}.
+\newblock \showarticletitle{{Resilient Distributed Datasets: A Fault-Tolerant
+  Abstraction for In-Memory Cluster Computing}}. In
+  \bibinfo{booktitle}{\emph{{NSDI}}}. \bibinfo{pages}{15--28}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Zaharia et~al\mbox{.}}{Zaharia
+  et~al\mbox{.}}{2018}]%
+        {ZahariaCD0HKMNO18}
+\bibfield{author}{\bibinfo{person}{Matei Zaharia} {et~al\mbox{.}}}
+  \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{{Accelerating the Machine Learning Lifecycle with
+  MLflow}}.
+\newblock \bibinfo{journal}{\emph{{IEEE} Data Eng. Bull.}}
+  \bibinfo{volume}{41}, \bibinfo{number}{4} (\bibinfo{year}{2018}),
+  \bibinfo{pages}{39--45}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Zhang, Kumar, and R{\'{e}}}{Zhang
+  et~al\mbox{.}}{2014}]%
+        {ZhangKR14}
+\bibfield{author}{\bibinfo{person}{Ce Zhang}, \bibinfo{person}{Arun Kumar},
+  {and} \bibinfo{person}{Christopher R{\'{e}}}.}
+  \bibinfo{year}{2014}\natexlab{}.
+\newblock \showarticletitle{{Materialization Optimizations for Feature
+  Selection Workloads}}. In \bibinfo{booktitle}{\emph{{SIGMOD}}}.
+  \bibinfo{pages}{265--276}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Zhang and Ives}{Zhang and Ives}{2019}]%
+        {ZhangI19}
+\bibfield{author}{\bibinfo{person}{Yi Zhang} {and} \bibinfo{person}{Zachary~G.
+  Ives}.} \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{{Juneau: Data Lake Management for Jupyter}}.
+\newblock \bibinfo{journal}{\emph{{PVLDB}}} \bibinfo{volume}{12},
+  \bibinfo{number}{12} (\bibinfo{year}{2019}), \bibinfo{pages}{1902--1905}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Zhang, Ives, and Roth}{Zhang
+  et~al\mbox{.}}{2020}]%
+        {ZhangIR20}
+\bibfield{author}{\bibinfo{person}{Yi Zhang}, \bibinfo{person}{Zachary~G.
+  Ives}, {and} \bibinfo{person}{Dan Roth}.} \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{{"Who said it, and Why?" Provenance for Natural
+  Language Claims}}. In \bibinfo{booktitle}{\emph{{ACL}}}.
+  \bibinfo{pages}{4416--4426}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Zheng, Alawini, and Ives}{Zheng
+  et~al\mbox{.}}{2019}]%
+        {ZhengAI19}
+\bibfield{author}{\bibinfo{person}{Nan Zheng}, \bibinfo{person}{Abdussalam
+  Alawini}, {and} \bibinfo{person}{Zachary~G. Ives}.}
+  \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{{Fine-Grained Provenance for Matching {\&} ETL}}.
+  In \bibinfo{booktitle}{\emph{{ICDE}}}. \bibinfo{pages}{184--195}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Zhou, Larson, Freytag, and Lehner}{Zhou
+  et~al\mbox{.}}{2007}]%
+        {ZhouLFL07}
+\bibfield{author}{\bibinfo{person}{Jingren Zhou},
+  \bibinfo{person}{Per{-}{\AA}ke Larson}, \bibinfo{person}{Johann~Christoph
+  Freytag}, {and} \bibinfo{person}{Wolfgang Lehner}.}
+  \bibinfo{year}{2007}\natexlab{}.
+\newblock \showarticletitle{{Efficient Exploitation of Similar Subexpressions
+  for Query Processing}}. In \bibinfo{booktitle}{\emph{{SIGMOD}}}.
+  \bibinfo{pages}{533--544}.
+\newblock
+
+
+\end{thebibliography}

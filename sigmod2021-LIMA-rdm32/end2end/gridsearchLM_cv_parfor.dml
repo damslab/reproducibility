@@ -1,0 +1,89 @@
+crossV = function(Matrix[double] X, Matrix[double] y, double lamda, Integer icpt=0, Double tol, Integer k) return (Matrix[double] R)
+{
+  # Create empty lists
+  dataset_X = list(); #empty list
+  dataset_y = list();
+  fs = ceil(nrow(X)/k);
+  off = fs - 1;
+  # Devide X, y into lists of k matrices
+  for (i in seq(1, k)) {
+    dataset_X = append(dataset_X, X[i*fs-off : min(i*fs, nrow(X)),]);
+    dataset_y = append(dataset_y, y[i*fs-off : min(i*fs, nrow(y)),]);
+  }
+
+  beta_list = list();
+  # Keep one fold for testing in each iteration
+  for (i in seq(1, k)) {
+    [tmpX, testX] = remove(dataset_X, i);
+    [tmpy, testy] = remove(dataset_y, i);
+    trainX = rbind(tmpX);
+    trainy = rbind(tmpy);
+    trainX = trainX[,1:ncol(X)] # TODO improve list size propagation
+    beta = lm(X=trainX, y=trainy, icpt=icpt, reg=lamda, tol=tol, maxi=0, verbose=FALSE);
+    beta_list = append(beta_list, beta);
+  }
+  R = cbind(beta_list);
+  R = rowSums(R);
+}
+
+l2norm = function(Matrix[Double] X, Matrix[Double] y, Matrix[Double] B, Integer icpt) 
+return (Matrix[Double] loss) {
+  if (icpt > 0)
+    X = cbind(X, matrix(1, nrow(X), 1));
+  loss = as.matrix(sum((y - X%*%B)^2));
+}
+
+randColSet = function(Matrix[Double] X, Integer seed, Double sample) return (Matrix[Double] Xi) {
+  temp = rand(rows=ncol(X), cols=1, min = 0, max = 1, sparsity=1, seed=seed) <= sample
+  Xi = removeEmpty(target = X, margin = "cols", select = temp);
+}
+
+##########################################3
+
+# Create datasets
+M = $1;
+X = rand(rows=$1, cols=100, sparsity=1.0, seed=1);
+y = rand(rows=$1, cols=1, sparsity=1.0, seed=1);
+
+Rbeta = matrix(0, rows=900, cols=ncol(X)); #nrows = 10*6*3*5 = 900
+Rloss = matrix(0, rows=900, cols=1);
+index = 10^seq(-5, 0);
+k = 1;
+
+# Collect the hyper-parameters in a matrix
+HP = matrix(0, 90, 3);
+i = 1;
+for (h1 in -5:0) {       #regularization - values:10^-5 to 10^0
+  for (h2 in 0:2) {      #intercept - range: 0, 1, 2
+    for (h3 in -12:-8) { #tolerance - values: 10^-12 to 10^-8
+      reg = 10^h1;
+      icpt = h2;
+      tol = 10^h3;
+      HP[i,1] = icpt;
+      HP[i,2] = reg;
+      HP[i,3] = tol;
+      i = i + 1;
+    }
+  }
+}
+ 
+# Start 10 iterations
+for (i in 0:9)
+{
+  # Randomly select 15% columns in every iteration
+  Xi = randColSet(X, i, 0.15);
+  # Start grid search hyper-parameter tuning for LM with cross validation 
+  parfor (combi in 1:nrow(HP), check=0) {
+    icpt1 = as.scalar(HP[combi,1]);
+    reg1 = as.scalar(HP[combi,2]);
+    tol1 = as.scalar(HP[combi,3]);
+    beta = crossV(X=Xi, y=y, lamda=reg, icpt=icpt, tol=tol, k=4);
+    Rbeta[i*90+combi, 1:nrow(beta)] = t(beta);
+    Rloss[i*90+combi,] = l2norm(Xi, y, beta, icpt);
+  }
+}
+
+while(FALSE) {}
+leastLoss = rowIndexMin(t(Rloss));
+bestModel = Rbeta[as.scalar(leastLoss),];
+write(bestModel, "outdml", format="binary");

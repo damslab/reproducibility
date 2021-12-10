@@ -1,0 +1,130 @@
+scale_local = function(Matrix[Double] X) return (Matrix[Double] X_scaled)
+{
+  N = nrow(X);
+  X = X - colMeans(X);
+  cvars = (colSums(X^2) - N*(colMeans(X)^2))/(N-1);
+  X_scaled = replace(target=X/sqrt(cvars), pattern=NaN, replacement=0);
+}
+
+checkR2 = function(Matrix[double] X, Matrix[double] y, Matrix[double] y_p,
+          Matrix[double] beta, Integer icpt) return (Double R2_ad)
+{
+  n = nrow(X);
+  m = ncol(X);
+  m_ext = m;
+  if (icpt == 1|icpt == 2)
+      m_ext = m+1; #due to extra column ones
+  avg_tot = sum(y)/n;
+  ss_tot = sum(y^2);
+  ss_avg_tot = ss_tot - n*avg_tot^2;
+  y_res = y - y_p;
+  avg_res = sum(y - y_p)/n;
+  ss_res = sum((y - y_p)^2);
+  R2 = 1 - ss_res/ss_avg_tot;
+  dispersion = ss_res/(n-m_ext);
+  R2_ad = 1-dispersion/(ss_avg_tot/(n-1));
+}
+
+crossV = function(Matrix[double] X, Matrix[double] y, double lamda, Integer k) return (Matrix[double] R)
+{
+  #create empty lists
+  dataset_X = list(); #empty list
+  dataset_y = list();
+  fs = ceil(nrow(X)/k);
+  off = fs - 1;
+  #devide X, y into lists of k matrices
+  for (i in seq(1, k)) {
+    dataset_X = append(dataset_X, X[i*fs-off : min(i*fs, nrow(X)),]);
+    dataset_y = append(dataset_y, y[i*fs-off : min(i*fs, nrow(y)),]);
+  }
+
+  beta_list = list();
+  #keep one fold for testing in each iteration
+  for (i in seq(1, k)) {
+    [tmpX, testX] = remove(dataset_X, i);
+    [tmpy, testy] = remove(dataset_y, i);
+    trainX = rbind(tmpX);
+    trainy = rbind(tmpy);
+    trainX = trainX[,1:ncol(X)]
+    beta = lmDS_local(trainX, trainy, lamda, 0, ncol(X));
+    beta_list = append(beta_list, beta);
+  }
+
+  R = cbind(beta_list);
+  R = rowSums(R);
+}
+
+lmDS_local = function(Matrix[Double] X, Matrix[Double] y, Double reg=1e-7, Integer icpt=0, Integer N)
+  return(Matrix[Double] B)
+{
+  n = nrow(X);
+  m = ncol(X);
+  ones_n = matrix(1, rows=n, cols=1);
+  m_ext = m;
+  X_l = X;
+
+  if (icpt == 1) {
+    X_l = cbind(X, ones_n);
+    m_ext = ncol(X_l);
+  }
+  scale_lambda = matrix(1, rows=m_ext, cols=1);
+  if (icpt == 1)
+    scale_lambda[m_ext, 1] = 0;
+
+  lambda = scale_lambda * reg;
+  A = t(X_l) %*% X_l;
+  b = t(X_l) %*% y;
+  A = A + diag(lambda);
+  beta = solve(A, b);
+  B = beta;
+}
+
+#################################################################
+
+# Get the dataset
+A = rand(rows=$1, cols=1000, sparsity=1.0)
+y = rand(rows=$1, cols=1, sparsity=1.0)
+R = matrix(0, rows=1, cols=20);
+helix = $2;
+
+Kc = floor(ncol(A) * 0.8);
+
+# Tune K in PCA
+for (i in 1:10) {
+  [newA1, Mout] = pca(X=A, K=Kc+i);
+  beta1 = crossV(X=newA1, y=y, lamda=0.0001, k=32);
+  y_predict1 = lmPredict(X=newA1, B=beta1, icpt=0);
+  # y_predict1 = lmPredict(X=newA1, B=beta1, ytest=y, icpt=0); #enable in release 2.1, 2.2
+  R2_ad1 = checkR2(newA1, y, y_predict1, beta1, 0);
+  R[,i] = R2_ad1;
+}
+
+# Tune lamda for LM 
+if (helix == 1) {
+  # For Helix, reuse PCA calls
+  newA3 = newA1;
+  beta3 = beta1;
+  y_predict3 = y_predict1;
+  R2_ad3 = R2_ad1;
+  R[,10+1] = R2_ad3;
+  for (i in 2:10) {
+    newA3 = newA1;
+    beta3 = crossV(X=newA3, y=y, lamda=0.0001*i, k=32);
+    y_predict3 = lmPredict(X=newA3, B=beta3, icpt=0);
+    # y_predict3 = lmPredict(X=newA3, B=beta3, ytest=y, icpt=0); #enable in release 2.1, 2.2
+    R2_ad3 = checkR2(newA3, y, y_predict3, beta3, 0);
+    R[,10+i] = R2_ad3;
+  }
+}
+else {
+  for (i in 1:10) {
+    [newA3, Mout] = pca(X=A, K=Kc+10);
+    beta3 = crossV(X=newA3, y=y, lamda=0.0001*i, k=32);
+    y_predict3 = lmPredict(X=newA3, B=beta3, icpt=0);
+    # y_predict3 = lmPredict(X=newA3, B=beta3, ytest=y, icpt=0); #enable in release 2.1, 2.2
+    R2_ad3 = checkR2(newA3, y, y_predict3, beta3, 0);
+    R[,10+i] = R2_ad3;
+  }
+}
+
+write(R, "outdml", format="binary");

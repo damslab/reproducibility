@@ -1,0 +1,34 @@
+no_laplace = 10;
+laplace = 1;
+lim = 10;
+stp = (lim - laplace)/no_laplace;
+# Read the datasets
+X = read("../datasets/KDD_recode_X", format="binary");
+y = read("../datasets/KDD_y.csv", format="csv");
+median = median(y);
+y = ifelse(y > median, 2, 1);
+M = nrow(X);
+print(M+" "+ncol(X));
+R = matrix(0, M, 20);
+
+# Tune K for pca
+K = floor(ncol(X) * 0.1);
+for (i in 1:10) {
+  [X_dr, Mout] = pca(X=X, K=K+i);
+  [prior, cond] = naivebayes(D=X_dr, C=y, verbose=FALSE);
+  logProbs = X_dr %*% t(log(cond)) + t(log(prior));
+  y_nb = rowIndexMax(logProbs);
+  R[,i] = y_nb;
+}
+
+# Tune laplace hyper-parameter for naivebayes
+for (i in 1:no_laplace)
+{
+  [X_dr, Mout] = pca(X=X, K=K+9);
+  [prior, cond] =  naivebayes(D=X_dr, C=y, laplace=laplace, verbose=FALSE);
+  logProbs = X_dr %*% t(log(cond)) + t(log(prior)); #not reusable ba+*
+  y_nb = rowIndexMax(logProbs);
+  R[,i+10] = y_nb;
+  laplace = laplace + stp;
+}
+write(R, "out", format="csv");

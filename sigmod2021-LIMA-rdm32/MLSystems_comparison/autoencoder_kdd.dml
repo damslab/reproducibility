@@ -1,0 +1,225 @@
+# Autoencoder with 2 hidden layers
+scale_l = function(Matrix[Double] X, Matrix[Double] cmeans, Matrix[Double] csum)
+  return (Matrix[Double] Y) {
+  # This function centers scales and performs z-score on the input matrix X
+  center = TRUE;
+  scale = TRUE;
+  if( center )
+    X = X - cmeans;
+
+  if (scale) {
+    N = nrow(X);
+    if( center )
+      cvars = (csum - N*(cmeans^2))/(N-1);
+    else
+      cvars = csum/(N-1);
+
+    #scale by std-dev and replace NaNs with 0's
+    X = replace(target=X/sqrt(cvars),
+      pattern=NaN, replacement=0);
+  }
+  Y = X;
+}
+
+func = function(Matrix[Double] X) return(Matrix[Double] Y, Matrix[Double] Y_prime){
+     Y = (exp(2*X) - 1)/(exp(2*X) + 1)
+     Y_prime = 1 - Y^2
+}
+
+feedForward = function(Matrix[Double] X, 
+	               Matrix[Double] W1, Matrix[Double] b1, 
+	               Matrix[Double] W2, Matrix[Double] b2, 
+	               Matrix[Double] W3, Matrix[Double] b3, 
+	               Matrix[Double] W4, Matrix[Double] b4, 
+		       Matrix[Double] Y)
+      	      return(Matrix[Double] H1, Matrix[Double] H1_prime,
+	     	     Matrix[Double] H2, Matrix[Double] H2_prime,
+	     	     Matrix[Double] H3, Matrix[Double] H3_prime,
+	     	     Matrix[Double] Yhat, Matrix[Double] Yhat_prime,
+	     	     Matrix[Double] E){
+      H1_in = t(W1 %*% t(X) + b1)
+      [H1, H1_prime] = func(H1_in)
+
+      H2_in = t(W2 %*% t(H1) + b2)
+      [H2, H2_prime] = func(H2_in)
+
+      H3_in = t(W3 %*% t(H2) + b3)
+      [H3, H3_prime] = func(H3_in)
+
+      Yhat_in = t(W4 %*% t(H3) + b4)
+      [Yhat, Yhat_prime] = func(Yhat_in)
+      E = Yhat - Y
+}
+
+grad = function(Matrix[Double] X, 
+       		Matrix[Double] H1, Matrix[Double] H1_prime,
+       		Matrix[Double] H2, Matrix[Double] H2_prime,
+       		Matrix[Double] H3, Matrix[Double] H3_prime,
+		Matrix[Double] Yhat_prime,
+		Matrix[Double] E,
+		Matrix[Double] W1, Matrix[Double] W2, Matrix[Double] W3, Matrix[Double] W4)
+       return(Matrix[Double] W1_grad, Matrix[Double] b1_grad,
+              Matrix[Double] W2_grad, Matrix[Double] b2_grad,
+	      Matrix[Double] W3_grad, Matrix[Double] b3_grad,
+	      Matrix[Double] W4_grad, Matrix[Double] b4_grad){
+      #backprop
+      delta4 = E * Yhat_prime
+      delta3 = H3_prime * (delta4 %*% W4)
+      delta2 = H2_prime * (delta3 %*% W3)
+      delta1 = H1_prime * (delta2 %*% W2)
+
+      #compute gradients
+      b4_grad = t(colSums(delta4))
+      b3_grad = t(colSums(delta3))
+      b2_grad = t(colSums(delta2))
+      b1_grad = t(colSums(delta1))
+
+      W4_grad = t(delta4) %*% H3
+      W3_grad = t(delta3) %*% H2
+      W2_grad = t(delta2) %*% H1
+      W1_grad = t(delta1) %*% X
+}
+
+obj = function(Matrix[Double] E) return(Double val){
+    val = 0.5 * sum(E^2)
+}
+
+###############################################################3
+
+# Set the hyper-parameters
+batch_size = $4;
+mu = 0.9;
+step = 1e-5;
+decay = 0.95;
+hfile = " ";
+fmt = "binary";
+full_obj = FALSE;
+
+# Read and prepare the dataset
+Forig = read("../datasets/KDD98.csv", data_type="frame", format="csv", header=TRUE);
+F = Forig[,1:469];
+y = as.matrix(Forig[,472])
+# data preparation
+bin = matrix(0, ncol(F), 1);
+bin[5,] = 1;
+bin[8,] = 1;
+bin[17,] = 1;
+bin[27,] = 1;
+bin[44:50,] = matrix(1, 7, 1);
+bin[54,] = 1;
+bin[76:195,] = matrix(1, 195-76+1, 1);
+bin[199:361,] = matrix(1, 361-199+1, 1);
+bin[408,] = 1;
+bin[410:412,] = matrix(1, 3, 1);
+bin[435:469,] = matrix(1, 469-435+1, 1);
+recode="1";
+for(i in 2:nrow(bin))
+  if( as.scalar(bin[i,])!=1 )
+    recode = recode+","+i;
+binning = "{id:5, method:equi-width, numbins:5}"
+for(i in 6:nrow(bin))
+  if( as.scalar(bin[i,])==1 )
+    binning = binning+",\n{id:"+i+", method:equi-width, numbins:5}";
+dummy="1";
+for (i in 2:nrow(bin))
+  if( as.scalar(bin[i,])!=1 | as.scalar(bin[i,])==1)
+    dummy = dummy+","+i;
+jspec= "{ ids:true, recode:["+recode+"], bin:["+binning+"], dummycode:["+dummy+"]}"
+[X_en ,Meta] = transformencode(target=F, spec=jspec);
+print("number of rows "+nrow(X_en) + "\nnumber of cols " + ncol(X_en));
+
+X_frame = F;
+num_hidden1 = $1;
+num_hidden2 = $2;
+max_epochs = $3;
+
+n = nrow(X_frame);
+m = ncol(X_en);
+cmean = colMeans(X_en);
+csum = colSums(X_en^2);
+
+# Initialize weights and biases
+W1 = sqrt(6)/sqrt(m + num_hidden1) * 
+  Rand(rows=num_hidden1, cols=m, min=-1, max=1, pdf="uniform");
+b1 = matrix(0, rows=num_hidden1, cols=1)
+W2 = sqrt(6)/sqrt(num_hidden1 + num_hidden2) * 
+  Rand(rows=num_hidden2, cols=num_hidden1, min=-1, max=1, pdf="uniform");
+b2 = matrix(0, rows=num_hidden2, cols=1)
+W3 = sqrt(6)/sqrt(num_hidden2 + num_hidden1) * 
+  Rand(rows=num_hidden1, cols=num_hidden2, min=-1, max=1, pdf="uniform");
+b3 = matrix(0, rows=num_hidden1, cols=1)
+W4 = sqrt(6)/sqrt(num_hidden2 + m) * 
+  Rand(rows=m, cols=num_hidden1, min=-1, max=1, pdf="uniform");
+b4 = matrix(0, rows=m, cols=1)
+
+upd_W1 = matrix(0, rows=nrow(W1), cols=ncol(W1))
+upd_b1 = matrix(0, rows=nrow(b1), cols=ncol(b1))
+upd_W2 = matrix(0, rows=nrow(W2), cols=ncol(W2))
+upd_b2 = matrix(0, rows=nrow(b2), cols=ncol(b2))
+upd_W3 = matrix(0, rows=nrow(W3), cols=ncol(W3))
+upd_b3 = matrix(0, rows=nrow(b3), cols=ncol(b3))
+upd_W4 = matrix(0, rows=nrow(W4), cols=ncol(W4))
+upd_b4 = matrix(0, rows=nrow(b4), cols=ncol(b4))
+
+
+# Mini-batch processing
+iter = 0
+num_iters_per_epoch = ceil(n / batch_size)
+max_iterations = max_epochs * num_iters_per_epoch
+beg = 1
+while( iter < max_iterations ){
+      end = beg + batch_size - 1
+      if(end > n) end = n
+      batch = X_frame[beg:end,]
+      X_batch = transformapply(target=batch, spec=jspec, meta=Meta);
+      X_batch = replace(target=X_batch, pattern=NaN, replacement=0);
+      X_batch = scale_l(X_batch, cmean, csum);
+
+
+      [H1, H1_prime, H2, H2_prime, H3, H3_prime, Yhat, Yhat_prime, E] = 
+        feedForward(X_batch, W1, b1, W2, b2, W3, b3, W4, b4, X_batch);
+      [W1_grad, b1_grad, W2_grad, b2_grad, W3_grad, b3_grad, 
+        W4_grad, b4_grad] = grad(X_batch, H1, H1_prime, H2, H2_prime, 
+            H3, H3_prime, Yhat_prime, E, W1, W2, W3, W4);
+
+      o = obj(E)
+
+      #update
+      local_step = step / nrow(X_batch)
+      upd_W1 = mu * upd_W1 - local_step * W1_grad
+      upd_b1 = mu * upd_b1 - local_step * b1
+      upd_W2 = mu * upd_W2 - local_step * W2_grad
+      upd_b2 = mu * upd_b2 - local_step * b2
+      upd_W3 = mu * upd_W3 - local_step * W3_grad
+      upd_b3 = mu * upd_b3 - local_step * b3
+      upd_W4 = mu * upd_W4 - local_step * W4_grad
+      upd_b4 = mu * upd_b4 - local_step * b4
+      W1 = W1 + upd_W1
+      b1 = b1 + upd_b1
+      W2 = W2 + upd_W2
+      b2 = b2 + upd_b2
+      W3 = W3 + upd_W3
+      b3 = b3 + upd_b3
+      W4 = W4 + upd_W4
+      b4 = b4 + upd_b4
+
+      iter = iter + 1
+      if(end == n) 
+        beg = 1;
+      else 
+        beg = end + 1;
+
+      if( iter %% num_iters_per_epoch == 0 ) 
+        step = step * decay;
+}
+
+# Write out the model
+write(W1, "W1_out", format=fmt)
+write(b1, "b1_out", format=fmt)
+write(W2, "W2_out", format=fmt)
+write(b2, "b2_out", format=fmt)
+write(W3, "W3_out", format=fmt)
+write(b3, "b3_out", format=fmt)
+write(W4, "W4_out", format=fmt)
+write(b4, "b4_out", format=fmt)
+

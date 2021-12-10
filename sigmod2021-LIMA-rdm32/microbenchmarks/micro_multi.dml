@@ -1,0 +1,18 @@
+count = $1;
+nrow = 50000;
+# Create datasets
+X = rand(rows=nrow, cols=1000, sparsity=1.0, seed=1);
+y = rand(rows=nrow, cols=1, min=0, max=6, sparsity=1.0, seed=1);
+y = floor(y);
+R = matrix(0, rows=2500*(ncol(X)+1), cols=5);
+
+# Repeat the entire process from 1 to 20 times
+for (i in 1:count) {
+  # MLogReg for 40 different lambdas
+  for (lamda in 10:49) {
+    betas = multiLogReg(X=X, Y=y, icpt=2, tol=0.000001, reg=lamda, 
+        maxi=100, maxii=0, verbose=FALSE);
+    R[1:ncol(X)+1,] = betas;
+  }
+}
+write(R, "outdml", format="binary");

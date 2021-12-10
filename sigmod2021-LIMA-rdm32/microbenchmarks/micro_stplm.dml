@@ -1,0 +1,27 @@
+# Create datasets
+D = rand(rows=100000, cols=1000, seed=42);
+y = rand(rows=100000, cols=1, seed=42);
+nl = 10;
+
+X = D[,1:900];
+for (i in 901:930) {
+  # stplm loop start
+  X = cbind(X, D[,i:i]);
+  R = matrix(0, rows=ncol(X), cols=nl+2);
+  lamda = 0.001;
+  for (i in 1:nl) {
+    # hyper-parameter optimization loop start
+    filler = rand(rows=ncol(X), cols=10000);
+    filler = round(filler);
+    filler = filler + 1;
+    A = (t(X) %*% X) + diag(matrix(lamda, rows=ncol(X), cols=1));
+    b = t(X) %*% y;
+    beta = solve(A, b);
+    R[,i] = beta;
+    lamda = lamda + 0.001;
+    print(sum(filler));
+  }
+}
+# As the missed computetime is 0 w/ C&S, C&S results can be used as w/ infinite cache
+
+write(R, "outdml", format="binary");

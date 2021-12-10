@@ -1,0 +1,18 @@
+# Create dataset
+M = $1;
+lim = $2;
+X = rand(rows=M, cols=784, seed=42)
+
+# Build a long lineage DAG
+for(i in 1:lim) {
+  X = ((X + X) * i - X) / (i+1)
+  X = ((X + X) * i - X) / (i+1)
+  X = ((X + X) * i - X) / (i+1)
+  X = ((X + X) * i - X) / (i+1)
+  X = ((X + X) * i - X) / (i+1)
+  X = ((X + X) * i - X) / (i+1)
+  X = ((X + X) * i - X) / (i+1)
+  X = ((X + X) * i - X) / (i+1)
+  X = ((X + X) * i - X) / (i+1)
+  X = ((X + X) * i - X) / (i+1)
+}

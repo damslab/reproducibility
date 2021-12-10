@@ -1,0 +1,62 @@
+readNdClean = function(Boolean train=TRUE) return(Matrix[Double] X, Matrix[Double] y)
+{
+  # Read the csv file in a frame
+  if (train) {
+    A_dirty = read("../datasets/aps_failure_training_set.csv",
+        data_type="frame", format="csv", header=TRUE,
+        naStrings=["NA", "na", "null", "NaN", "nan", "", "?"]);
+  }
+  else {
+    A_dirty = read("../datasets/aps_failure_test_set.csv",
+        data_type="frame", format="csv", header=TRUE,
+        naStrings=["NA", "na", "null", "NaN", "nan", "", "?"]);
+  }
+
+  # encode the class column and "na"s to numeric and NaNs respectively.
+  jspecR = "{ids:true, recode:["+1+"]}";
+  [A, X_meta] = transformencode(target=A_dirty, spec=jspecR);
+  X_cl = A;
+  # Seperate out the labels column
+  y = X_cl[,1];
+  X = X_cl[,2:ncol(X_cl)];
+  # Impute the missing values
+  X = imputeByMean(X);
+
+  if (train) {
+    # Handle class imbalance for class 2
+    mask = (y == 2);
+    Xmask = X * mask;
+    minority = removeEmpty(target=Xmask, margin="rows");
+    Xtmp = smote(X=minority, s=1000);
+    # NOTE: smote's signature has changed in SystemDS 2.1, 2.2
+    # Comment the above call and enable the below lines
+    # typemask = matrix(0, rows=1, cols=ncol(minority));
+    # Xtmp = smote(X=minority, mask=typemask, s=1000);
+    X = rbind(X, Xtmp);
+    y = rbind(y, matrix(2, rows=10000, cols=1));
+  }
+}
+
+imputeByMean = function(Matrix[Double] X) return(Matrix[Double] X)
+{
+  Mask = is.nan(X);
+  X = replace(target=X, pattern=NaN, replacement=0)
+  Mask = Mask * (colMeans(X))
+  X = X + Mask;
+}
+
+# Missing value imputation, fix class imbalance
+[X, y] = readNdClean(TRUE)           #training data
+[test, testY] = readNdClean(FALSE);  #test data
+write(X, "APS_X.csv", format="csv");
+write(y, "APS_y.csv", format="csv");
+write(test, "APS_testX.csv", format="csv");
+write(testY, "APS_testY.csv", format="csv");
+
+# Synthetic equivalent (w/ similar data characteristics)
+X_syn = rand(rows=70000, cols=170, sparsity=0.7, seed=42);
+y_syn = rand(rows=70000, cols=1, min=0, max=2);
+y_syn = ceil(y_syn);
+write(X_syn, "APS_X_Syn.csv", format="csv");
+write(y_syn, "APS_y_Syn.csv", format="csv");
+

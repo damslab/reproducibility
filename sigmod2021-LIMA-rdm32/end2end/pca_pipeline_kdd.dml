@@ -1,0 +1,96 @@
+checkR2 = function(Matrix[double] X, Matrix[double] y, Matrix[double] y_p,
+          Matrix[double] beta, Integer icpt) return (Double R2_ad)
+{
+  n = nrow(X);
+  m = ncol(X);
+  m_ext = m;
+  if (icpt == 1|icpt == 2)
+      m_ext = m+1; #due to extra column ones
+  avg_tot = sum(y)/n;
+  ss_tot = sum(y^2);
+  ss_avg_tot = ss_tot - n*avg_tot^2;
+  y_res = y - y_p;
+  avg_res = sum(y - y_p)/n;
+  ss_res = sum((y - y_p)^2);
+  R2 = 1 - ss_res/ss_avg_tot;
+  dispersion = ifelse(n>m_ext, ss_res/(n-m_ext), NaN);
+  R2_ad = ifelse(n>m_ext, 1-dispersion/(ss_avg_tot/(n-1)), NaN);
+}
+
+readNdClean = function() return (Matrix[double] X, Matrix[double] y)
+{
+  Forig = read("../datasets/KDD98.csv", data_type="frame", format="csv", header=TRUE);
+  F = Forig[,1:469];
+  y = as.matrix(Forig[,472])
+
+  # data preparation
+  bin = matrix(0, ncol(F), 1);
+  bin[5,] = 1;
+  bin[8,] = 1;
+  bin[17,] = 1;
+  bin[27,] = 1;
+  bin[44:50,] = matrix(1, 7, 1);
+  bin[54,] = 1;
+  bin[76:195,] = matrix(1, 195-76+1, 1);
+  bin[199:361,] = matrix(1, 361-199+1, 1);
+  bin[408,] = 1;
+  bin[410:412,] = matrix(1, 3, 1);
+  bin[435:469,] = matrix(1, 469-435+1, 1);
+
+  recode="1";
+  for(i in 2:nrow(bin))
+    if( as.scalar(bin[i,])!=1 )
+      recode = recode+","+i;
+  binning = "{id:5, method:equi-width, numbins:10}"
+  for(i in 6:nrow(bin))
+    if( as.scalar(bin[i,])==1 )
+      binning = binning+",\n{id:"+i+", method:equi-width, numbins:10}";
+  dummy="1";
+  for (i in 2:nrow(bin))
+    if( as.scalar(bin[i,])!=1 | as.scalar(bin[i,])==1)
+      dummy = dummy+","+i;
+
+  # No dummycoding to reduce #cols. Eigen fails to converge with large #cols.
+  jspec= "{ ids:true, recode:["+recode+"], bin:["+binning+"]}"
+  [X,M] = transformencode(target=F, spec=jspec);
+  X = replace(target=X, pattern=NaN, replacement=0);
+  print("number of rows "+nrow(X) + "\nnumber of cols " + ncol(X));
+}
+
+######################################################
+
+# Get the datasets
+dataset = $1;
+if (dataset == "KDD_noprep") {
+  # Read already prepared KDD dataset
+  A = read("../datasets/KDD_recode_X", format="binary");
+  y = read("../datasets/KDD_y.csv", format="csv");
+}
+
+if (dataset == "KDD_prep")
+  # Read raw KDD dataset, clean, transform and convert to matrix 
+  [A, y] = readNdClean();
+
+if (dataset == "KDD_synthetic") {
+  # Read KDD-equivalent synthetic dataset
+  A = read("../datasets/KDD_X_recode_Syn.csv", header=FALSE);
+  y = read("../datasets/KDD_y_Syn.csv", header=FALSE);
+}
+
+R = matrix(0, rows=1, cols=20);
+
+K = floor(ncol(A) * 0.1);
+
+for (i in 1:10) {
+  [newA1, Mout] = pca(X=A, K=K+i);
+  beta1 = lm(X=newA1, y=y, icpt=1, reg=0.0001, verbose=FALSE);
+  y_predict1 = lmPredict(X=newA1, B=beta1, icpt=1);
+  # NOTE: lmPredict's signature has changed in SystemDS 2.1, 2.2
+  # Comment the above call and enable the below line
+  # y_predict1 = lmPredict(X=newA1, B=beta1, ytest=y, icpt=1);
+  R2_ad1 = checkR2(newA1, y, y_predict1, beta1, 1);
+  R[,i] = R2_ad1;
+}
+
+write(R, "outdml", format="binary");
+

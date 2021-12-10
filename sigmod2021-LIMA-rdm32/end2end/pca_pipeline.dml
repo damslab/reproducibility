@@ -1,0 +1,42 @@
+checkR2 = function(Matrix[double] X, Matrix[double] y, Matrix[double] y_p,
+          Matrix[double] beta, Integer icpt) return (Double R2_ad)
+{
+  n = nrow(X);
+  m = ncol(X);
+  m_ext = m;
+  if (icpt == 1|icpt == 2)
+      m_ext = m+1; #due to extra column ones
+  avg_tot = sum(y)/n;
+  ss_tot = sum(y^2);
+  ss_avg_tot = ss_tot - n*avg_tot^2;
+  y_res = y - y_p;
+  avg_res = sum(y - y_p)/n;
+  ss_res = sum((y - y_p)^2);
+  R2 = 1 - ss_res/ss_avg_tot;
+  dispersion = ifelse(n>m_ext, ss_res/(n-m_ext), NaN);
+  R2_ad = ifelse(n>m_ext, 1-dispersion/(ss_avg_tot/(n-1)), NaN);
+}
+
+# Get the dataset
+M = $1;
+A = rand(rows=M, cols=1000, seed=42);
+y = rand(rows=M, cols=1);
+print(nrow(A));
+print(ncol(A));
+R = matrix(0, rows=1, cols=20);
+
+K = floor(ncol(A) * 0.1); #10% columns
+
+for (i in 1:10) {
+  [newA1, Mout] = pca(X=A, K=K+i);
+  beta1 = lm(X=newA1, y=y, icpt=1, reg=0.0001, verbose=FALSE);
+  y_predict1 = lmPredict(X=newA1, B=beta1, icpt=1);
+  # NOTE: lmPredict's signature has changed in SystemDS 2.1, 2.2
+  # Comment the above call and enable the below line
+  # y_predict1 = lmPredict(X=newA1, B=beta1, ytest=y, icpt=1);
+  R2_ad1 = checkR2(newA1, y, y_predict1, beta1, 1);
+  R[,i] = R2_ad1;
+}
+
+write(R, "outdml", format="binary");
+
