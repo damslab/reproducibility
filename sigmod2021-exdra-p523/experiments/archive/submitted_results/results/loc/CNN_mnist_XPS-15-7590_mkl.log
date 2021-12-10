@@ -1,0 +1,385 @@
+21/03/28 10:58:17 INFO org.apache.sysds.api.DMLScript: BEGIN DML run 03/28/2021 10:58:17
+21/03/28 10:58:17 INFO org.apache.sysds.utils.NativeHelper: Using native blas: mkl
+21/03/28 10:59:35 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: completed EPOCH 0
+21/03/28 10:59:35 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: epoch timer: 75.563 secs.
+21/03/28 11:00:45 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: completed EPOCH 1
+21/03/28 11:00:45 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: epoch timer: 145.958 secs.
+channels   : 1
+epochs     : 2
+freq       : EPOCH
+batch_size : 128
+-0.3815093535172662
+SystemDS Statistics:
+Total elapsed time:		147.966 sec.
+Total compilation time:		0.896 sec.
+Total execution time:		147.069 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	1933/1876/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	3.951/28.161/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	152002/0/0/0/2.
+Cache writes (Li/WB/FS/HDFS):	940/26340/0/0.
+Cache times (ACQr/m, RLS, EXP):	0.741/0.035/0.414/0.000 sec.
+HOP DAGs recompiled (PRED, SB):	0/1877.
+HOP DAGs recompile time:	3.395 sec.
+Paramserv total execution time:	145.958 secs.
+Paramserv total num workers:	1.
+Paramserv setup time:		0.063 secs.
+Paramserv grad compute time:	132.502 secs.
+Paramserv model update time:	12.254/0.036 secs.
+Paramserv model broadcast time:	0.000 secs.
+Paramserv batch slice time:	0.000 secs.
+Paramserv RPC request time:	0.000 secs.
+Paramserv valdiation time:	0.000 secs.
+Total JIT compile time:		26.015 sec.
+Total JVM GC count:		93.
+Total JVM GC time:		1.326 sec.
+Heavy hitter instructions:
+  #  Instruction               Time(s)  Count
+  1  paramserv                 145.959      1
+  2  conv2d_backward_filter     33.409   1876
+  3  conv2d_bias_add            30.144   1876
+  4  conv2d_backward_data       21.805    938
+  5  ba+*                       13.829   5628
+  6  relu_maxpooling_backward    7.195   1876
+  7  relu_maxpooling             5.900   1876
+  8  +*                          5.810  11256
+  9  *                           3.727  15965
+ 10  r'                          3.576   4690
+ 11  uack+                       3.300   3752
+ 12  -                           2.941  15010
+ 13  -*                          2.834   7504
+ 14  rand                        2.805    951
+ 15  relu_backward               2.721   2814
+ 16  /                           0.705  10332
+ 17  max                         0.681    938
+ 18  uamin                       0.670      1
+ 19  exp                         0.299    938
+ 20  rmvar                       0.283  55353
+ 21  uark+                       0.220   3752
+ 22  +                           0.161  14078
+ 23  createvar                   0.149  83503
+ 24  list                        0.054   1877
+ 25  uarmax                      0.026    938
+ 26  mvvar                       0.018  38508
+ 27  rshape                      0.013   1876
+ 28  floor                       0.010   5628
+ 29  uamax                       0.009      1
+ 30  castvti                     0.007   5628
+ 31  nvlist                      0.001      1
+ 32  sqrt                        0.000     10
+ 33  print                       0.000      5
+ 34  uak+                        0.000      1
+ 35  rightIndex                  0.000      1
+ 36  ==                          0.000      3
+ 37  castdtm                     0.000      1
+
+21/03/28 11:00:45 INFO org.apache.sysds.api.DMLScript: END DML run 03/28/2021 11:00:45
+
+ Performance counter stats for 'systemds code/exp/CNN.dml -stats 100 -debug -config code/conf/mkl.xml -nvargs X_test=data/mnist_test_features.data y_test=data/mnist_test_labels.data epochs=2 batch_size=128 eta=0.01 utype=BSP freq=EPOCH channels=1 hin=28 win=28 numWorkers=1 features=data/mnist_features.data labels=data/mnist_labels.data':
+
+      1.728.428,28 msec task-clock                #   11,599 CPUs utilized          
+           983.618      context-switches          #    0,569 K/sec                  
+           272.338      cpu-migrations            #    0,158 K/sec                  
+         1.119.026      page-faults               #    0,647 K/sec                  
+ 4.898.414.722.485      cycles                    #    2,834 GHz                      (30,78%)
+ 4.899.228.944.632      instructions              #    1,00  insn per cycle           (38,48%)
+   727.604.238.391      branches                  #  420,963 M/sec                    (38,50%)
+     4.514.982.445      branch-misses             #    0,62% of all branches          (38,49%)
+ 1.697.996.574.324      L1-dcache-loads           #  982,393 M/sec                    (38,46%)
+   152.208.586.050      L1-dcache-load-misses     #    8,96% of all L1-dcache hits    (38,47%)
+     5.801.802.959      LLC-loads                 #    3,357 M/sec                    (30,75%)
+       499.368.831      LLC-load-misses           #    8,61% of all LL-cache hits     (30,75%)
+   <not supported>      L1-icache-loads                                             
+     3.191.615.217      L1-icache-load-misses                                         (30,76%)
+ 1.688.885.593.190      dTLB-loads                #  977,122 M/sec                    (30,75%)
+       878.396.726      dTLB-load-misses          #    0,05% of all dTLB cache hits   (30,74%)
+       110.664.265      iTLB-loads                #    0,064 M/sec                    (30,76%)
+       136.850.911      iTLB-load-misses          #  123,66% of all iTLB cache hits   (30,78%)
+   <not supported>      L1-dcache-prefetches                                        
+   <not supported>      L1-dcache-prefetch-misses                                   
+
+     149,017095255 seconds time elapsed
+
+    1705,044545000 seconds user
+      27,889828000 seconds sys
+
+
+real 149,07
+user 1705,06
+sys 27,89
+21/03/28 11:00:46 INFO org.apache.sysds.api.DMLScript: BEGIN DML run 03/28/2021 11:00:46
+21/03/28 11:00:46 INFO org.apache.sysds.utils.NativeHelper: Using native blas: mkl
+21/03/28 11:02:07 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: completed EPOCH 0
+21/03/28 11:02:07 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: epoch timer: 78.053 secs.
+21/03/28 11:03:21 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: completed EPOCH 1
+21/03/28 11:03:21 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: epoch timer: 152.669 secs.
+channels   : 1
+epochs     : 2
+freq       : EPOCH
+batch_size : 128
+-0.507393830538704
+SystemDS Statistics:
+Total elapsed time:		154.798 sec.
+Total compilation time:		1.123 sec.
+Total execution time:		153.676 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	1926/1876/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	4.204/29.748/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	152002/0/0/0/2.
+Cache writes (Li/WB/FS/HDFS):	940/26333/0/0.
+Cache times (ACQr/m, RLS, EXP):	0.603/0.034/0.423/0.000 sec.
+HOP DAGs recompiled (PRED, SB):	0/1877.
+HOP DAGs recompile time:	3.518 sec.
+Paramserv total execution time:	152.669 secs.
+Paramserv total num workers:	1.
+Paramserv setup time:		0.076 secs.
+Paramserv grad compute time:	138.787 secs.
+Paramserv model update time:	12.676/0.033 secs.
+Paramserv model broadcast time:	0.001 secs.
+Paramserv batch slice time:	0.000 secs.
+Paramserv RPC request time:	0.000 secs.
+Paramserv valdiation time:	0.000 secs.
+Total JIT compile time:		24.645 sec.
+Total JVM GC count:		93.
+Total JVM GC time:		1.202 sec.
+Heavy hitter instructions:
+  #  Instruction               Time(s)  Count
+  1  paramserv                 152.670      1
+  2  conv2d_backward_filter     34.510   1876
+  3  conv2d_bias_add            31.831   1876
+  4  conv2d_backward_data       23.224    938
+  5  ba+*                       14.637   5628
+  6  relu_maxpooling_backward    7.499   1876
+  7  +*                          6.128  11256
+  8  relu_maxpooling             5.837   1876
+  9  *                           3.721  15965
+ 10  r'                          3.644   4690
+ 11  uack+                       3.483   3752
+ 12  -                           3.139  15010
+ 13  -*                          2.991   7504
+ 14  rand                        2.942    951
+ 15  relu_backward               2.818   2814
+ 16  /                           0.783  10332
+ 17  max                         0.676    938
+ 18  uamin                       0.537      1
+ 19  exp                         0.321    938
+ 20  rmvar                       0.294  55353
+ 21  uark+                       0.283   3752
+ 22  +                           0.168  14078
+ 23  createvar                   0.160  83503
+ 24  list                        0.054   1877
+ 25  uarmax                      0.027    938
+ 26  uamax                       0.022      1
+ 27  mvvar                       0.020  38508
+ 28  rshape                      0.013   1876
+ 29  floor                       0.010   5628
+ 30  castvti                     0.008   5628
+ 31  nvlist                      0.002      1
+ 32  sqrt                        0.001     10
+ 33  print                       0.000      5
+ 34  rightIndex                  0.000      1
+ 35  uak+                        0.000      1
+ 36  ==                          0.000      3
+ 37  castdtm                     0.000      1
+
+21/03/28 11:03:21 INFO org.apache.sysds.api.DMLScript: END DML run 03/28/2021 11:03:21
+
+ Performance counter stats for 'systemds code/exp/CNN.dml -stats 100 -debug -config code/conf/mkl.xml -nvargs X_test=data/mnist_test_features.data y_test=data/mnist_test_labels.data epochs=2 batch_size=128 eta=0.01 utype=BSP freq=EPOCH channels=1 hin=28 win=28 numWorkers=1 features=data/mnist_features.data labels=data/mnist_labels.data':
+
+      1.811.276,34 msec task-clock                #   11,653 CPUs utilized          
+           945.366      context-switches          #    0,522 K/sec                  
+           261.881      cpu-migrations            #    0,145 K/sec                  
+         1.070.580      page-faults               #    0,591 K/sec                  
+ 4.807.831.931.116      cycles                    #    2,654 GHz                      (30,72%)
+ 4.869.755.035.390      instructions              #    1,01  insn per cycle           (38,43%)
+   713.819.578.221      branches                  #  394,098 M/sec                    (38,45%)
+     4.438.056.255      branch-misses             #    0,62% of all branches          (38,45%)
+ 1.655.440.077.186      L1-dcache-loads           #  913,963 M/sec                    (38,48%)
+   151.873.107.424      L1-dcache-load-misses     #    9,17% of all L1-dcache hits    (38,51%)
+     5.692.627.855      LLC-loads                 #    3,143 M/sec                    (30,80%)
+       472.045.188      LLC-load-misses           #    8,29% of all LL-cache hits     (30,78%)
+   <not supported>      L1-icache-loads                                             
+     2.934.752.413      L1-icache-load-misses                                         (30,77%)
+ 1.654.073.041.747      dTLB-loads                #  913,209 M/sec                    (30,76%)
+       881.293.534      dTLB-load-misses          #    0,05% of all dTLB cache hits   (30,76%)
+        93.343.759      iTLB-loads                #    0,052 M/sec                    (30,76%)
+       132.215.284      iTLB-load-misses          #  141,64% of all iTLB cache hits   (30,75%)
+   <not supported>      L1-dcache-prefetches                                        
+   <not supported>      L1-dcache-prefetch-misses                                   
+
+     155,437398915 seconds time elapsed
+
+    1788,676994000 seconds user
+      27,180924000 seconds sys
+
+
+real 155,45
+user 1788,69
+sys 27,18
+21/03/28 11:03:22 INFO org.apache.sysds.api.DMLScript: BEGIN DML run 03/28/2021 11:03:22
+21/03/28 11:03:22 INFO org.apache.sysds.utils.NativeHelper: Using native blas: mkl
+21/03/28 11:04:44 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: completed EPOCH 0
+21/03/28 11:04:44 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: epoch timer: 80.0 secs.
+SystemDS Statistics:
+Total elapsed time:		96.031 sec.
+Total compilation time:		1.132 sec.
+Total execution time:		94.899 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	1161/1100/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	2.432/17.236/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	89040/0/0/0/3.
+Cache writes (Li/WB/FS/HDFS):	552/15466/0/0.
+Cache times (ACQr/m, RLS, EXP):	0.658/0.026/0.288/0.000 sec.
+HOP DAGs recompiled (PRED, SB):	0/1100.
+HOP DAGs recompile time:	2.226 sec.
+Paramserv total execution time:	80.000 secs.
+Paramserv total num workers:	1.
+Paramserv setup time:		0.099 secs.
+Paramserv grad compute time:	86.148 secs.
+Paramserv model update time:	6.907/0.018 secs.
+Paramserv model broadcast time:	0.001 secs.
+Paramserv batch slice time:	0.000 secs.
+Paramserv RPC request time:	0.000 secs.
+Paramserv valdiation time:	0.000 secs.
+Total JIT compile time:		23.29 sec.
+Total JVM GC count:		55.
+Total JVM GC time:		0.695 sec.
+Heavy hitter instructions:
+  #  Instruction               Time(s)  Count
+  1  conv2d_backward_filter     22.651   1100
+  2  conv2d_bias_add            18.483   1100
+  3  conv2d_backward_data       15.178    550
+  4  ba+*                        9.144   3300
+  5  relu_maxpooling_backward    4.385   1100
+  6  relu_maxpooling             3.713   1100
+  7  +*                          3.264   6592
+  8  *                           2.309   9361
+  9  r'                          2.231   2750
+ 10  uack+                       2.171   2200
+ 11  rand                        1.777    563
+ 12  -                           1.693   8794
+ 13  relu_backward               1.617   1650
+ 14  -*                          1.518   4392
+ 15  uamin                       0.601      1
+ 16  /                           0.468   6064
+ 17  max                         0.423    550
+ 18  rmvar                       0.223  32438
+ 19  uark+                       0.157   2200
+ 20  +                           0.107   8257
+ 21  createvar                   0.100  48938
+ 22  exp                         0.076    550
+ 23  list                        0.038   1100
+ 24  uarmax                      0.018    550
+ 25  mvvar                       0.013  22598
+ 26  uamax                       0.013      1
+ 27  floor                       0.011   3300
+ 28  rshape                      0.009   1100
+ 29  castvti                     0.005   3300
+ 30  nvlist                      0.002      1
+ 31  sqrt                        0.001     10
+ 32  ==                          0.000      3
+
+21/03/28 11:04:58 INFO org.apache.sysds.api.DMLScript: END DML run 03/28/2021 11:04:58
+[31m
+An Error Occured : 
+      DMLRuntimeException -- org.apache.sysds.runtime.DMLRuntimeException: ERROR: Runtime error in program block generated from statement block between lines 2 and 29 -- Error evaluating instruction: CP°paramserv°agg=./src/scripts/CNN.dml::aggregation°checkpointing=NONE°hyperparams=_Var357°upd=./src/scripts/CNN.dml::gradients°utype=BSP°freq=EPOCH°k=1°val_features=_mVar358°batchsize=128°labels=pREADlabels°mode=LOCAL°features=_mVar363°model=_Var381°val_labels=_mVar358°epochs=2°_Var382·LIST·UNKNOWN
+      DMLRuntimeException -- ERROR: Runtime error in program block generated from statement block between lines 2 and 29 -- Error evaluating instruction: CP°paramserv°agg=./src/scripts/CNN.dml::aggregation°checkpointing=NONE°hyperparams=_Var357°upd=./src/scripts/CNN.dml::gradients°utype=BSP°freq=EPOCH°k=1°val_features=_mVar358°batchsize=128°labels=pREADlabels°mode=LOCAL°features=_mVar363°model=_Var381°val_labels=_mVar358°epochs=2°_Var382·LIST·UNKNOWN
+      DMLRuntimeException -- ParamservBuiltinCPInstruction: some error occurred: 
+       ExecutionException -- org.apache.sysds.runtime.DMLRuntimeException: Local worker_0 failed
+      DMLRuntimeException -- Local worker_0 failed
+      DMLRuntimeException -- java.util.concurrent.ExecutionException: org.apache.sysds.runtime.DMLRuntimeException: Reading of scratch_space//_p7959_127.0.1.1//_t0/temp50333_48838 (412408975) failed.
+       ExecutionException -- org.apache.sysds.runtime.DMLRuntimeException: Reading of scratch_space//_p7959_127.0.1.1//_t0/temp50333_48838 (412408975) failed.
+      DMLRuntimeException -- Reading of scratch_space//_p7959_127.0.1.1//_t0/temp50333_48838 (412408975) failed.
+              IOException -- File scratch_space/_p7959_127.0.1.1/_t0/temp50333_48838 does not exist on HDFS/LFS.
+[0m
+org.apache.sysds.runtime.DMLRuntimeException: org.apache.sysds.runtime.DMLRuntimeException: ERROR: Runtime error in program block generated from statement block between lines 2 and 29 -- Error evaluating instruction: CP°paramserv°agg=./src/scripts/CNN.dml::aggregation°checkpointing=NONE°hyperparams=_Var357°upd=./src/scripts/CNN.dml::gradients°utype=BSP°freq=EPOCH°k=1°val_features=_mVar358°batchsize=128°labels=pREADlabels°mode=LOCAL°features=_mVar363°model=_Var381°val_labels=_mVar358°epochs=2°_Var382·LIST·UNKNOWN
+	at org.apache.sysds.runtime.controlprogram.Program.execute(Program.java:155)
+	at org.apache.sysds.api.ScriptExecutorUtils.executeRuntimeProgram(ScriptExecutorUtils.java:88)
+	at org.apache.sysds.api.DMLScript.execute(DMLScript.java:423)
+	at org.apache.sysds.api.DMLScript.executeScript(DMLScript.java:266)
+	at org.apache.sysds.api.DMLScript.main(DMLScript.java:164)
+Caused by: org.apache.sysds.runtime.DMLRuntimeException: ERROR: Runtime error in program block generated from statement block between lines 2 and 29 -- Error evaluating instruction: CP°paramserv°agg=./src/scripts/CNN.dml::aggregation°checkpointing=NONE°hyperparams=_Var357°upd=./src/scripts/CNN.dml::gradients°utype=BSP°freq=EPOCH°k=1°val_features=_mVar358°batchsize=128°labels=pREADlabels°mode=LOCAL°features=_mVar363°model=_Var381°val_labels=_mVar358°epochs=2°_Var382·LIST·UNKNOWN
+	at org.apache.sysds.runtime.controlprogram.ProgramBlock.executeSingleInstruction(ProgramBlock.java:286)
+	at org.apache.sysds.runtime.controlprogram.ProgramBlock.executeInstructions(ProgramBlock.java:199)
+	at org.apache.sysds.runtime.controlprogram.BasicProgramBlock.execute(BasicProgramBlock.java:125)
+	at org.apache.sysds.runtime.controlprogram.Program.execute(Program.java:149)
+	... 4 more
+Caused by: org.apache.sysds.runtime.DMLRuntimeException: ParamservBuiltinCPInstruction: some error occurred: 
+	at org.apache.sysds.runtime.instructions.cp.ParamservBuiltinCPInstruction.runLocally(ParamservBuiltinCPInstruction.java:361)
+	at org.apache.sysds.runtime.instructions.cp.ParamservBuiltinCPInstruction.processInstruction(ParamservBuiltinCPInstruction.java:117)
+	at org.apache.sysds.runtime.controlprogram.ProgramBlock.executeSingleInstruction(ProgramBlock.java:250)
+	... 7 more
+Caused by: java.util.concurrent.ExecutionException: org.apache.sysds.runtime.DMLRuntimeException: Local worker_0 failed
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122)
+	at java.util.concurrent.FutureTask.get(FutureTask.java:192)
+	at org.apache.sysds.runtime.instructions.cp.ParamservBuiltinCPInstruction.runLocally(ParamservBuiltinCPInstruction.java:355)
+	... 9 more
+Caused by: org.apache.sysds.runtime.DMLRuntimeException: Local worker_0 failed
+	at org.apache.sysds.runtime.controlprogram.paramserv.LocalPSWorker.call(LocalPSWorker.java:78)
+	at org.apache.sysds.runtime.controlprogram.paramserv.LocalPSWorker.call(LocalPSWorker.java:38)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: org.apache.sysds.runtime.DMLRuntimeException: java.util.concurrent.ExecutionException: org.apache.sysds.runtime.DMLRuntimeException: Reading of scratch_space//_p7959_127.0.1.1//_t0/temp50333_48838 (412408975) failed.
+	at org.apache.sysds.runtime.controlprogram.paramserv.LocalPSWorker.computeEpoch(LocalPSWorker.java:113)
+	at org.apache.sysds.runtime.controlprogram.paramserv.LocalPSWorker.call(LocalPSWorker.java:68)
+	... 5 more
+Caused by: java.util.concurrent.ExecutionException: org.apache.sysds.runtime.DMLRuntimeException: Reading of scratch_space//_p7959_127.0.1.1//_t0/temp50333_48838 (412408975) failed.
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122)
+	at java.util.concurrent.FutureTask.get(FutureTask.java:192)
+	at org.apache.sysds.runtime.controlprogram.paramserv.LocalPSWorker.computeEpoch(LocalPSWorker.java:97)
+	... 6 more
+Caused by: org.apache.sysds.runtime.DMLRuntimeException: Reading of scratch_space//_p7959_127.0.1.1//_t0/temp50333_48838 (412408975) failed.
+	at org.apache.sysds.runtime.controlprogram.caching.CacheableData.acquireReadIntern(CacheableData.java:554)
+	at org.apache.sysds.runtime.controlprogram.caching.CacheableData.acquireRead(CacheableData.java:473)
+	at org.apache.sysds.runtime.controlprogram.caching.CacheableData.acquireReadAndRelease(CacheableData.java:452)
+	at org.apache.sysds.runtime.controlprogram.paramserv.ParamservUtils.lambda$accrueGradients$5(ParamservUtils.java:475)
+	at java.util.stream.Streams$RangeIntSpliterator.forEachRemaining(Streams.java:110)
+	at java.util.stream.IntPipeline$Head.forEach(IntPipeline.java:581)
+	at org.apache.sysds.runtime.controlprogram.paramserv.ParamservUtils.accrueGradients(ParamservUtils.java:473)
+	at org.apache.sysds.runtime.controlprogram.paramserv.LocalPSWorker.lambda$computeEpoch$0(LocalPSWorker.java:98)
+	... 4 more
+Caused by: java.io.IOException: File scratch_space/_p7959_127.0.1.1/_t0/temp50333_48838 does not exist on HDFS/LFS.
+	at org.apache.sysds.runtime.io.MatrixReader.checkValidInputFile(MatrixReader.java:119)
+	at org.apache.sysds.runtime.io.ReaderBinaryBlockParallel.readMatrixFromHDFS(ReaderBinaryBlockParallel.java:71)
+	at org.apache.sysds.runtime.util.DataConverter.readMatrixFromHDFS(DataConverter.java:235)
+	at org.apache.sysds.runtime.util.DataConverter.readMatrixFromHDFS(DataConverter.java:188)
+	at org.apache.sysds.runtime.controlprogram.caching.MatrixObject.readBlobFromHDFS(MatrixObject.java:465)
+	at org.apache.sysds.runtime.controlprogram.caching.MatrixObject.readBlobFromHDFS(MatrixObject.java:69)
+	at org.apache.sysds.runtime.controlprogram.caching.CacheableData.readBlobFromHDFS(CacheableData.java:1014)
+	at org.apache.sysds.runtime.controlprogram.caching.CacheableData.acquireReadIntern(CacheableData.java:536)
+	... 11 more
+
+ Performance counter stats for 'systemds code/exp/CNN.dml -stats 100 -debug -config code/conf/mkl.xml -nvargs X_test=data/mnist_test_features.data y_test=data/mnist_test_labels.data epochs=2 batch_size=128 eta=0.01 utype=BSP freq=EPOCH channels=1 hin=28 win=28 numWorkers=1 features=data/mnist_features.data labels=data/mnist_labels.data':
+
+      1.135.459,61 msec task-clock                #   11,745 CPUs utilized          
+           561.216      context-switches          #    0,494 K/sec                  
+           155.946      cpu-migrations            #    0,137 K/sec                  
+           958.564      page-faults               #    0,844 K/sec                  
+ 2.941.477.380.753      cycles                    #    2,591 GHz                      (30,79%)
+ 2.936.792.497.734      instructions              #    1,00  insn per cycle           (38,48%)
+   427.587.532.281      branches                  #  376,577 M/sec                    (38,47%)
+     2.823.589.579      branch-misses             #    0,66% of all branches          (38,45%)
+ 1.028.242.890.323      L1-dcache-loads           #  905,574 M/sec                    (38,41%)
+    92.684.579.205      L1-dcache-load-misses     #    9,01% of all L1-dcache hits    (38,42%)
+     3.615.959.429      LLC-loads                 #    3,185 M/sec                    (30,75%)
+       299.031.215      LLC-load-misses           #    8,27% of all LL-cache hits     (30,77%)
+   <not supported>      L1-icache-loads                                             
+     2.071.073.457      L1-icache-load-misses                                         (30,77%)
+ 1.026.809.838.828      dTLB-loads                #  904,312 M/sec                    (30,79%)
+       522.793.435      dTLB-load-misses          #    0,05% of all dTLB cache hits   (30,78%)
+        77.476.029      iTLB-loads                #    0,068 M/sec                    (30,78%)
+        92.152.366      iTLB-load-misses          #  118,94% of all iTLB cache hits   (30,82%)
+   <not supported>      L1-dcache-prefetches                                        
+   <not supported>      L1-dcache-prefetch-misses                                   
+
+      96,675139785 seconds time elapsed
+
+    1120,678969000 seconds user
+      17,609765000 seconds sys
+
+
+real 96,70
+user 1120,69
+sys 17,61

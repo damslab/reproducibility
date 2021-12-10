@@ -1,0 +1,183 @@
+[+] test loss: 1.4872586632199265E-11, test accuracy: 1.4872586632199265E-11
+
+SystemDS Statistics:
+Total elapsed time:		189.087 sec.
+Total compilation time:		1.054 sec.
+Total execution time:		188.033 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	117197/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	29.855/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	2851820/0/0/0/2.
+Cache writes (Li/WB/FS/HDFS):	1/39094/3/0.
+Cache times (ACQr/m, RLS, EXP):	4.452/0.250/21.313/0.000 sec.
+HOP DAGs recompiled (PRED, SB):	0/78131.
+HOP DAGs recompile time:	33.329 sec.
+Paramserv total execution time:	0.000 secs.
+Paramserv total num workers:	1.
+Paramserv setup time:		0.084 secs.
+Paramserv grad compute time:	91.100 secs.
+Paramserv model update time:	0.153/0.002 secs.
+Paramserv model broadcast time:	0.001 secs.
+Paramserv batch slice time:	0.218 secs.
+Paramserv RPC request time:	0.000 secs.
+Paramserv valdiation time:	0.000 secs.
+Total JIT compile time:		27.296 sec.
+Total JVM GC count:		20.
+Total JVM GC time:		3.059 sec.
+Heavy hitter instructions:
+  #  Instruction    Time(s)    Count
+  1  paramserv      140.975        1
+  2  ba+*            43.739   312523
+  3  r'              31.749   234390
+  4  max             17.605    78132
+  5  /               15.893   117204
+  6  -                7.567   117201
+  7  uamin            4.504        2
+  8  +                4.374    39075
+  9  createvar        2.600  1484509
+ 10  rmvar            1.355   976662
+ 11  rand             1.323        6
+ 12  -*               1.289   234390
+ 13  uamax            0.931        2
+ 14  *                0.761   156264
+ 15  list             0.502    78131
+ 16  relu_backward    0.255    78130
+ 17  uack+            0.219    78130
+ 18  exp              0.189    39066
+ 19  mvvar            0.100   117212
+ 20  uark+            0.095        1
+ 21  uak+             0.083    39066
+ 22  castdtm          0.080    39071
+ 23  uarmax           0.062        1
+ 24  log              0.014        1
+ 25  nvlist           0.002        1
+ 26  sqrt             0.001       10
+ 27  rightIndex       0.001        6
+ 28  print            0.000        1
+ 29  ==               0.000        1
+
+real 191.44
+user 2574.50
+sys 96.83
+[+] test loss: 1.4872586632199265E-11, test accuracy: 1.4872586632199265E-11
+
+SystemDS Statistics:
+Total elapsed time:		188.780 sec.
+Total compilation time:		1.074 sec.
+Total execution time:		187.706 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	117197/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	30.140/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	2851820/0/0/0/2.
+Cache writes (Li/WB/FS/HDFS):	1/39094/3/0.
+Cache times (ACQr/m, RLS, EXP):	4.445/0.243/20.315/0.000 sec.
+HOP DAGs recompiled (PRED, SB):	0/78131.
+HOP DAGs recompile time:	33.242 sec.
+Paramserv total execution time:	0.000 secs.
+Paramserv total num workers:	1.
+Paramserv setup time:		0.086 secs.
+Paramserv grad compute time:	90.839 secs.
+Paramserv model update time:	0.135/0.002 secs.
+Paramserv model broadcast time:	0.001 secs.
+Paramserv batch slice time:	0.372 secs.
+Paramserv RPC request time:	0.000 secs.
+Paramserv valdiation time:	0.000 secs.
+Total JIT compile time:		26.204 sec.
+Total JVM GC count:		20.
+Total JVM GC time:		2.645 sec.
+Heavy hitter instructions:
+  #  Instruction    Time(s)    Count
+  1  paramserv      140.877        1
+  2  ba+*            43.083   312523
+  3  r'              31.645   234390
+  4  max             17.857    78132
+  5  /               15.588   117204
+  6  -                7.590   117201
+  7  +                5.054    39075
+  8  uamin            4.512        2
+  9  createvar        2.329  1484509
+ 10  rmvar            1.351   976662
+ 11  rand             1.327        6
+ 12  -*               1.282   234390
+ 13  uamax            0.946        2
+ 14  *                0.733   156264
+ 15  list             0.511    78131
+ 16  relu_backward    0.253    78130
+ 17  uack+            0.222    78130
+ 18  exp              0.188    39066
+ 19  mvvar            0.094   117212
+ 20  uark+            0.093        1
+ 21  uak+             0.084    39066
+ 22  castdtm          0.079    39071
+ 23  uarmax           0.048        1
+ 24  log              0.018        1
+ 25  nvlist           0.002        1
+ 26  sqrt             0.001       10
+ 27  rightIndex       0.001        6
+ 28  print            0.000        1
+ 29  ==               0.000        1
+
+real 191.81
+user 2573.13
+sys 96.95
+[+] test loss: 1.4872586632199265E-11, test accuracy: 1.4872586632199265E-11
+
+SystemDS Statistics:
+Total elapsed time:		192.986 sec.
+Total compilation time:		1.016 sec.
+Total execution time:		191.969 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	117197/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	31.512/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	2851820/0/0/0/2.
+Cache writes (Li/WB/FS/HDFS):	1/39094/3/0.
+Cache times (ACQr/m, RLS, EXP):	4.336/0.257/20.631/0.000 sec.
+HOP DAGs recompiled (PRED, SB):	0/78131.
+HOP DAGs recompile time:	32.773 sec.
+Paramserv total execution time:	0.000 secs.
+Paramserv total num workers:	1.
+Paramserv setup time:		0.095 secs.
+Paramserv grad compute time:	94.718 secs.
+Paramserv model update time:	0.124/0.002 secs.
+Paramserv model broadcast time:	0.001 secs.
+Paramserv batch slice time:	0.702 secs.
+Paramserv RPC request time:	0.000 secs.
+Paramserv valdiation time:	0.000 secs.
+Total JIT compile time:		27.464 sec.
+Total JVM GC count:		20.
+Total JVM GC time:		3.538 sec.
+Heavy hitter instructions:
+  #  Instruction    Time(s)    Count
+  1  paramserv      145.108        1
+  2  ba+*            44.785   312523
+  3  r'              31.406   234390
+  4  max             20.773    78132
+  5  /               16.386   117204
+  6  -                7.120   117201
+  7  +                4.735    39075
+  8  uamin            4.404        2
+  9  createvar        2.449  1484509
+ 10  rmvar            1.352   976662
+ 11  rand             1.324        6
+ 12  -*               1.255   234390
+ 13  uamax            0.949        2
+ 14  *                0.745   156264
+ 15  list             0.515    78131
+ 16  relu_backward    0.257    78130
+ 17  uack+            0.223    78130
+ 18  exp              0.187    39066
+ 19  uark+            0.096        1
+ 20  mvvar            0.096   117212
+ 21  uak+             0.085    39066
+ 22  castdtm          0.075    39071
+ 23  uarmax           0.058        1
+ 24  log              0.017        1
+ 25  nvlist           0.002        1
+ 26  sqrt             0.001       10
+ 27  rightIndex       0.001        6
+ 28  print            0.000        1
+ 29  ==               0.000        1
+
+real 195.83
+user 2699.02
+sys 97.36

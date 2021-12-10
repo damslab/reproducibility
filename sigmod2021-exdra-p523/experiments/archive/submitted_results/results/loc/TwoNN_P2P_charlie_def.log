@@ -1,0 +1,58 @@
+[+] test loss: 1.4872586632199265E-11, test accuracy: 1.4872586632199265E-11
+
+SystemDS Statistics:
+Total elapsed time:		169.757 sec.
+Total compilation time:		1.215 sec.
+Total execution time:		168.542 sec.
+Cache hits (Mem/Li/WB/FS/HDFS):	570395/0/0/3/4.
+Cache writes (Li/WB/FS/HDFS):	2/39088/5/0.
+Cache times (ACQr/m, RLS, EXP):	30.550/0.078/51.018/0.000 sec.
+HOP DAGs recompiled (PRED, SB):	0/15627.
+HOP DAGs recompile time:	9.229 sec.
+Paramserv total execution time:	0.000 secs.
+Paramserv total num workers:	1.
+Paramserv setup time:		18.234 secs.
+Paramserv grad compute time:	39.530 secs.
+Paramserv model update time:	0.169/0.000 secs.
+Paramserv model broadcast time:	0.001 secs.
+Paramserv batch slice time:	0.131 secs.
+Paramserv RPC request time:	0.000 secs.
+Paramserv valdiation time:	0.000 secs.
+Total JIT compile time:		37.142 sec.
+Total JVM GC count:		34.
+Total JVM GC time:		10.751 sec.
+Heavy hitter instructions:
+  #  Instruction    Time(s)   Count
+  1  paramserv       69.569       1
+  2  -               34.291   23445
+  3  /               33.779   23448
+  4  ba+*            30.857   62507
+  5  r'               9.793   46878
+  6  uamax            9.283       2
+  7  +                5.900    7823
+  8  uamin            5.567       2
+  9  max              4.534   15628
+ 10  createvar        0.475  296933
+ 11  rmvar            0.353  195362
+ 12  -*               0.327   46878
+ 13  *                0.254   31256
+ 14  list             0.165   15627
+ 15  uark+            0.119       1
+ 16  exp              0.080    7814
+ 17  log              0.068       1
+ 18  uack+            0.063   15626
+ 19  relu_backward    0.061   15626
+ 20  uarmax           0.053       1
+ 21  rand             0.042       6
+ 22  mvvar            0.031   23456
+ 23  castdtm          0.029    7819
+ 24  uak+             0.027    7814
+ 25  nvlist           0.002       1
+ 26  sqrt             0.001      10
+ 27  rightIndex       0.001       6
+ 28  print            0.000       1
+ 29  ==               0.000       1
+
+real 173.15
+user 1082.79
+sys 83.07

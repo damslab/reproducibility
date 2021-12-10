@@ -1,0 +1,81 @@
+##################################################
+# PIPELINE P1: fertilizer production - training  #
+##################################################
+
+# read matrix input 
+X = read($1);
+
+######################
+# a) basic exploration
+
+# sampling and fill NAs
+X1H = subsample1H(X, TRUE, FALSE);
+X1H = replace(target=X1H, pattern=NaN, replacement=0);
+
+# correlation matrix 
+P = cor(X1H)
+P = P - diag(diag(P))
+print("Correlation: min="+min(P)+", max="+max(P))
+
+# dim reduction and clustering
+# TODO replace with DBScan
+# TODO num clusters -> num components of GMM
+X1H2D = pca(X=X1H, K=2);
+C = kmeans(X=X1H2D, k=4, runs=1);
+print("Clustering output: \n"+toString(C))
+
+######################
+# b) anomaly models for sub-components 
+X = X1H;
+select = matrix(0, 5, ncol(X))
+select[1,] = t(table(as.matrix(list(1,3,5,7,9)), 1, nrow=ncol(X), 1))
+select[2,] = t(table(as.matrix(list(2,4,6,8,10)), 1, nrow=ncol(X), 1))
+select[3,] = t(table(seq(11,17), 1, nrow=ncol(X), 1))
+select[4,] = t(table(seq(18,25), 1, nrow=ncol(X), 1))
+select[5,] = t(table(seq(26,ncol(X)), 1, nrow=ncol(X), 1))
+
+B = matrix(0, nrow(select), nrow(X));
+for(i in 1:nrow(select)) {
+  tmp = runAnomalyPipeline(X, select[i,])
+  B[i,1:nrow(tmp)] = t(tmp);
+}
+
+# write out results
+write(B, "./B.csv", format="csv")
+
+subsample1H = function(Matrix[Double] X, Integer nstep, Boolean means) 
+  return(Matrix[Double] Xout) 
+{
+  # aggregates nstep windows column-wise
+  # e.g., nstep = 2, means=FALSE
+  # X = 
+  #  1.000 2.000 3.000
+  #  4.000 5.000 6.000
+  #  7.000 8.000 9.000
+  #  10.000 11.000 12.000
+  # Xout =
+  #  5.000 7.000 9.000
+  #  17.000 19.000 21.000
+
+  R = matrix(t(X), rows=nrow(X)*ncol(X)/nstep, cols=nstep)
+  A = ifelse(means, rowMeans(R), rowSums(R))
+  Xout = matrix(A, rows=nrow(X)/nstep, cols=ncol(X), byrow=FALSE)
+}
+
+runAnomalyPipeline = function(Matrix[Double] X, Matrix[Double] I) 
+  return(Matrix[Double] yhat)
+{
+  # select sensors
+  X = removeEmpty(target=X, margin="cols", select=t(I));  
+
+  # normalization (standard scaler)
+  X = scale(X=X, center=TRUE, scale=TRUE);
+  
+  # train/test splitting w/ dummy y
+  [Xtrain,Xtest,ytrain,ytest] = split(X, seq(1,nrow(X)), 0.7, FALSE);
+
+  #TODO n_components=10 crashing with dimension mismatch
+  [B,yhat,df,bic] = gmm(X=Xtrain, n_components=1);
+  #yhat = gmmpredict(Xtest, B)
+  print("GMM predictions: \n"+toString(yhat))
+}

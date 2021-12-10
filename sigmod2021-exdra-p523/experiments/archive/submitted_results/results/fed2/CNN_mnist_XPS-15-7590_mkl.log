@@ -1,0 +1,237 @@
+21/03/28 23:09:02 INFO org.apache.sysds.api.DMLScript: BEGIN DML run 03/28/2021 23:09:02
+21/03/28 23:09:02 INFO org.apache.sysds.utils.NativeHelper: Using native blas: mkl
+21/03/28 23:09:05 INFO org.apache.sysds.runtime.instructions.cp.ParamservBuiltinCPInstruction: PARAMETER SERVER
+21/03/28 23:09:05 INFO org.apache.sysds.runtime.instructions.cp.ParamservBuiltinCPInstruction: [+] Running in federated mode
+21/03/28 23:09:05 INFO org.apache.sysds.runtime.instructions.cp.ParamservBuiltinCPInstruction: [+] Update Type: BSP
+21/03/28 23:09:05 INFO org.apache.sysds.runtime.instructions.cp.ParamservBuiltinCPInstruction: [+] Frequency: EPOCH
+21/03/28 23:09:05 INFO org.apache.sysds.runtime.instructions.cp.ParamservBuiltinCPInstruction: [+] Data Partitioning: KEEP_DATA_ON_WORKER
+21/03/28 23:09:05 INFO org.apache.sysds.runtime.instructions.cp.ParamservBuiltinCPInstruction: [+] Runtime Balancing: NONE
+21/03/28 23:09:05 INFO org.apache.sysds.runtime.instructions.cp.ParamservBuiltinCPInstruction: [+] Weighting: false
+21/03/28 23:09:05 INFO org.apache.sysds.runtime.instructions.cp.ParamservBuiltinCPInstruction: [+] Seed: 2058042244
+21/03/28 23:09:05 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: Setup config for worker Federated worker_0
+21/03/28 23:09:05 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: Batch size: 128 possible batches: 235 batches to run: 235 weighting factor: 1.0
+21/03/28 23:09:06 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: Setup config for worker Federated worker_1
+21/03/28 23:09:06 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: Batch size: 128 possible batches: 235 batches to run: 235 weighting factor: 1.0
+21/03/28 23:10:41 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: completed EPOCH 0
+21/03/28 23:10:41 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: epoch timer: 96.311 secs.
+21/03/28 23:12:18 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: completed EPOCH 1
+21/03/28 23:12:18 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: epoch timer: 192.937 secs.
+channels   : 1
+epochs     : 2
+freq       : EPOCH
+batch_size : 128
+-1.7144737039270748
+SystemDS Statistics:
+Total elapsed time:		196.075 sec.
+Total compilation time:		0.764 sec.
+Total execution time:		195.310 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	0/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	0.000/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	322/0/0/0/0.
+Cache writes (Li/WB/FS/HDFS):	2/40/0/0.
+Cache times (ACQr/m, RLS, EXP):	0.007/0.001/0.006/0.000 sec.
+HOP DAGs recompiled (PRED, SB):	0/3.
+HOP DAGs recompile time:	0.014 sec.
+Paramserv total execution time:	193.024 secs.
+Paramserv total num workers:	2.
+Paramserv setup time:		0.550 secs.
+PS fed data partitioning time:	0.195 secs.
+PS fed comm time (cum):		23.478 secs.
+PS fed worker comp time (cum):	342.473 secs.
+PS fed grad. weigh. time (cum):	0.000 secs.
+PS fed global model agg time:	0.117 secs.
+Paramserv valdiation time:	0.000 secs.
+Federated I/O (Read, Put, Get):	4/6/2.
+Federated Execute (Inst, UDF):	10/8.
+Total JIT compile time:		3.285 sec.
+Total JVM GC count:		2.
+Total JVM GC time:		0.03 sec.
+Heavy hitter instructions:
+  #  Instruction  Time(s)  Count
+  1  paramserv    193.026      1
+  2  fed_uamin      1.327      1
+  3  fed_-          0.387      1
+  4  fed_/          0.275      1
+  5  fed_uamax      0.154      1
+  6  *              0.066     35
+  7  rand           0.061     13
+  8  -              0.037     17
+  9  -*             0.023     16
+ 10  rmvar          0.022     49
+ 11  +*             0.018     16
+ 12  uak+           0.017      1
+ 13  createvar      0.002     87
+ 14  nvlist         0.001      1
+ 15  print          0.001      5
+ 16  sqrt           0.001     10
+ 17  /              0.001     13
+ 18  list           0.001      3
+ 19  mvvar          0.000     54
+ 20  rightIndex     0.000      1
+ 21  +              0.000     12
+ 22  castdtm        0.000      1
+ 23  ==             0.000      3
+
+21/03/28 23:12:18 INFO org.apache.sysds.api.DMLScript: END DML run 03/28/2021 23:12:18
+real 199,54
+user 12,01
+sys 0,88
+21/03/28 23:12:22 INFO org.apache.sysds.api.DMLScript: BEGIN DML run 03/28/2021 23:12:22
+21/03/28 23:12:22 INFO org.apache.sysds.utils.NativeHelper: Using native blas: mkl
+21/03/28 23:12:24 INFO org.apache.sysds.runtime.instructions.cp.ParamservBuiltinCPInstruction: PARAMETER SERVER
+21/03/28 23:12:24 INFO org.apache.sysds.runtime.instructions.cp.ParamservBuiltinCPInstruction: [+] Running in federated mode
+21/03/28 23:12:24 INFO org.apache.sysds.runtime.instructions.cp.ParamservBuiltinCPInstruction: [+] Update Type: BSP
+21/03/28 23:12:24 INFO org.apache.sysds.runtime.instructions.cp.ParamservBuiltinCPInstruction: [+] Frequency: EPOCH
+21/03/28 23:12:24 INFO org.apache.sysds.runtime.instructions.cp.ParamservBuiltinCPInstruction: [+] Data Partitioning: KEEP_DATA_ON_WORKER
+21/03/28 23:12:24 INFO org.apache.sysds.runtime.instructions.cp.ParamservBuiltinCPInstruction: [+] Runtime Balancing: NONE
+21/03/28 23:12:24 INFO org.apache.sysds.runtime.instructions.cp.ParamservBuiltinCPInstruction: [+] Weighting: false
+21/03/28 23:12:24 INFO org.apache.sysds.runtime.instructions.cp.ParamservBuiltinCPInstruction: [+] Seed: 2058240830
+21/03/28 23:12:24 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: Setup config for worker Federated worker_0
+21/03/28 23:12:24 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: Batch size: 128 possible batches: 235 batches to run: 235 weighting factor: 1.0
+21/03/28 23:12:24 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: Setup config for worker Federated worker_1
+21/03/28 23:12:24 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: Batch size: 128 possible batches: 235 batches to run: 235 weighting factor: 1.0
+21/03/28 23:14:02 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: completed EPOCH 0
+21/03/28 23:14:02 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: epoch timer: 98.75 secs.
+21/03/28 23:15:41 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: completed EPOCH 1
+21/03/28 23:15:41 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: epoch timer: 197.02 secs.
+channels   : 1
+epochs     : 2
+freq       : EPOCH
+batch_size : 128
+-1.786967830356529
+SystemDS Statistics:
+Total elapsed time:		199.209 sec.
+Total compilation time:		0.860 sec.
+Total execution time:		198.349 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	0/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	0.000/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	322/0/0/0/0.
+Cache writes (Li/WB/FS/HDFS):	2/40/0/0.
+Cache times (ACQr/m, RLS, EXP):	0.012/0.001/0.005/0.000 sec.
+HOP DAGs recompiled (PRED, SB):	0/3.
+HOP DAGs recompile time:	0.015 sec.
+Paramserv total execution time:	197.104 secs.
+Paramserv total num workers:	2.
+Paramserv setup time:		0.507 secs.
+PS fed data partitioning time:	0.196 secs.
+PS fed comm time (cum):		23.321 secs.
+PS fed worker comp time (cum):	346.526 secs.
+PS fed grad. weigh. time (cum):	0.000 secs.
+PS fed global model agg time:	0.097 secs.
+Paramserv valdiation time:	0.000 secs.
+Federated I/O (Read, Put, Get):	4/6/2.
+Federated Execute (Inst, UDF):	10/8.
+Total JIT compile time:		3.081 sec.
+Total JVM GC count:		2.
+Total JVM GC time:		0.031 sec.
+Heavy hitter instructions:
+  #  Instruction  Time(s)  Count
+  1  paramserv    197.105      1
+  2  fed_uamin      0.683      1
+  3  fed_uamax      0.150      1
+  4  fed_-          0.138      1
+  5  fed_/          0.135      1
+  6  rand           0.060     13
+  7  *              0.057     35
+  8  -              0.035     17
+  9  -*             0.022     16
+ 10  +*             0.016     16
+ 11  uak+           0.016      1
+ 12  rmvar          0.014     49
+ 13  createvar      0.001     87
+ 14  nvlist         0.001      1
+ 15  /              0.001     13
+ 16  list           0.001      3
+ 17  print          0.001      5
+ 18  sqrt           0.000     10
+ 19  mvvar          0.000     54
+ 20  rightIndex     0.000      1
+ 21  +              0.000     12
+ 22  castdtm        0.000      1
+ 23  ==             0.000      3
+
+21/03/28 23:15:41 INFO org.apache.sysds.api.DMLScript: END DML run 03/28/2021 23:15:41
+real 202,68
+user 12,42
+sys 0,81
+21/03/28 23:15:44 INFO org.apache.sysds.api.DMLScript: BEGIN DML run 03/28/2021 23:15:44
+21/03/28 23:15:44 INFO org.apache.sysds.utils.NativeHelper: Using native blas: mkl
+21/03/28 23:15:46 INFO org.apache.sysds.runtime.instructions.cp.ParamservBuiltinCPInstruction: PARAMETER SERVER
+21/03/28 23:15:46 INFO org.apache.sysds.runtime.instructions.cp.ParamservBuiltinCPInstruction: [+] Running in federated mode
+21/03/28 23:15:46 INFO org.apache.sysds.runtime.instructions.cp.ParamservBuiltinCPInstruction: [+] Update Type: BSP
+21/03/28 23:15:46 INFO org.apache.sysds.runtime.instructions.cp.ParamservBuiltinCPInstruction: [+] Frequency: EPOCH
+21/03/28 23:15:46 INFO org.apache.sysds.runtime.instructions.cp.ParamservBuiltinCPInstruction: [+] Data Partitioning: KEEP_DATA_ON_WORKER
+21/03/28 23:15:46 INFO org.apache.sysds.runtime.instructions.cp.ParamservBuiltinCPInstruction: [+] Runtime Balancing: NONE
+21/03/28 23:15:46 INFO org.apache.sysds.runtime.instructions.cp.ParamservBuiltinCPInstruction: [+] Weighting: false
+21/03/28 23:15:46 INFO org.apache.sysds.runtime.instructions.cp.ParamservBuiltinCPInstruction: [+] Seed: 2058443615
+21/03/28 23:15:47 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: Setup config for worker Federated worker_0
+21/03/28 23:15:47 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: Batch size: 128 possible batches: 235 batches to run: 235 weighting factor: 1.0
+21/03/28 23:15:47 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: Setup config for worker Federated worker_1
+21/03/28 23:15:47 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: Batch size: 128 possible batches: 235 batches to run: 235 weighting factor: 1.0
+21/03/28 23:17:29 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: completed EPOCH 0
+21/03/28 23:17:29 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: epoch timer: 102.415 secs.
+21/03/28 23:19:10 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: completed EPOCH 1
+21/03/28 23:19:10 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: epoch timer: 203.812 secs.
+channels   : 1
+epochs     : 2
+freq       : EPOCH
+batch_size : 128
+-1.951858135892671
+SystemDS Statistics:
+Total elapsed time:		206.087 sec.
+Total compilation time:		0.738 sec.
+Total execution time:		205.350 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	0/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	0.000/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	322/0/0/0/0.
+Cache writes (Li/WB/FS/HDFS):	2/40/0/0.
+Cache times (ACQr/m, RLS, EXP):	0.007/0.001/0.007/0.000 sec.
+HOP DAGs recompiled (PRED, SB):	0/3.
+HOP DAGs recompile time:	0.015 sec.
+Paramserv total execution time:	203.903 secs.
+Paramserv total num workers:	2.
+Paramserv setup time:		0.519 secs.
+PS fed data partitioning time:	0.217 secs.
+PS fed comm time (cum):		23.001 secs.
+PS fed worker comp time (cum):	358.958 secs.
+PS fed grad. weigh. time (cum):	0.000 secs.
+PS fed global model agg time:	0.091 secs.
+Paramserv valdiation time:	0.000 secs.
+Federated I/O (Read, Put, Get):	4/6/2.
+Federated Execute (Inst, UDF):	10/8.
+Total JIT compile time:		3.002 sec.
+Total JVM GC count:		2.
+Total JVM GC time:		0.031 sec.
+Heavy hitter instructions:
+  #  Instruction  Time(s)  Count
+  1  paramserv    203.905      1
+  2  fed_uamin      0.764      1
+  3  fed_/          0.188      1
+  4  fed_-          0.187      1
+  5  fed_uamax      0.161      1
+  6  rand           0.062     13
+  7  *              0.051     35
+  8  -              0.034     17
+  9  -*             0.024     16
+ 10  rmvar          0.017     49
+ 11  uak+           0.016      1
+ 12  +*             0.015     16
+ 13  createvar      0.002     87
+ 14  nvlist         0.002      1
+ 15  /              0.001     13
+ 16  list           0.001      3
+ 17  print          0.001      5
+ 18  sqrt           0.000     10
+ 19  mvvar          0.000     54
+ 20  rightIndex     0.000      1
+ 21  +              0.000     12
+ 22  castdtm        0.000      1
+ 23  ==             0.000      3
+
+21/03/28 23:19:10 INFO org.apache.sysds.api.DMLScript: END DML run 03/28/2021 23:19:10
+real 209,59
+user 11,50
+sys 0,91

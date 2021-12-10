@@ -1,0 +1,47 @@
+SystemDS Statistics:
+Total elapsed time:		13.567 sec.
+Total compilation time:		0.730 sec.
+Total execution time:		12.837 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	41/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	0.006/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	387/0/0/0/2.
+Cache writes (Li/WB/FS/HDFS):	0/1/0/1.
+Cache times (ACQr/m, RLS, EXP):	6.265/0.001/0.002/0.018 sec.
+HOP DAGs recompiled (PRED, SB):	0/0.
+HOP DAGs recompile time:	0.000 sec.
+Total JIT compile time:		2.199 sec.
+Total JVM GC count:		0.
+Total JVM GC time:		0.0 sec.
+Heavy hitter instructions:
+  #  Instruction  Time(s)  Count
+  1  m_lmCG        12.819      1
+  2  ba+*           6.496     22
+  3  mmchain        6.208     20
+  4  r'             0.084     23
+  5  write          0.018      1
+  6  -              0.007     34
+  7  <=             0.006      1
+  8  +*             0.005     60
+  9  rand           0.005      2
+ 10  createvar      0.003    210
+ 11  *              0.002     21
+ 12  +              0.002     40
+ 13  rmvar          0.002    233
+ 14  tsmm           0.001     20
+ 15  mvvar          0.000     51
+ 16  castdts        0.000     41
+ 17  /              0.000     40
+ 18  ==             0.000     11
+ 19  assignvar      0.000     45
+ 20  cpvar          0.000     65
+ 21  >              0.000     23
+ 22  <              0.000     21
+ 23  &&             0.000     21
+ 24  ||             0.000      2
+ 25  ^              0.000      1
+ 26  >=             0.000      1
+
+real 14,33
+user 132,85
+sys 19,64

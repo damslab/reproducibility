@@ -1,0 +1,30 @@
+
+features = read($features)
+labels = read($labels) 
+X_test = read($X_test)
+y_test = read($y_test)
+
+# Normalize
+features = (features - min(features)) / (max(features) - min(features));
+X_test = (X_test - min(features)) / (max(features) - min(features));
+
+source("src/scripts/TwoNN.dml") as TwoNN
+
+# currently ignored parameters
+workers = $numWorkers
+paramserv_mode = "LOCAL"
+
+# train model
+model = TwoNN::train_paramserv(features, labels, 
+  matrix(0, rows=0, cols=0), matrix(0, rows=0, cols=0), 
+  $epochs, workers, $utype, $freq, $batch_size, 
+  paramserv_mode, $eta, 13)
+
+# model = TwoNN::train(features, labels, 
+#   matrix(0, rows=0, cols=0), matrix(0, rows=0, cols=0), 
+#   $epochs, $batch_size, $eta, 13)
+
+# Compute test loss & accuracy
+probs_test = TwoNN::predict(X_test, model)
+[loss_test, accuracy_test] = TwoNN::eval(probs_test, y_test)
+print("[+] test loss: " + loss_test + ", test accuracy: " + accuracy_test + "\n")

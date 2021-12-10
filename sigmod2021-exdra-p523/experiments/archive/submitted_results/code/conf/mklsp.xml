@@ -1,0 +1,6 @@
+<root>
+    <sysds.cp.parallel.ops>true</sysds.cp.parallel.ops>
+    <sysds.cp.parallel.io>true</sysds.cp.parallel.io>
+    <sysds.native.blas>mkl</sysds.native.blas>
+    <sysds.floating.point.precision>single</sysds.floating.point.precision>
+</root>

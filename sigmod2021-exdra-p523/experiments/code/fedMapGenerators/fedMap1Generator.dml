@@ -1,0 +1,14 @@
+# number of rows
+N = $1
+# number of cols
+M = $2
+
+# Addresses
+ad1 = $3
+
+X = federated(
+    addresses=list(ad1),
+    ranges= list(list(0, 0), list(N, M))
+)
+
+write(X, $4, format="federated")

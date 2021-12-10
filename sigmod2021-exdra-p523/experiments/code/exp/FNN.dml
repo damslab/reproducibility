@@ -1,0 +1,26 @@
+
+features = read($features)
+labels = read($labels) 
+X_test = read($X_test)
+y_test = read($y_test)
+
+# Normalize
+features = (features - min(features)) / (max(features) - min(features));
+X_test = (X_test - min(features)) / (max(features) - min(features));
+
+source("code/exp/FNN_network.dml") as FNNN
+
+workers = $numWorkers
+paramserv_mode = "LOCAL"
+
+# train model
+model = FNNN::train_paramserv(features, labels,
+  $epochs, workers, $utype, $freq, $batch_size, 
+  paramserv_mode, $eta, 13)
+
+print(sum(as.matrix(model[1])))
+
+# # Compute test loss & accuracy
+# probs_test = FNN::predict(X_test, model)
+# [loss_test, accuracy_test] = FNN::eval(probs_test, y_test)
+# print("[+] test loss: " + loss_test + ", test accuracy: " + accuracy_test + "\n")

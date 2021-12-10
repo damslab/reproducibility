@@ -1,0 +1,39 @@
+K-means: No output is produced. Try increasing the number of iterations and/or lower eps.
+SystemDS Statistics:
+Total elapsed time:		104.752 sec.
+Total compilation time:		0.600 sec.
+Total execution time:		104.152 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	160/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	42.694/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	3132/0/0/0/1.
+Cache writes (Li/WB/FS/HDFS):	1/795/0/1.
+Cache times (ACQr/m, RLS, EXP):	6.650/0.003/1.226/0.827 sec.
+HOP DAGs recompiled (PRED, SB):	0/53.
+HOP DAGs recompile time:	0.111 sec.
+Functions recompiled:		1.
+Functions recompile time:	0.018 sec.
+ParFor loops optimized:		1.
+ParFor optimize time:		0.017 sec.
+ParFor initialize time:		0.002 sec.
+ParFor result merge time:	0.008 sec.
+ParFor total update in-place:	0/3/4
+Total JIT compile time:		6.906 sec.
+Total JVM GC count:		42.
+Total JVM GC time:		5.186 sec.
+Heavy hitter instructions:
+  #  Instruction  Time(s)  Count
+  1  m_kmeans     103.325      1
+  2  ba+*          63.569    271
+  3  <=            11.451    120
+  4  uasqk+         7.164     51
+  5  *              6.859    281
+  6  +              6.437    395
+  7  /              2.955    123
+  8  r'             2.385    240
+  9  uarmin         1.575     60
+ 10  write          0.827      1
+
+real 106,22
+user 934,94
+sys 26,08

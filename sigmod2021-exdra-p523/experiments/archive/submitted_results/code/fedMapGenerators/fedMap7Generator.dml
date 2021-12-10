@@ -1,0 +1,28 @@
+# number of rows
+N = $1
+# number of cols
+M = $2
+
+# Addresses
+ad1 = $3
+ad2 = $4
+ad3 = $5
+ad4 = $6
+ad5 = $7
+ad6 = $8
+ad7 = $9
+
+X = federated(
+    addresses=list(ad1,ad2,ad3,ad4,ad5,ad6,ad7),
+    ranges= list(
+        list(0, 0), list(N/7, M), 
+        list(N/7 , 0), list((N/7)*2, M),
+        list((N/7)*2 , 0), list((N/7)*3, M),
+        list((N/7)*3 , 0), list((N/7)*4, M),
+        list((N/7)*4 , 0), list((N/7)*5, M),
+        list((N/7)*5 , 0), list((N/7)*6, M),
+        list((N/7)*6 , 0), list(N, M)
+    )
+)
+
+write(X, $10, format="federated")

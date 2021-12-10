@@ -1,0 +1,227 @@
+SystemDS Statistics:
+Total elapsed time:		30.497 sec.
+Total compilation time:		0.397 sec.
+Total execution time:		30.100 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	0/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	0.000/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	19/0/0/0/0.
+Cache writes (Li/WB/FS/HDFS):	0/6/0/1.
+Cache times (ACQr/m, RLS, EXP):	0.000/0.001/0.002/0.068 sec.
+HOP DAGs recompiled (PRED, SB):	0/2.
+HOP DAGs recompile time:	0.004 sec.
+Federated I/O (Read, Put, Get):	7/3/4.
+Federated Execute (Inst, UDF):	16/0.
+Total JIT compile time:		2.208 sec.
+Total JVM GC count:		3.
+Total JVM GC time:		0.034 sec.
+Heavy hitter instructions:
+  #  Instruction   Time(s)  Count
+  1  m_pca          30.029      1
+  2  eigen          15.366      1
+  3  fed_tsmm        8.593      1
+  4  fed_uacmean     2.708      1
+  5  fed_/           1.451      1
+  6  fed_-           0.852      1
+  7  fed_uacsqk+     0.333      1
+  8  fed_ba+*        0.282      1
+  9  fed_uack+       0.209      1
+ 10  write           0.069      1
+ 11  tsmm            0.057      1
+ 12  rmvar           0.046     15
+ 13  ba+*            0.041      1
+ 14  /               0.031      4
+ 15  -*              0.029      1
+ 16  sqrt            0.014      1
+ 17  -               0.005      2
+ 18  ctableexpand    0.004      1
+ 19  rsort           0.003      1
+ 20  seq             0.001      1
+ 21  createvar       0.001     23
+ 22  replace         0.001      2
+ 23  rightIndex      0.001      1
+ 24  cpvar           0.000      5
+ 25  mvvar           0.000      3
+
+real 34,05
+user 23,26
+sys 0,85
+SystemDS Statistics:
+Total elapsed time:		29.264 sec.
+Total compilation time:		0.413 sec.
+Total execution time:		28.851 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	0/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	0.000/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	19/0/0/0/0.
+Cache writes (Li/WB/FS/HDFS):	0/6/0/1.
+Cache times (ACQr/m, RLS, EXP):	0.000/0.001/0.001/0.065 sec.
+HOP DAGs recompiled (PRED, SB):	0/2.
+HOP DAGs recompile time:	0.004 sec.
+Federated I/O (Read, Put, Get):	7/3/4.
+Federated Execute (Inst, UDF):	16/0.
+Total JIT compile time:		2.516 sec.
+Total JVM GC count:		3.
+Total JVM GC time:		0.036 sec.
+Heavy hitter instructions:
+  #  Instruction   Time(s)  Count
+  1  m_pca          28.784      1
+  2  eigen          15.731      1
+  3  fed_tsmm        8.176      1
+  4  fed_uacmean     1.259      1
+  5  fed_uacsqk+     1.038      1
+  6  fed_-           1.023      1
+  7  fed_/           0.797      1
+  8  fed_ba+*        0.324      1
+  9  fed_uack+       0.207      1
+ 10  write           0.065      1
+ 11  tsmm            0.057      1
+ 12  rmvar           0.056     15
+ 13  ba+*            0.042      1
+ 14  -*              0.032      1
+ 15  /               0.026      4
+ 16  -               0.005      2
+ 17  ctableexpand    0.003      1
+ 18  sqrt            0.003      1
+ 19  rsort           0.003      1
+ 20  createvar       0.001     23
+ 21  seq             0.001      1
+ 22  rightIndex      0.000      1
+ 23  replace         0.000      2
+ 24  cpvar           0.000      5
+ 25  mvvar           0.000      3
+
+real 32,78
+user 23,84
+sys 0,86
+SystemDS Statistics:
+Total elapsed time:		26.647 sec.
+Total compilation time:		0.390 sec.
+Total execution time:		26.257 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	0/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	0.000/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	19/0/0/0/0.
+Cache writes (Li/WB/FS/HDFS):	0/6/0/1.
+Cache times (ACQr/m, RLS, EXP):	0.000/0.001/0.001/0.057 sec.
+HOP DAGs recompiled (PRED, SB):	0/2.
+HOP DAGs recompile time:	0.004 sec.
+Federated I/O (Read, Put, Get):	7/3/4.
+Federated Execute (Inst, UDF):	16/0.
+Total JIT compile time:		2.275 sec.
+Total JVM GC count:		3.
+Total JVM GC time:		0.035 sec.
+Heavy hitter instructions:
+  #  Instruction   Time(s)  Count
+  1  m_pca          26.198      1
+  2  eigen          15.369      1
+  3  fed_tsmm        7.535      1
+  4  fed_uacmean     1.082      1
+  5  fed_/           0.668      1
+  6  fed_-           0.523      1
+  7  fed_ba+*        0.311      1
+  8  fed_uacsqk+     0.281      1
+  9  fed_uack+       0.225      1
+ 10  write           0.057      1
+ 11  rmvar           0.046     15
+ 12  ba+*            0.040      1
+ 13  tsmm            0.037      1
+ 14  /               0.031      4
+ 15  -*              0.021      1
+ 16  sqrt            0.014      1
+ 17  -               0.005      2
+ 18  ctableexpand    0.003      1
+ 19  rsort           0.003      1
+ 20  replace         0.001      2
+ 21  seq             0.001      1
+ 22  createvar       0.001     23
+ 23  rightIndex      0.001      1
+ 24  cpvar           0.000      5
+ 25  mvvar           0.000      3
+
+real 30,16
+user 23,14
+sys 0,88
+SystemDS Statistics:
+Total elapsed time:		25.020 sec.
+Total compilation time:		0.412 sec.
+Total execution time:		24.608 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	0/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	0.000/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	12/0/0/0/0.
+Cache writes (Li/WB/FS/HDFS):	0/4/0/0.
+Cache times (ACQr/m, RLS, EXP):	0.000/0.000/0.001/0.000 sec.
+HOP DAGs recompiled (PRED, SB):	0/0.
+HOP DAGs recompile time:	0.000 sec.
+Federated I/O (Read, Put, Get):	7/2/4.
+Federated Execute (Inst, UDF):	13/0.
+Total JIT compile time:		1.981 sec.
+Total JVM GC count:		2.
+Total JVM GC time:		0.026 sec.
+Heavy hitter instructions:
+  #  Instruction  Time(s)  Count
+  1  fed_tsmm       7.171      1
+  2  fed_uacmean    1.611      1
+  3  fed_-          0.987      1
+  4  fed_uacsqk+    0.864      1
+  5  fed_/          0.689      1
+  6  fed_uack+      0.205      1
+  7  rmvar          0.055      8
+  8  tsmm           0.053      1
+  9  -*             0.043      1
+ 10  /              0.032      4
+ 11  -              0.005      2
+ 12  sqrt           0.003      1
+ 13  createvar      0.001     17
+ 14  replace        0.000      2
+ 15  mvvar          0.000      3
+
+[31m
+An Error Occured : 
+      DMLRuntimeException -- org.apache.sysds.runtime.DMLRuntimeException: ERROR: Runtime error in program block generated from statement block between lines 1 and 3 -- Error evaluating instruction: CP°fcall°.defaultNS°m_pca°true°4°2°X=pREADX·MATRIX·FP64°K=10·SCALAR·INT64·true°center=true·SCALAR·BOOLEAN·true°scale=true·SCALAR·BOOLEAN·true°Xout°Mout
+      DMLRuntimeException -- ERROR: Runtime error in program block generated from statement block between lines 1 and 3 -- Error evaluating instruction: CP°fcall°.defaultNS°m_pca°true°4°2°X=pREADX·MATRIX·FP64°K=10·SCALAR·INT64·true°center=true·SCALAR·BOOLEAN·true°scale=true·SCALAR·BOOLEAN·true°Xout°Mout
+      DMLRuntimeException -- error executing function .defaultNS::m_pca
+      DMLRuntimeException -- ERROR: Runtime error in function program block generated from function statement block between lines 37 and 67 -- Error evaluating function program block
+      DMLRuntimeException -- ERROR: Runtime error in program block generated from statement block between lines 44 and 51 -- Error evaluating instruction: CP°eigen°_mVar16·MATRIX·FP64°evalues°evectors
+MaxCountExceededException -- illegal state: convergence failed
+[0m
+org.apache.sysds.runtime.DMLRuntimeException: org.apache.sysds.runtime.DMLRuntimeException: ERROR: Runtime error in program block generated from statement block between lines 1 and 3 -- Error evaluating instruction: CP°fcall°.defaultNS°m_pca°true°4°2°X=pREADX·MATRIX·FP64°K=10·SCALAR·INT64·true°center=true·SCALAR·BOOLEAN·true°scale=true·SCALAR·BOOLEAN·true°Xout°Mout
+	at org.apache.sysds.runtime.controlprogram.Program.execute(Program.java:155)
+	at org.apache.sysds.api.ScriptExecutorUtils.executeRuntimeProgram(ScriptExecutorUtils.java:88)
+	at org.apache.sysds.api.DMLScript.execute(DMLScript.java:423)
+	at org.apache.sysds.api.DMLScript.executeScript(DMLScript.java:266)
+	at org.apache.sysds.api.DMLScript.main(DMLScript.java:164)
+Caused by: org.apache.sysds.runtime.DMLRuntimeException: ERROR: Runtime error in program block generated from statement block between lines 1 and 3 -- Error evaluating instruction: CP°fcall°.defaultNS°m_pca°true°4°2°X=pREADX·MATRIX·FP64°K=10·SCALAR·INT64·true°center=true·SCALAR·BOOLEAN·true°scale=true·SCALAR·BOOLEAN·true°Xout°Mout
+	at org.apache.sysds.runtime.controlprogram.ProgramBlock.executeSingleInstruction(ProgramBlock.java:286)
+	at org.apache.sysds.runtime.controlprogram.ProgramBlock.executeInstructions(ProgramBlock.java:206)
+	at org.apache.sysds.runtime.controlprogram.BasicProgramBlock.execute(BasicProgramBlock.java:125)
+	at org.apache.sysds.runtime.controlprogram.Program.execute(Program.java:149)
+	... 4 more
+Caused by: org.apache.sysds.runtime.DMLRuntimeException: error executing function .defaultNS::m_pca
+	at org.apache.sysds.runtime.instructions.cp.FunctionCallCPInstruction.processInstruction(FunctionCallCPInstruction.java:198)
+	at org.apache.sysds.runtime.controlprogram.ProgramBlock.executeSingleInstruction(ProgramBlock.java:250)
+	... 7 more
+Caused by: org.apache.sysds.runtime.DMLRuntimeException: ERROR: Runtime error in function program block generated from function statement block between lines 37 and 67 -- Error evaluating function program block
+	at org.apache.sysds.runtime.controlprogram.FunctionProgramBlock.execute(FunctionProgramBlock.java:142)
+	at org.apache.sysds.runtime.instructions.cp.FunctionCallCPInstruction.processInstruction(FunctionCallCPInstruction.java:191)
+	... 8 more
+Caused by: org.apache.sysds.runtime.DMLRuntimeException: ERROR: Runtime error in program block generated from statement block between lines 44 and 51 -- Error evaluating instruction: CP°eigen°_mVar16·MATRIX·FP64°evalues°evectors
+	at org.apache.sysds.runtime.controlprogram.ProgramBlock.executeSingleInstruction(ProgramBlock.java:286)
+	at org.apache.sysds.runtime.controlprogram.ProgramBlock.executeInstructions(ProgramBlock.java:206)
+	at org.apache.sysds.runtime.controlprogram.BasicProgramBlock.execute(BasicProgramBlock.java:125)
+	at org.apache.sysds.runtime.controlprogram.FunctionProgramBlock.execute(FunctionProgramBlock.java:135)
+	... 9 more
+Caused by: org.apache.commons.math3.exception.MaxCountExceededException: illegal state: convergence failed
+	at org.apache.commons.math3.linear.SchurTransformer.transform(SchurTransformer.java:205)
+	at org.apache.commons.math3.linear.SchurTransformer.<init>(SchurTransformer.java:82)
+	at org.apache.commons.math3.linear.EigenDecomposition.transformToSchur(EigenDecomposition.java:750)
+	at org.apache.commons.math3.linear.EigenDecomposition.<init>(EigenDecomposition.java:124)
+	at org.apache.sysds.runtime.matrix.data.LibCommonsMath.computeEigen(LibCommonsMath.java:181)
+	at org.apache.sysds.runtime.matrix.data.LibCommonsMath.multiReturnOperations(LibCommonsMath.java:78)
+	at org.apache.sysds.runtime.instructions.cp.MultiReturnBuiltinCPInstruction.processInstruction(MultiReturnBuiltinCPInstruction.java:120)
+	at org.apache.sysds.runtime.controlprogram.ProgramBlock.executeSingleInstruction(ProgramBlock.java:250)
+	... 12 more
+real 28,77
+user 19,83
+sys 0,70

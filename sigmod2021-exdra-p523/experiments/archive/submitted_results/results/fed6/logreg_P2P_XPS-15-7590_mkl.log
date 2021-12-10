@@ -1,0 +1,150 @@
+SystemDS Statistics:
+Total elapsed time:		247.659 sec.
+Total compilation time:		0.582 sec.
+Total execution time:		247.077 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	567/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	0.008/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	4562/0/0/0/1.
+Cache writes (Li/WB/FS/HDFS):	1/626/0/1.
+Cache times (ACQr/m, RLS, EXP):	0.066/0.004/0.029/0.029 sec.
+HOP DAGs recompiled (PRED, SB):	0/351.
+HOP DAGs recompile time:	0.616 sec.
+Functions recompiled:		1.
+Functions recompile time:	0.026 sec.
+Federated I/O (Read, Put, Get):	6/1112/191.
+Federated Execute (Inst, UDF):	384/0.
+Total JIT compile time:		9.211 sec.
+Total JVM GC count:		7.
+Total JVM GC time:		0.069 sec.
+Heavy hitter instructions:
+  #  Instruction    Time(s)  Count
+  1  m_multiLogReg  246.920      1
+  2  fed_mmchain    167.685    128
+  3  fed_ba+*        71.592     61
+  4  fed_isnan        1.479      1
+  5  fed_uarsqk+      1.332      1
+  6  sprop            1.080    128
+  7  append           0.564     30
+  8  -                0.500    277
+  9  rightIndex       0.482    190
+ 10  exp              0.242     30
+ 11  /                0.233    348
+ 12  uark+            0.220     30
+ 13  fed_uak+         0.156      1
+ 14  uarmax           0.129     30
+ 15  log              0.118     31
+ 16  <                0.101    152
+ 17  tak+*            0.096     60
+ 18  +                0.044    381
+ 19  +*               0.040    256
+ 20  rmvar            0.038   4174
+ 21  uak+             0.030     30
+ 22  write            0.030      1
+ 23  *                0.025    558
+ 24  rexpand          0.024      1
+ 25  uamax            0.022      2
+ 26  uamin            0.019      1
+ 27  createvar        0.018   2398
+ 28  -*               0.017    128
+ 29  rand             0.016     64
+ 30  tsmm             0.016    318
+ 31  sqrt             0.014    221
+ 32  ba+*             0.013    249
+ 33  r'               0.010    251
+ 34  castdts          0.006    823
+ 35  ==               0.006     72
+ 36  mvvar            0.004    746
+ 37  n+               0.004     30
+ 38  <=               0.004    315
+ 39  assignvar        0.004   1293
+ 40  cpvar            0.004    855
+ 41  ^                0.001     32
+ 42  !                0.001    189
+ 43  >                0.001    190
+ 44  ||               0.001    191
+ 45  abs              0.000     90
+ 46  ifelse           0.000     30
+ 47  &&               0.000     30
+ 48  max              0.000     60
+ 49  min              0.000     31
+ 50  >=               0.000      2
+
+real 250,87
+user 34,20
+sys 3,77
+SystemDS Statistics:
+Total elapsed time:		247.976 sec.
+Total compilation time:		0.603 sec.
+Total execution time:		247.373 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	567/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	0.008/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	4562/0/0/0/1.
+Cache writes (Li/WB/FS/HDFS):	1/626/0/1.
+Cache times (ACQr/m, RLS, EXP):	0.073/0.005/0.032/0.028 sec.
+HOP DAGs recompiled (PRED, SB):	0/351.
+HOP DAGs recompile time:	0.624 sec.
+Functions recompiled:		1.
+Functions recompile time:	0.027 sec.
+Federated I/O (Read, Put, Get):	6/1112/191.
+Federated Execute (Inst, UDF):	384/0.
+Total JIT compile time:		10.223 sec.
+Total JVM GC count:		7.
+Total JVM GC time:		0.072 sec.
+Heavy hitter instructions:
+  #  Instruction    Time(s)  Count
+  1  m_multiLogReg  247.207      1
+  2  fed_mmchain    167.376    128
+  3  fed_ba+*        71.602     61
+  4  fed_isnan        1.648      1
+  5  sprop            1.373    128
+  6  fed_uarsqk+      1.172      1
+  7  append           0.717     30
+  8  rightIndex       0.545    190
+  9  -                0.506    277
+ 10  exp              0.256     30
+ 11  /                0.243    348
+ 12  uark+            0.222     30
+ 13  uarmax           0.150     30
+ 14  fed_uak+         0.140      1
+ 15  log              0.118     31
+ 16  <                0.114    152
+ 17  tak+*            0.100     60
+ 18  uamax            0.046      2
+ 19  +                0.040    381
+ 20  +*               0.039    256
+ 21  rmvar            0.038   4174
+ 22  write            0.029      1
+ 23  uak+             0.028     30
+ 24  rexpand          0.027      1
+ 25  *                0.025    558
+ 26  createvar        0.019   2398
+ 27  -*               0.017    128
+ 28  rand             0.016     64
+ 29  tsmm             0.016    318
+ 30  ba+*             0.014    249
+ 31  sqrt             0.014    221
+ 32  uamin            0.013      1
+ 33  r'               0.011    251
+ 34  castdts          0.006    823
+ 35  ==               0.006     72
+ 36  mvvar            0.004    746
+ 37  n+               0.004     30
+ 38  assignvar        0.004   1293
+ 39  <=               0.004    315
+ 40  cpvar            0.004    855
+ 41  ^                0.001     32
+ 42  !                0.001    189
+ 43  >                0.001    190
+ 44  ||               0.001    191
+ 45  abs              0.000     90
+ 46  ifelse           0.000     30
+ 47  &&               0.000     30
+ 48  max              0.000     60
+ 49  min              0.000     31
+ 50  >=               0.000      2
+
+real 251,18
+user 36,46
+sys 3,82

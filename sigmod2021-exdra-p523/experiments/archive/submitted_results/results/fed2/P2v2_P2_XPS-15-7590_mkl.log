@@ -1,0 +1,84 @@
+
+Accuracy:
+--sum(ytest) = -46877.83638512447
+--sum(yhat) = 1403.3972525309875
+--AVG_RES_Y: -0.16121850304916724
+--SS_AVG_RES_Y: 1.4602466227264866E8
+--R2: 0.843770131711855
+SystemDS Statistics:
+Total elapsed time:		86.605 sec.
+Total compilation time:		0.642 sec.
+Total execution time:		85.963 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	17/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	0.025/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	169/0/0/0/1.
+Cache writes (Li/WB/FS/HDFS):	1/8/0/1.
+Cache times (ACQr/m, RLS, EXP):	0.068/0.007/0.003/0.037 sec.
+HOP DAGs recompiled (PRED, SB):	0/4.
+HOP DAGs recompile time:	0.024 sec.
+Functions recompiled:		1.
+Functions recompile time:	0.013 sec.
+Federated I/O (Read, Put, Get):	2/19/14.
+Federated Execute (Inst, UDF):	60/8.
+Total JIT compile time:		3.626 sec.
+Total JVM GC count:		3.
+Total JVM GC time:		0.04 sec.
+Heavy hitter instructions:
+  #  Instruction          Time(s)  Count
+  1  fed_transformencode   29.100      1
+  2  fed_castdtf           17.231      1
+  3  m_split                6.769      1
+  4  fed_rmempty            6.491      2
+  5  fed_*                  4.840      2
+  6  fed_<                  4.625      1
+  7  m_scale                4.552      1
+  8  fed_>                  4.533      1
+  9  fed_-                  3.424      2
+ 10  fed_uacvar             3.296      1
+ 11  m_lm                   3.226      1
+ 12  m_lmCG                 3.225      1
+ 13  fed_ba+*               2.465      2
+ 14  fed_+                  2.305      1
+ 15  fed_||                 2.299      1
+ 16  fed_/                  1.880      1
+ 17  fed_mmchain            1.485      7
+ 18  fed_uacmean            1.048      2
+ 19  fed_uacsqk+            0.449      1
+ 20  rmempty                0.118      2
+ 21  rand                   0.074      4
+ 22  rmvar                  0.056    141
+ 23  >                      0.054      9
+ 24  write                  0.037      2
+ 25  tsmm                   0.025      9
+ 26  <=                     0.023      3
+ 27  +                      0.013     30
+ 28  uak+                   0.010      3
+ 29  +*                     0.008     21
+ 30  -                      0.008     15
+ 31  ba+*                   0.008      8
+ 32  sqrt                   0.006      2
+ 33  createvar              0.005    117
+ 34  rlit                   0.004      1
+ 35  *                      0.003     11
+ 36  r'                     0.001     10
+ 37  nrow                   0.001      1
+ 38  replace                0.001      2
+ 39  /                      0.001     18
+ 40  castdts                0.000     18
+ 41  mvvar                  0.000     47
+ 42  cpvar                  0.000     35
+ 43  ==                     0.000     20
+ 44  assignvar              0.000     20
+ 45  print                  0.000      1
+ 46  <                      0.000      8
+ 47  &&                     0.000      8
+ 48  ^                      0.000      3
+ 49  ||                     0.000      5
+ 50  !=                     0.000      1
+ 51  >=                     0.000      2
+ 52  ncol                   0.000      1
+
+real 90,38
+user 12,58
+sys 0,72

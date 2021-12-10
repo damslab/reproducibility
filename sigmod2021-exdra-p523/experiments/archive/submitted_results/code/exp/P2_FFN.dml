@@ -1,0 +1,44 @@
+##################################################
+# PIPELINE P2: paper production - training       #
+##################################################
+
+# read frame input (1st cat, last y)
+Fall = read($features); #frame
+Fall = as.frame(Fall)
+# one hot encoding categorical, other passthrough
+jspec = "{ ids:true, dummycode:[1] }"
+[X0,M] = transformencode(target=Fall, spec=jspec)
+X = X0
+y = read($labels)
+
+# clipping out of value ranges
+colSD = colSds(X)
+colMean = (colMeans(X))
+upperBound = colMean + 1.5 * colSD
+lowerBound = colMean - 1.5 * colSD
+outFilter = (X < lowerBound) | (X > upperBound)
+X = X - outFilter*X + outFilter*colMeans(X); 
+
+# normalization
+X = scale(X=X, center=TRUE, scale=TRUE);
+
+# split training and testing
+[Xtrain , Xtest, ytrain, ytest] = split(X=X, Y=y, cont=FALSE)
+
+source("src/scripts/TwoNN.dml") as TwoNN
+
+# currently ignored parameters
+workers = $numWorkers
+paramserv_mode = "LOCAL"
+
+# train model
+model = TwoNN::train_paramserv(Xtrain, ytrain, 
+  matrix(0, rows=0, cols=0), matrix(0, rows=0, cols=0), 
+  $epochs, workers, $utype, $freq, $batch_size, 
+  paramserv_mode, $eta, 13)
+
+# Compute test loss & accuracy
+probs_test = TwoNN::predict(Xtest, model)
+[loss_test, accuracy_test] = TwoNN::eval(probs_test, ytest)
+print("[+] test loss: " + loss_test + ", test accuracy: " + accuracy_test + "\n")
+

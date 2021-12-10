@@ -1,0 +1,28 @@
+nohup: ignoring input
+sysds: 13dd8cb68260cec6692b2006271f651150519e42
+10:20:53
+10:21:01
+Starting Workers.
+Starting worker uniform 8007 mkl
+Starting worker mike 8003 mkl
+Starting worker delta 8001 mkl
+Starting worker sierra 8006 mkl
+Starting worker india 8002 mkl
+Starting worker papa 8004 mkl
+Starting worker romeo 8005 mkl
+fed 1W mkl - CNN	  mnist Dataset - rep:...
+fed 2W mkl - CNN	  mnist Dataset - rep:...
+fed 3W mkl - CNN	  mnist Dataset - rep:...
+fed 4W mkl - CNN	  mnist Dataset - rep:...
+fed 5W mkl - CNN	  mnist Dataset - rep:...
+fed 6W mkl - CNN	  mnist Dataset - rep:...
+fed 7W mkl - CNN	  mnist Dataset - rep:...
+Stopping workers uniform
+Stopping workers sierra
+Stopping workers romeo
+Stopping workers delta
+Stopping workers india
+Stopping workers papa
+Stopping workers mike
+10:45:36
+

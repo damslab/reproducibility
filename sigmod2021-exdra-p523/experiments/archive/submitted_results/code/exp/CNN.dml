@@ -1,0 +1,34 @@
+
+features = read($features)
+labels = read($labels)
+X_test = read($X_test)
+y_test = read($y_test)
+
+# Normalize 
+features = (features - min(features)) / (max(features) - min(features));
+X_test = (X_test - min(features)) / (max(features) - min(features));
+
+source("src/scripts/CNN.dml") as CNN
+
+# currently ignored parameters
+workers = $numWorkers
+scheme = "DISJOINT_CONTIGUOUS"
+paramserv_mode = "LOCAL"
+
+print("channels   : " +$channels)
+print("epochs     : " +$epochs)
+print("freq       : " +$freq)
+print("batch_size : " +$batch_size)
+
+# train model
+model = CNN::train_paramserv(features, labels, 
+    matrix(0, rows=0, cols=0), matrix(0, rows=0, cols=0), 
+    $channels, $hin, $win, $epochs, workers, $utype,
+    $freq, $batch_size, scheme, paramserv_mode, $eta, 1)
+
+print(sum(as.matrix(model[1])))
+
+# Compute test loss & accuracy
+# probs_test = CNN::predict(X_test, $channels, $hin, $win, $batch_size, model)
+# [loss_test, accuracy_test] = CNN::eval(probs_test, y_test)
+# print("[+] test loss: " + loss_test + ", test accuracy: " + accuracy_test + "\n")

@@ -1,0 +1,318 @@
+Federated Worker SystemDS Statistics:
+Total elapsed time:		0.000 sec.
+Total compilation time:		0.000 sec.
+Total execution time:		0.000 sec.
+Number of compiled Spark inst:	0.
+Number of executed Spark inst:	0.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	3438/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	2.382/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	103017/0/0/0/2.
+Cache writes (Li/WB/FS/HDFS):	0/0/0/0.
+Cache times (ACQr/m, RLS, EXP):	1.943/0.016/0.026/0.000 sec.
+HOP DAGs recompiled (PRED, SB):	0/0.
+HOP DAGs recompile time:	0.002 sec.
+Spark ctx create time (lazy):	0.000 sec.
+Spark trans counts (par,bc,col):0/0/0.
+Spark trans times (par,bc,col):	0.000/0.000/0.000 secs.
+Total JIT compile time:		14.42 sec.
+Total JVM GC count:		6.
+Total JVM GC time:		3.094 sec.
+Heavy hitter instructions:
+  #  Instruction  Time(s)  Count
+  1  r'             8.008   5725
+  2  +              5.508   4583
+  3  castdtf        3.797      1
+  4  >              3.384   2291
+  5  ba+*           2.683   9163
+  6  <              2.172      1
+  7  -              1.803  10278
+  8  max            1.232   2292
+  9  /              1.155   3436
+ 10  ||             1.055      1
+ 11  *              0.866  13713
+ 12  rmempty        0.599      4
+ 13  uacvar         0.486      1
+ 14  uacmean        0.398      3
+ 15  uacsqk+        0.159      1
+ 16  createvar      0.138  78885
+ 17  rmvar          0.105  80039
+ 18  rightIndex     0.065  21690
+ 19  list           0.053   2285
+ 20  uark+          0.049   2290
+ 21  exp            0.035   1145
+ 22  uarmax         0.033   1145
+ 23  castdtm        0.022  20550
+ 24  uack+          0.011   3435
+ 25  castvtd        0.011   1140
+ 26  nrow           0.007   1145
+ 27  mvvar          0.007   2285
+ 28  ncol           0.006   4565
+ 29  castdts        0.006   1140
+ 30  uak+           0.002      1
+
+Federated Worker SystemDS Statistics:
+Total elapsed time:		0.000 sec.
+Total compilation time:		0.000 sec.
+Total execution time:		0.000 sec.
+Number of compiled Spark inst:	0.
+Number of executed Spark inst:	0.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	3438/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	2.370/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	103017/0/0/0/2.
+Cache writes (Li/WB/FS/HDFS):	0/0/0/0.
+Cache times (ACQr/m, RLS, EXP):	0.478/0.013/0.023/0.000 sec.
+HOP DAGs recompiled (PRED, SB):	0/0.
+HOP DAGs recompile time:	0.001 sec.
+Spark ctx create time (lazy):	0.000 sec.
+Spark trans counts (par,bc,col):0/0/0.
+Spark trans times (par,bc,col):	0.000/0.000/0.000 secs.
+Total JIT compile time:		3.635 sec.
+Total JVM GC count:		11.
+Total JVM GC time:		5.109 sec.
+Heavy hitter instructions:
+  #  Instruction  Time(s)  Count
+  1  r'             8.402   5725
+  2  +              5.511   4583
+  3  ba+*           2.626   9163
+  4  >              2.551   2291
+  5  castdtf        2.023      1
+  6  -              1.514  10278
+  7  <              1.417      1
+  8  rmempty        1.185      4
+  9  ||             1.102      1
+ 10  max            1.052   2292
+ 11  *              0.689  13713
+ 12  uacvar         0.352      1
+ 13  uacmean        0.284      3
+ 14  /              0.198   3436
+ 15  createvar      0.117  78885
+ 16  rmvar          0.093  80039
+ 17  uacsqk+        0.073      1
+ 18  rightIndex     0.046  21690
+ 19  list           0.035   2285
+ 20  uark+          0.027   2290
+ 21  castdtm        0.020  20550
+ 22  uarmax         0.017   1145
+ 23  exp            0.015   1145
+ 24  uack+          0.009   3435
+ 25  castvtd        0.007   1140
+ 26  mvvar          0.006   2285
+ 27  castdts        0.006   1140
+ 28  nrow           0.006   1145
+ 29  ncol           0.006   4565
+ 30  uak+           0.001      1
+
+Federated Worker SystemDS Statistics:
+Total elapsed time:		0.000 sec.
+Total compilation time:		0.000 sec.
+Total execution time:		0.000 sec.
+Number of compiled Spark inst:	0.
+Number of executed Spark inst:	0.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	3438/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	2.343/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	103017/0/0/0/2.
+Cache writes (Li/WB/FS/HDFS):	0/0/0/0.
+Cache times (ACQr/m, RLS, EXP):	0.404/0.011/0.022/0.000 sec.
+HOP DAGs recompiled (PRED, SB):	0/0.
+HOP DAGs recompile time:	0.001 sec.
+Spark ctx create time (lazy):	0.000 sec.
+Spark trans counts (par,bc,col):0/0/0.
+Spark trans times (par,bc,col):	0.000/0.000/0.000 secs.
+Total JIT compile time:		15.1 sec.
+Total JVM GC count:		15.
+Total JVM GC time:		7.412 sec.
+Heavy hitter instructions:
+  #  Instruction  Time(s)  Count
+  1  r'             9.001   5725
+  2  +              5.819   4583
+  3  ba+*           2.748   9163
+  4  >              2.420   2291
+  5  <              2.312      1
+  6  castdtf        2.212      1
+  7  ||             1.097      1
+  8  *              1.037  13713
+  9  max            1.027   2292
+ 10  -              0.589  10278
+ 11  rmempty        0.533      4
+ 12  uacvar         0.303      1
+ 13  /              0.196   3436
+ 14  uacmean        0.188      3
+ 15  createvar      0.109  78885
+ 16  rmvar          0.091  80039
+ 17  uacsqk+        0.073      1
+ 18  rightIndex     0.041  21690
+ 19  list           0.027   2285
+ 20  uark+          0.023   2290
+ 21  castdtm        0.019  20550
+ 22  exp            0.015   1145
+ 23  uarmax         0.014   1145
+ 24  uak+           0.012      1
+ 25  uack+          0.008   3435
+ 26  castdts        0.005   1140
+ 27  castvtd        0.005   1140
+ 28  nrow           0.004   1145
+ 29  ncol           0.004   4565
+ 30  mvvar          0.003   2285
+
+Federated Worker SystemDS Statistics:
+Total elapsed time:		0.000 sec.
+Total compilation time:		0.000 sec.
+Total execution time:		0.000 sec.
+Number of compiled Spark inst:	0.
+Number of executed Spark inst:	0.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	2943/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	2.043/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	88167/0/0/0/2.
+Cache writes (Li/WB/FS/HDFS):	0/0/0/0.
+Cache times (ACQr/m, RLS, EXP):	0.429/0.010/0.019/0.000 sec.
+HOP DAGs recompiled (PRED, SB):	0/0.
+HOP DAGs recompile time:	0.000 sec.
+Spark ctx create time (lazy):	0.000 sec.
+Spark trans counts (par,bc,col):0/0/0.
+Spark trans times (par,bc,col):	0.000/0.000/0.000 secs.
+Total JIT compile time:		3.927 sec.
+Total JVM GC count:		20.
+Total JVM GC time:		8.944 sec.
+Heavy hitter instructions:
+  #  Instruction  Time(s)  Count
+  1  r'             7.407   4900
+  2  +              4.530   3923
+  3  ba+*           2.264   7843
+  4  >              2.153   1961
+  5  castdtf        1.988      1
+  6  *              1.678  11733
+  7  <              1.233      1
+  8  ||             0.933      1
+  9  max            0.901   1962
+ 10  rmempty        0.563      4
+ 11  -              0.537   8793
+ 12  uacvar         0.254      1
+ 13  /              0.171   2941
+ 14  uacmean        0.166      3
+ 15  createvar      0.097  67500
+ 16  rmvar          0.079  68489
+ 17  uacsqk+        0.064      1
+ 18  rightIndex     0.036  18555
+ 19  uark+          0.020   1960
+ 20  list           0.018   1955
+ 21  castdtm        0.016  17580
+ 22  exp            0.013    980
+ 23  uarmax         0.012    980
+ 24  uack+          0.006   2940
+ 25  uak+           0.006      1
+ 26  castdts        0.004    975
+ 27  nrow           0.004    980
+ 28  ncol           0.004   3905
+ 29  castvtd        0.003    975
+ 30  mvvar          0.002   1955
+
+Federated Worker SystemDS Statistics:
+Total elapsed time:		0.000 sec.
+Total compilation time:		0.000 sec.
+Total execution time:		0.000 sec.
+Number of compiled Spark inst:	0.
+Number of executed Spark inst:	0.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	2928/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	2.002/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	87717/0/0/0/2.
+Cache writes (Li/WB/FS/HDFS):	0/0/0/0.
+Cache times (ACQr/m, RLS, EXP):	0.407/0.009/0.018/0.000 sec.
+HOP DAGs recompiled (PRED, SB):	0/0.
+HOP DAGs recompile time:	0.001 sec.
+Spark ctx create time (lazy):	0.000 sec.
+Spark trans counts (par,bc,col):0/0/0.
+Spark trans times (par,bc,col):	0.000/0.000/0.000 secs.
+Total JIT compile time:		16.342 sec.
+Total JVM GC count:		28.
+Total JVM GC time:		10.436 sec.
+Heavy hitter instructions:
+  #  Instruction  Time(s)  Count
+  1  r'             7.759   4875
+  2  +              4.355   3903
+  3  ba+*           2.218   7803
+  4  >              2.080   1951
+  5  castdtf        1.970      1
+  6  ||             1.618      1
+  7  <              1.226      1
+  8  max            0.953   1952
+  9  *              0.815  11673
+ 10  -              0.529   8748
+ 11  rmempty        0.457      4
+ 12  /              0.270   2926
+ 13  uacvar         0.258      1
+ 14  uacmean        0.177      3
+ 15  createvar      0.089  67155
+ 16  rmvar          0.075  68139
+ 17  uacsqk+        0.068      1
+ 18  rightIndex     0.035  18460
+ 19  uark+          0.020   1950
+ 20  list           0.018   1945
+ 21  castdtm        0.016  17490
+ 22  exp            0.013    975
+ 23  uarmax         0.013    975
+ 24  uack+          0.007   2925
+ 25  nrow           0.004    975
+ 26  castdts        0.004    970
+ 27  ncol           0.003   3885
+ 28  castvtd        0.003    970
+ 29  mvvar          0.002   1945
+ 30  uak+           0.001      1
+
+Federated Worker SystemDS Statistics:
+Total elapsed time:		0.000 sec.
+Total compilation time:		0.000 sec.
+Total execution time:		0.000 sec.
+Number of compiled Spark inst:	0.
+Number of executed Spark inst:	0.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	2928/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	2.002/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	87717/0/0/0/2.
+Cache writes (Li/WB/FS/HDFS):	0/0/0/0.
+Cache times (ACQr/m, RLS, EXP):	0.379/0.009/0.018/0.000 sec.
+HOP DAGs recompiled (PRED, SB):	0/0.
+HOP DAGs recompile time:	0.000 sec.
+Spark ctx create time (lazy):	0.000 sec.
+Spark trans counts (par,bc,col):0/0/0.
+Spark trans times (par,bc,col):	0.000/0.000/0.000 secs.
+Total JIT compile time:		5.867 sec.
+Total JVM GC count:		35.
+Total JVM GC time:		12.085 sec.
+Heavy hitter instructions:
+  #  Instruction  Time(s)  Count
+  1  r'             7.358   4875
+  2  +              4.499   3903
+  3  ba+*           2.217   7803
+  4  castdtf        1.942      1
+  5  >              1.923   1951
+  6  <              1.380      1
+  7  -              1.298   8748
+  8  max            0.883   1952
+  9  *              0.827  11673
+ 10  uacvar         0.705      1
+ 11  ||             0.604      1
+ 12  rmempty        0.568      4
+ 13  /              0.165   2926
+ 14  uacmean        0.164      3
+ 15  createvar      0.091  67155
+ 16  rmvar          0.077  68139
+ 17  uacsqk+        0.065      1
+ 18  rightIndex     0.035  18460
+ 19  uark+          0.020   1950
+ 20  list           0.019   1945
+ 21  castdtm        0.015  17490
+ 22  uarmax         0.013    975
+ 23  exp            0.012    975
+ 24  uack+          0.007   2925
+ 25  nrow           0.004    975
+ 26  ncol           0.004   3885
+ 27  castvtd        0.002    970
+ 28  mvvar          0.002   1945
+ 29  castdts        0.002    970
+ 30  uak+           0.001      1
+

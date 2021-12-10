@@ -1,0 +1,4 @@
+X = read($1)
+Y = read($2)
+m = l2svm(X=X, Y=Y, verbose=$3, epsilon = 1e-22, maxIterations = 30)
+write(m, $4, format= "csv")

@@ -1,0 +1,17 @@
+
+X = rand(rows=1000000, cols=1000, min = -13, max = 13, pdf ="normal", seed= 92415)
+
+X2 = round(rand(rows=1000000, cols=1, min=1, max=50, seed = 13215213))
+X = cbind(X2,X);
+
+jspec = "{ ids:true, dummycode:[1] }"
+[X0,M] = transformencode(target=as.frame(X), spec=jspec)
+
+Y = X0 %*% rand(rows=1050, cols=1, min = -142, max = 150, pdf="normal", seed = 142512)
+
+write(X, "./data/P2_features.data", format="binary");
+write(X0, "./data/P2P_features.data", format="binary");
+write(X0, "./data/P2P_features.csv", format="csv");
+write(Y, "./data/P2_labels.data", format="binary");
+write(Y, "./data/P2P_labels.data", format="binary");
+write(Y, "./data/P2P_labels.csv", format="csv");

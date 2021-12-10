@@ -1,0 +1,90 @@
+[31m
+An Error Occured : 
+        LanguageException -- ERROR: code/exp/pca.dml [line 1:0] -> X = read($1) -- Read input file does not exist on FS (local mode): data/_features.data
+[0m
+org.apache.sysds.parser.LanguageException: ERROR: code/exp/pca.dml [line 1:0] -> X = read($1) -- Read input file does not exist on FS (local mode): data/_features.data
+	at org.apache.sysds.parser.Expression.raiseValidateError(Expression.java:390)
+	at org.apache.sysds.parser.Expression.raiseValidateError(Expression.java:369)
+	at org.apache.sysds.parser.DataExpression.validateExpression(DataExpression.java:959)
+	at org.apache.sysds.parser.StatementBlock.validateAssignmentStatement(StatementBlock.java:914)
+	at org.apache.sysds.parser.StatementBlock.validate(StatementBlock.java:852)
+	at org.apache.sysds.parser.DMLTranslator.validateParseTree(DMLTranslator.java:134)
+	at org.apache.sysds.parser.DMLTranslator.validateParseTree(DMLTranslator.java:109)
+	at org.apache.sysds.api.DMLScript.execute(DMLScript.java:390)
+	at org.apache.sysds.api.DMLScript.executeScript(DMLScript.java:266)
+	at org.apache.sysds.api.DMLScript.main(DMLScript.java:164)
+real 1.52
+user 4.56
+sys 0.49
+[31m
+An Error Occured : 
+        LanguageException -- ERROR: code/exp/pca.dml [line 1:0] -> X = read($1) -- Read input file does not exist on FS (local mode): data/_features.data
+[0m
+org.apache.sysds.parser.LanguageException: ERROR: code/exp/pca.dml [line 1:0] -> X = read($1) -- Read input file does not exist on FS (local mode): data/_features.data
+	at org.apache.sysds.parser.Expression.raiseValidateError(Expression.java:390)
+	at org.apache.sysds.parser.Expression.raiseValidateError(Expression.java:369)
+	at org.apache.sysds.parser.DataExpression.validateExpression(DataExpression.java:959)
+	at org.apache.sysds.parser.StatementBlock.validateAssignmentStatement(StatementBlock.java:914)
+	at org.apache.sysds.parser.StatementBlock.validate(StatementBlock.java:852)
+	at org.apache.sysds.parser.DMLTranslator.validateParseTree(DMLTranslator.java:134)
+	at org.apache.sysds.parser.DMLTranslator.validateParseTree(DMLTranslator.java:109)
+	at org.apache.sysds.api.DMLScript.execute(DMLScript.java:390)
+	at org.apache.sysds.api.DMLScript.executeScript(DMLScript.java:266)
+	at org.apache.sysds.api.DMLScript.main(DMLScript.java:164)
+real 1.52
+user 4.63
+sys 0.37
+[31m
+An Error Occured : 
+        LanguageException -- ERROR: code/exp/pca.dml [line 1:0] -> X = read($1) -- Read input file does not exist on FS (local mode): data/_features.data
+[0m
+org.apache.sysds.parser.LanguageException: ERROR: code/exp/pca.dml [line 1:0] -> X = read($1) -- Read input file does not exist on FS (local mode): data/_features.data
+	at org.apache.sysds.parser.Expression.raiseValidateError(Expression.java:390)
+	at org.apache.sysds.parser.Expression.raiseValidateError(Expression.java:369)
+	at org.apache.sysds.parser.DataExpression.validateExpression(DataExpression.java:959)
+	at org.apache.sysds.parser.StatementBlock.validateAssignmentStatement(StatementBlock.java:914)
+	at org.apache.sysds.parser.StatementBlock.validate(StatementBlock.java:852)
+	at org.apache.sysds.parser.DMLTranslator.validateParseTree(DMLTranslator.java:134)
+	at org.apache.sysds.parser.DMLTranslator.validateParseTree(DMLTranslator.java:109)
+	at org.apache.sysds.api.DMLScript.execute(DMLScript.java:390)
+	at org.apache.sysds.api.DMLScript.executeScript(DMLScript.java:266)
+	at org.apache.sysds.api.DMLScript.main(DMLScript.java:164)
+real 1.53
+user 4.49
+sys 0.46
+[31m
+An Error Occured : 
+        LanguageException -- ERROR: code/exp/pca.dml [line 1:0] -> X = read($1) -- Read input file does not exist on FS (local mode): data/_features.data
+[0m
+org.apache.sysds.parser.LanguageException: ERROR: code/exp/pca.dml [line 1:0] -> X = read($1) -- Read input file does not exist on FS (local mode): data/_features.data
+	at org.apache.sysds.parser.Expression.raiseValidateError(Expression.java:390)
+	at org.apache.sysds.parser.Expression.raiseValidateError(Expression.java:369)
+	at org.apache.sysds.parser.DataExpression.validateExpression(DataExpression.java:959)
+	at org.apache.sysds.parser.StatementBlock.validateAssignmentStatement(StatementBlock.java:914)
+	at org.apache.sysds.parser.StatementBlock.validate(StatementBlock.java:852)
+	at org.apache.sysds.parser.DMLTranslator.validateParseTree(DMLTranslator.java:134)
+	at org.apache.sysds.parser.DMLTranslator.validateParseTree(DMLTranslator.java:109)
+	at org.apache.sysds.api.DMLScript.execute(DMLScript.java:390)
+	at org.apache.sysds.api.DMLScript.executeScript(DMLScript.java:266)
+	at org.apache.sysds.api.DMLScript.main(DMLScript.java:164)
+real 1.55
+user 4.64
+sys 0.41
+[31m
+An Error Occured : 
+        LanguageException -- ERROR: code/exp/pca.dml [line 1:0] -> X = read($1) -- Read input file does not exist on FS (local mode): data/_features.data
+[0m
+org.apache.sysds.parser.LanguageException: ERROR: code/exp/pca.dml [line 1:0] -> X = read($1) -- Read input file does not exist on FS (local mode): data/_features.data
+	at org.apache.sysds.parser.Expression.raiseValidateError(Expression.java:390)
+	at org.apache.sysds.parser.Expression.raiseValidateError(Expression.java:369)
+	at org.apache.sysds.parser.DataExpression.validateExpression(DataExpression.java:959)
+	at org.apache.sysds.parser.StatementBlock.validateAssignmentStatement(StatementBlock.java:914)
+	at org.apache.sysds.parser.StatementBlock.validate(StatementBlock.java:852)
+	at org.apache.sysds.parser.DMLTranslator.validateParseTree(DMLTranslator.java:134)
+	at org.apache.sysds.parser.DMLTranslator.validateParseTree(DMLTranslator.java:109)
+	at org.apache.sysds.api.DMLScript.execute(DMLScript.java:390)
+	at org.apache.sysds.api.DMLScript.executeScript(DMLScript.java:266)
+	at org.apache.sysds.api.DMLScript.main(DMLScript.java:164)
+real 1.52
+user 4.60
+sys 0.45

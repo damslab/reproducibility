@@ -1,0 +1,55 @@
+2021-03-29 21:03:33.988979: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library 'libcudart.so.10.1'; dlerror: libcudart.so.10.1: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64_lin/gcc4.7:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64_lin/gcc4.7:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin
+2021-03-29 21:03:33.989024: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+2021-03-29 21:03:36.207645: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcuda.so.1
+2021-03-29 21:03:36.253506: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:982] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2021-03-29 21:03:36.253875: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1716] Found device 0 with properties: 
+pciBusID: 0000:01:00.0 name: GeForce GTX 1650 computeCapability: 7.5
+coreClock: 1.56GHz coreCount: 16 deviceMemorySize: 3.82GiB deviceMemoryBandwidth: 119.24GiB/s
+2021-03-29 21:03:36.254001: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library 'libcudart.so.10.1'; dlerror: libcudart.so.10.1: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64_lin/gcc4.7:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64_lin/gcc4.7:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin
+2021-03-29 21:03:36.254110: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library 'libcublas.so.10'; dlerror: libcublas.so.10: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64_lin/gcc4.7:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64_lin/gcc4.7:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin
+2021-03-29 21:03:36.254204: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library 'libcufft.so.10'; dlerror: libcufft.so.10: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64_lin/gcc4.7:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64_lin/gcc4.7:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin
+2021-03-29 21:03:36.254305: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library 'libcurand.so.10'; dlerror: libcurand.so.10: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64_lin/gcc4.7:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64_lin/gcc4.7:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin
+2021-03-29 21:03:36.254395: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library 'libcusolver.so.10'; dlerror: libcusolver.so.10: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64_lin/gcc4.7:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64_lin/gcc4.7:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin
+2021-03-29 21:03:36.254485: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library 'libcusparse.so.10'; dlerror: libcusparse.so.10: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64_lin/gcc4.7:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64_lin/gcc4.7:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin
+2021-03-29 21:03:36.254588: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library 'libcudnn.so.7'; dlerror: libcudnn.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64_lin/gcc4.7:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64_lin/gcc4.7:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin
+2021-03-29 21:03:36.254607: W tensorflow/core/common_runtime/gpu/gpu_device.cc:1753] Cannot dlopen some GPU libraries. Please make sure the missing libraries mentioned above are installed properly if you would like to use GPU. Follow the guide at https://www.tensorflow.org/install/gpu for how to download and setup the required libraries for your platform.
+Skipping registering GPU devices...
+2021-03-29 21:03:36.255429: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN)to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-03-29 21:03:36.269219: I tensorflow/core/platform/profile_utils/cpu_utils.cc:104] CPU Frequency: 2400000000 Hz
+2021-03-29 21:03:36.269722: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x5b78f50 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2021-03-29 21:03:36.269743: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+2021-03-29 21:03:36.271244: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1257] Device interconnect StreamExecutor with strength 1 edge matrix:
+2021-03-29 21:03:36.271262: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1263]      
+(60000, 28, 28)
+Batch size: 128
+floatSize: float64
+(128, 24, 24, 32)
+(128, 12, 12, 32)
+(128, 8, 8, 64)
+(128, 1024)
+(128, 512)
+(128, 24, 24, 32)
+(128, 12, 12, 32)
+(128, 8, 8, 64)
+(128, 1024)
+(128, 512)
+(96, 24, 24, 32)
+(96, 12, 12, 32)
+(96, 8, 8, 64)
+(96, 1024)
+(96, 512)
+(128, 24, 24, 32)
+(128, 12, 12, 32)
+(128, 8, 8, 64)
+(128, 1024)
+(128, 512)
+(16, 24, 24, 32)
+(16, 12, 12, 32)
+(16, 8, 8, 64)
+(16, 1024)
+(16, 512)
+Epoch 1, Loss: 0.19488847640944695, Accuracy: 94.04833333333333, Test Loss: 0.04744067590439079, Test Accuracy: 98.45
+real 37,47
+user 327,53
+sys 8,94

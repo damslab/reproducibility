@@ -1,0 +1,48 @@
+
+
+X = federated(
+    addresses=list(
+      "localhost:8001/data/mnist_features_2_1.data",
+      "localhost:8002/data/mnist_features_2_2.data"),
+    ranges= list(
+        list(0, 0), list(30000, 784), 
+        list(30000, 0), list(60000, 784)
+        )
+) / 255
+
+Y = federated(
+    addresses=list(
+      "localhost:8001/data/mnist_labels_2_1.data",
+      "localhost:8002/data/mnist_labels_2_2.data"),
+    ranges= list(
+        list(0, 0), list(30000, 10), 
+        list(30000, 0), list(60000, 10)
+        )
+)
+
+features = X / 255
+labels = Y
+
+
+
+X_test = read($X_test)
+y_test = read($y_test)
+
+
+source("src/scripts/TwoNN.dml") as TwoNN
+
+# currently ignored parameters
+workers = $numWorkers
+scheme = "DISJOINT_CONTIGUOUS"
+paramserv_mode = "LOCAL"
+
+# train model
+model = TwoNN::train_paramserv(features, labels, 
+  matrix(0, rows=0, cols=0), matrix(0, rows=0, cols=0), 
+  $epochs, workers, $utype, $freq, $batch_size, 
+  scheme, paramserv_mode, $eta, 13)
+
+# Compute test loss & accuracy
+probs_test = TwoNN::predict(X_test, model)
+[loss_test, accuracy_test] = TwoNN::eval(probs_test, y_test)
+print("[+] test loss: " + loss_test + ", test accuracy: " + accuracy_test + "\n")

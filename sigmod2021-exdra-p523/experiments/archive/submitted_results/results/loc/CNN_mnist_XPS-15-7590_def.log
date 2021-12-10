@@ -1,0 +1,79 @@
+21/03/18 11:41:06 INFO org.apache.sysds.api.DMLScript: BEGIN DML run 03/18/2021 11:41:06
+21/03/18 11:43:17 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: completed EPOCH 0
+21/03/18 11:43:17 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: epoch timer: 129.682 secs.
+channels   : 1
+epochs     : 1
+freq       : EPOCH
+batch_size : 256
+-0.7114376149412065
+SystemDS Statistics:
+Total elapsed time:		131.632 sec.
+Total compilation time:		1.031 sec.
+Total execution time:		130.601 sec.
+Cache hits (Mem/Li/WB/FS/HDFS):	39745/0/0/0/2.
+Cache writes (Li/WB/FS/HDFS):	237/8621/0/0.
+Cache times (ACQr/m, RLS, EXP):	0.539/0.011/0.158/0.000 sec.
+HOP DAGs recompiled (PRED, SB):	0/1411.
+HOP DAGs recompile time:	1.024 sec.
+Paramserv total execution time:	129.682 secs.
+Paramserv total num workers:	1.
+Paramserv setup time:		0.080 secs.
+Paramserv grad compute time:	126.057 secs.
+Paramserv model update time:	2.545/0.014 secs.
+Paramserv model broadcast time:	0.000 secs.
+Paramserv batch slice time:	0.000 secs.
+Paramserv RPC request time:	0.000 secs.
+Paramserv valdiation time:	0.000 secs.
+Total JIT compile time:		24.708 sec.
+Total JVM GC count:		62.
+Total JVM GC time:		1.013 sec.
+Heavy hitter instructions:
+  #  Instruction               Time(s)  Count
+  1  paramserv                 129.683      1
+  2  conv2d_bias_add            51.551    470
+  3  backward                   41.123    470
+  4  conv2d_backward_filter     24.010    470
+  5  conv2d_backward_data       14.860    470
+  6  maxpooling_backward         8.053    235
+  7  ba+*                        7.489   1410
+  8  max                         4.438    470
+  9  relu_maxpooling_backward    4.212    235
+ 10  relu_maxpooling             2.483    470
+ 11  uack+                       2.050    940
+ 12  relu_backward               1.878    705
+ 13  *                           1.383   4954
+ 14  rand                        1.298    248
+ 15  r'                          1.146   1175
+ 16  +                           0.757   4473
+ 17  -                           0.741   3762
+ 18  -*                          0.628   1880
+ 19  +*                          0.612   1880
+ 20  uamin                       0.516      1
+ 21  /                           0.312   2599
+ 22  uark+                       0.059    940
+ 23  createvar                   0.053  22346
+ 24  rmvar                       0.050  13171
+ 25  exp                         0.036    235
+ 26  list                        0.017    471
+ 27  uarmax                      0.011    235
+ 28  uamax                       0.010      1
+ 29  rshape                      0.007    470
+ 30  mvvar                       0.006   9921
+ 31  cpvar                       0.003   4935
+ 32  floor                       0.003   1410
+ 33  nvlist                      0.002      1
+ 34  castvti                     0.002   1410
+ 35  assignvar                   0.002   3055
+ 36  castvtd                     0.001    235
+ 37  sqrt                        0.001     10
+ 38  print                       0.000      5
+ 39  rightIndex                  0.000      1
+ 40  uak+                        0.000      1
+ 41  ==                          0.000      3
+ 42  castdtm                     0.000      1
+ 43  ^                           0.000      1
+
+21/03/18 11:43:17 INFO org.apache.sysds.api.DMLScript: END DML run 03/18/2021 11:43:17
+real 132,49
+user 1430,70
+sys 8,19

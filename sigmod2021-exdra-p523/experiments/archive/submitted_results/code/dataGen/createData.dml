@@ -1,0 +1,116 @@
+M = $1;
+N = $2;
+sp = $3;
+
+X = rand(rows=M, cols=N, sparsity=sp, seed=1);
+
+out = "data/Gen_"+M+"_"+N+"_"+sp+".data";
+write(X, out, format="binary");
+write(X, out+".csv", format="csv");
+
+X1 = X[1:M/2,]
+X2 = X[M/2+1:M,]
+out = "data/Gen1of2_"+M+"_"+N+"_"+sp;
+write(X1, out, format="binary");
+out = "data/Gen2of2_"+M+"_"+N+"_"+sp;
+write(X2, out, format="binary");
+
+X1_3 = X[1:M/3,]
+X2_3 = X[(M/3) +1:(M/3) *2,]
+X3_3 = X[(M/3) *2+1:M,]
+
+out = "data/Gen1of3_"+M+"_"+N+"_"+sp;
+write(X1_3, out, format="binary");
+out = "data/Gen2of3_"+M+"_"+N+"_"+sp;
+write(X2_3, out, format="binary");
+out = "data/Gen3of3_"+M+"_"+N+"_"+sp;
+write(X3_3, out, format="binary");
+
+X1_4 = X[1:M/4,]
+X2_4 = X[(M/4)+1:(M/4)*2,]
+X3_4 = X[(M/4)*2+1:(M/4)*3,]
+X4_4 = X[(M/4)*3+1:M,]
+
+out = "data/Gen1of4_"+M+"_"+N+"_"+sp;
+write(X1_4, out, format="binary");
+out = "data/Gen2of4_"+M+"_"+N+"_"+sp;
+write(X2_4, out, format="binary");
+out = "data/Gen3of4_"+M+"_"+N+"_"+sp;
+write(X3_4, out, format="binary");
+out = "data/Gen4of4_"+M+"_"+N+"_"+sp;
+write(X4_4, out, format="binary");
+
+X1_5 = X[1:M/5,]
+X2_5 = X[(M/5)+1:(M/5)*2,]
+X3_5 = X[(M/5)*2+1:(M/5)*3,]
+X4_5 = X[(M/5)*3+1:(M/5)*4,]
+X5_5 = X[(M/5)*4+1:M,]
+
+out = "data/Gen1of5_"+M+"_"+N+"_"+sp;
+write(X1_5, out, format="binary");
+out = "data/Gen2of5_"+M+"_"+N+"_"+sp;
+write(X2_5, out, format="binary");
+out = "data/Gen3of5_"+M+"_"+N+"_"+sp;
+write(X3_5, out, format="binary");
+out = "data/Gen4of5_"+M+"_"+N+"_"+sp;
+write(X4_5, out, format="binary");
+out = "data/Gen5of5_"+M+"_"+N+"_"+sp;
+write(X5_5, out, format="binary");
+
+b = rand(rows=ncol(X), cols=1, min=0, max=1, sparsity=1, seed=1);
+Y = X %*% b;
+Y = Y > median(Y);
+
+out = "data/Gen_"+M+"_"+N+"_"+sp+".data_Y";
+write(Y, out, format="binary")
+write(Y, out+".csv", format="csv");
+
+Y1 = Y[1:M/2,]
+Y2 = Y[M/2+1:M,]
+
+out = "data/Gen1of2_"+M+"_"+N+"_"+sp + "_Y";
+write(Y1, out, format="binary")
+out = "data/Gen2of2_"+M+"_"+N+"_"+sp + "_Y";
+write(Y2, out, format="binary")
+
+Y1_3 = Y[1:M/3,]
+Y2_3 = Y[(M/3) +1:(M/3) *2,]
+Y3_3 = Y[(M/3) *2+1:M,]
+
+out = "data/Gen1of3_"+M+"_"+N+"_"+sp + "_Y";
+write(Y1_3, out, format="binary")
+out = "data/Gen2of3_"+M+"_"+N+"_"+sp + "_Y";
+write(Y2_3, out, format="binary")
+out = "data/Gen3of3_"+M+"_"+N+"_"+sp + "_Y";
+write(Y3_3, out, format="binary")
+
+Y1_4 = Y[1:M/4,]
+Y2_4 = Y[(M/4)+1:(M/4)*2,]
+Y3_4 = Y[(M/4)*2+1:(M/4)*3,]
+Y4_4 = Y[(M/4)*3+1:M,]
+
+out = "data/Gen1of4_"+M+"_"+N+"_"+sp + "_Y";
+write(Y1_4, out, format="binary")
+out = "data/Gen2of4_"+M+"_"+N+"_"+sp + "_Y";
+write(Y2_4, out, format="binary")
+out = "data/Gen3of4_"+M+"_"+N+"_"+sp + "_Y";
+write(Y3_4, out, format="binary")
+out = "data/Gen4of4_"+M+"_"+N+"_"+sp + "_Y";
+write(Y4_4, out, format="binary")
+
+Y1_5 = Y[1:M/5,]
+Y2_5 = Y[(M/5)+1:(M/5)*2,]
+Y3_5 = Y[(M/5)*2+1:(M/5)*3,]
+Y4_5 = Y[(M/5)*3+1:(M/5)*4,]
+Y5_5 = Y[(M/5)*4+1:M,]
+
+out = "data/Gen1of5_"+M+"_"+N+"_" + sp + "_Y";
+write(Y1_5, out, format="binary");
+out = "data/Gen2of5_"+M+"_"+N+"_" + sp + "_Y";
+write(Y2_5, out, format="binary");
+out = "data/Gen3of5_"+M+"_"+N+"_" + sp + "_Y";
+write(Y3_5, out, format="binary");
+out = "data/Gen4of5_"+M+"_"+N+"_" + sp + "_Y";
+write(Y4_5, out, format="binary");
+out = "data/Gen5of5_"+M+"_"+N+"_" + sp + "_Y";
+write(Y5_5, out, format="binary");

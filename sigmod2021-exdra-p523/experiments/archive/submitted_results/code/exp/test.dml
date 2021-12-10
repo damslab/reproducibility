@@ -1,0 +1,3 @@
+X = read($1)
+o = sum(X)
+print(o)

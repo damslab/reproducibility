@@ -1,0 +1,124 @@
+21/03/27 10:14:42 INFO org.apache.sysds.api.DMLScript: BEGIN DML run 03/27/2021 10:14:42
+21/03/27 10:14:42 INFO org.apache.sysds.utils.NativeHelper: Using native blas: mkl
+21/03/27 10:15:56 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: completed EPOCH 0
+21/03/27 10:15:56 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: epoch timer: 71.894 secs.
+21/03/27 10:17:10 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: completed EPOCH 1
+21/03/27 10:17:10 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: epoch timer: 145.622 secs.
+channels   : 1
+epochs     : 2
+freq       : BATCH
+batch_size : 128
+3.3305144830724966
+[+] test loss: 0.37450841648755206, test accuracy: 0.9832
+
+SystemDS Statistics:
+Total elapsed time:		151.331 sec.
+Total compilation time:		0.891 sec.
+Total execution time:		150.441 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	1990/2034/1876/938.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	4.169/30.161/20.499/23.458.
+Cache hits (Mem/Li/WB/FS/HDFS):	161624/0/0/0/4.
+Cache writes (Li/WB/FS/HDFS):	940/32453/0/0.
+Cache times (ACQr/m, RLS, EXP):	0.604/0.031/0.408/0.000 sec.
+HOP DAGs recompiled (PRED, SB):	0/1958.
+HOP DAGs recompile time:	3.182 sec.
+Functions recompiled:		1.
+Functions recompile time:	0.005 sec.
+Paramserv total execution time:	145.622 secs.
+Paramserv total num workers:	1.
+Paramserv setup time:		0.065 secs.
+Paramserv grad compute time:	133.453 secs.
+Paramserv model update time:	0.000/10.980 secs.
+Paramserv model broadcast time:	0.000 secs.
+Paramserv batch slice time:	0.000 secs.
+Paramserv RPC request time:	0.000 secs.
+Paramserv valdiation time:	0.000 secs.
+Total JIT compile time:		23.915 sec.
+Total JVM GC count:		89.
+Total JVM GC time:		1.347 sec.
+Heavy hitter instructions:
+  #  Instruction               Time(s)  Count
+  1  paramserv                 145.624      1
+  2  conv2d_bias_add            32.327   2034
+  3  conv2d_backward_data       24.764    938
+  4  conv2d_backward_filter     23.094   1876
+  5  uack+                      14.528   3752
+  6  ba+*                       13.618   5786
+  7  relu_maxpooling_backward    6.632   1876
+  8  relu_maxpooling             6.052   2034
+  9  +*                          5.490  11256
+ 10  predict                     3.777      1
+ 11  r'                          3.513   4690
+ 12  *                           3.223  16045
+ 13  -                           2.823  15255
+ 14  rand                        2.740    952
+ 15  -*                          2.653   7504
+ 16  relu_backward               2.331   2814
+ 17  max                         0.706   1017
+ 18  /                           0.617  10420
+ 19  uamin                       0.565      2
+ 20  uark+                       0.221   3831
+ 21  exp                         0.216   1017
+ 22  +                           0.202  14410
+ 23  rmvar                       0.189  56080
+ 24  createvar                   0.139  84778
+ 25  list                        0.049   1877
+ 26  log                         0.032      1
+ 27  uarmax                      0.028   1017
+ 28  uamax                       0.024      2
+ 29  mvvar                       0.019  39178
+ 30  leftIndex                   0.014     79
+ 31  rshape                      0.012   1876
+ 32  floor                       0.008   5634
+ 33  uarimax                     0.007      2
+ 34  castvti                     0.007   5634
+ 35  tak+*                       0.007      1
+ 36  ceil                        0.005      1
+ 37  rightIndex                  0.004     80
+ 38  nvlist                      0.001      1
+ 39  ==                          0.001      4
+ 40  uak+                        0.001      1
+ 41  uamean                      0.001      1
+ 42  sqrt                        0.000     10
+ 43  print                       0.000      6
+ 44  %%                          0.000     79
+ 45  min                         0.000     79
+ 46  castdtm                     0.000      1
+ 47  cpvar                       0.000      9
+ 48  assignvar                   0.000      4
+
+21/03/27 10:17:14 INFO org.apache.sysds.api.DMLScript: END DML run 03/27/2021 10:17:14
+
+ Performance counter stats for 'systemds code/exp/CNN.dml -stats 100 -debug -config code/conf/mkl.xml -nvargs X_test=data/mnist_test_features.data y_test=data/mnist_test_labels.data epochs=2 batch_size=128 eta=0.01 utype=BSP freq=BATCH channels=1 hin=28 win=28 numWorkers=1 features=data/mnist_features.data labels=data/mnist_labels.data':
+
+      1.461.137,61 msec task-clock                #    9,596 CPUs utilized          
+           708.762      context-switches          #    0,485 K/sec                  
+           236.916      cpu-migrations            #    0,162 K/sec                  
+         1.187.108      page-faults               #    0,812 K/sec                  
+ 4.291.410.094.642      cycles                    #    2,937 GHz                      (30,77%)
+ 5.324.900.322.137      instructions              #    1,24  insn per cycle           (38,45%)
+   681.539.876.989      branches                  #  466,445 M/sec                    (38,46%)
+     4.274.892.094      branch-misses             #    0,63% of all branches          (38,47%)
+ 1.807.875.187.833      L1-dcache-loads           # 1237,307 M/sec                    (38,45%)
+   145.072.878.806      L1-dcache-load-misses     #    8,02% of all L1-dcache hits    (38,47%)
+     6.970.493.375      LLC-loads                 #    4,771 M/sec                    (30,79%)
+       576.280.795      LLC-load-misses           #    8,27% of all LL-cache hits     (30,78%)
+   <not supported>      L1-icache-loads                                             
+     3.036.790.700      L1-icache-load-misses                                         (30,78%)
+ 1.808.651.883.702      dTLB-loads                # 1237,838 M/sec                    (30,76%)
+     1.440.531.075      dTLB-load-misses          #    0,08% of all dTLB cache hits   (30,75%)
+       126.423.462      iTLB-loads                #    0,087 M/sec                    (30,75%)
+       120.338.695      iTLB-load-misses          #   95,19% of all iTLB cache hits   (30,76%)
+   <not supported>      L1-dcache-prefetches                                        
+   <not supported>      L1-dcache-prefetch-misses                                   
+
+     152,266343481 seconds time elapsed
+
+    1445,811143000 seconds user
+      19,118860000 seconds sys
+
+
+real 152,32
+user 1445,82
+sys 19,12

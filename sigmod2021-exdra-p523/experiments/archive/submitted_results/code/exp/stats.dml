@@ -1,0 +1,12 @@
+
+X = read($1)
+m = colMins(X)
+
+print($2)
+write(m, $3 + "colMins", format= "csv")
+m = colMaxs(X)
+write(m, $3 + "colMaxs", format= "csv")
+m = colVars(X)
+write(m, $3 + "colVars", format= "csv")
+m = colMeans(X)
+write(m, $3 + "colMeans", format= "csv")

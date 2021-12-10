@@ -1,0 +1,118 @@
+21/03/29 20:46:07 INFO org.apache.sysds.api.DMLScript: BEGIN DML run 03/29/2021 20:46:07
+21/03/29 20:46:07 INFO org.apache.sysds.utils.NativeHelper: Using native blas: mkl
+21/03/29 20:47:02 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: completed EPOCH 0
+21/03/29 20:47:02 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: epoch timer: 52.246 secs.
+21/03/29 20:47:49 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: completed EPOCH 1
+21/03/29 20:47:49 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: epoch timer: 99.385 secs.
+21/03/29 20:48:36 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: completed EPOCH 2
+21/03/29 20:48:36 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: epoch timer: 146.091 secs.
+21/03/29 20:49:22 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: completed EPOCH 3
+21/03/29 20:49:22 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: epoch timer: 192.725 secs.
+21/03/29 20:50:09 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: completed EPOCH 4
+21/03/29 20:50:09 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: epoch timer: 239.393 secs.
+channels   : 1
+epochs     : 5
+freq       : EPOCH
+batch_size : 256
+0.846775856821227
+SystemDS Statistics:
+Total elapsed time:		242.172 sec.
+Total compilation time:		1.367 sec.
+Total execution time:		240.805 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	2465/2350/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	7.351/50.412/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	190444/0/0/0/2.
+Cache writes (Li/WB/FS/HDFS):	1/21174/0/0.
+Cache times (ACQr/m, RLS, EXP):	0.620/0.059/0.720/0.000 sec.
+HOP DAGs recompiled (PRED, SB):	0/2351.
+HOP DAGs recompile time:	4.817 sec.
+Paramserv total execution time:	239.393 secs.
+Paramserv total num workers:	1.
+Paramserv setup time:		0.122 secs.
+Paramserv grad compute time:	221.921 secs.
+Paramserv model update time:	15.535/0.065 secs.
+Paramserv model broadcast time:	0.001 secs.
+Paramserv batch slice time:	0.001 secs.
+Paramserv RPC request time:	0.000 secs.
+Paramserv valdiation time:	0.000 secs.
+Total JIT compile time:		23.701 sec.
+Total JVM GC count:		53.
+Total JVM GC time:		1.293 sec.
+Heavy hitter instructions:
+  #  Instruction               Time(s)   Count
+  1  paramserv                 239.397       1
+  2  conv2d_bias_add            59.063    2350
+  3  conv2d_backward_filter     43.005    2350
+  4  conv2d_backward_data       36.001    1175
+  5  ba+*                       22.566    7050
+  6  relu_maxpooling             9.997    2350
+  7  uack+                       9.803    4700
+  8  r'                          9.202    5875
+  9  relu_maxpooling_backward    8.770    2350
+ 10  +*                          7.230   14100
+ 11  relu_backward               5.744    3525
+ 12  *                           5.286   19994
+ 13  rand                        4.630    1188
+ 14  -                           4.169   18802
+ 15  -*                          3.357    9400
+ 16  max                         1.662    1175
+ 17  /                           1.271   12939
+ 18  exp                         0.644    1175
+ 19  uamin                       0.556       1
+ 20  +                           0.499   17633
+ 21  uark+                       0.399    4700
+ 22  rmvar                       0.302   69336
+ 23  createvar                   0.297  104596
+ 24  uamax                       0.253       1
+ 25  list                        0.105    2351
+ 26  uarmax                      0.062    1175
+ 27  rshape                      0.024    2350
+ 28  mvvar                       0.023   48225
+ 29  floor                       0.011    7050
+ 30  castvti                     0.008    7050
+ 31  nvlist                      0.002       1
+ 32  sqrt                        0.001      10
+ 33  print                       0.000       5
+ 34  rightIndex                  0.000       1
+ 35  uak+                        0.000       1
+ 36  ==                          0.000       3
+ 37  castdtm                     0.000       1
+
+21/03/29 20:50:09 INFO org.apache.sysds.api.DMLScript: END DML run 03/29/2021 20:50:09
+
+ Performance counter stats for 'systemds code/exp/CNN.dml -stats 100 -debug -config code/conf/mkl.xml -nvargs X_test=data/mnist_test_features.data y_test=data/mnist_test_labels.data epochs=5 batch_size=256 eta=0.01 utype=BSP freq=EPOCH channels=1 hin=28 win=28 numWorkers=1 features=data/mnist_features.data labels=data/mnist_labels.data':
+
+        5330911.35 msec task-clock                #   21.891 CPUs utilized          
+           2408319      context-switches          #    0.452 K/sec                  
+            496953      cpu-migrations            #    0.093 K/sec                  
+           3173114      page-faults               #    0.595 K/sec                  
+    14523243190747      cycles                    #    2.724 GHz                      (33.33%)
+      138875485612      stalled-cycles-frontend   #    0.96% frontend cycles idle     (33.34%)
+     5209248318860      stalled-cycles-backend    #   35.87% backend cycles idle      (33.34%)
+    15347239643456      instructions              #    1.06  insn per cycle         
+                                                  #    0.34  stalled cycles per insn  (33.35%)
+     2329749904204      branches                  #  437.027 M/sec                    (33.34%)
+       10215521398      branch-misses             #    0.44% of all branches          (33.34%)
+     6546950800779      L1-dcache-loads           # 1228.111 M/sec                    (33.34%)
+      503367320710      L1-dcache-load-misses     #    7.69% of all L1-dcache hits    (33.35%)
+   <not supported>      LLC-loads                                                   
+   <not supported>      LLC-load-misses                                             
+      158496754792      L1-icache-loads           #   29.732 M/sec                    (33.33%)
+         759973569      L1-icache-load-misses     #    0.48% of all L1-icache hits    (33.33%)
+       51937128143      dTLB-loads                #    9.743 M/sec                    (33.32%)
+         713394812      dTLB-load-misses          #    1.37% of all dTLB cache hits   (33.32%)
+         155212980      iTLB-loads                #    0.029 M/sec                    (33.32%)
+          27681389      iTLB-load-misses          #   17.83% of all iTLB cache hits   (33.33%)
+      408108590459      L1-dcache-prefetches      #   76.555 M/sec                    (33.32%)
+   <not supported>      L1-dcache-prefetch-misses                                   
+
+     243.521921706 seconds time elapsed
+
+    5223.947173000 seconds user
+     102.877841000 seconds sys
+
+
+real 243.58
+user 5223.95
+sys 102.91

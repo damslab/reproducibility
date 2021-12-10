@@ -1,0 +1,8 @@
+X = read($1)
+Y = read($2)
+Y = (Y < 0) + 1
+
+
+m = multiLogReg(X=X, Y=Y, verbose=$3, maxi=30, maxii=5, tol= 1e-9, icpt = 0)
+
+write(m, $4, format= "csv")

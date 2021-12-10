@@ -1,0 +1,6 @@
+X = read($1)
+[Y_n, C_n] = kmeans(X=X, k=50, is_verbose=$2, 
+    runs = 1, eps = 1e-9, max_iter = 60,
+    avg_sample_size_per_centroid = 50,
+    seed= 238461147)
+write(Y_n, $3, format= "csv")

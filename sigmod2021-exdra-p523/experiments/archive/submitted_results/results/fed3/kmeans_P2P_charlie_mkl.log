@@ -1,0 +1,498 @@
+K-means: No output is produced. Try increasing the number of iterations and/or lower eps.
+SystemDS Statistics:
+Total elapsed time:		91.133 sec.
+Total compilation time:		1.087 sec.
+Total execution time:		90.046 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	100/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	0.379/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	2471/0/0/0/0.
+Cache writes (Li/WB/FS/HDFS):	1/221/0/1.
+Cache times (ACQr/m, RLS, EXP):	0.007/0.005/0.054/1.416 sec.
+HOP DAGs recompiled (PRED, SB):	0/53.
+HOP DAGs recompile time:	0.232 sec.
+Functions recompiled:		1.
+Functions recompile time:	0.034 sec.
+ParFor loops optimized:		1.
+ParFor optimize time:		0.033 sec.
+ParFor initialize time:		0.005 sec.
+ParFor result merge time:	0.023 sec.
+ParFor total update in-place:	0/3/4
+Federated I/O (Read, Put, Get):	3/483/242.
+Federated Execute (Inst, UDF):	1444/0.
+Total JIT compile time:		13.803 sec.
+Total JVM GC count:		5.
+Total JVM GC time:		0.125 sec.
+Heavy hitter instructions:
+  #  Instruction   Time(s)  Count
+  1  m_kmeans       88.628      1
+  2  fed_ba+*       28.558    121
+  3  fed_r'         20.645     60
+  4  fed_+          16.174     60
+  5  fed_<=          6.493     60
+  6  fed_uasqk+      4.551      1
+  7  fed_*           2.312     60
+  8  fed_/           2.141     60
+  9  fed_uarmin      1.798     60
+ 10  fed_uark+       1.648     60
+ 11  write           1.417      1
+ 12  ba+*            0.924    150
+ 13  rmvar           0.922   2160
+ 14  *               0.782    221
+ 15  fed_uack+       0.632     60
+ 16  uark+           0.197     51
+ 17  +               0.099    335
+ 18  uak+            0.075    169
+ 19  uarsqk+         0.051     61
+ 20  /               0.036     63
+ 21  rand            0.034     56
+ 22  r'              0.023    180
+ 23  ucumk+          0.023     51
+ 24  createvar       0.022   2095
+ 25  log             0.019      2
+ 26  +*              0.013    101
+ 27  ctable          0.012      1
+ 28  rexpand         0.012    101
+ 29  <               0.011    111
+ 30  min             0.011     50
+ 31  -*              0.009     50
+ 32  seq             0.004    103
+ 33  <=              0.004     60
+ 34  rightIndex      0.003     53
+ 35  -               0.003     66
+ 36  mvvar           0.003    545
+ 37  uasqk+          0.002     50
+ 38  leftIndex       0.002      4
+ 39  cpvar           0.001    235
+ 40  ifelse          0.001     50
+ 41  castdts         0.001    101
+ 42  round           0.001      3
+ 43  castdtm         0.001     50
+ 44  ==              0.001    112
+ 45  sqrt            0.001      1
+ 46  assignvar       0.001    188
+ 47  ncol            0.000      2
+ 48  print           0.000      1
+ 49  >               0.000     60
+ 50  >=              0.000     60
+ 51  ctableexpand    0.000      1
+ 52  castvti         0.000      1
+
+real 95.64
+user 45.98
+sys 6.99
+K-means: No output is produced. Try increasing the number of iterations and/or lower eps.
+SystemDS Statistics:
+Total elapsed time:		86.412 sec.
+Total compilation time:		1.137 sec.
+Total execution time:		85.275 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	100/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	0.379/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	2471/0/0/0/0.
+Cache writes (Li/WB/FS/HDFS):	1/221/0/1.
+Cache times (ACQr/m, RLS, EXP):	0.007/0.005/0.053/1.486 sec.
+HOP DAGs recompiled (PRED, SB):	0/53.
+HOP DAGs recompile time:	0.228 sec.
+Functions recompiled:		1.
+Functions recompile time:	0.034 sec.
+ParFor loops optimized:		1.
+ParFor optimize time:		0.034 sec.
+ParFor initialize time:		0.005 sec.
+ParFor result merge time:	0.023 sec.
+ParFor total update in-place:	0/3/4
+Federated I/O (Read, Put, Get):	3/483/242.
+Federated Execute (Inst, UDF):	1444/0.
+Total JIT compile time:		13.59 sec.
+Total JVM GC count:		5.
+Total JVM GC time:		0.124 sec.
+Heavy hitter instructions:
+  #  Instruction   Time(s)  Count
+  1  m_kmeans       83.788      1
+  2  fed_ba+*       26.641    121
+  3  fed_r'         20.458     60
+  4  fed_+          17.333     60
+  5  fed_<=          5.540     60
+  6  fed_*           3.020     60
+  7  fed_/           2.117     60
+  8  fed_uarmin      1.721     60
+  9  write           1.486      1
+ 10  fed_uark+       1.475     60
+ 11  fed_uasqk+      1.400      1
+ 12  ba+*            0.932    150
+ 13  rmvar           0.926   2160
+ 14  *               0.780    221
+ 15  fed_uack+       0.406     60
+ 16  uark+           0.178     51
+ 17  +               0.108    335
+ 18  uak+            0.074    169
+ 19  uarsqk+         0.055     61
+ 20  /               0.036     63
+ 21  rand            0.031     56
+ 22  createvar       0.028   2095
+ 23  r'              0.024    180
+ 24  ucumk+          0.023     51
+ 25  log             0.019      2
+ 26  +*              0.013    101
+ 27  ctable          0.012      1
+ 28  <               0.012    111
+ 29  rexpand         0.012    101
+ 30  min             0.010     50
+ 31  -*              0.009     50
+ 32  <=              0.004     60
+ 33  seq             0.004    103
+ 34  rightIndex      0.003     53
+ 35  -               0.003     66
+ 36  mvvar           0.003    545
+ 37  uasqk+          0.003     50
+ 38  leftIndex       0.002      4
+ 39  cpvar           0.001    235
+ 40  round           0.001      3
+ 41  ifelse          0.001     50
+ 42  castdts         0.001    101
+ 43  castdtm         0.001     50
+ 44  ==              0.001    112
+ 45  sqrt            0.001      1
+ 46  assignvar       0.001    188
+ 47  ncol            0.000      2
+ 48  print           0.000      1
+ 49  >               0.000     60
+ 50  >=              0.000     60
+ 51  ctableexpand    0.000      1
+ 52  castvti         0.000      1
+
+real 90.34
+user 46.02
+sys 6.81
+K-means: No output is produced. Try increasing the number of iterations and/or lower eps.
+SystemDS Statistics:
+Total elapsed time:		86.071 sec.
+Total compilation time:		1.089 sec.
+Total execution time:		84.982 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	100/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	0.378/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	2471/0/0/0/0.
+Cache writes (Li/WB/FS/HDFS):	1/221/0/1.
+Cache times (ACQr/m, RLS, EXP):	0.007/0.005/0.054/1.387 sec.
+HOP DAGs recompiled (PRED, SB):	0/53.
+HOP DAGs recompile time:	0.222 sec.
+Functions recompiled:		1.
+Functions recompile time:	0.034 sec.
+ParFor loops optimized:		1.
+ParFor optimize time:		0.034 sec.
+ParFor initialize time:		0.007 sec.
+ParFor result merge time:	0.022 sec.
+ParFor total update in-place:	0/3/4
+Federated I/O (Read, Put, Get):	3/483/242.
+Federated Execute (Inst, UDF):	1444/0.
+Total JIT compile time:		13.593 sec.
+Total JVM GC count:		5.
+Total JVM GC time:		0.121 sec.
+Heavy hitter instructions:
+  #  Instruction   Time(s)  Count
+  1  m_kmeans       83.594      1
+  2  fed_ba+*       27.506    121
+  3  fed_r'         20.634     60
+  4  fed_+          16.314     60
+  5  fed_<=          5.600     60
+  6  fed_*           2.861     60
+  7  fed_/           2.106     60
+  8  fed_uarmin      1.709     60
+  9  fed_uark+       1.456     60
+ 10  fed_uasqk+      1.400      1
+ 11  write           1.387      1
+ 12  ba+*            0.917    150
+ 13  rmvar           0.910   2160
+ 14  *               0.790    221
+ 15  fed_uack+       0.398     60
+ 16  uark+           0.158     51
+ 17  +               0.095    335
+ 18  uak+            0.073    169
+ 19  uarsqk+         0.055     61
+ 20  /               0.036     63
+ 21  rand            0.031     56
+ 22  r'              0.024    180
+ 23  ucumk+          0.023     51
+ 24  createvar       0.022   2095
+ 25  log             0.019      2
+ 26  +*              0.013    101
+ 27  ctable          0.012      1
+ 28  rexpand         0.012    101
+ 29  <               0.011    111
+ 30  min             0.011     50
+ 31  -*              0.009     50
+ 32  <=              0.004     60
+ 33  seq             0.004    103
+ 34  rightIndex      0.003     53
+ 35  -               0.003     66
+ 36  mvvar           0.003    545
+ 37  uasqk+          0.002     50
+ 38  leftIndex       0.002      4
+ 39  cpvar           0.001    235
+ 40  ifelse          0.001     50
+ 41  castdts         0.001    101
+ 42  round           0.001      3
+ 43  castdtm         0.001     50
+ 44  ==              0.001    112
+ 45  sqrt            0.001      1
+ 46  assignvar       0.001    188
+ 47  ncol            0.000      2
+ 48  print           0.000      1
+ 49  >               0.000     60
+ 50  >=              0.000     60
+ 51  ctableexpand    0.000      1
+ 52  castvti         0.000      1
+
+real 90.58
+user 45.20
+sys 6.94
+K-means: No output is produced. Try increasing the number of iterations and/or lower eps.
+SystemDS Statistics:
+Total elapsed time:		86.064 sec.
+Total compilation time:		1.098 sec.
+Total execution time:		84.966 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	100/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	0.378/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	2471/0/0/0/0.
+Cache writes (Li/WB/FS/HDFS):	1/221/0/1.
+Cache times (ACQr/m, RLS, EXP):	0.007/0.005/0.055/1.399 sec.
+HOP DAGs recompiled (PRED, SB):	0/53.
+HOP DAGs recompile time:	0.224 sec.
+Functions recompiled:		1.
+Functions recompile time:	0.035 sec.
+ParFor loops optimized:		1.
+ParFor optimize time:		0.033 sec.
+ParFor initialize time:		0.005 sec.
+ParFor result merge time:	0.024 sec.
+ParFor total update in-place:	0/3/4
+Federated I/O (Read, Put, Get):	3/483/242.
+Federated Execute (Inst, UDF):	1444/0.
+Total JIT compile time:		13.634 sec.
+Total JVM GC count:		5.
+Total JVM GC time:		0.117 sec.
+Heavy hitter instructions:
+  #  Instruction   Time(s)  Count
+  1  m_kmeans       83.566      1
+  2  fed_ba+*       26.632    121
+  3  fed_r'         20.534     60
+  4  fed_+          18.747     60
+  5  fed_<=          5.600     60
+  6  fed_/           1.946     60
+  7  fed_uarmin      1.759     60
+  8  fed_uark+       1.563     60
+  9  fed_*           1.491     60
+ 10  write           1.399      1
+ 11  fed_uasqk+      1.383      1
+ 12  rmvar           0.934   2160
+ 13  ba+*            0.924    150
+ 14  *               0.773    221
+ 15  fed_uack+       0.291     60
+ 16  uark+           0.140     51
+ 17  +               0.112    335
+ 18  uak+            0.075    169
+ 19  uarsqk+         0.045     61
+ 20  /               0.036     63
+ 21  rand            0.032     56
+ 22  r'              0.024    180
+ 23  createvar       0.022   2095
+ 24  ucumk+          0.022     51
+ 25  log             0.019      2
+ 26  +*              0.013    101
+ 27  ctable          0.012      1
+ 28  rexpand         0.012    101
+ 29  <               0.011    111
+ 30  min             0.010     50
+ 31  -*              0.009     50
+ 32  <=              0.004     60
+ 33  seq             0.004    103
+ 34  rightIndex      0.003     53
+ 35  -               0.003     66
+ 36  uasqk+          0.003     50
+ 37  mvvar           0.003    545
+ 38  leftIndex       0.002      4
+ 39  ifelse          0.001     50
+ 40  cpvar           0.001    235
+ 41  round           0.001      3
+ 42  castdts         0.001    101
+ 43  castdtm         0.001     50
+ 44  ==              0.001    112
+ 45  assignvar       0.001    188
+ 46  sqrt            0.001      1
+ 47  ncol            0.000      2
+ 48  print           0.000      1
+ 49  >=              0.000     60
+ 50  >               0.000     60
+ 51  ctableexpand    0.000      1
+ 52  castvti         0.000      1
+
+real 90.59
+user 43.71
+sys 7.36
+K-means: No output is produced. Try increasing the number of iterations and/or lower eps.
+SystemDS Statistics:
+Total elapsed time:		86.588 sec.
+Total compilation time:		1.087 sec.
+Total execution time:		85.500 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	100/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	0.379/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	2471/0/0/0/0.
+Cache writes (Li/WB/FS/HDFS):	1/221/0/1.
+Cache times (ACQr/m, RLS, EXP):	0.007/0.005/0.053/1.384 sec.
+HOP DAGs recompiled (PRED, SB):	0/53.
+HOP DAGs recompile time:	0.228 sec.
+Functions recompiled:		1.
+Functions recompile time:	0.033 sec.
+ParFor loops optimized:		1.
+ParFor optimize time:		0.031 sec.
+ParFor initialize time:		0.004 sec.
+ParFor result merge time:	0.023 sec.
+ParFor total update in-place:	0/3/4
+Federated I/O (Read, Put, Get):	3/483/242.
+Federated Execute (Inst, UDF):	1444/0.
+Total JIT compile time:		13.403 sec.
+Total JVM GC count:		5.
+Total JVM GC time:		0.119 sec.
+Heavy hitter instructions:
+  #  Instruction   Time(s)  Count
+  1  m_kmeans       84.116      1
+  2  fed_ba+*       27.357    121
+  3  fed_r'         19.378     60
+  4  fed_+          18.300     60
+  5  fed_<=          7.108     60
+  6  fed_/           1.969     60
+  7  fed_uarmin      1.744     60
+  8  fed_uark+       1.607     60
+  9  fed_uasqk+      1.393      1
+ 10  write           1.384      1
+ 11  fed_*           1.272     60
+ 12  ba+*            0.924    150
+ 13  rmvar           0.918   2160
+ 14  *               0.794    221
+ 15  fed_uack+       0.323     60
+ 16  uark+           0.187     51
+ 17  +               0.105    335
+ 18  uak+            0.074    169
+ 19  uarsqk+         0.053     61
+ 20  /               0.035     63
+ 21  rand            0.031     56
+ 22  r'              0.023    180
+ 23  createvar       0.023   2095
+ 24  ucumk+          0.023     51
+ 25  log             0.019      2
+ 26  ctable          0.012      1
+ 27  +*              0.012    101
+ 28  rexpand         0.012    101
+ 29  <               0.011    111
+ 30  min             0.011     50
+ 31  -*              0.009     50
+ 32  <=              0.004     60
+ 33  seq             0.004    103
+ 34  rightIndex      0.003     53
+ 35  mvvar           0.003    545
+ 36  -               0.003     66
+ 37  uasqk+          0.002     50
+ 38  leftIndex       0.002      4
+ 39  cpvar           0.001    235
+ 40  ifelse          0.001     50
+ 41  round           0.001      3
+ 42  castdts         0.001    101
+ 43  ==              0.001    112
+ 44  castdtm         0.001     50
+ 45  sqrt            0.001      1
+ 46  assignvar       0.001    188
+ 47  ncol            0.000      2
+ 48  print           0.000      1
+ 49  >               0.000     60
+ 50  >=              0.000     60
+ 51  ctableexpand    0.000      1
+ 52  castvti         0.000      1
+
+real 90.18
+user 46.96
+sys 6.58
+K-means: No output is produced. Try increasing the number of iterations and/or lower eps.
+SystemDS Statistics:
+Total elapsed time:		86.094 sec.
+Total compilation time:		1.106 sec.
+Total execution time:		84.988 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	100/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	0.380/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	2471/0/0/0/0.
+Cache writes (Li/WB/FS/HDFS):	1/221/0/1.
+Cache times (ACQr/m, RLS, EXP):	0.007/0.005/0.053/1.412 sec.
+HOP DAGs recompiled (PRED, SB):	0/53.
+HOP DAGs recompile time:	0.223 sec.
+Functions recompiled:		1.
+Functions recompile time:	0.033 sec.
+ParFor loops optimized:		1.
+ParFor optimize time:		0.033 sec.
+ParFor initialize time:		0.005 sec.
+ParFor result merge time:	0.023 sec.
+ParFor total update in-place:	0/3/4
+Federated I/O (Read, Put, Get):	3/483/242.
+Federated Execute (Inst, UDF):	1444/0.
+Total JIT compile time:		13.818 sec.
+Total JVM GC count:		5.
+Total JVM GC time:		0.118 sec.
+Heavy hitter instructions:
+  #  Instruction   Time(s)  Count
+  1  m_kmeans       83.575      1
+  2  fed_ba+*       27.445    121
+  3  fed_r'         19.497     60
+  4  fed_+          17.297     60
+  5  fed_<=          7.009     60
+  6  fed_/           1.976     60
+  7  fed_uarmin      1.795     60
+  8  fed_*           1.587     60
+  9  fed_uark+       1.421     60
+ 10  write           1.412      1
+ 11  fed_uasqk+      1.387      1
+ 12  ba+*            0.928    150
+ 13  rmvar           0.914   2160
+ 14  *               0.840    221
+ 15  fed_uack+       0.472     60
+ 16  uark+           0.177     51
+ 17  +               0.096    335
+ 18  uak+            0.074    169
+ 19  uarsqk+         0.049     61
+ 20  /               0.035     63
+ 21  rand            0.032     56
+ 22  r'              0.023    180
+ 23  ucumk+          0.023     51
+ 24  createvar       0.022   2095
+ 25  log             0.019      2
+ 26  +*              0.013    101
+ 27  ctable          0.012      1
+ 28  <               0.012    111
+ 29  rexpand         0.011    101
+ 30  min             0.010     50
+ 31  -*              0.009     50
+ 32  <=              0.004     60
+ 33  seq             0.004    103
+ 34  -               0.003     66
+ 35  rightIndex      0.003     53
+ 36  mvvar           0.003    545
+ 37  uasqk+          0.003     50
+ 38  leftIndex       0.002      4
+ 39  cpvar           0.001    235
+ 40  ifelse          0.001     50
+ 41  round           0.001      3
+ 42  castdts         0.001    101
+ 43  castdtm         0.001     50
+ 44  ==              0.001    112
+ 45  sqrt            0.001      1
+ 46  assignvar       0.001    188
+ 47  ncol            0.000      2
+ 48  print           0.000      1
+ 49  >=              0.000     60
+ 50  >               0.000     60
+ 51  ctableexpand    0.000      1
+ 52  castvti         0.000      1
+
+real 89.79
+user 46.62
+sys 7.10

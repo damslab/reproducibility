@@ -1,0 +1,300 @@
+SystemDS Statistics:
+Total elapsed time:		17.346 sec.
+Total compilation time:		0.548 sec.
+Total execution time:		16.798 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	41/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	0.010/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	367/0/0/0/1.
+Cache writes (Li/WB/FS/HDFS):	0/1/0/1.
+Cache times (ACQr/m, RLS, EXP):	0.080/0.002/0.003/0.021 sec.
+HOP DAGs recompiled (PRED, SB):	0/0.
+HOP DAGs recompile time:	0.000 sec.
+Federated I/O (Read, Put, Get):	3/23/21.
+Federated Execute (Inst, UDF):	42/0.
+Total JIT compile time:		3.816 sec.
+Total JVM GC count:		2.
+Total JVM GC time:		0.029 sec.
+Heavy hitter instructions:
+  #  Instruction  Time(s)  Count
+  1  m_lmCG        16.776      1
+  2  fed_mmchain   13.349     20
+  3  fed_ba+*       3.257      1
+  4  r'             0.082     23
+  5  write          0.022      1
+  6  -              0.016     34
+  7  ba+*           0.015     21
+  8  +*             0.014     60
+  9  createvar      0.007    210
+ 10  *              0.007     21
+ 11  rmvar          0.006    233
+ 12  +              0.006     40
+ 13  <=             0.005      1
+ 14  rand           0.005      2
+ 15  tsmm           0.002     20
+ 16  /              0.001     40
+ 17  castdts        0.001     41
+ 18  mvvar          0.000     51
+ 19  cpvar          0.000     65
+ 20  assignvar      0.000     45
+ 21  <              0.000     21
+ 22  >              0.000     23
+ 23  &&             0.000     21
+ 24  ==             0.000     11
+ 25  ^              0.000      1
+ 26  ||             0.000      2
+ 27  >=             0.000      1
+
+real 20,83
+user 10,48
+sys 0,74
+SystemDS Statistics:
+Total elapsed time:		14.548 sec.
+Total compilation time:		0.536 sec.
+Total execution time:		14.012 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	41/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	0.002/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	367/0/0/0/1.
+Cache writes (Li/WB/FS/HDFS):	0/1/0/1.
+Cache times (ACQr/m, RLS, EXP):	0.073/0.002/0.004/0.020 sec.
+HOP DAGs recompiled (PRED, SB):	0/0.
+HOP DAGs recompile time:	0.000 sec.
+Federated I/O (Read, Put, Get):	3/23/21.
+Federated Execute (Inst, UDF):	42/0.
+Total JIT compile time:		3.893 sec.
+Total JVM GC count:		2.
+Total JVM GC time:		0.029 sec.
+Heavy hitter instructions:
+  #  Instruction  Time(s)  Count
+  1  m_lmCG        13.991      1
+  2  fed_mmchain    9.627     20
+  3  fed_ba+*       4.195      1
+  4  r'             0.076     23
+  5  +*             0.024     60
+  6  write          0.020      1
+  7  -              0.014     34
+  8  *              0.012     21
+  9  +              0.009     40
+ 10  createvar      0.008    210
+ 11  ba+*           0.007     21
+ 12  <=             0.006      1
+ 13  rand           0.005      2
+ 14  rmvar          0.005    233
+ 15  tsmm           0.002     20
+ 16  castdts        0.001     41
+ 17  /              0.001     40
+ 18  mvvar          0.000     51
+ 19  cpvar          0.000     65
+ 20  <              0.000     21
+ 21  assignvar      0.000     45
+ 22  >              0.000     23
+ 23  ==             0.000     11
+ 24  &&             0.000     21
+ 25  ^              0.000      1
+ 26  ||             0.000      2
+ 27  >=             0.000      1
+
+real 18,03
+user 10,31
+sys 0,77
+SystemDS Statistics:
+Total elapsed time:		12.912 sec.
+Total compilation time:		0.586 sec.
+Total execution time:		12.326 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	41/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	0.002/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	367/0/0/0/1.
+Cache writes (Li/WB/FS/HDFS):	0/1/0/1.
+Cache times (ACQr/m, RLS, EXP):	0.061/0.002/0.003/0.019 sec.
+HOP DAGs recompiled (PRED, SB):	0/0.
+HOP DAGs recompile time:	0.000 sec.
+Federated I/O (Read, Put, Get):	3/23/21.
+Federated Execute (Inst, UDF):	42/0.
+Total JIT compile time:		4.023 sec.
+Total JVM GC count:		2.
+Total JVM GC time:		0.028 sec.
+Heavy hitter instructions:
+  #  Instruction  Time(s)  Count
+  1  m_lmCG        12.306      1
+  2  fed_mmchain    8.664     20
+  3  fed_ba+*       3.489      1
+  4  r'             0.064     23
+  5  +*             0.023     60
+  6  write          0.019      1
+  7  -              0.015     34
+  8  *              0.009     21
+  9  +              0.008     40
+ 10  createvar      0.007    210
+ 11  ba+*           0.007     21
+ 12  <=             0.006      1
+ 13  rmvar          0.005    233
+ 14  rand           0.004      2
+ 15  tsmm           0.002     20
+ 16  /              0.001     40
+ 17  castdts        0.001     41
+ 18  mvvar          0.000     51
+ 19  assignvar      0.000     45
+ 20  cpvar          0.000     65
+ 21  <              0.000     21
+ 22  >              0.000     23
+ 23  ==             0.000     11
+ 24  &&             0.000     21
+ 25  ||             0.000      2
+ 26  ^              0.000      1
+ 27  >=             0.000      1
+
+real 16,22
+user 10,61
+sys 0,75
+SystemDS Statistics:
+Total elapsed time:		11.063 sec.
+Total compilation time:		0.531 sec.
+Total execution time:		10.533 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	41/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	0.002/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	367/0/0/0/1.
+Cache writes (Li/WB/FS/HDFS):	0/1/0/1.
+Cache times (ACQr/m, RLS, EXP):	0.063/0.002/0.004/0.021 sec.
+HOP DAGs recompiled (PRED, SB):	0/0.
+HOP DAGs recompile time:	0.000 sec.
+Federated I/O (Read, Put, Get):	3/23/21.
+Federated Execute (Inst, UDF):	42/0.
+Total JIT compile time:		4.045 sec.
+Total JVM GC count:		2.
+Total JVM GC time:		0.032 sec.
+Heavy hitter instructions:
+  #  Instruction  Time(s)  Count
+  1  m_lmCG        10.511      1
+  2  fed_mmchain    7.715     20
+  3  fed_ba+*       2.632      1
+  4  r'             0.065     23
+  5  +*             0.024     60
+  6  write          0.021      1
+  7  -              0.016     34
+  8  *              0.010     21
+  9  createvar      0.009    210
+ 10  +              0.008     40
+ 11  ba+*           0.007     21
+ 12  <=             0.006      1
+ 13  rand           0.006      2
+ 14  rmvar          0.005    233
+ 15  tsmm           0.003     20
+ 16  castdts        0.001     41
+ 17  /              0.001     40
+ 18  mvvar          0.001     51
+ 19  cpvar          0.000     65
+ 20  assignvar      0.000     45
+ 21  <              0.000     21
+ 22  >              0.000     23
+ 23  ==             0.000     11
+ 24  &&             0.000     21
+ 25  ||             0.000      2
+ 26  ^              0.000      1
+ 27  >=             0.000      1
+
+real 14,65
+user 11,05
+sys 0,81
+SystemDS Statistics:
+Total elapsed time:		9.869 sec.
+Total compilation time:		0.526 sec.
+Total execution time:		9.343 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	41/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	0.002/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	367/0/0/0/1.
+Cache writes (Li/WB/FS/HDFS):	0/1/0/1.
+Cache times (ACQr/m, RLS, EXP):	0.061/0.002/0.004/0.021 sec.
+HOP DAGs recompiled (PRED, SB):	0/0.
+HOP DAGs recompile time:	0.000 sec.
+Federated I/O (Read, Put, Get):	3/23/21.
+Federated Execute (Inst, UDF):	42/0.
+Total JIT compile time:		4.137 sec.
+Total JVM GC count:		2.
+Total JVM GC time:		0.028 sec.
+Heavy hitter instructions:
+  #  Instruction  Time(s)  Count
+  1  m_lmCG         9.322      1
+  2  fed_mmchain    6.053     20
+  3  fed_ba+*       3.106      1
+  4  r'             0.063     23
+  5  +*             0.024     60
+  6  write          0.021      1
+  7  -              0.017     34
+  8  *              0.011     21
+  9  +              0.009     40
+ 10  createvar      0.008    210
+ 11  ba+*           0.007     21
+ 12  rmvar          0.006    233
+ 13  <=             0.006      1
+ 14  rand           0.005      2
+ 15  tsmm           0.002     20
+ 16  castdts        0.001     41
+ 17  /              0.001     40
+ 18  mvvar          0.000     51
+ 19  cpvar          0.000     65
+ 20  assignvar      0.000     45
+ 21  <              0.000     21
+ 22  >              0.000     23
+ 23  &&             0.000     21
+ 24  ==             0.000     11
+ 25  ||             0.000      2
+ 26  ^              0.000      1
+ 27  >=             0.000      1
+
+real 13,64
+user 10,70
+sys 0,79
+SystemDS Statistics:
+Total elapsed time:		8.911 sec.
+Total compilation time:		0.582 sec.
+Total execution time:		8.329 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	41/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	0.002/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	367/0/0/0/1.
+Cache writes (Li/WB/FS/HDFS):	0/1/0/1.
+Cache times (ACQr/m, RLS, EXP):	0.059/0.002/0.003/0.056 sec.
+HOP DAGs recompiled (PRED, SB):	0/0.
+HOP DAGs recompile time:	0.000 sec.
+Federated I/O (Read, Put, Get):	3/23/21.
+Federated Execute (Inst, UDF):	42/0.
+Total JIT compile time:		3.999 sec.
+Total JVM GC count:		2.
+Total JVM GC time:		0.029 sec.
+Heavy hitter instructions:
+  #  Instruction  Time(s)  Count
+  1  m_lmCG         8.272      1
+  2  fed_mmchain    5.560     20
+  3  fed_ba+*       2.563      1
+  4  r'             0.061     23
+  5  write          0.056      1
+  6  +*             0.020     60
+  7  -              0.015     34
+  8  *              0.009     21
+  9  +              0.008     40
+ 10  createvar      0.007    210
+ 11  ba+*           0.007     21
+ 12  <=             0.006      1
+ 13  rand           0.005      2
+ 14  rmvar          0.005    233
+ 15  tsmm           0.002     20
+ 16  castdts        0.001     41
+ 17  /              0.001     40
+ 18  assignvar      0.000     45
+ 19  mvvar          0.000     51
+ 20  cpvar          0.000     65
+ 21  <              0.000     21
+ 22  >              0.000     23
+ 23  ==             0.000     11
+ 24  &&             0.000     21
+ 25  ||             0.000      2
+ 26  ^              0.000      1
+ 27  >=             0.000      1
+
+real 11,97
+user 11,01
+sys 0,75

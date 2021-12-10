@@ -1,0 +1,55 @@
+2021-02-10 14:19:16.235818: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library 'libcudart.so.10.1'; dlerror: libcudart.so.10.1: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64_lin/gcc4.7:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64_lin/gcc4.7:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin
+2021-02-10 14:19:16.235854: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Traceback (most recent call last):
+  File "code/other/TwoNN.py", line 19, in <module>
+    X = np.load(args.datapath, allow_pickle=True)
+  File "/home/baunsgaard/github/papers/2021-sigmod-exdra/experiments/python_venv/lib/python3.8/site-packages/numpy/lib/npyio.py", line 416, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: 'data/P2P_features.npy'
+real 1,49
+user 2,00
+sys 2,77
+2021-02-10 14:19:17.719534: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library 'libcudart.so.10.1'; dlerror: libcudart.so.10.1: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64_lin/gcc4.7:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64_lin/gcc4.7:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin
+2021-02-10 14:19:17.719561: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Traceback (most recent call last):
+  File "code/other/TwoNN.py", line 19, in <module>
+    X = np.load(args.datapath, allow_pickle=True)
+  File "/home/baunsgaard/github/papers/2021-sigmod-exdra/experiments/python_venv/lib/python3.8/site-packages/numpy/lib/npyio.py", line 416, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: 'data/P2P_features.npy'
+real 1,41
+user 2,03
+sys 2,70
+2021-02-10 14:19:19.130492: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library 'libcudart.so.10.1'; dlerror: libcudart.so.10.1: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64_lin/gcc4.7:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64_lin/gcc4.7:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin
+2021-02-10 14:19:19.130522: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Traceback (most recent call last):
+  File "code/other/TwoNN.py", line 19, in <module>
+    X = np.load(args.datapath, allow_pickle=True)
+  File "/home/baunsgaard/github/papers/2021-sigmod-exdra/experiments/python_venv/lib/python3.8/site-packages/numpy/lib/npyio.py", line 416, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: 'data/P2P_features.npy'
+real 1,44
+user 1,98
+sys 2,78
+2021-02-10 14:19:20.562650: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library 'libcudart.so.10.1'; dlerror: libcudart.so.10.1: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64_lin/gcc4.7:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64_lin/gcc4.7:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin
+2021-02-10 14:19:20.562677: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Traceback (most recent call last):
+  File "code/other/TwoNN.py", line 19, in <module>
+    X = np.load(args.datapath, allow_pickle=True)
+  File "/home/baunsgaard/github/papers/2021-sigmod-exdra/experiments/python_venv/lib/python3.8/site-packages/numpy/lib/npyio.py", line 416, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: 'data/P2P_features.npy'
+real 1,43
+user 2,02
+sys 2,73
+2021-02-10 14:19:22.027794: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library 'libcudart.so.10.1'; dlerror: libcudart.so.10.1: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64_lin/gcc4.7:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64_lin/gcc4.7:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/home/baunsgaard/intel/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin
+2021-02-10 14:19:22.027826: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Traceback (most recent call last):
+  File "code/other/TwoNN.py", line 19, in <module>
+    X = np.load(args.datapath, allow_pickle=True)
+  File "/home/baunsgaard/github/papers/2021-sigmod-exdra/experiments/python_venv/lib/python3.8/site-packages/numpy/lib/npyio.py", line 416, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: 'data/P2P_features.npy'
+real 1,49
+user 2,03
+sys 2,50

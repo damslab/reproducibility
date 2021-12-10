@@ -1,0 +1,2 @@
+X = read($1, format="csv", header=TRUE)
+write(X, $2, format="binary")

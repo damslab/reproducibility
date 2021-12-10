@@ -1,0 +1,280 @@
+L2SVM: WARNING invalid number of labels in Y: 1.0 1.0
+SystemDS Statistics:
+Total elapsed time:		20.224 sec.
+Total compilation time:		0.898 sec.
+Total execution time:		19.327 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	239/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	0.104/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	8920/0/0/0/1.
+Cache writes (Li/WB/FS/HDFS):	0/3184/0/1.
+Cache times (ACQr/m, RLS, EXP):	0.126/0.008/0.122/0.046 sec.
+HOP DAGs recompiled (PRED, SB):	0/0.
+HOP DAGs recompile time:	0.004 sec.
+Federated I/O (Read, Put, Get):	6/216/61.
+Federated Execute (Inst, UDF):	122/0.
+Total JIT compile time:		11.535 sec.
+Total JVM GC count:		6.
+Total JVM GC time:		0.127 sec.
+Heavy hitter instructions:
+  #  Instruction  Time(s)  Count
+  1  m_l2svm       19.280      1
+  2  fed_ba+*       6.055     61
+  3  max            2.467    630
+  4  +*             2.335    690
+  5  *              2.114   2011
+  6  >              2.094    600
+  7  tak+*          1.629   1200
+  8  1-*            1.552    630
+  9  ==             0.275      3
+ 10  uamin          0.222      1
+ 11  r'             0.178    122
+ 12  tsmm           0.105    180
+ 13  -              0.048   1232
+ 14  write          0.046      1
+ 15  rmvar          0.036   8870
+ 16  uak+           0.030      2
+ 17  createvar      0.026   3641
+ 18  uamax          0.023      1
+ 19  <              0.013    666
+ 20  ba+*           0.012     60
+ 21  +              0.006   1867
+ 22  mvvar          0.005    706
+ 23  rand           0.004      2
+ 24  assignvar      0.004   2016
+ 25  castdts        0.003    240
+ 26  >=             0.002    630
+ 27  &&             0.002    692
+ 28  /              0.002   1233
+ 29  cpvar          0.001    124
+ 30  print          0.000      1
+ 31  !=             0.000     34
+ 32  ||             0.000      1
+
+real 24.62
+user 276.14
+sys 8.42
+L2SVM: WARNING invalid number of labels in Y: 1.0 1.0
+SystemDS Statistics:
+Total elapsed time:		17.863 sec.
+Total compilation time:		0.890 sec.
+Total execution time:		16.973 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	239/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	0.109/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	8920/0/0/0/1.
+Cache writes (Li/WB/FS/HDFS):	0/3184/0/1.
+Cache times (ACQr/m, RLS, EXP):	0.126/0.008/0.125/0.046 sec.
+HOP DAGs recompiled (PRED, SB):	0/0.
+HOP DAGs recompile time:	0.004 sec.
+Federated I/O (Read, Put, Get):	6/216/61.
+Federated Execute (Inst, UDF):	122/0.
+Total JIT compile time:		12.3 sec.
+Total JVM GC count:		6.
+Total JVM GC time:		0.125 sec.
+Heavy hitter instructions:
+  #  Instruction  Time(s)  Count
+  1  m_l2svm       16.926      1
+  2  fed_ba+*       3.730     61
+  3  max            2.444    630
+  4  +*             2.354    690
+  5  >              2.098    600
+  6  *              2.095   2011
+  7  tak+*          1.577   1200
+  8  1-*            1.542    630
+  9  ==             0.312      3
+ 10  uamin          0.225      1
+ 11  r'             0.179    122
+ 12  tsmm           0.111    180
+ 13  -              0.057   1232
+ 14  write          0.046      1
+ 15  rmvar          0.037   8870
+ 16  uak+           0.029      2
+ 17  createvar      0.026   3641
+ 18  uamax          0.019      1
+ 19  <              0.013    666
+ 20  ba+*           0.012     60
+ 21  +              0.007   1867
+ 22  mvvar          0.005    706
+ 23  rand           0.004      2
+ 24  assignvar      0.003   2016
+ 25  &&             0.003    692
+ 26  castdts        0.003    240
+ 27  /              0.002   1233
+ 28  >=             0.002    630
+ 29  cpvar          0.001    124
+ 30  print          0.000      1
+ 31  !=             0.000     34
+ 32  ||             0.000      1
+
+real 21.80
+user 270.51
+sys 8.28
+L2SVM: WARNING invalid number of labels in Y: 1.0 1.0
+SystemDS Statistics:
+Total elapsed time:		17.905 sec.
+Total compilation time:		0.895 sec.
+Total execution time:		17.010 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	239/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	0.105/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	8920/0/0/0/1.
+Cache writes (Li/WB/FS/HDFS):	0/3184/0/1.
+Cache times (ACQr/m, RLS, EXP):	0.125/0.008/0.127/0.039 sec.
+HOP DAGs recompiled (PRED, SB):	0/0.
+HOP DAGs recompile time:	0.004 sec.
+Federated I/O (Read, Put, Get):	6/216/61.
+Federated Execute (Inst, UDF):	122/0.
+Total JIT compile time:		11.926 sec.
+Total JVM GC count:		6.
+Total JVM GC time:		0.125 sec.
+Heavy hitter instructions:
+  #  Instruction  Time(s)  Count
+  1  m_l2svm       16.970      1
+  2  fed_ba+*       3.818     61
+  3  max            2.460    630
+  4  +*             2.325    690
+  5  *              2.094   2011
+  6  >              2.093    600
+  7  tak+*          1.593   1200
+  8  1-*            1.552    630
+  9  ==             0.238      3
+ 10  uamin          0.232      1
+ 11  r'             0.197    122
+ 12  tsmm           0.107    180
+ 13  -              0.055   1232
+ 14  write          0.039      1
+ 15  rmvar          0.039   8870
+ 16  createvar      0.028   3641
+ 17  uak+           0.027      2
+ 18  uamax          0.020      1
+ 19  <              0.013    666
+ 20  ba+*           0.012     60
+ 21  +              0.006   1867
+ 22  mvvar          0.005    706
+ 23  rand           0.004      2
+ 24  assignvar      0.003   2016
+ 25  &&             0.003    692
+ 26  castdts        0.002    240
+ 27  /              0.002   1233
+ 28  >=             0.002    630
+ 29  cpvar          0.001    124
+ 30  print          0.000      1
+ 31  !=             0.000     34
+ 32  ||             0.000      1
+
+real 21.81
+user 272.84
+sys 8.71
+L2SVM: WARNING invalid number of labels in Y: 1.0 1.0
+SystemDS Statistics:
+Total elapsed time:		18.165 sec.
+Total compilation time:		0.900 sec.
+Total execution time:		17.265 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	239/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	0.105/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	8920/0/0/0/1.
+Cache writes (Li/WB/FS/HDFS):	0/3184/0/1.
+Cache times (ACQr/m, RLS, EXP):	0.126/0.009/0.131/0.036 sec.
+HOP DAGs recompiled (PRED, SB):	0/0.
+HOP DAGs recompile time:	0.004 sec.
+Federated I/O (Read, Put, Get):	6/216/61.
+Federated Execute (Inst, UDF):	122/0.
+Total JIT compile time:		13.135 sec.
+Total JVM GC count:		6.
+Total JVM GC time:		0.124 sec.
+Heavy hitter instructions:
+  #  Instruction  Time(s)  Count
+  1  m_l2svm       17.229      1
+  2  fed_ba+*       3.853     61
+  3  max            2.457    630
+  4  +*             2.351    690
+  5  *              2.117   2011
+  6  >              2.105    600
+  7  tak+*          1.657   1200
+  8  1-*            1.576    630
+  9  ==             0.311      3
+ 10  uamin          0.231      1
+ 11  r'             0.205    122
+ 12  tsmm           0.107    180
+ 13  -              0.044   1232
+ 14  rmvar          0.038   8870
+ 15  write          0.036      1
+ 16  uak+           0.031      2
+ 17  createvar      0.028   3641
+ 18  uamax          0.026      1
+ 19  <              0.013    666
+ 20  ba+*           0.012     60
+ 21  +              0.006   1867
+ 22  mvvar          0.006    706
+ 23  rand           0.004      2
+ 24  assignvar      0.003   2016
+ 25  castdts        0.002    240
+ 26  /              0.002   1233
+ 27  >=             0.002    630
+ 28  &&             0.002    692
+ 29  cpvar          0.001    124
+ 30  print          0.000      1
+ 31  !=             0.000     34
+ 32  ||             0.000      1
+
+real 22.16
+user 279.48
+sys 8.41
+L2SVM: WARNING invalid number of labels in Y: 1.0 1.0
+SystemDS Statistics:
+Total elapsed time:		17.881 sec.
+Total compilation time:		0.920 sec.
+Total execution time:		16.961 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	239/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	0.102/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	8920/0/0/0/1.
+Cache writes (Li/WB/FS/HDFS):	0/3184/0/1.
+Cache times (ACQr/m, RLS, EXP):	0.142/0.008/0.128/0.041 sec.
+HOP DAGs recompiled (PRED, SB):	0/0.
+HOP DAGs recompile time:	0.004 sec.
+Federated I/O (Read, Put, Get):	6/216/61.
+Federated Execute (Inst, UDF):	122/0.
+Total JIT compile time:		12.162 sec.
+Total JVM GC count:		6.
+Total JVM GC time:		0.124 sec.
+Heavy hitter instructions:
+  #  Instruction  Time(s)  Count
+  1  m_l2svm       16.920      1
+  2  fed_ba+*       3.687     61
+  3  max            2.454    630
+  4  +*             2.304    690
+  5  *              2.139   2011
+  6  >              2.082    600
+  7  tak+*          1.609   1200
+  8  1-*            1.572    630
+  9  ==             0.293      3
+ 10  uamin          0.252      1
+ 11  r'             0.176    122
+ 12  tsmm           0.103    180
+ 13  -              0.042   1232
+ 14  write          0.041      1
+ 15  rmvar          0.037   8870
+ 16  uak+           0.031      2
+ 17  createvar      0.027   3641
+ 18  uamax          0.020      1
+ 19  ba+*           0.014     60
+ 20  <              0.013    666
+ 21  +              0.006   1867
+ 22  mvvar          0.006    706
+ 23  rand           0.004      2
+ 24  assignvar      0.004   2016
+ 25  castdts        0.002    240
+ 26  >=             0.002    630
+ 27  /              0.002   1233
+ 28  &&             0.002    692
+ 29  cpvar          0.001    124
+ 30  print          0.000      1
+ 31  !=             0.000     34
+ 32  ||             0.000      1
+
+real 21.99
+user 277.01
+sys 8.24

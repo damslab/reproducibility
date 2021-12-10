@@ -1,0 +1,21 @@
+2021-03-29 20:22:26.945851: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library 'libcudart.so.10.1'; dlerror: libcudart.so.10.1: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /opt/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/opt/intel/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64_lin/gcc4.7:/opt/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/opt/intel/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin:/opt/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/opt/intel/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64_lin/gcc4.7:/opt/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/opt/intel/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin
+2021-03-29 20:22:26.945935: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+2021-03-29 20:22:29.026568: W tensorflow/stream_executor/platform/default/dso_loader.cc:59] Could not load dynamic library 'libcuda.so.1'; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /opt/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/opt/intel/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64_lin/gcc4.7:/opt/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/opt/intel/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin:/opt/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/opt/intel/compilers_and_libraries_2019.5.281/linux/tbb/lib/intel64_lin/gcc4.7:/opt/intel/compilers_and_libraries_2019.5.281/linux/compiler/lib/intel64_lin:/opt/intel/compilers_and_libraries_2019.5.281/linux/mkl/lib/intel64_lin
+2021-03-29 20:22:29.026617: W tensorflow/stream_executor/cuda/cuda_driver.cc:312] failed call to cuInit: UNKNOWN ERROR (303)
+2021-03-29 20:22:29.026644: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (charlie): /proc/driver/nvidia/version does not exist
+2021-03-29 20:22:29.027005: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN)to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-03-29 20:22:29.056712: I tensorflow/core/platform/profile_utils/cpu_utils.cc:104] CPU Frequency: 2994305000 Hz
+2021-03-29 20:22:29.058609: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x56d3680 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2021-03-29 20:22:29.058644: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+(60000, 28, 28)
+Batch size: 1024
+floatSize: float64
+Epoch 1, Loss: 0.550219439475213, Accuracy: 83.20166666666667, Test Loss: 0.11481868848204613, Test Accuracy: 96.37
+Epoch 2, Loss: 0.11774834965245198, Accuracy: 96.47666666666666, Test Loss: 0.060601154901087285, Test Accuracy: 98.17
+Epoch 3, Loss: 0.07746466299739935, Accuracy: 97.65833333333333, Test Loss: 0.045179464016109706, Test Accuracy: 98.56
+Epoch 4, Loss: 0.06169006746199172, Accuracy: 98.13833333333334, Test Loss: 0.03938407404348254, Test Accuracy: 98.66
+Epoch 5, Loss: 0.04861717033436743, Accuracy: 98.53833333333334, Test Loss: 0.034848300460726025, Test Accuracy: 98.83
+real 64.04
+user 1353.24
+sys 172.01

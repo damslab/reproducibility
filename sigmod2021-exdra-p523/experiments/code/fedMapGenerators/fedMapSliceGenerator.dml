@@ -1,0 +1,29 @@
+# number of rows
+N = $1
+# number of cols
+M = $2
+
+
+
+
+for(i in 1:num_workers) {
+  addresses_features = append(addresses_features, as.scalar(addresses_matrix[i]))
+  addresses_labels = append(addresses_labels, as.scalar(addresses_matrix[i + num_workers]))
+
+
+  features_ranges = append(features_ranges, 
+    list(as.scalar(features_ranges_matrix[i * 2 - 1, 1]), as.scalar(features_ranges_matrix[i * 2 - 1, 2])))
+  features_ranges = append(features_ranges, 
+    list(as.scalar(features_ranges_matrix[i * 2, 1]), as.scalar(features_ranges_matrix[i * 2, 2])))
+
+}
+
+# Addresses
+ad1 = $3
+
+X = federated(
+    addresses=list(ad1),
+    ranges= list(list(0, 0), list(N, M))
+)
+
+write(X, $4, format="federated")

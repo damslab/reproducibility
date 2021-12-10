@@ -1,0 +1,195 @@
+K-means: No output is produced. Try increasing the number of iterations and/or lower eps.
+SystemDS Statistics:
+Total elapsed time:		103.104 sec.
+Total compilation time:		1.104 sec.
+Total execution time:		101.999 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	160/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	54.783/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	3132/0/0/0/1.
+Cache writes (Li/WB/FS/HDFS):	1/581/0/1.
+Cache times (ACQr/m, RLS, EXP):	3.927/0.006/1.720/1.230 sec.
+HOP DAGs recompiled (PRED, SB):	0/53.
+HOP DAGs recompile time:	0.218 sec.
+Functions recompiled:		1.
+Functions recompile time:	0.034 sec.
+ParFor loops optimized:		1.
+ParFor optimize time:		0.032 sec.
+ParFor initialize time:		0.005 sec.
+ParFor result merge time:	0.022 sec.
+ParFor total update in-place:	0/3/4
+Total JIT compile time:		9.11 sec.
+Total JVM GC count:		14.
+Total JVM GC time:		0.992 sec.
+Heavy hitter instructions:
+  #  Instruction  Time(s)  Count
+  1  m_kmeans     100.769      1
+  2  ba+*          64.430    271
+  3  <=            11.222    120
+  4  +              5.932    395
+  5  *              4.611    281
+  6  uasqk+         4.472     51
+  7  /              3.801    123
+  8  r'             3.669    240
+  9  write          1.230      1
+ 10  uarmin         0.957     60
+
+real 105.00
+user 1462.61
+sys 17.05
+K-means: No output is produced. Try increasing the number of iterations and/or lower eps.
+SystemDS Statistics:
+Total elapsed time:		103.167 sec.
+Total compilation time:		1.112 sec.
+Total execution time:		102.055 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	160/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	54.803/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	3132/0/0/0/1.
+Cache writes (Li/WB/FS/HDFS):	1/581/0/1.
+Cache times (ACQr/m, RLS, EXP):	3.893/0.005/1.746/1.273 sec.
+HOP DAGs recompiled (PRED, SB):	0/53.
+HOP DAGs recompile time:	0.220 sec.
+Functions recompiled:		1.
+Functions recompile time:	0.039 sec.
+ParFor loops optimized:		1.
+ParFor optimize time:		0.032 sec.
+ParFor initialize time:		0.005 sec.
+ParFor result merge time:	0.020 sec.
+ParFor total update in-place:	0/3/4
+Total JIT compile time:		9.125 sec.
+Total JVM GC count:		14.
+Total JVM GC time:		1.012 sec.
+Heavy hitter instructions:
+  #  Instruction  Time(s)  Count
+  1  m_kmeans     100.781      1
+  2  ba+*          64.425    271
+  3  <=            10.964    120
+  4  +              5.971    395
+  5  *              4.581    281
+  6  uasqk+         4.395     51
+  7  r'             3.970    240
+  8  /              3.874    123
+  9  write          1.273      1
+ 10  uarmin         0.945     60
+
+real 104.70
+user 1458.90
+sys 17.30
+K-means: No output is produced. Try increasing the number of iterations and/or lower eps.
+SystemDS Statistics:
+Total elapsed time:		103.307 sec.
+Total compilation time:		1.173 sec.
+Total execution time:		102.133 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	160/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	55.230/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	3132/0/0/0/1.
+Cache writes (Li/WB/FS/HDFS):	1/581/0/1.
+Cache times (ACQr/m, RLS, EXP):	4.041/0.005/1.638/1.197 sec.
+HOP DAGs recompiled (PRED, SB):	0/53.
+HOP DAGs recompile time:	0.222 sec.
+Functions recompiled:		1.
+Functions recompile time:	0.036 sec.
+ParFor loops optimized:		1.
+ParFor optimize time:		0.032 sec.
+ParFor initialize time:		0.005 sec.
+ParFor result merge time:	0.019 sec.
+ParFor total update in-place:	0/3/4
+Total JIT compile time:		9.243 sec.
+Total JVM GC count:		14.
+Total JVM GC time:		1.029 sec.
+Heavy hitter instructions:
+  #  Instruction  Time(s)  Count
+  1  m_kmeans     100.935      1
+  2  ba+*          64.760    271
+  3  <=            10.854    120
+  4  +              5.802    395
+  5  *              4.685    281
+  6  uasqk+         4.582     51
+  7  /              3.926    123
+  8  r'             3.921    240
+  9  write          1.197      1
+ 10  uarmin         0.939     60
+
+real 105.20
+user 1472.71
+sys 17.93
+K-means: No output is produced. Try increasing the number of iterations and/or lower eps.
+SystemDS Statistics:
+Total elapsed time:		104.007 sec.
+Total compilation time:		1.081 sec.
+Total execution time:		102.927 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	160/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	55.265/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	3132/0/0/0/1.
+Cache writes (Li/WB/FS/HDFS):	1/581/0/1.
+Cache times (ACQr/m, RLS, EXP):	4.347/0.005/1.701/1.228 sec.
+HOP DAGs recompiled (PRED, SB):	0/53.
+HOP DAGs recompile time:	0.221 sec.
+Functions recompiled:		1.
+Functions recompile time:	0.033 sec.
+ParFor loops optimized:		1.
+ParFor optimize time:		0.032 sec.
+ParFor initialize time:		0.005 sec.
+ParFor result merge time:	0.021 sec.
+ParFor total update in-place:	0/3/4
+Total JIT compile time:		9.5 sec.
+Total JVM GC count:		14.
+Total JVM GC time:		1.099 sec.
+Heavy hitter instructions:
+  #  Instruction  Time(s)  Count
+  1  m_kmeans     101.698      1
+  2  ba+*          64.858    271
+  3  <=            11.231    120
+  4  +              5.917    395
+  5  uasqk+         4.847     51
+  6  *              4.499    281
+  7  r'             3.985    240
+  8  /              3.765    123
+  9  write          1.228      1
+ 10  uarmin         0.933     60
+
+real 105.89
+user 1465.96
+sys 17.13
+K-means: No output is produced. Try increasing the number of iterations and/or lower eps.
+SystemDS Statistics:
+Total elapsed time:		102.806 sec.
+Total compilation time:		1.083 sec.
+Total execution time:		101.723 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	160/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	54.583/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	3132/0/0/0/1.
+Cache writes (Li/WB/FS/HDFS):	1/581/0/1.
+Cache times (ACQr/m, RLS, EXP):	4.065/0.005/1.646/1.281 sec.
+HOP DAGs recompiled (PRED, SB):	0/53.
+HOP DAGs recompile time:	0.222 sec.
+Functions recompiled:		1.
+Functions recompile time:	0.036 sec.
+ParFor loops optimized:		1.
+ParFor optimize time:		0.033 sec.
+ParFor initialize time:		0.006 sec.
+ParFor result merge time:	0.020 sec.
+ParFor total update in-place:	0/3/4
+Total JIT compile time:		9.33 sec.
+Total JVM GC count:		14.
+Total JVM GC time:		0.971 sec.
+Heavy hitter instructions:
+  #  Instruction  Time(s)  Count
+  1  m_kmeans     100.441      1
+  2  ba+*          64.237    271
+  3  <=            10.964    120
+  4  +              5.993    395
+  5  uasqk+         4.651     51
+  6  *              4.451    281
+  7  r'             3.942    240
+  8  /              3.637    123
+  9  write          1.281      1
+ 10  uarmin         0.951     60
+
+real 104.68
+user 1453.91
+sys 16.84

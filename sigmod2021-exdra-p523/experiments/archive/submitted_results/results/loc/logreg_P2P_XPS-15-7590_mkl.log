@@ -1,0 +1,71 @@
+SystemDS Statistics:
+Total elapsed time:		71.672 sec.
+Total compilation time:		0.755 sec.
+Total execution time:		70.917 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	249/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	0.002/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	4753/0/0/0/2.
+Cache writes (Li/WB/FS/HDFS):	1/626/0/1.
+Cache times (ACQr/m, RLS, EXP):	6.162/0.003/0.029/0.016 sec.
+HOP DAGs recompiled (PRED, SB):	0/351.
+HOP DAGs recompile time:	0.247 sec.
+Functions recompiled:		1.
+Functions recompile time:	0.036 sec.
+Total JIT compile time:		9.219 sec.
+Total JVM GC count:		5.
+Total JVM GC time:		0.29 sec.
+Heavy hitter instructions:
+  #  Instruction    Time(s)  Count
+  1  m_multiLogReg   70.742      1
+  2  mmchain         42.059    128
+  3  ba+*            15.576    310
+  4  isnan            7.664      1
+  5  sprop            1.109    128
+  6  -                0.713    277
+  7  append           0.630     30
+  8  uarsqk+          0.566      1
+  9  rightIndex       0.493    190
+ 10  /                0.388    348
+ 11  exp              0.328     30
+ 12  uark+            0.322     30
+ 13  log              0.148     31
+ 14  uarmax           0.133     30
+ 15  tak+*            0.130     60
+ 16  <                0.123    152
+ 17  +                0.039    381
+ 18  rexpand          0.032      1
+ 19  uak+             0.026     31
+ 20  uamax            0.018      2
+ 21  sqrt             0.016    221
+ 22  write            0.016      1
+ 23  uamin            0.013      1
+ 24  rmvar            0.013   4174
+ 25  rand             0.011     64
+ 26  createvar        0.010   2398
+ 27  +*               0.010    256
+ 28  ==               0.008     72
+ 29  *                0.007    558
+ 30  r'               0.006    251
+ 31  tsmm             0.005    318
+ 32  n+               0.005     30
+ 33  -*               0.004    128
+ 34  castdts          0.002    823
+ 35  mvvar            0.002    746
+ 36  assignvar        0.002   1293
+ 37  <=               0.002    315
+ 38  cpvar            0.001    855
+ 39  ^                0.000     32
+ 40  !                0.000    189
+ 41  >                0.000    190
+ 42  ||               0.000    191
+ 43  ifelse           0.000     30
+ 44  abs              0.000     90
+ 45  max              0.000     60
+ 46  &&               0.000     30
+ 47  min              0.000     31
+ 48  >=               0.000      2
+
+real 72,53
+user 815,67
+sys 14,68

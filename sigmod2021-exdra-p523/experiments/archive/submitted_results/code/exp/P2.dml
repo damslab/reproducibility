@@ -1,0 +1,50 @@
+##################################################
+# PIPELINE P2: paper production - training       #
+##################################################
+
+# read frame input (1st cat, last y)
+Fall = read($1); #frame
+Fall = as.frame(Fall)
+# one hot encoding categorical, other passthrough
+jspec = "{ ids:true, dummycode:[1] }"
+[X0,M] = transformencode(target=Fall, spec=jspec)
+X = X0
+y = read($2)
+
+# clipping out of value ranges
+colSD = colSds(X)
+colMean = (colMeans(X))
+upperBound = colMean + 1.5 * colSD
+lowerBound = colMean - 1.5 * colSD
+outFilter = (X < lowerBound) | (X > upperBound)
+X = X - outFilter*X + outFilter*colMeans(X); 
+
+# normalization
+X = scale(X=X, center=TRUE, scale=TRUE);
+
+# split training and testing
+[Xtrain , Xtest, ytrain, ytest] = split(X=X, Y=y, cont=TRUE)
+
+
+# train regression model 
+# TODO replace with neural network regression (paramserv, didn't get the architecture yet)
+B = lm(X=Xtrain, y=ytrain, icpt=0, reg=1e-3, tol=1e-9, verbose=$3)
+
+# model evaluation on test split
+yhat = lmpredict(X=Xtest, w=B, icpt=0);
+y_residual = ytest - yhat;
+
+avg_res = sum(y_residual) / nrow(ytest);
+ss_res = sum(y_residual^2);
+ss_avg_res = ss_res - nrow(ytest) * avg_res^2;
+R2 = 1 - ss_res / (sum(y^2) - nrow(ytest) * (sum(y)/nrow(ytest))^2);
+print("\nAccuracy:" +
+      "\n--sum(ytest) = " + sum(ytest) + 
+      "\n--sum(yhat) = " + sum(yhat) +
+      "\n--AVG_RES_Y: " + avg_res + 
+      "\n--SS_AVG_RES_Y: " + ss_avg_res + 
+      "\n--R2: " + R2 );  
+ 
+# write trained model and meta data
+write(B, $4+ "_B.csv", format="csv")
+write(M, $4+ "_M.csv", format="csv")

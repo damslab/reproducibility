@@ -1,0 +1,28 @@
+nohup: ignoring input
+sysds: 13dd8cb68260cec6692b2006271f651150519e42
+10:49:23
+10:49:31
+Starting Workers.
+Starting worker mike 8003 mkl
+Starting worker uniform 8007 mkl
+Starting worker romeo 8005 mkl
+Starting worker sierra 8006 mkl
+Starting worker india 8002 mkl
+Starting worker delta 8001 mkl
+Starting worker papa 8004 mkl
+fed 1W mkl - TwoNN	  P2P Dataset - rep:...
+fed 2W mkl - TwoNN	  P2P Dataset - rep:...
+fed 3W mkl - TwoNN	  P2P Dataset - rep:...
+fed 4W mkl - TwoNN	  P2P Dataset - rep:...
+fed 5W mkl - TwoNN	  P2P Dataset - rep:...
+fed 6W mkl - TwoNN	  P2P Dataset - rep:...
+fed 7W mkl - TwoNN	  P2P Dataset - rep:...
+Stopping workers delta
+Stopping workers mike
+Stopping workers india
+Stopping workers uniform
+Stopping workers romeo
+Stopping workers sierra
+Stopping workers papa
+10:50:17
+

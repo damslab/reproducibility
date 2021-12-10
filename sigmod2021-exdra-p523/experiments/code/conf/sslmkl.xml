@@ -1,0 +1,4 @@
+<root>
+    <sysds.federated.ssl>true</sysds.federated.ssl>
+    <sysds.native.blas>mkl</sysds.native.blas>
+</root>

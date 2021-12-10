@@ -1,0 +1,4 @@
+X = read($1)
+
+[Xout, Mout] = pca(X=X, K=10)
+write(Mout, $3, format= "csv")

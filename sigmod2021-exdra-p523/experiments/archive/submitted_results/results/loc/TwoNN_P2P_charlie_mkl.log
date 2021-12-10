@@ -1,0 +1,356 @@
+21/03/27 16:12:33 INFO org.apache.sysds.api.DMLScript: BEGIN DML run 03/27/2021 16:12:33
+21/03/27 16:12:33 INFO org.apache.sysds.utils.NativeHelper: Using native blas: mkl
+21/03/27 16:13:35 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: completed EPOCH 0
+21/03/27 16:13:35 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: epoch timer: 17.212 secs.
+21/03/27 16:13:49 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: completed EPOCH 1
+21/03/27 16:13:49 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: epoch timer: 31.482 secs.
+21/03/27 16:14:03 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: completed EPOCH 2
+21/03/27 16:14:03 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: epoch timer: 45.968 secs.
+21/03/27 16:14:17 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: completed EPOCH 3
+21/03/27 16:14:17 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: epoch timer: 59.403 secs.
+21/03/27 16:14:31 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: completed EPOCH 4
+21/03/27 16:14:31 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: epoch timer: 73.167 secs.
+[+] test loss: 1.4872586632199265E-11, test accuracy: 1.4872586632199265E-11
+
+SystemDS Statistics:
+Total elapsed time:		136.515 sec.
+Total compilation time:		1.084 sec.
+Total execution time:		135.431 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	29312/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	21.868/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	723044/0/0/0/8.
+Cache writes (Li/WB/FS/HDFS):	1/19564/3/0.
+Cache times (ACQr/m, RLS, EXP):	18.510/0.070/19.891/0.000 sec.
+HOP DAGs recompiled (PRED, SB):	0/19541.
+HOP DAGs recompile time:	11.449 sec.
+Paramserv total execution time:	73.167 secs.
+Paramserv total num workers:	1.
+Paramserv setup time:		0.063 secs.
+Paramserv grad compute time:	48.818 secs.
+Paramserv model update time:	0.148/0.000 secs.
+Paramserv model broadcast time:	0.001 secs.
+Paramserv batch slice time:	11.433 secs.
+Paramserv RPC request time:	0.000 secs.
+Paramserv valdiation time:	0.000 secs.
+Total JIT compile time:		26.438 sec.
+Total JVM GC count:		13.
+Total JVM GC time:		2.287 sec.
+Heavy hitter instructions:
+  #  Instruction    Time(s)   Count
+  1  paramserv       73.170       1
+  2  ba+*            34.209   78163
+  3  uamin           19.022       2
+  4  /               15.649   29319
+  5  max             10.797   19542
+  6  r'              10.640   68385
+  7  -                7.229   29316
+  8  +                5.197    9780
+  9  rmvar            1.602  254052
+ 10  uamax            0.954       2
+ 11  createvar        0.625  381064
+ 12  -*               0.445   58620
+ 13  *                0.421   39084
+ 14  list             0.248   19541
+ 15  exp              0.129    9771
+ 16  uack+            0.106   19540
+ 17  uark+            0.092       1
+ 18  relu_backward    0.085   19540
+ 19  uarmax           0.048       1
+ 20  castdtm          0.046    9776
+ 21  mvvar            0.033   29327
+ 22  rand             0.031       6
+ 23  uak+             0.029    9771
+ 24  log              0.016       1
+ 25  nvlist           0.001       1
+ 26  sqrt             0.001      10
+ 27  rightIndex       0.001       6
+ 28  print            0.000       1
+ 29  ==               0.000       1
+
+21/03/27 16:14:49 INFO org.apache.sysds.api.DMLScript: END DML run 03/27/2021 16:14:49
+
+ Performance counter stats for 'systemds code/exp/TwoNN.dml -stats 100 -debug -config code/conf/mkl.xml -nvargs X_test=data/P2P_features.data y_test=data/P2P_labels.data epochs=5 batch_size=512 eta=0.01 utype=BSP freq=EPOCH channels=1 hin=28 win=28 numWorkers=1 features=data/P2P_features.data labels=data/P2P_labels.data':
+
+        1499480.37 msec task-clock                #   10.799 CPUs utilized          
+           1154238      context-switches          #    0.770 K/sec                  
+            260981      cpu-migrations            #    0.174 K/sec                  
+          13780283      page-faults               #    0.009 M/sec                  
+     4031815071143      cycles                    #    2.689 GHz                      (33.32%)
+       80031005122      stalled-cycles-frontend   #    1.98% frontend cycles idle     (33.31%)
+     2671487435476      stalled-cycles-backend    #   66.26% backend cycles idle      (33.31%)
+     3526916455440      instructions              #    0.87  insn per cycle         
+                                                  #    0.76  stalled cycles per insn  (33.32%)
+      640906163363      branches                  #  427.419 M/sec                    (33.32%)
+        2044455793      branch-misses             #    0.32% of all branches          (33.33%)
+     1454761966510      L1-dcache-loads           #  970.177 M/sec                    (33.33%)
+       90308595869      L1-dcache-load-misses     #    6.21% of all L1-dcache hits    (33.33%)
+   <not supported>      LLC-loads                                                   
+   <not supported>      LLC-load-misses                                             
+       77822243689      L1-icache-loads           #   51.899 M/sec                    (33.35%)
+         565757870      L1-icache-load-misses     #    0.73% of all L1-icache hits    (33.36%)
+        3039727932      dTLB-loads                #    2.027 M/sec                    (33.35%)
+         323988221      dTLB-load-misses          #   10.66% of all dTLB cache hits   (33.36%)
+         147603184      iTLB-loads                #    0.098 M/sec                    (33.35%)
+          27355665      iTLB-load-misses          #   18.53% of all iTLB cache hits   (33.34%)
+       72033414063      L1-dcache-prefetches      #   48.039 M/sec                    (33.31%)
+   <not supported>      L1-dcache-prefetch-misses                                   
+
+     138.859061512 seconds time elapsed
+
+    1434.948570000 seconds user
+      62.460348000 seconds sys
+
+
+real 138.92
+user 1434.95
+sys 62.49
+21/03/27 16:14:52 INFO org.apache.sysds.api.DMLScript: BEGIN DML run 03/27/2021 16:14:52
+21/03/27 16:14:52 INFO org.apache.sysds.utils.NativeHelper: Using native blas: mkl
+SystemDS Statistics:
+Total elapsed time:		40.028 sec.
+Total compilation time:		1.077 sec.
+Total execution time:		38.950 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	3309/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	2.252/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	81623/0/0/0/14.
+Cache writes (Li/WB/FS/HDFS):	1/2215/2/0.
+Cache times (ACQr/m, RLS, EXP):	3.938/0.011/9.603/0.000 sec.
+HOP DAGs recompiled (PRED, SB):	0/2207.
+HOP DAGs recompile time:	2.104 sec.
+Paramserv total execution time:	0.000 secs.
+Paramserv total num workers:	1.
+Paramserv setup time:		0.075 secs.
+Paramserv grad compute time:	7.040 secs.
+Paramserv model update time:	0.152/0.000 secs.
+Paramserv model broadcast time:	0.001 secs.
+Paramserv batch slice time:	1.777 secs.
+Paramserv RPC request time:	0.000 secs.
+Paramserv valdiation time:	0.000 secs.
+Total JIT compile time:		20.567 sec.
+Total JVM GC count:		3.
+Total JVM GC time:		1.284 sec.
+Heavy hitter instructions:
+  #  Instruction    Time(s)  Count
+  1  /               14.575   3316
+  2  -                7.019   3314
+  3  uamin            4.572      2
+  4  ba+*             2.766   8824
+  5  max              1.400   2206
+  6  r'               1.336   7721
+  7  rmvar            1.270  28687
+  8  uamax            0.964      2
+  9  *                0.110   4415
+ 10  -*               0.105   6618
+ 11  createvar        0.080  43034
+ 12  list             0.050   2207
+ 13  rand             0.037      6
+ 14  exp              0.034   1103
+ 15  uack+            0.022   2206
+ 16  +                0.017   1105
+ 17  relu_backward    0.012   2206
+ 18  castdtm          0.008   1103
+ 19  mvvar            0.008   3326
+ 20  uak+             0.007   1103
+ 21  nvlist           0.002      1
+ 22  sqrt             0.001     10
+ 23  ==               0.000      1
+
+21/03/27 16:15:32 INFO org.apache.sysds.api.DMLScript: END DML run 03/27/2021 16:15:32
+[31m
+An Error Occured : 
+      DMLRuntimeException -- org.apache.sysds.runtime.DMLRuntimeException: ERROR: Runtime error in program block generated from statement block between lines 2 and 31 -- Error evaluating instruction: CP°paramserv°agg=./src/scripts/TwoNN.dml::aggregation°checkpointing=NONE°scheme=DISJOINT_CONTIGUOUS°hyperparams=_Var185°upd=./src/scripts/TwoNN.dml::gradients°utype=BSP°freq=EPOCH°k=1°val_features=_mVar186°batchsize=512°labels=pREADlabels°mode=LOCAL°features=_mVar179°model=_Var196°val_labels=_mVar186°epochs=5°_Var197·LIST·UNKNOWN
+      DMLRuntimeException -- ERROR: Runtime error in program block generated from statement block between lines 2 and 31 -- Error evaluating instruction: CP°paramserv°agg=./src/scripts/TwoNN.dml::aggregation°checkpointing=NONE°scheme=DISJOINT_CONTIGUOUS°hyperparams=_Var185°upd=./src/scripts/TwoNN.dml::gradients°utype=BSP°freq=EPOCH°k=1°val_features=_mVar186°batchsize=512°labels=pREADlabels°mode=LOCAL°features=_mVar179°model=_Var196°val_labels=_mVar186°epochs=5°_Var197·LIST·UNKNOWN
+      DMLRuntimeException -- ParamservBuiltinCPInstruction: some error occurred: 
+       ExecutionException -- org.apache.sysds.runtime.DMLRuntimeException: Local worker_0 failed
+      DMLRuntimeException -- Local worker_0 failed
+      DMLRuntimeException -- org.apache.sysds.runtime.DMLRuntimeException: CacheableData (611091655 .../_t0/temp45471_43017) not available to modify. Status = READ.
+      DMLRuntimeException -- CacheableData (611091655 .../_t0/temp45471_43017) not available to modify. Status = READ.
+[0m
+org.apache.sysds.runtime.DMLRuntimeException: org.apache.sysds.runtime.DMLRuntimeException: ERROR: Runtime error in program block generated from statement block between lines 2 and 31 -- Error evaluating instruction: CP°paramserv°agg=./src/scripts/TwoNN.dml::aggregation°checkpointing=NONE°scheme=DISJOINT_CONTIGUOUS°hyperparams=_Var185°upd=./src/scripts/TwoNN.dml::gradients°utype=BSP°freq=EPOCH°k=1°val_features=_mVar186°batchsize=512°labels=pREADlabels°mode=LOCAL°features=_mVar179°model=_Var196°val_labels=_mVar186°epochs=5°_Var197·LIST·UNKNOWN
+	at org.apache.sysds.runtime.controlprogram.Program.execute(Program.java:155)
+	at org.apache.sysds.api.ScriptExecutorUtils.executeRuntimeProgram(ScriptExecutorUtils.java:88)
+	at org.apache.sysds.api.DMLScript.execute(DMLScript.java:423)
+	at org.apache.sysds.api.DMLScript.executeScript(DMLScript.java:266)
+	at org.apache.sysds.api.DMLScript.main(DMLScript.java:164)
+Caused by: org.apache.sysds.runtime.DMLRuntimeException: ERROR: Runtime error in program block generated from statement block between lines 2 and 31 -- Error evaluating instruction: CP°paramserv°agg=./src/scripts/TwoNN.dml::aggregation°checkpointing=NONE°scheme=DISJOINT_CONTIGUOUS°hyperparams=_Var185°upd=./src/scripts/TwoNN.dml::gradients°utype=BSP°freq=EPOCH°k=1°val_features=_mVar186°batchsize=512°labels=pREADlabels°mode=LOCAL°features=_mVar179°model=_Var196°val_labels=_mVar186°epochs=5°_Var197·LIST·UNKNOWN
+	at org.apache.sysds.runtime.controlprogram.ProgramBlock.executeSingleInstruction(ProgramBlock.java:286)
+	at org.apache.sysds.runtime.controlprogram.ProgramBlock.executeInstructions(ProgramBlock.java:199)
+	at org.apache.sysds.runtime.controlprogram.BasicProgramBlock.execute(BasicProgramBlock.java:125)
+	at org.apache.sysds.runtime.controlprogram.Program.execute(Program.java:149)
+	... 4 more
+Caused by: org.apache.sysds.runtime.DMLRuntimeException: ParamservBuiltinCPInstruction: some error occurred: 
+	at org.apache.sysds.runtime.instructions.cp.ParamservBuiltinCPInstruction.runLocally(ParamservBuiltinCPInstruction.java:361)
+	at org.apache.sysds.runtime.instructions.cp.ParamservBuiltinCPInstruction.processInstruction(ParamservBuiltinCPInstruction.java:117)
+	at org.apache.sysds.runtime.controlprogram.ProgramBlock.executeSingleInstruction(ProgramBlock.java:250)
+	... 7 more
+Caused by: java.util.concurrent.ExecutionException: org.apache.sysds.runtime.DMLRuntimeException: Local worker_0 failed
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122)
+	at java.util.concurrent.FutureTask.get(FutureTask.java:192)
+	at org.apache.sysds.runtime.instructions.cp.ParamservBuiltinCPInstruction.runLocally(ParamservBuiltinCPInstruction.java:355)
+	... 9 more
+Caused by: org.apache.sysds.runtime.DMLRuntimeException: Local worker_0 failed
+	at org.apache.sysds.runtime.controlprogram.paramserv.LocalPSWorker.call(LocalPSWorker.java:78)
+	at org.apache.sysds.runtime.controlprogram.paramserv.LocalPSWorker.call(LocalPSWorker.java:38)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: org.apache.sysds.runtime.DMLRuntimeException: org.apache.sysds.runtime.DMLRuntimeException: CacheableData (611091655 .../_t0/temp45471_43017) not available to modify. Status = READ.
+	at org.apache.sysds.runtime.controlprogram.context.ExecutionContext.cleanupCacheableData(ExecutionContext.java:789)
+	at org.apache.sysds.runtime.controlprogram.paramserv.ParamservUtils.cleanupData(ParamservUtils.java:145)
+	at org.apache.sysds.runtime.controlprogram.paramserv.ParamservUtils.cleanupListObject(ParamservUtils.java:136)
+	at org.apache.sysds.runtime.controlprogram.paramserv.ParamservUtils.cleanupListObject(ParamservUtils.java:114)
+	at org.apache.sysds.runtime.controlprogram.paramserv.ParamServer.updateLocalModel(ParamServer.java:293)
+	at org.apache.sysds.runtime.controlprogram.paramserv.LocalPSWorker.updateModel(LocalPSWorker.java:126)
+	at org.apache.sysds.runtime.controlprogram.paramserv.LocalPSWorker.computeEpoch(LocalPSWorker.java:103)
+	at org.apache.sysds.runtime.controlprogram.paramserv.LocalPSWorker.call(LocalPSWorker.java:68)
+	... 5 more
+Caused by: org.apache.sysds.runtime.DMLRuntimeException: CacheableData (611091655 .../_t0/temp45471_43017) not available to modify. Status = READ.
+	at org.apache.sysds.runtime.controlprogram.caching.CacheableData.clearData(CacheableData.java:709)
+	at org.apache.sysds.runtime.controlprogram.context.ExecutionContext.cleanupCacheableData(ExecutionContext.java:781)
+	... 12 more
+
+ Performance counter stats for 'systemds code/exp/TwoNN.dml -stats 100 -debug -config code/conf/mkl.xml -nvargs X_test=data/P2P_features.data y_test=data/P2P_labels.data epochs=5 batch_size=512 eta=0.01 utype=BSP freq=EPOCH channels=1 hin=28 win=28 numWorkers=1 features=data/P2P_features.data labels=data/P2P_labels.data':
+
+         369176.78 msec task-clock                #    8.348 CPUs utilized          
+            186985      context-switches          #    0.506 K/sec                  
+             34202      cpu-migrations            #    0.093 K/sec                  
+          12699579      page-faults               #    0.034 M/sec                  
+      852244949711      cycles                    #    2.309 GHz                      (33.32%)
+       21252101322      stalled-cycles-frontend   #    2.49% frontend cycles idle     (33.31%)
+      421258524992      stalled-cycles-backend    #   49.43% backend cycles idle      (33.32%)
+      858054757532      instructions              #    1.01  insn per cycle         
+                                                  #    0.49  stalled cycles per insn  (33.32%)
+      172011396180      branches                  #  465.932 M/sec                    (33.34%)
+         582103227      branch-misses             #    0.34% of all branches          (33.37%)
+      348583273759      L1-dcache-loads           #  944.218 M/sec                    (33.38%)
+       18117952661      L1-dcache-load-misses     #    5.20% of all L1-dcache hits    (33.35%)
+   <not supported>      LLC-loads                                                   
+   <not supported>      LLC-load-misses                                             
+       30063293902      L1-icache-loads           #   81.433 M/sec                    (33.33%)
+         262994701      L1-icache-load-misses     #    0.87% of all L1-icache hits    (33.31%)
+        1045408260      dTLB-loads                #    2.832 M/sec                    (33.30%)
+         133876000      dTLB-load-misses          #   12.81% of all dTLB cache hits   (33.32%)
+          65829390      iTLB-loads                #    0.178 M/sec                    (33.33%)
+           8701039      iTLB-load-misses          #   13.22% of all iTLB cache hits   (33.35%)
+       11448006840      L1-dcache-prefetches      #   31.010 M/sec                    (33.34%)
+   <not supported>      L1-dcache-prefetch-misses                                   
+
+      44.221305236 seconds time elapsed
+
+     335.318342000 seconds user
+      33.554848000 seconds sys
+
+
+real 44.26
+user 335.32
+sys 33.59
+21/03/27 16:15:36 INFO org.apache.sysds.api.DMLScript: BEGIN DML run 03/27/2021 16:15:36
+21/03/27 16:15:36 INFO org.apache.sysds.utils.NativeHelper: Using native blas: mkl
+21/03/27 16:16:22 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: completed EPOCH 0
+21/03/27 16:16:22 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: epoch timer: 18.261 secs.
+21/03/27 16:16:36 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: completed EPOCH 1
+21/03/27 16:16:36 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: epoch timer: 32.482 secs.
+21/03/27 16:16:51 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: completed EPOCH 2
+21/03/27 16:16:51 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: epoch timer: 47.055 secs.
+21/03/27 16:17:05 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: completed EPOCH 3
+21/03/27 16:17:05 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: epoch timer: 60.68 secs.
+21/03/27 16:17:19 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: completed EPOCH 4
+21/03/27 16:17:19 INFO org.apache.sysds.runtime.controlprogram.paramserv.ParamServer: [+] PARAMSERV: epoch timer: 74.701 secs.
+[+] test loss: 1.4872586632199265E-11, test accuracy: 1.4872586632199265E-11
+
+SystemDS Statistics:
+Total elapsed time:		120.685 sec.
+Total compilation time:		1.088 sec.
+Total execution time:		119.597 sec.
+Native mkl calls (dense mult/conv/bwdF/bwdD):	29312/0/0/0.
+Native mkl calls (sparse conv/bwdF/bwdD):	0/0/0.
+Native mkl times (dense mult/conv/bwdF/bwdD):	21.397/0.000/0.000/0.000.
+Cache hits (Mem/Li/WB/FS/HDFS):	723032/0/0/0/20.
+Cache writes (Li/WB/FS/HDFS):	1/19564/3/0.
+Cache times (ACQr/m, RLS, EXP):	4.142/0.073/19.931/0.000 sec.
+HOP DAGs recompiled (PRED, SB):	0/19541.
+HOP DAGs recompile time:	11.610 sec.
+Paramserv total execution time:	74.701 secs.
+Paramserv total num workers:	1.
+Paramserv setup time:		1.263 secs.
+Paramserv grad compute time:	49.064 secs.
+Paramserv model update time:	0.145/0.001 secs.
+Paramserv model broadcast time:	0.001 secs.
+Paramserv batch slice time:	11.025 secs.
+Paramserv RPC request time:	0.000 secs.
+Paramserv valdiation time:	0.000 secs.
+Total JIT compile time:		32.475 sec.
+Total JVM GC count:		13.
+Total JVM GC time:		2.321 sec.
+Heavy hitter instructions:
+  #  Instruction    Time(s)   Count
+  1  paramserv       74.705       1
+  2  ba+*            34.660   78163
+  3  /               14.502   29319
+  4  r'              10.963   68385
+  5  max             10.543   19542
+  6  -                7.201   29316
+  7  uamin            4.733       2
+  8  +                4.342    9780
+  9  uamax            0.946       2
+ 10  createvar        0.656  381064
+ 11  -*               0.574   58620
+ 12  *                0.413   39084
+ 13  rmvar            0.382  254052
+ 14  list             0.251   19541
+ 15  exp              0.132    9771
+ 16  uark+            0.119       1
+ 17  uack+            0.101   19540
+ 18  relu_backward    0.079   19540
+ 19  uarmax           0.066       1
+ 20  castdtm          0.048    9776
+ 21  rand             0.034       6
+ 22  mvvar            0.033   29327
+ 23  uak+             0.032    9771
+ 24  log              0.017       1
+ 25  nvlist           0.002       1
+ 26  sqrt             0.001      10
+ 27  rightIndex       0.001       6
+ 28  print            0.000       1
+ 29  ==               0.000       1
+
+21/03/27 16:17:37 INFO org.apache.sysds.api.DMLScript: END DML run 03/27/2021 16:17:37
+
+ Performance counter stats for 'systemds code/exp/TwoNN.dml -stats 100 -debug -config code/conf/mkl.xml -nvargs X_test=data/P2P_features.data y_test=data/P2P_labels.data epochs=5 batch_size=512 eta=0.01 utype=BSP freq=EPOCH channels=1 hin=28 win=28 numWorkers=1 features=data/P2P_features.data labels=data/P2P_labels.data':
+
+        1523007.01 msec task-clock                #   12.307 CPUs utilized          
+           1139672      context-switches          #    0.748 K/sec                  
+            260216      cpu-migrations            #    0.171 K/sec                  
+          13777137      page-faults               #    0.009 M/sec                  
+     4048063476744      cycles                    #    2.658 GHz                      (33.34%)
+       78670695285      stalled-cycles-frontend   #    1.94% frontend cycles idle     (33.32%)
+     2635950703445      stalled-cycles-backend    #   65.12% backend cycles idle      (33.31%)
+     3507046754102      instructions              #    0.87  insn per cycle         
+                                                  #    0.75  stalled cycles per insn  (33.32%)
+      638012665712      branches                  #  418.916 M/sec                    (33.33%)
+        2078031803      branch-misses             #    0.33% of all branches          (33.34%)
+     1441987167879      L1-dcache-loads           #  946.803 M/sec                    (33.33%)
+       90057118119      L1-dcache-load-misses     #    6.25% of all L1-dcache hits    (33.33%)
+   <not supported>      LLC-loads                                                   
+   <not supported>      LLC-load-misses                                             
+       76490594144      L1-icache-loads           #   50.223 M/sec                    (33.34%)
+         573015613      L1-icache-load-misses     #    0.75% of all L1-icache hits    (33.34%)
+        3257156172      dTLB-loads                #    2.139 M/sec                    (33.33%)
+         318004359      dTLB-load-misses          #    9.76% of all dTLB cache hits   (33.35%)
+         162080295      iTLB-loads                #    0.106 M/sec                    (33.36%)
+          27886752      iTLB-load-misses          #   17.21% of all iTLB cache hits   (33.34%)
+       71126199364      L1-dcache-prefetches      #   46.701 M/sec                    (33.33%)
+   <not supported>      L1-dcache-prefetch-misses                                   
+
+     123.748788956 seconds time elapsed
+
+    1454.785939000 seconds user
+      66.006690000 seconds sys
+
+
+real 123.79
+user 1454.79
+sys 66.04
