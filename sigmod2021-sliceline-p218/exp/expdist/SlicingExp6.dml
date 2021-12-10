@@ -1,0 +1,9 @@
+X = read($1);
+e = read($2);
+
+sigma = max(ceil(0.01 * nrow(X)), 8)
+
+[S,C] = slicefinder(X=X, e=e, k=10, 
+  alpha=0.95, maxL=6, minSup=sigma, tpEval=FALSE, selFeat=TRUE, verbose=TRUE);
+  
+print(toString(C))

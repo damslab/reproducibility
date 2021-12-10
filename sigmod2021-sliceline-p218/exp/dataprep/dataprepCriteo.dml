@@ -1,0 +1,42 @@
+F = read("/data/Criteo_D21.csv", data_type="frame", format="csv", sep="	", header=FALSE);
+
+# data preparation
+
+jspec= "{ ids:true, recode:[15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40], bin:["
++"{id:2, method:equi-width, numbins:10},"
++"{id:3, method:equi-width, numbins:10},"
++"{id:4, method:equi-width, numbins:10},"
++"{id:5, method:equi-width, numbins:10},"
++"{id:6, method:equi-width, numbins:10},"
++"{id:7, method:equi-width, numbins:10},"
++"{id:8, method:equi-width, numbins:10},"
++"{id:9, method:equi-width, numbins:10},"
++"{id:10, method:equi-width, numbins:10},"
++"{id:11, method:equi-width, numbins:10},"
++"{id:12, method:equi-width, numbins:10},"
++"{id:13, method:equi-width, numbins:10},"
++"{id:14, method:equi-width, numbins:10}]}"
+
+[X,M] = transformencode(target=F, spec=jspec);
+
+y = X[,1] + 1; # 0/1 -> 1/2
+X = X[,2:ncol(X)]
+
+X = replace(target=X, pattern=NaN, replacement=0);
+
+m = nrow(X)
+n = ncol(X)
+fdom = colMaxs(X);
+foffb = t(cumsum(t(fdom))) - fdom;
+foffe = t(cumsum(t(fdom)))
+rix = matrix(seq(1,m)%*%matrix(1,1,n), m*n, 1)
+cix = matrix(X + foffb, m*n, 1);
+X2 = table(rix, cix, 1, m, as.scalar(foffe[,n]), FALSE); #one-hot encoded
+
+# learn model
+B = multiLogReg(X=X, Y=y, icpt=1, maxi=10, reg=0.001, verbose=TRUE);
+[M,yhat,acc] = multiLogRegPredict(X=X, B=B, Y=y, verbose=TRUE);
+e = (y!=yhat);
+
+write(X, "/data/criteo_X_d21.bin", format="binary")
+write(e, "/data/criteo_e_d21.bin", format="binary")

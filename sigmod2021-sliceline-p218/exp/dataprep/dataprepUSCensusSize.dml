@@ -1,0 +1,14 @@
+X = read("data/USCensus_X.csv")
+e = read("data/USCensus_o_e.csv")
+
+for(i in 1:10) {
+  X2 = X; e2 = e;
+  if( i > 1 ) {
+    for(j in 2:i ) {
+      X2 = rbind(X2, X)
+      e2 = rbind(e2, e)
+    }
+  }
+  write(X2, "data/USCensus_X"+i+".bin", format="binary")
+  write(e2, "data/USCensus_o_e"+i+".bin", format="binary")
+}

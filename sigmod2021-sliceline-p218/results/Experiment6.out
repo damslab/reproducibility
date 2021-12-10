@@ -1,0 +1,69 @@
+SliceFinder: dropping 75573332/75573541 features below minSup = 1922152.0.
+SliceFinder: initial top-K: count=10, max=0.19142301659285926, min=0.05288863267531147 (time=932620681882)
+
+SliceFinder: level 2:
+ -- generated paired slice candidates: 209 -> 1292
+ -- valid slices after eval: 668/1292
+ -- top-K: count=10, max=0.24618934768893236, min=0.1700942613452818
+ -- (time=1218730126151)
+
+SliceFinder: level 3:
+ -- generated paired slice candidates: 1292 -> 1644
+ -- valid slices after eval: 1622/1644
+ -- top-K: count=10, max=0.24627630576539972, min=0.19038528715575898
+ -- (time=1314211892468)
+
+SliceFinder: level 4:
+ -- generated paired slice candidates: 1644 -> 4305
+ -- valid slices after eval: 4305/4305
+ -- top-K: count=10, max=0.24627872778653348, min=0.24024776154919336
+ -- (time=1496400059476)
+
+SliceFinder: level 5:
+ -- generated paired slice candidates: 4305 -> 8801
+ -- valid slices after eval: 8801/8801
+ -- top-K: count=10, max=0.24627872778653348, min=0.24032616531765089
+ -- (time=1905555018613)
+
+SliceFinder: level 6:
+ -- generated paired slice candidates: 8801 -> 13248
+ -- valid slices after eval: 13248/13248
+ -- top-K: count=10, max=0.24627872778653348, min=0.24032616531765089
+ -- (time=2526862639581)
+
+
+Total elapsed time:             2551.009 sec.
+Total compilation time:         2.337 sec.
+Total execution time:           2548.672 sec.
+Number of compiled Spark inst:  289.
+Number of executed Spark inst:  75.
+Cache hits (Mem/Li/WB/FS/HDFS): 5011/0/0/0/1.
+Cache writes (Li/WB/FS/HDFS):   4/658/0/0.
+Cache times (ACQr/m, RLS, EXP): 2162.154/0.014/0.254/0.000 sec.
+HOP DAGs recompiled (PRED, SB): 28/704.
+HOP DAGs recompile time:        0.394 sec.
+Functions recompiled:           7.
+Functions recompile time:       0.091 sec.
+Spark ctx create time (lazy):   21.059 sec.
+Spark trans counts (par,bc,col):14/33/26.
+Spark trans times (par,bc,col): 0.255/7.154/2161.011 secs.
+ParFor loops optimized:         1.
+ParFor optimize time:           0.033 sec.
+ParFor initialize time:         0.014 sec.
+ParFor result merge time:       0.009 sec.
+ParFor total update in-place:   0/39/39
+Total JIT compile time:         75.899 sec.
+Total JVM GC count:             54.
+Total JVM GC time:              10.708 sec.
+Heavy hitter instructions:
+  #  Instruction                  Time(s)  Count
+  1  m_slicefinder              2,527.022      1
+  2  r'                         2,136.853     64
+  3  createAndScoreBasicSlices    853.535      1
+  4  sp_chkpoint                  272.415      7
+  5  sp_uacmax                     76.583      7
+  6  getPairedCandidates           73.133      5
+  7  rightIndex                    28.418    751
+  8  sp_mapmm                       6.763     22
+  9  rmempty                        6.676     76
+ 10  tsmm                           3.603      5

@@ -1,0 +1,11 @@
+X = read($1);
+e = read($2);
+
+L = 3;
+alpha = $3
+sigma = max(ceil($4 * nrow(X)),8)
+
+[S,C,D] = slicefinder(X=X, e=e, k=10, maxL=L, alpha=alpha, minSup=sigma, tpBlksz=16, verbose=TRUE);
+
+write(C, $5, format="csv")
+

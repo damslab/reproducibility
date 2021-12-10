@@ -1,0 +1,18 @@
+source($4) as sl
+
+X = read($1);
+e = read($2);
+
+#duplication of Sarlary
+X = cbind(X,X)
+X = rbind(X,X)
+e = rbind(e,e)
+
+config = $3
+L = ifelse(config==4, 4, 
+    ifelse(config==5, 3, 0));
+
+[S,C,D] = slicefinder(X=X, e=e, k=10, maxL=L, alpha=0.95, minSup=32, tpBlksz=16, verbose=TRUE);
+
+write(D, $5, format="csv")
+

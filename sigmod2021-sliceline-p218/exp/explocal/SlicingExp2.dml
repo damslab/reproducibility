@@ -1,0 +1,12 @@
+X = read($1);
+e = read($2);
+
+data = $3
+L = ifelse(data=="USCensus", 4, 
+    ifelse(data=="Covtype", 3, 0));
+sigma = ceil(0.01 * nrow(X))
+
+[S,C,D] = slicefinder(X=X, e=e, k=10, maxL=L, alpha=0.95, minSup=sigma, tpBlksz=16, verbose=TRUE);
+
+write(D, $4, format="csv")
+

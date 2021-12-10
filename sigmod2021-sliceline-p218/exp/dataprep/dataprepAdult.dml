@@ -1,0 +1,49 @@
+Forig = read("./data/Adult.csv", data_type="frame", format="csv", header=FALSE);
+
+F = Forig;
+
+# data preparation
+
+jspec= "{ ids:true, recode:[2,4,6,7,8,9,10,14,15], bin:["
++"{id:1, method:equi-width, numbins:10},"
++"{id:3, method:equi-width, numbins:10},"
++"{id:5, method:equi-width, numbins:10},"
++"{id:11, method:equi-width, numbins:10},"
++"{id:12, method:equi-width, numbins:10},"
++"{id:13, method:equi-width, numbins:10}]}"
+
+#jspec2= "{ ids:true, recode:[2,4,6,7,8,9,10,14,15], dummy:[2,4,6,7,8,9,10,14,15]}"
+jspec2= "{ ids:true, recode:[2,4,6,7,8,9,10,14,15], bin:["
++"{id:1, method:equi-width, numbins:10},"
++"{id:3, method:equi-width, numbins:10},"
++"{id:5, method:equi-width, numbins:10},"
++"{id:11, method:equi-width, numbins:10},"
++"{id:12, method:equi-width, numbins:10},"
++"{id:13, method:equi-width, numbins:10}]}"
+
+
+[X,M] = transformencode(target=F, spec=jspec2);
+
+y = X[,ncol(X)];
+X = X[,2:(ncol(X)-1)]
+
+# one hot encoding
+m = nrow(X)
+n = ncol(X)
+fdom = colMaxs(X);
+foffb = t(cumsum(t(fdom))) - fdom;
+foffe = t(cumsum(t(fdom)))
+rix = matrix(seq(1,m)%*%matrix(1,1,n), m*n, 1)
+cix = matrix(X + foffb, m*n, 1);
+X2 = table(rix, cix); #one-hot encoded
+#X2 = X;
+[Xtrain,Xtest,ytrain,ytest] = split(X=X2,Y=y) 
+
+# learn model
+B = multiLogReg(X=X2, Y=y, icpt=1, reg=0.0001, verbose=TRUE);
+
+[M,yhat,acc] = multiLogRegPredict(X=X2, B=B, Y=y, verbose=TRUE);
+e = (y!=yhat);
+
+write(X, "data/Adult_X.csv", format="csv")
+write(e, "data/Adult_o_e.csv", format="csv")
