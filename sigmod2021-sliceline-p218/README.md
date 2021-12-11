@@ -2,9 +2,9 @@
 
 **Authors:** Svetlana Sagadeeva, Matthias Boehm
 
-**Paper name:** SliceLine: Fast, Linear-Algebra-based Slice Finding for ML Model Debugging
+**Paper Name:** SliceLine: Fast, Linear-Algebra-based Slice Finding for ML Model Debugging
 
-**Paper links:** 
+**Paper Links:** 
  - <https://dl.acm.org/doi/10.1145/3448016.3457323> 
  - <https://mboehm7.github.io/resources/sigmod2021b_sliceline.pdf> (green open access)
 
@@ -16,7 +16,7 @@
 **Datasets Used:**
  * Adult: <https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data>
  * Covtype: <https://archive.ics.uci.edu/ml/machine-learning-databases/covtype/covtype.data.gz>
- * KDD'98: <https://archive.ics.uci.edu/ml/machine-learning-databases/kddcup98>-mld/epsilon_mirror/cup98lrn.zip
+ * KDD'98: <https://archive.ics.uci.edu/ml/machine-learning-databases/kddcup98-mld/epsilon_mirror/cup98lrn.zip>
  * US Census: <https://archive.ics.uci.edu/ml/machine-learning-databases/census1990-mld/USCensus1990.data.txt>
  * CriteoD21: <http://azuremlsampleexperiments.blob.core.windows.net/criteo/day_21.gz>
  * Salaries: <https://forge.scilab.org/index.php/p/rdataset/source/file/master/csv/car/Salaries.csv>
@@ -32,6 +32,7 @@
     ./run7DistExperiments.sh;  # on scale-out cluster
     ./run8PlotResults.sh;
 
+**Last Update:** Dec 10, 2021 (initial commit)
 
 ----
 
