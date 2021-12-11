@@ -1,6 +1,6 @@
-# Reproducibility repository
+# Reproducibility Repository
 
-This repository contains reproducibility submissions.
+This repository contains reproducibility submissions, related to publications of the DAMS Lab research group.
 
 ## SIGMOD 2021
 
