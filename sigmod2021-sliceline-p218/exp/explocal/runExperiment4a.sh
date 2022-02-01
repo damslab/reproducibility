@@ -3,7 +3,7 @@
 #CMD="java -Xmx600g -Xms600g -cp ./lib/*:./SystemDS.jar org.apache.sysds.api.DMLScript "
 
 #for all configs
-for data in Covtype USCensus 
+for data in USCensus Covtype
 do 
   for blksz in 1 2 4 8 16 32 64 128 256 512
   do 

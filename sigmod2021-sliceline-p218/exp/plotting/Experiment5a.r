@@ -6,7 +6,7 @@ pdf(file="plots/Experiment5a.pdf",
 
 points = as.vector(seq(1,10));
 input = as.matrix(read.table("results/Experiment5a_times.dat", sep=",")[3])
-data = colMeans(matrix(input, 2, 10))/1000
+data = colMeans(matrix(input, 3, 10))/1000
 data2 = data[1]*points;
 
 plot_colors <- c("orange","black")
