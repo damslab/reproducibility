@@ -7,7 +7,7 @@ source parameters.sh
 address=(${address[@]} $main "localhost")
 
 installStringJava='printf "$(hostname)   \tInstalled $(git rev-parse --abbrev-ref HEAD) $(git rev-parse HEAD)\n";'
-
+setenvString='export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64"; export PATH=$JAVA_HOME/bin:$PATH;'
 # Install systemds java
 for index in ${!address[*]}; do
     ssh -T ${address[$index]} "
@@ -15,6 +15,7 @@ for index in ${!address[*]}; do
         cd reproducibility;
         [ ! -d 'systemds' ] && git clone https://github.com/apache/systemds.git > /dev/null 2>&1;
         cd systemds;
+        $setenvString
         git ls-files -z | xargs -0 rm > /dev/null 2>&1;
         git checkout -- . > /dev/null 2>&1;
         git clean -fdx > /dev/null 2>&1;
