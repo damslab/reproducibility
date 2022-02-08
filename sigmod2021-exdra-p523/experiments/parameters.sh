@@ -64,6 +64,10 @@ export SYSTEMDS_ROOT="$HOME/reproducibility/systemds"
 export PATH="$SYSTEMDS_ROOT/bin:$PATH"
 export SYSDS_QUIET=1
 
+# Set java version to 8.
+export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64"
+export PATH=$JAVA_HOME/bin:$PATH
+
 # If installed use intel MKL for multiplication:
 if [ -d ~/intel ] && [ -d ~/intel/bin ] && [ -f ~/intel/bin/compilervars.sh ]; then
     . ~/intel/bin/compilervars.sh intel64
