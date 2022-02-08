@@ -25,7 +25,7 @@ for index in ${!address[*]}; do
     ssh -T ${address[$index]} "
         mkdir -p $remoteDir;
         cd $remoteDir;
-        rm -r code;
+        rm -fr code;
         python3 -m venv $VENV_PATH;
         " &
 done
