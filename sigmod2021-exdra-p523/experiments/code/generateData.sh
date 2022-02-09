@@ -1,4 +1,4 @@
-#/bin/bash -u
+#!/bin/bash
 
 source parameters.sh
 
@@ -42,15 +42,14 @@ for index in ${!addressb[*]}; do
         -f 1 -e 1000000 &
 done
 
-# Create main dataset locally and on main machine since test data part is used for WAN
-# python code/dataGen/generate_mnist.py &
-# systemds code/dataGen/P2datagen.dml \
-#     -config code/conf/def.xml &
+wait 
 
-# wait 
+# Create main dataset locally and on main machine since test data part is used for WAN
+python code/dataGen/generate_mnist.py 
+systemds code/dataGen/P2datagen.dml -config code/conf/def.xml 
 
 if [[ $HOSTNAME == "$main" ]]; then
-    ## only create the actual data on the main machine.
+    ## only create the data paritions on the main machine.
 
     ## Make slices of the data
     datasets=("mnist_features mnist_labels P2_features P2_labels P2P_features P2P_labels")
@@ -93,15 +92,18 @@ if [[ $HOSTNAME == "$main" ]]; then
         rsync -ah -e ssh --include="*_features.dat***" --exclude='*' "data/" ${addressb[0]}:$remoteDir/data/ &
         rsync -ah -e ssh --include="*_labels.dat*" --exclude='*' "data/" ${addressb[0]}:$remoteDir/data/ &
     done
-
-    wait
     
     # Create python readable versions of the data
     # (don't wait for this because it is super slow, so instead we just let it run in the background)
-    # python code/dataGen/createData.py -p "P2P_features" &
-    # python code/dataGen/createData.py -p "P2P_labels" &
-fi
+    python code/dataGen/createData.py -p "P2P_features" &
+    python code/dataGen/createData.py -p "P2P_labels" &
 
+    wait
+
+    echo -e "--------------\nDONE ON MAIN\n--------------"
+else 
+    echo -e "--------------\nDONE ON LOCAL\n--------------"
+fi
 
 # deactivate the python vertual environement
 deactivate

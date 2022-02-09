@@ -11,11 +11,11 @@ savePath = "data/" + args.path + ".npy"
 
 # Save X
 if os.path.isfile(basePath):
-    # print("its a file!")
+    print("its a file! - says python")
     X = np.genfromtxt(basePath, delimiter=',', skip_header=0)
     np.save(savePath, X)
 elif os.path.isdir(basePath):
-    # print("its a directory!")
+    print("its a directory! - says python")
     files = os.listdir(basePath)
     X = np.genfromtxt(basePath + "/" + files[0], delimiter=',', skip_header=0)
     for f in files[1:]:

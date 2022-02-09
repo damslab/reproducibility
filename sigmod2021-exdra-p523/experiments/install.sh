@@ -22,7 +22,7 @@ for index in ${!address[*]}; do
         git checkout $systemdsHash > /dev/null 2>&1;
         mvn clean package -P distribution | grep '[INFO] BUILD';
         $installStringJava" &
-    # Install python venv:
+    # Make python venv:
     ssh -T ${address[$index]} "
         mkdir -p $remoteDir;
         cd $remoteDir;
