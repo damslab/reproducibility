@@ -2,6 +2,8 @@
 
 source parameters.sh
 
+source python_venv/bin/activate
+
 rm -fr plots/pdfs
 mkdir -p plots/pdfs
 
