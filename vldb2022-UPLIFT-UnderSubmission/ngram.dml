@@ -1,0 +1,32 @@
+# Set build and apply blocks to 32 to utilize all the cores
+# This dataset has a .mtd file to reduce passthrough overhead
+lim = 10;
+R = matrix(0, rows=lim, cols=1);
+t1 = time();
+data = read("file:/home/aphani/datasets/AminerAbstract.csv", data_type="frame", format="csv",header=FALSE);
+abstracts = data[,1];
+jspec1 = "{ ids:true, recode:[1]}"; #RC 1st column
+print(toString(data[1,1])); #initiate read
+t2 = time();
+R = R + floor((t2-t1)/1000000); #reading time
+print("Elapsed time for reading = "+floor((t2-t1)/1000000)+" millsec");
+
+for (i in 1:lim) {
+  print("INFO: starting transformencode");
+  t1 = time();
+  [X_enc, M] = transformencode(target=data, spec=jspec1);
+  t2 = time();
+  print("Elapsed time for transformations using SystemDS = "+floor((t2-t1)/1000000)+" millsec");
+
+  #print("("+nrow(X_enc)+", "+ncol(X_enc)+")");
+  X = table(X_enc[,2], X_enc[,1], X_enc[,3]);
+  t3 = time();
+  R[i,1] = R[i,1] + floor((t3-t1)/1000000);
+  print("Elapsed time for bag-of-words using SystemDS = "+floor((t3-t1)/1000000)+" millsec");
+}
+R = order(target=R, by=1);
+res = R[1:3,];
+print(toString(res));
+
+print("("+nrow(X)+", "+ncol(X)+")");
+

@@ -1,0 +1,41 @@
+# Replace tab with , -> %s/\t/,/g
+# sep=" " is not working. TODO: investigate.
+
+# $1: input file, $2: spec file
+if ($1 == 1)
+  data = read("file:/home/aphani/datasets/criteo_day21_1M", data_type="frame", format="csv", header=FALSE);
+if ($1 == 10)
+  data = read("file:/home/aphani/datasets/criteo_day21_10M", data_type="frame", format="csv", header=FALSE);
+if ($2 == 1) #PT, DC
+  jspec = read("file:/home/aphani/datasets/criteo_spec1.json", data_type="scalar", value_type="string");
+if ($2 == 2) #Bin, RC
+  jspec = read("file:/home/aphani/datasets/criteo_spec2.json", data_type="scalar", value_type="string");
+
+# This dataset has .mtd file to reduce passthrough overhead
+# However, it takes less time without the mtd file. Having a mtd file
+# increases the recode B & A time slightly. (TODO: Investigate).
+# Run dml w/o mtd, but sklearn w/o PT
+
+print(sum(as.matrix(data[,1]))); #initiate read
+lim = 10; #10
+R = matrix(0, rows=lim, cols=1);
+for (i in 1:lim) {
+  print("INFO: starting transformencode");
+  t1 = time();
+  [X, M] = transformencode(target=data, spec=jspec);
+  t2 = time();
+  R[i,1] = floor((t2-t1)/1000000);  
+  print("Elapsed time for transformations using SystemDS = "+floor((t2-t1)/1000000)+" millsec");
+}
+R = order(target=R, by=1);
+res = R[1:5,];
+if ($1 == 1 & $2 == 1)
+  write(res, "file:/home/aphani/vldb_22/results/criteo1M_s1_dml.dat", format="csv", sep="\t");
+if ($1 == 10 & $2 == 1)
+  write(res, "file:/home/aphani/vldb_22/results/criteo10M_s1_dml.dat", format="csv", sep="\t");
+if ($1 == 1 & $2 == 2)
+  write(res, "file:/home/aphani/vldb_22/results/criteo1M_s2_dml.dat", format="csv", sep="\t");
+if ($1 == 10 & $2 == 2)
+  write(res, "file:/home/aphani/vldb_22/results/criteo10M_s2_dml.dat", format="csv", sep="\t");
+
+print("("+nrow(X)+", "+ncol(X)+")");

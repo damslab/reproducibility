@@ -1,0 +1,49 @@
+Forig = read("file:/home/aphani/datasets/KDD98.csv", data_type="frame", format="csv", header=TRUE);
+# Normalize+Binning+DC, DC 
+jspec1 = read("file:/home/aphani/datasets/kdd_spec1.json", data_type="scalar", value_type="string");
+F = Forig[,1:469];
+y = as.matrix(Forig[,472])
+#TODO: Scale the numerical cols before transformencode
+print("("+nrow(F)+", "+ncol(F)+")");
+
+#dschema = detectSchema(Forig);
+#mask = map(Forig, "x -> x.equals(\"STRING\")");
+
+bin = matrix(0, ncol(F), 1);
+bin[5,] = 1;
+bin[8,] = 1;
+bin[17,] = 1;
+bin[27,] = 1;
+bin[44:50,] = matrix(1, 7, 1);
+bin[54,] = 1;
+bin[76:195,] = matrix(1, 195-76+1, 1);
+bin[199:361,] = matrix(1, 361-199+1, 1);
+bin[408,] = 1;
+bin[410:412,] = matrix(1, 3, 1);
+bin[435:469,] = matrix(1, 469-435+1, 1);
+F_num = removeEmpty(target=F, margin="cols", select=bin); #takes ~7 seconds
+X_num = as.matrix(F_num); #takes ~3 seconds
+
+lim = 10;
+R = matrix(0, rows=lim, cols=1);
+for (i in 1:lim) {
+  print("INFO: starting transformencode");
+  t1 = time();
+  [X_scaled, centering, sfactor] = scale(X_num, TRUE, TRUE);
+  # TODO: merge X_scaled back to F in the right positions
+  [X_en ,Meta] = transformencode(target=F, spec=jspec1);
+  t2 = time();
+  R[i,1] = floor((t2-t1)/1000000);  
+  print("Elapsed time for transformations using SystemDS = "+floor((t2-t1)/1000000)+" millsec");
+}
+
+#mask = matrix(0, rows=nrow(F), cols=ncol(F));
+#tmp = mask + t(bin);
+#print("("+nrow(tmp)+", "+ncol(tmp)+")");
+
+R = order(target=R, by=1);
+res = R[1:5,];
+write(res, "file:/home/aphani/vldb_22/results/kdd_dml.dat", format="csv", sep="\t");
+print("("+nrow(X_scaled)+", "+ncol(X_scaled)+")");
+print("("+nrow(X_en)+", "+ncol(X_en)+")");
+
