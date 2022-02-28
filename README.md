@@ -11,5 +11,5 @@ This repository contains reproducibility submissions, related to publications of
 
 ## VLDB 2022 (Under Submission)
 
-- [UPLIFT: Parallelization Strategies for Feature Transformations in Machine Learning Workloas](vldb2022-UPLIFT-UnderSubmission/README.md)
+- [UPLIFT: Parallelization Strategies for Feature Transformations in Machine Learning Workloads](vldb2022-UPLIFT-UnderSubmission/README.md)
 
