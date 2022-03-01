@@ -30,12 +30,12 @@ for (i in 1:lim) {
 R = order(target=R, by=1);
 res = R[1:5,];
 if ($1 == 1 & $2 == 1)
-  write(res, "file:/home/aphani/vldb_22/results/criteo1M_s1_dml.dat", format="csv", sep="\t");
+  write(res, "file:/home/aphani/submission_22/results/criteo1M_s1_dml.dat", format="csv", sep="\t");
 if ($1 == 10 & $2 == 1)
-  write(res, "file:/home/aphani/vldb_22/results/criteo10M_s1_dml.dat", format="csv", sep="\t");
+  write(res, "file:/home/aphani/submission_22/results/criteo10M_s1_dml.dat", format="csv", sep="\t");
 if ($1 == 1 & $2 == 2)
-  write(res, "file:/home/aphani/vldb_22/results/criteo1M_s2_dml.dat", format="csv", sep="\t");
+  write(res, "file:/home/aphani/submission_22/results/criteo1M_s2_dml.dat", format="csv", sep="\t");
 if ($1 == 10 & $2 == 2)
-  write(res, "file:/home/aphani/vldb_22/results/criteo10M_s2_dml.dat", format="csv", sep="\t");
+  write(res, "file:/home/aphani/submission_22/results/criteo10M_s2_dml.dat", format="csv", sep="\t");
 
 print("("+nrow(X)+", "+ncol(X)+")");

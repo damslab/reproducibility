@@ -58,4 +58,4 @@ print("Elapsed time for all batches = "+timer+" millsec");
 #res = R[1:3,];
 #print(toString(res));
 
-#write(res, "file:/home/aphani/vldb_22/results/embedding_dml.dat", format="csv", sep="\t");
+#write(res, "file:/home/aphani/submission_22/results/embedding_dml.dat", format="csv", sep="\t");

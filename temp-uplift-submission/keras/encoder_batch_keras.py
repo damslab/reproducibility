@@ -19,8 +19,8 @@ np.set_printoptions(precision=3, suppress=True)
 warnings.filterwarnings('ignore') #cleaner, but not recommended
 
 def readNprep():
-    data1 = pd.read_csv("~/vldb_22/data1.csv", delimiter=",", header=None)
-    data2 = pd.read_csv("~/vldb_22/data2.csv", delimiter=",", header=None)
+    data1 = pd.read_csv("~/submission_22/data1.csv", delimiter=",", header=None)
+    data2 = pd.read_csv("~/submission_22/data2.csv", delimiter=",", header=None)
     X = pd.concat([data1, data2], axis=1, ignore_index=True)
     num = [*range(0,50)]
     X[num] = X[num].astype(float)

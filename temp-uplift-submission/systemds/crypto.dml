@@ -33,9 +33,9 @@ for (i in 1:lim) {
 R = order(target=R, by=1);
 res = R[1:5,];
 if ($1 == 1)
-  write(res, "file:/home/aphani/vldb_22/results/crypto_s1_dml.dat", format="csv", sep="\t");
+  write(res, "file:/home/aphani/submission_22/results/crypto_s1_dml.dat", format="csv", sep="\t");
 if ($1 == 2)
-  write(res, "file:/home/aphani/vldb_22/results/crypto_s2_dml.dat", format="csv", sep="\t");
+  write(res, "file:/home/aphani/submission_22/results/crypto_s2_dml.dat", format="csv", sep="\t");
 
 print("("+nrow(X_en)+", "+ncol(X_en)+")");
 

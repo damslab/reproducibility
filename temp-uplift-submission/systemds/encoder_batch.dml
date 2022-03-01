@@ -1,8 +1,8 @@
 # Default size = 5M * 100 w/ 100K #distincts per col. 5 char strings.
 
-#data = read("file:/home/aphani/vldb_22/data.csv", data_type="frame", format="csv", header=FALSE);
-data1 = read("file:/home/aphani/vldb_22/data1.csv", data_type="frame", format="csv", header=FALSE);
-data2 = read("file:/home/aphani/vldb_22/data2.csv", data_type="frame", format="csv", header=FALSE);
+#data = read("file:/home/aphani/submission_22/data.csv", data_type="frame", format="csv", header=FALSE);
+data1 = read("file:/home/aphani/submission_22/data1.csv", data_type="frame", format="csv", header=FALSE);
+data2 = read("file:/home/aphani/submission_22/data2.csv", data_type="frame", format="csv", header=FALSE);
 data = cbind(data1, data2);
 
 data = data[1:100000,]

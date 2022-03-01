@@ -1,10 +1,9 @@
-# User guide: This script generate a integer/float/string matrix with
+# User guide: This script generate a string matrix with
 # passed number of rows and distinct values in each column.
 # The number of columns can be tuned by the numCol variable.
-# The output is cast to string as the use of the script is to pass
-# it through recoding and dummycoding transformations.
+# This data can used for recoding, dummycoding feature hashing.
 #
-# python dataGen.py #rows #distinct
+# python dataGen.py #rows #distinct strlen
 import sys
 import time
 import math
@@ -19,41 +18,6 @@ from joblib import Parallel, delayed
 # Make numpy values easier to read.
 np.set_printoptions(precision=3, suppress=True)
 warnings.filterwarnings('ignore') #cleaner, but not recommended
-
-def getDataInt():
-    # Read the number of rows and distinct values in each column
-    rows = int(sys.argv[1]) 
-    distinct = int(sys.argv[2]) 
-    numCol =5 
-    # Derive the ranges for all the columns (fixed lower bounds)
-    ranges = np.array([[10,10+distinct]])
-    for i in range(1, numCol):
-        start = 10 + (i * 100)
-        ranges = np.concatenate((ranges, np.array([[start,start+distinct]])), axis=0)
-    # Generate a matrix
-    data = np.random.randint(low=ranges[:,0], high=ranges[:,1], size=(rows,ranges.shape[0]))
-    X = pd.DataFrame(data).astype(str) #convert to string
-    return X
-
-def getDataFloat():
-    # Read the number of rows and distinct values in each column
-    rows = int(sys.argv[1]) 
-    distinct = int(sys.argv[2]) 
-    numCol = 50
-    distVals = np.random.uniform(low=1, high=100, size=(distinct, numCol))
-
-    # rbind in a loop till the required number of rows
-    rem = math.floor((rows - distinct) / distinct)
-    distData = distVals
-    for i in range(rem):
-        distData = np.concatenate((distData, distVals), axis=0)
-
-    # Shuffle each column
-    if rows != distinct:
-        np.random.shuffle(distData)
-    X = pd.DataFrame(distData).astype(str) #convert to string
-    X = pd.DataFrame(distData)
-    return X
 
 def partGenDataString(numrows, numcols, numdist, numchar):
     # Generate random strings for a column
@@ -95,7 +59,7 @@ def getDataString():
     numCol = 100 
     numthread = 16;
     # Remove the old file
-    filename = "/home/aphani/vldb_22/data.csv"
+    filename = "/home/aphani/submission_22/data.csv"
     if os.path.exists(filename):
         os.remove(filename)
 
@@ -114,11 +78,5 @@ def getDataString():
     return
 
 
-#X = getDataInt()
-#X = getDataFloat()
 getDataString()
-
-# Write to csv
-#print(X)
-#X.to_csv('data.csv', index=False, header=False)
 

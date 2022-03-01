@@ -20,7 +20,7 @@ np.set_printoptions(precision=3, suppress=True)
 warnings.filterwarnings('ignore') #cleaner, but not recommended
 
 def readNprep():
-    X = pd.read_csv("~/vldb_22/data.csv", delimiter=",", header=None)
+    X = pd.read_csv("~/submission_22/data.csv", delimiter=",", header=None)
     print(X.head())
     print(X.info())
     return X
@@ -63,7 +63,7 @@ def transformFUnion(X):
     print(np.shape(transformed))
 
     print(timeres)
-    resultfile = "numdistinct_sk.dat"
+    resultfile = "stringlen_sk.dat"
     resfile = "./results/" + resultfile
     np.savetxt(resfile, timeres, delimiter="\t", fmt='%f')
 

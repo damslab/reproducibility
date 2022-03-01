@@ -1,7 +1,7 @@
-# Default size = 100M * 4 w/ 5 char-strings
-# Vary #distinct values from 100K to 1M
+# Default size = 10M * 10 w/ 100K #distincts per col
+# Vary string length from 25 to 500
 
-data = read("file:/home/aphani/vldb_22/data.csv", data_type="frame", format="csv", header=FALSE);
+data = read("file:/home/aphani/submission_22/data.csv", data_type="frame", format="csv", header=FALSE);
 
 print("("+nrow(data)+", "+ncol(data)+")");
 allCols = "1";
@@ -25,6 +25,6 @@ for (i in 1:lim) {
 
 R = order(target=R, by=1);
 res = R[1:3,];
-write(res, "file:/home/aphani/vldb_22/results/numdistinct_dml.dat", format="csv", sep="\t");
+write(res, "file:/home/aphani/submission_22/results/stringlen_dml.dat", format="csv", sep="\t");
 print("("+nrow(X)+", "+ncol(X)+")");
 
