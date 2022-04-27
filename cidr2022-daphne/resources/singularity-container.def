@@ -1,0 +1,57 @@
+Bootstrap: library
+From: ubuntu:20.04
+
+%post
+    export LC_ALL=C
+    export DEBIAN_FRONTEND=noninteractive
+
+    apt-get update -q
+    apt-get install -qy software-properties-common
+    add-apt-repository universe
+    apt-get update -q
+    apt-get upgrade -qy
+    apt-get install -y --no-install-recommends wget git ca-certificates openjdk-8-jdk-headless build-essential ninja-build \
+     libssl-dev uuid-dev unzip pkg-config libomp-dev gfortran lld zlib1g-dev libxml2-dev  clang llvm virtualenv \
+     python3-pip g++-8 maven cpio bison
+
+    apt-get clean
+
+    # -----------------------------------------------------------------------------------
+    CMAKE_VERSION=3.23.1
+    BUILD_DIR=$PWD/build-cmake
+    mkdir -p $BUILD_DIR
+    cd $BUILD_DIR
+    wget -qO- https://github.com/Kitware/CMake/releases/download/v$CMAKE_VERSION/cmake-$CMAKE_VERSION.tar.gz | tar xzf - --strip-components=1
+    ./bootstrap --parallel=`nproc` --generator=Ninja --no-qt-gui --prefix=/usr/local
+    ninja
+    ninja install
+    cd $BUILD_DIR/..
+    rm -rf $BUILD_DIR
+
+    # -----------------------------------------------------------------------------------
+    virtualenv /venv
+    . /venv/bin/activate
+    pip install -U pip
+    pip install duckdb==0.2.7 matplotlib==3.4.3 numpy==1.19.2 pandas==1.3.2 seaborn==0.11.2 h5py==3.1.0  \
+      keras==2.6.0 tensorflow==2.6.0
+
+%environment
+    export LC_ALL=C
+    export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+    export CUDA_PATH=/usr/local/cuda
+    export PATH=$CUDA_PATH/bin:$JAVA_HOME/bin:$PATH
+    export LD_LIBRARY_PATH=$CUDA_PATH/lib64:$LD_LIBRARY_PATH
+    . /venv/bin/activate
+
+%runscript
+    exec bash -c "$@"
+
+%labels
+   AUTHOR mark@dokter.cc
+   NAME CIDR2022-daphne
+   URL https://github.com/damslab/reproducibility
+   VERSION 3
+
+%help
+    This container is used in the reproducibility experiments for the Daphne CIDR 2022 paper submission. Visit
+    https://github.com/damslab/reproducibility for further instructions.

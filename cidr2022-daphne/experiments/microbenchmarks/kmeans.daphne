@@ -1,0 +1,36 @@
+// k-means clustering on random data (double precision).
+
+// Data generation.
+X = false; // just so that it exists
+C = false; // just so that it exists
+if($useInputFile) {
+    X = readMatrix($inputFileX);
+    C = readMatrix($inputFileC);
+}
+else {
+    X = rand($numRecords  , $numFeatures, 0.0, 1.0, 1, -1);
+    C = rand($numCentroids, $numFeatures, 0.0, 1.0, 1, -1);
+}
+
+tp0 = now();
+
+for(i in 1:$numIter) {
+    // Compute Euclidean squared distances from records (X rows) to centroids
+    // (C rows) without the C-independent term, then take the minimum for each
+    // record.
+    D = (X @ t(C)) * -2.0 + t(sum(C ^ 2.0, 0));
+    minD = aggMin(D, 0);
+    // Find the closest centroid for each record
+    P = D <= minD;
+    // If some records belong to multiple centroids, share them equally
+    P = P / sum(P, 0);
+    // Compute the column normalization factor for P
+    P_denom = sum(P, 1);
+    // Compute new centroids as weighted averages over the records
+    C = (t(P) @ X) / t(P_denom);
+}
+
+tp1 = now();
+print(tp1 - tp0, 0, 2);
+
+print(C);

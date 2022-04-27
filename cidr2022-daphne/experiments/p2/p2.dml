@@ -1,0 +1,420 @@
+# -----------------------------------------------------------------------------
+# Pipeline P2 - Resnet20 scoring on so2sat dataset
+# -----------------------------------------------------------------------------
+
+source("nn/layers/affine.dml") as affine
+source("nn/layers/batch_norm2d.dml") as batch_norm2d
+source("nn/layers/conv2d_builtin.dml") as conv2d
+source("nn/layers/avg_pool2d_builtin.dml") as avg_pool2d
+source("nn/layers/relu.dml") as relu
+source("nn/layers/softmax.dml") as softmax
+source("nn/layers/cross_entropy_loss.dml") as loss_func
+
+img_path = $images
+C=10
+batch_size = ifdef($batch_size, 128)
+# model_prefix=ifdef($model, "../models/sentinel2-resnet20v2-1_of_200-epochs")
+model_prefix=ifdef($model,"/home/mdokter/code/daphne/experiments/sen2_resnet20_model.200_hdf2csv/")
+# print(model_prefix);
+# stop("stopped");
+Hin = 32
+Win = 32
+sec_factor = 10^(-9)
+msec_factor = 10^(-6)
+verbose = FALSE
+eps = 0.9
+mu = 1e-5
+mode = "test"
+
+# model_sen1 = read(model_prefix)
+# for (i in 1:length(model_sen1)) {
+#     mat = as.matrix(model_sen1[i])
+#     print("i=" + i + " shape=" + nrow(mat) + "x" + ncol(mat))
+# }
+
+t_start = time()
+img1 = read($images)
+labels = read($labels)
+print(toString(img1[1,1]));
+print(toString(labels[1,1]));
+t_end = time()
+
+#print("Data load duration=" + (t_end - t_start) * msec_factor + "ms");
+#print("Data load duration=" + (t_end - t_start) * sec_factor + "s");
+print("Data load duration=" + (t_end - t_start) + "ns");
+
+
+#print("image dims: " + nrow(img1)+"x"+ncol(img1))
+#print("label dims: " + nrow(labels)+"x"+ncol(labels))
+num_classes = ncol(labels)
+
+# loading model
+mp = model_prefix
+sf=".csv" # file suffix
+
+# pre resblock: conv1, bn1 ---------------------------------------------------------------------------------------------
+W_cv1 = read(mp + "conv2d_kernel" + sf)
+b_cv1 = read(mp+"conv2d_bias"+sf)
+g_bn1 = read(mp+"batch_normalization_gamma"+sf)
+b_bn1 = read(mp+"batch_normalization_beta"+sf)
+em_bn1 = read(mp+"batch_normalization_moving_mean"+sf)
+ev_bn1 = read(mp+"batch_normalization_moving_variance"+sf)
+
+# resblock stage 1, block 1 --------------------------------------------------------------------------------------------
+W_cv1_S1B1 = read(mp + "conv2d_1_kernel.csv");
+b_cv1_S1B1 = read(mp + "conv2d_1_bias.csv");
+
+g_bn1_S1B1 = read(mp + "batch_normalization_1_gamma.csv");
+b_bn1_S1B1 = read(mp + "batch_normalization_1_beta.csv");
+em_bn1_S1B1 = read(mp + "batch_normalization_1_moving_mean.csv");
+ev_bn1_S1B1 = read(mp + "batch_normalization_1_moving_variance.csv");
+W_cv2_S1B1 = read(mp + "conv2d_2_kernel.csv");
+b_cv2_S1B1 = read(mp + "conv2d_2_bias.csv");
+
+g_bn2_S1B1 = read(mp + "batch_normalization_2_gamma.csv");
+b_bn2_S1B1 = read(mp + "batch_normalization_2_beta.csv");
+em_bn2_S1B1 = read(mp + "batch_normalization_2_moving_mean.csv");
+ev_bn2_S1B1 = read(mp + "batch_normalization_2_moving_variance.csv");
+W_cv3_S1B1 = read(mp + "conv2d_3_kernel.csv");
+b_cv3_S1B1 = read(mp + "conv2d_3_bias.csv");
+
+W_cv4_S1B1 = read(mp + "conv2d_4_kernel.csv");
+b_cv4_S1B1 = read(mp + "conv2d_4_bias.csv");
+
+# resblock stage 1, block 2 --------------------------------------------------------------------------------------------
+g_bn1_S1B2 = read(mp + "batch_normalization_3_gamma.csv");
+b_bn1_S1B2 = read(mp + "batch_normalization_3_beta.csv");
+em_bn1_S1B2 = read(mp + "batch_normalization_3_moving_mean.csv");
+ev_bn1_S1B2 = read(mp + "batch_normalization_3_moving_variance.csv");
+W_cv1_S1B2 = read(mp + "conv2d_5_kernel.csv");
+b_cv1_S1B2 = read(mp + "conv2d_5_bias.csv");
+
+g_bn2_S1B2 = read(mp + "batch_normalization_4_gamma.csv");
+b_bn2_S1B2 = read(mp + "batch_normalization_4_beta.csv");
+em_bn2_S1B2 = read(mp + "batch_normalization_4_moving_mean.csv");
+ev_bn2_S1B2 = read(mp + "batch_normalization_4_moving_variance.csv");
+W_cv2_S1B2 = read(mp + "conv2d_6_kernel.csv");
+b_cv2_S1B2 = read(mp + "conv2d_6_bias.csv");
+
+g_bn3_S1B2 = read(mp + "batch_normalization_5_gamma.csv");
+b_bn3_S1B2 = read(mp + "batch_normalization_5_beta.csv");
+em_bn3_S1B2 = read(mp + "batch_normalization_5_moving_mean.csv");
+ev_bn3_S1B2 = read(mp + "batch_normalization_5_moving_variance.csv");
+W_cv3_S1B2 = read(mp + "conv2d_7_kernel.csv");
+b_cv3_S1B2 = read(mp + "conv2d_7_bias.csv");
+
+# resblock stage 2, block 1 --------------------------------------------------------------------------------------------
+g_bn1_S2B1 = read(mp + "batch_normalization_6_gamma.csv");
+b_bn1_S2B1 = read(mp + "batch_normalization_6_beta.csv");
+em_bn1_S2B1 = read(mp + "batch_normalization_6_moving_mean.csv");
+ev_bn1_S2B1 = read(mp + "batch_normalization_6_moving_variance.csv");
+W_cv1_S2B1 = read(mp + "conv2d_8_kernel.csv");
+b_cv1_S2B1 = read(mp + "conv2d_8_bias.csv");
+
+g_bn2_S2B1 = read(mp + "batch_normalization_7_gamma.csv");
+b_bn2_S2B1 = read(mp + "batch_normalization_7_beta.csv");
+em_bn2_S2B1 = read(mp + "batch_normalization_7_moving_mean.csv");
+ev_bn2_S2B1 = read(mp + "batch_normalization_7_moving_variance.csv");
+W_cv2_S2B1 = read(mp + "conv2d_9_kernel.csv");
+b_cv2_S2B1 = read(mp + "conv2d_9_bias.csv");
+
+g_bn3_S2B1 = read(mp + "batch_normalization_8_gamma.csv");
+b_bn3_S2B1 = read(mp + "batch_normalization_8_beta.csv");
+em_bn3_S2B1 = read(mp + "batch_normalization_8_moving_mean.csv");
+ev_bn3_S2B1 = read(mp + "batch_normalization_8_moving_variance.csv");
+W_cv3_S2B1 = read(mp + "conv2d_10_kernel.csv");
+b_cv3_S2B1 = read(mp + "conv2d_10_bias.csv");
+W_cv4_S2B1 = read(mp + "conv2d_11_kernel.csv");
+b_cv4_S2B1 = read(mp + "conv2d_11_bias.csv");
+
+# resblock stage 2, block 2 --------------------------------------------------------------------------------------------
+g_bn1_S2B2 = read(mp + "batch_normalization_9_gamma.csv");
+b_bn1_S2B2 = read(mp + "batch_normalization_9_beta.csv");
+em_bn1_S2B2 = read(mp + "batch_normalization_9_moving_mean.csv");
+ev_bn1_S2B2 = read(mp + "batch_normalization_9_moving_variance.csv");
+W_cv1_S2B2 = read(mp + "conv2d_12_kernel.csv");
+b_cv1_S2B2 = read(mp + "conv2d_12_bias.csv");
+
+g_bn2_S2B2 = read(mp + "batch_normalization_10_gamma.csv");
+b_bn2_S2B2 = read(mp + "batch_normalization_10_beta.csv");
+em_bn2_S2B2 = read(mp + "batch_normalization_10_moving_mean.csv");
+ev_bn2_S2B2 = read(mp + "batch_normalization_10_moving_variance.csv");
+W_cv2_S2B2 = read(mp + "conv2d_13_kernel.csv");
+b_cv2_S2B2 = read(mp + "conv2d_13_bias.csv");
+
+g_bn3_S2B2 = read(mp + "batch_normalization_11_gamma.csv");
+b_bn3_S2B2 = read(mp + "batch_normalization_11_beta.csv");
+em_bn3_S2B2 = read(mp + "batch_normalization_11_moving_mean.csv");
+ev_bn3_S2B2 = read(mp + "batch_normalization_11_moving_variance.csv");
+W_cv3_S2B2 = read(mp + "conv2d_14_kernel.csv");
+b_cv3_S2B2 = read(mp + "conv2d_14_bias.csv");
+
+# resblock stage 3, block 1 --------------------------------------------------------------------------------------------
+g_bn1_S3B1 = read(mp + "batch_normalization_12_gamma.csv");
+b_bn1_S3B1 = read(mp + "batch_normalization_12_beta.csv");
+em_bn1_S3B1 = read(mp + "batch_normalization_12_moving_mean.csv");
+ev_bn1_S3B1 = read(mp + "batch_normalization_12_moving_variance.csv");
+W_cv1_S3B1 = read(mp + "conv2d_15_kernel.csv");
+b_cv1_S3B1 = read(mp + "conv2d_15_bias.csv");
+
+g_bn2_S3B1 = read(mp + "batch_normalization_13_gamma.csv");
+b_bn2_S3B1 = read(mp + "batch_normalization_13_beta.csv");
+em_bn2_S3B1 = read(mp + "batch_normalization_13_moving_mean.csv");
+ev_bn2_S3B1 = read(mp + "batch_normalization_13_moving_variance.csv");
+W_cv2_S3B1 = read(mp + "conv2d_16_kernel.csv");
+b_cv2_S3B1 = read(mp + "conv2d_16_bias.csv");
+
+g_bn3_S3B1 = read(mp + "batch_normalization_14_gamma.csv");
+b_bn3_S3B1 = read(mp + "batch_normalization_14_beta.csv");
+em_bn3_S3B1 = read(mp + "batch_normalization_14_moving_mean.csv");
+ev_bn3_S3B1 = read(mp + "batch_normalization_14_moving_variance.csv");
+W_cv3_S3B1 = read(mp + "conv2d_17_kernel.csv");
+b_cv3_S3B1 = read(mp + "conv2d_17_bias.csv");
+W_cv4_S3B1 = read(mp + "conv2d_18_kernel.csv");
+b_cv4_S3B1 = read(mp + "conv2d_18_bias.csv");
+
+# resblock stage 3, block 2 --------------------------------------------------------------------------------------------
+g_bn1_S3B2 = read(mp + "batch_normalization_15_gamma.csv");
+b_bn1_S3B2 = read(mp + "batch_normalization_15_beta.csv");
+em_bn1_S3B2 = read(mp + "batch_normalization_15_moving_mean.csv");
+ev_bn1_S3B2 = read(mp + "batch_normalization_15_moving_variance.csv");
+W_cv1_S3B2 = read(mp + "conv2d_19_kernel.csv");
+b_cv1_S3B2 = read(mp + "conv2d_19_bias.csv");
+
+g_bn2_S3B2 = read(mp + "batch_normalization_16_gamma.csv");
+b_bn2_S3B2 = read(mp + "batch_normalization_16_beta.csv");
+em_bn2_S3B2 = read(mp + "batch_normalization_16_moving_mean.csv");
+ev_bn2_S3B2 = read(mp + "batch_normalization_16_moving_variance.csv");
+W_cv2_S3B2 = read(mp + "conv2d_20_kernel.csv");
+b_cv2_S3B2 = read(mp + "conv2d_20_bias.csv");
+
+g_bn3_S3B2 = read(mp + "batch_normalization_17_gamma.csv");
+b_bn3_S3B2 = read(mp + "batch_normalization_17_beta.csv");
+em_bn3_S3B2 = read(mp + "batch_normalization_17_moving_mean.csv");
+ev_bn3_S3B2 = read(mp + "batch_normalization_17_moving_variance.csv");
+W_cv3_S3B2 = read(mp + "conv2d_21_kernel.csv");
+b_cv3_S3B2 = read(mp + "conv2d_21_bias.csv");
+
+# post resblock: bn, affine --------------------------------------------------------------------------------------------
+g_bn2 = read(mp+"batch_normalization_18_gamma"+sf)
+b_bn2 = read(mp+"batch_normalization_18_beta"+sf)
+em_bn2 = read(mp+"batch_normalization_18_moving_mean"+sf)
+ev_bn2 = read(mp+"batch_normalization_18_moving_variance"+sf)
+
+W_af = read(mp + "dense_kernel" + sf)
+b_af = read(mp+"dense_bias"+sf)
+
+t_start_iter = 0
+t_end_fwd = 0
+X = img1
+N = nrow(img1)
+
+
+  # Compute predictions over mini-batches
+  probs = matrix(0, rows=N, cols=num_classes)
+  iters = ceil(N / batch_size)
+# iters = 1
+	if(verbose) { print("iterations="+iters) }
+t_start_predict = time()
+
+  for(i in 1:iters, check = 0) {
+    if(verbose) { t_start_iter = time() }
+
+    # Get next batch
+    beg = ((i-1) * batch_size) %% N + 1
+    end = min(N, beg + batch_size - 1)
+# print("N: " + N + ", beg: " + beg + ", end: " + end)
+# while(FALSE){}
+    X_batch = X[beg:end,]
+#START forward pass ----------------------------------------------------------------------------------------------------
+
+# print("W_cv1 dims:" + nrow(W_cv1) + "x" + ncol(W_cv1))
+# print("b_cv1 dims:" + nrow(b_cv1) + "x" + ncol(b_cv1))
+
+# pre resblock: conv, bn, relu
+	[out_cv1, h32, w32] = conv2d::forward(X_batch, W_cv1, b_cv1, C, Hin, Win, 3, 3, 1, 1, 1, 1)
+	[out_bn1, emu, evu, cm, civ] = batch_norm2d::forward(out_cv1, g_bn1, b_bn1, nrow(W_cv1), h32, h32, mode, em_bn1, ev_bn1, mu, eps)
+	out_r1 = relu::forward(out_bn1)
+# write(out_cv1, "conv2d_sysds_out", format="csv")
+# print(toString(W_cv1[1:3, 1:10], decimal=10));
+# print(toString(X_batch[1:3, 1:10], decimal=10));
+# print(toString(out_cv1[1:3, 1:10], decimal=10));
+# print(toString(out_r1[, 1:11], decimal=10));
+# resblock stage 1, block 1: conv + 3 x bn+relu+conv + conv  -----------------------------------------------------------
+	[out_cv1_S1B1, h32, w32] = conv2d::forward(out_r1, W_cv1_S1B1, b_cv1_S1B1, nrow(W_cv1), h32, h32, 1, 1, 1, 1, 0, 0);
+# print("out_cv1_S1B1 dims:" + nrow(out_cv1_S1B1) + "x" + ncol(out_cv1_S1B1))
+
+	[out_bn1_S1B1, emu, evu, cm, civ]  = batch_norm2d::forward(out_cv1_S1B1, g_bn1_S1B1, b_bn1_S1B1, nrow(W_cv1_S1B1), h32, w32, mode, em_bn1_S1B1, ev_bn1_S1B1, mu, eps);
+	out_r1_S1B1 = relu::forward(out_bn1_S1B1);
+	[out_cv2_S1B1, h32, w32] = conv2d::forward(out_r1_S1B1, W_cv2_S1B1, b_cv2_S1B1, nrow(W_cv1_S1B1), h32, h32, 3, 3, 1, 1, 1, 1);
+# print("out_cv2_S1B1 dims:" + nrow(out_cv2_S1B1) + "x" + ncol(out_cv2_S1B1))
+
+	[out_bn2_S1B1, emu, evu, cm, civ]  = batch_norm2d::forward(out_cv2_S1B1, g_bn2_S1B1, b_bn2_S1B1, nrow(W_cv2_S1B1), h32, w32, mode, em_bn2_S1B1, ev_bn2_S1B1, mu, eps);
+	out_r2_S1B1 = relu::forward(out_bn2_S1B1);
+	[out_cv3_S1B1, h32, w32] = conv2d::forward(out_r2_S1B1, W_cv3_S1B1, b_cv3_S1B1, nrow(W_cv2_S1B1), h32, w32, 1, 1, 1, 1, 0, 0);
+
+	[out_cv4_S1B1, h32, w32]  = conv2d::forward(out_r1, W_cv4_S1B1, b_cv4_S1B1, nrow(W_cv1), h32, w32, 1, 1, 1, 1, 0, 0);
+
+	out_resblk1 = out_cv4_S1B1 + out_cv3_S1B1;
+# print("resblk1");
+# print(toString(out_resblk1[, 1:11], decimal=10));
+# resblock stage 1, block 2: 3 x bn,relu,conv --------------------------------------------------------------------------
+	[out_bn1_S1B2, emu, evu, cm, civ] = batch_norm2d::forward(out_resblk1, g_bn1_S1B2, b_bn1_S1B2, nrow(W_cv4_S1B1), h32, w32, mode, em_bn1_S1B2, ev_bn1_S1B2, mu, eps);
+	out_r1_S1B2 = relu::forward(out_bn1_S1B2);
+	[out_cv1_S1B2, h32, w32] = conv2d::forward(out_r1_S1B2, W_cv1_S1B2, b_cv1_S1B2, nrow(W_cv4_S1B1), h32, w32, 1, 1, 1, 1, 0, 0);
+
+	[out_bn2_S1B2, emu, evu, cm, civ] = batch_norm2d::forward(out_cv1_S1B2, g_bn2_S1B2, b_bn2_S1B2, nrow(W_cv1_S1B2), h32, w32, mode, em_bn2_S1B2, ev_bn2_S1B2, mu, eps);
+	out_r2_S1B2 = relu::forward(out_bn2_S1B2);
+	[out_cv2_S1B2, h32, w32] = conv2d::forward(out_r2_S1B2, W_cv2_S1B2, b_cv2_S1B2, nrow(W_cv1_S1B2), h32, h32, 3, 3, 1, 1, 1, 1);
+
+	[out_bn3_S1B2, emu, evu, cm, civ] = batch_norm2d::forward(out_cv2_S1B2, g_bn3_S1B2, b_bn3_S1B2, nrow(W_cv2_S1B2), h32, w32, mode, em_bn3_S1B2, ev_bn3_S1B2, mu, eps);
+	out_r3_S1B2 = relu::forward(out_bn3_S1B2);
+	[out_cv3_S1B2, h32, w32] = conv2d::forward(out_r3_S1B2, W_cv3_S1B2, b_cv3_S1B2, nrow(W_cv2_S1B2), h32, w32, 1, 1, 1, 1, 0, 0);
+
+	out_resblk2 = out_cv3_S1B2 + out_resblk1;
+# print("resblk2");
+# print(toString(out_resblk2[, 1:11], decimal=10));
+
+# resblock stage 2, block 1: 3x bn,relu,conv + conv --------------------------------------------------------------------
+	[out_bn1_S2B1, emu, evu, cm, civ] = batch_norm2d::forward(out_resblk2, g_bn1_S2B1, b_bn1_S2B1, nrow(W_cv3_S1B2), h32, w32, mode, em_bn1_S2B1, ev_bn1_S2B1, mu, eps)
+	out_r1_S2B1 = relu::forward(out_bn1_S2B1)
+	[out_cv1_S2B1, h16, w16] = conv2d::forward(out_r1_S2B1, W_cv1_S2B1, b_cv1_S2B1, nrow(W_cv3_S1B2), h32, h32, 1, 1, 2, 2, 0, 0)
+# print("--------------------------------------");
+# print(toString(out_cv1_S2B1[, 1:11], decimal=10));
+	[out_bn2_S2B1, emu, evu, cm, civ] = batch_norm2d::forward(out_cv1_S2B1, g_bn2_S2B1, b_bn2_S2B1, nrow(W_cv1_S2B1), h16, w16, mode, em_bn2_S2B1, ev_bn2_S2B1, mu, eps)
+	out_r2_S2B1 = relu::forward(out_bn2_S2B1)
+	[out_cv2_S2B1, h16, w16] = conv2d::forward(out_r2_S2B1, W_cv2_S2B1, b_cv2_S2B1, nrow(W_cv1_S2B1), h16, h16, 3, 3, 1, 1, 1, 1)
+# print("--------------------------------------");
+# print(toString(out_cv2_S2B1[, 1:11], decimal=10));
+	[out_bn3_S2B1, emu, evu, cm, civ] = batch_norm2d::forward(out_cv2_S2B1, g_bn3_S2B1, b_bn3_S2B1, nrow(W_cv2_S2B1), h16, w16, mode, em_bn3_S2B1, ev_bn3_S2B1, mu, eps)
+	out_r3_S2B1 = relu::forward(out_bn3_S2B1)
+	[out_cv3_S2B1, h16, w16] = conv2d::forward(out_r3_S2B1, W_cv3_S2B1, b_cv3_S2B1, nrow(W_cv2_S2B1), h16, w16, 1, 1, 1, 1, 0, 0)
+# print("--------------------------------------");
+# print(toString(out_cv3_S2B1[, 1:11], decimal=10));
+	[out_cv4_S2B1, h16, w16] = conv2d::forward(out_resblk2, W_cv4_S2B1, b_cv4_S2B1, nrow(W_cv3_S1B2), h32, w32, 1, 1, 2, 2, 0, 0)
+	out_resblk3 = out_cv4_S2B1 + out_cv3_S2B1
+# print("resblk3");
+# print(toString(out_resblk3[, 1:11], decimal=10));
+
+# resblock stage 2, block 2: 3x bn,relu,conv ---------------------------------------------------------------------------
+	[out_bn1_S2B2, emu, evu, cm, civ] = batch_norm2d::forward(out_resblk3, g_bn1_S2B2, b_bn1_S2B2, nrow(W_cv4_S2B1), h16, w16, mode, em_bn1_S2B2, ev_bn1_S2B2, mu, eps)
+	out_r1_S2B2 = relu::forward(out_bn1_S2B2)
+	[out_cv1_S2B2, h16, w16] = conv2d::forward(out_r1_S2B2, W_cv1_S2B2, b_cv1_S2B2, nrow(W_cv4_S2B1), h16, w16, 1, 1, 1, 1, 0, 0)
+
+	[out_bn2_S2B2, emu, evu, cm, civ] = batch_norm2d::forward(out_cv1_S2B2, g_bn2_S2B2, b_bn2_S2B2, nrow(W_cv1_S2B2), h16, w16, mode, em_bn2_S2B2, ev_bn2_S2B2, mu, eps)
+	out_r2_S2B2 = relu::forward(out_bn2_S2B2)
+	[out_cv2_S2B2, h16, w16] = conv2d::forward(out_r2_S2B2, W_cv2_S2B2, b_cv2_S2B2, nrow(W_cv1_S2B2), h16, h16, 3, 3, 1, 1, 1, 1)
+
+	[out_bn3_S2B2, emu, evu, cm, civ] = batch_norm2d::forward(out_cv2_S2B2, g_bn3_S2B2, b_bn3_S2B2, nrow(W_cv2_S2B2), h16, w16, mode, em_bn3_S2B2, ev_bn3_S2B2, mu, eps)
+	out_r3_S2B2 = relu::forward(out_bn3_S2B2)
+	[out_cv3_S2B2, h16, w16] = conv2d::forward(out_r3_S2B2, W_cv3_S2B2, b_cv3_S2B2, nrow(W_cv2_S2B2), h16, w16, 1, 1, 1, 1, 0, 0)
+
+	out_resblk4 = out_resblk3 + out_cv3_S2B2
+# print("resblk4");
+# print(toString(out_resblk4[, 1:11], decimal=10));
+
+# resblock stage 3, block 1: 3x bn,relu,conv + conv --------------------------------------------------------------------
+	[out_bn1_S3B1, emu, evu, cm, civ] = batch_norm2d::forward(out_resblk4, g_bn1_S3B1, b_bn1_S3B1, nrow(W_cv3_S2B2), h16, w16, mode, em_bn1_S3B1, ev_bn1_S3B1, mu, eps)
+	out_r1_S3B1 = relu::forward(out_bn1_S3B1)
+	[out_cv1_S3B1, h8, w8] = conv2d::forward(out_r1_S3B1, W_cv1_S3B1, b_cv1_S3B1, nrow(W_cv3_S2B2), h16, w16, 1, 1, 2, 2, 0, 0)
+
+# print("--------------------------------------");
+# print(toString(out_cv1_S3B1[, 1:11], decimal=10));
+
+	[out_bn2_S3B1, emu, evu, cm, civ] = batch_norm2d::forward(out_cv1_S3B1, g_bn2_S3B1, b_bn2_S3B1, nrow(W_cv1_S3B1), h8, w8, mode, em_bn2_S3B1, ev_bn2_S3B1, mu, eps)
+	out_r2_S3B1 = relu::forward(out_bn2_S3B1)
+	[out_cv2_S3B1, h8, w8] = conv2d::forward(out_r2_S3B1, W_cv2_S3B1, b_cv2_S3B1, nrow(W_cv1_S3B1), h8, h8, 3, 3, 1, 1, 1, 1)
+
+	[out_bn3_S3B1, emu, evu, cm, civ] = batch_norm2d::forward(out_cv2_S3B1, g_bn3_S3B1, b_bn3_S3B1, nrow(W_cv2_S3B1), h8, w8, mode, em_bn3_S3B1, ev_bn3_S3B1, mu, eps)
+	out_r3_S3B1 = relu::forward(out_bn3_S3B1)
+	[out_cv3_S3B1, h8, w8] = conv2d::forward(out_r3_S3B1, W_cv3_S3B1, b_cv3_S3B1, nrow(W_cv2_S3B1), h8, w8, 1, 1, 1, 1, 0, 0)
+# print("--------------------------------------");
+# print(toString(out_cv3_S3B1[, 1:11], decimal=10));
+
+	[out_cv4_S3B1, h8, w8] = conv2d::forward(out_resblk4, W_cv4_S3B1, b_cv4_S3B1, nrow(W_cv3_S2B2), h16, w16, 1, 1, 2, 2, 0, 0)
+	out_resblk5 = out_cv4_S3B1 + out_cv3_S3B1
+# print("resblk5");
+# print(toString(out_resblk5[, 1:11], decimal=10));
+
+# resblock stage 3, block 2: 3x bn,relu,conv ---------------------------------------------------------------------------
+	[out_bn1_S3B2, emu, evu, cm, civ] = batch_norm2d::forward(out_cv4_S3B1, g_bn1_S3B2, b_bn1_S3B2, nrow(W_cv4_S3B1), h8, w8, mode, em_bn1_S3B2, ev_bn1_S3B2, mu, eps);
+	out_r1_S3B2 = relu::forward(out_bn1_S3B2);
+	[out_cv1_S3B2, h8, w8] = conv2d::forward(out_r1_S3B2, W_cv1_S3B2, b_cv1_S3B2, nrow(W_cv4_S3B1), h8, h8, 1, 1, 1, 1, 0, 0);
+
+	[out_bn2_S3B2, emu, evu, cm, civ] = batch_norm2d::forward(out_cv1_S3B2, g_bn2_S3B2, b_bn2_S3B2, nrow(W_cv1_S3B2), h8, w8, mode, em_bn2_S3B2, ev_bn2_S3B2, mu, eps);
+	out_r2_S3B2 = relu::forward(out_bn2_S3B2);
+	[out_cv2_S3B2, h8, w8] = conv2d::forward(out_r2_S3B2, W_cv2_S3B2, b_cv2_S3B2, nrow(W_cv1_S3B2), h8, w8, 3, 3, 1, 1, 1, 1);
+
+	[out_bn3_S3B2, emu, evu, cm, civ] = batch_norm2d::forward(out_cv2_S3B2, g_bn3_S3B2, b_bn3_S3B2, nrow(W_cv2_S3B2), h8, w8, mode, em_bn3_S3B2, ev_bn3_S3B2, mu, eps);
+	out_r3_S3B2 = relu::forward(out_bn3_S3B2)
+	[out_cv3_S3B2, h8, w8] = conv2d::forward(out_r3_S3B2, W_cv3_S3B2, b_cv3_S3B2, nrow(W_cv2_S3B2), h8, h8, 1, 1, 1, 1, 0, 0);
+
+	out_resblk6 = out_resblk5 + out_cv3_S3B2
+# print("resblk6");
+# print(toString(out_resblk6[, 1:11], decimal=10));
+
+# print(toString(out_resblk6[,1:20]));
+# print("out_resblk6 dims:" + nrow(out_resblk6) + "x" + ncol(out_resblk6))
+
+# post resblock: avg_pool, affine, softmax -----------------------------------------------------------------------------
+	[out_bn2, emu, evu, cm, civ] = batch_norm2d::forward(out_resblk6, g_bn2, b_bn2, nrow(W_cv3_S3B2), h8, w8, mode, em_bn2, ev_bn2, mu, eps);
+	out_r2  = relu::forward(out_bn2);
+	# print("out_r2");
+# print(toString(out_r2[, 1:11], decimal=10));
+
+# 	print("out_r2 dims:" + nrow(out_r2) + "x" + ncol(out_r2))
+	[out_avg, h1, h1] = avg_pool2d::forward(out_r2, nrow(W_cv3_S3B2), h8, w8, h8, w8, 1, 1, 0, 0);
+# 	print("out_avg dims:" + nrow(out_avg) + "x" + ncol(out_avg))
+
+# print("out_avg");
+# print(toString(out_avg[, 1:11], decimal=10));
+
+	out_af = affine::forward(out_avg, W_af, b_af);
+	
+
+# print("W_af");
+# print(toString(W_af[, 1:11], decimal=10));
+# print("b_af");
+# print(toString(b_af, decimal=10));
+
+# 	print("W_af dims:" + nrow(W_af) + "x" + ncol(W_af));
+# 	print("out_af dims:" + nrow(out_af) + "x" + ncol(out_af));
+# print("out_af");
+# print(toString(out_af[, 1:11], decimal=10));
+	iter_probs = softmax::forward(out_af);
+#     print(toString(iter_probs[, 1:10], decimal=10));
+# print(toString(iter_probs, decimal=10));
+# 	print("iter_probs dims:" + nrow(iter_probs) + "x" + ncol(iter_probs))
+
+#END forward pass ------------------------------------------------------------------------------------------------------
+
+    if(verbose) {
+      t_end_fwd = time()
+      print("[+] Completed forward pass on batch " + i + " Time elapsed: " + (t_end_fwd - t_start_iter) * sec_factor + "s")
+    }
+
+    # Store predictions
+    probs[beg:end,] = iter_probs
+  }
+
+t_end_predict = time()
+if(verbose) {
+	print("===> Completed inference on sentinel2 in " + (t_end_predict - t_start_predict) * sec_factor + " seconds")
+}
+
+rindexmax= rowIndexMax(probs)
+# print(toString(t(rindexmax)));
+rindexmax_labels=rowIndexMax(labels)
+
+# print(toString(t(rindexmax_labels)));
+# print("rindexmax_labels dims:" + nrow(rindexmax_labels) + "x" + ncol(rindexmax_labels))
+
+correct_pred = rindexmax == rindexmax_labels
+# print(toString(correct_pred));
+# print(sum(correct_pred));
+accuracy = mean(correct_pred)
+loss = loss_func::forward(probs, labels);
+print("Loss: " + loss);
+print("Accuracy: " + toString(accuracy))
+duration = time() - t_start_predict
+print("inference duration=" + duration + "ns");

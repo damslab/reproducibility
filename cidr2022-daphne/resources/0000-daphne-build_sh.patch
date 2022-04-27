@@ -1,0 +1,22 @@
+diff --git a/build.sh b/build.sh
+index be6c627..65110e7 100755
+--- a/build.sh
++++ b/build.sh
+@@ -128,6 +128,8 @@ then
+     mkdir --parents $antlrCppRuntimeDirName
+     unzip $antlrCppRuntimeZipName -d $antlrCppRuntimeDirName
+     cd $antlrCppRuntimeDirName
++    sed -i 's#git://github.com#https://github.com#' runtime/CMakeLists.txt
++
+     mkdir build
+     mkdir run
+     cd build
+@@ -251,7 +253,7 @@ cmake -G Ninja .. \
+     -DANTLR4_RUNTIME_DIR=$(pwd)/../$thirdpartyPath/$antlrDirName/$antlrCppRuntimeDirName \
+     -DANTLR4_JAR_LOCATION=$(pwd)/../$thirdpartyPath/$antlrDirName/$antlrJarName \
+     -DOPENBLAS_INST_DIR=$(pwd)/../$thirdpartyPath/$openBlasDirName/$openBlasInstDirName \
+-    -DCMAKE_PREFIX_PATH="$grpcInstDir"
++    -DCMAKE_PREFIX_PATH="$grpcInstDir" -DUSE_CUDA=ON
+ cmake --build . --target $target
+ 
+ 

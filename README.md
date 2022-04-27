@@ -12,3 +12,6 @@ This repository contains reproducibility submissions, related to publications of
 - [p218 SliceLine: Fast, Linear-Algebra-based Slice Finding for ML Model Debugging](sigmod2021-sliceline-p218/README.md)
 - [p523 ExDRa: Exploratory Data Science on Federated Raw Data](sigmod2021-exdra-p523/README.md)
 
+## CIDR 2022
+
+- [DAPHNE: An Open and Extensible System Infrastructure for Integrated Data Analysis Pipelines](cidr2022-daphne/Readme.md)

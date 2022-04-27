@@ -1,0 +1,107 @@
+// ****************************************************************************
+// Reading the base data
+// ****************************************************************************
+
+tp0 = now();
+
+c = readFrame($inCustomer);
+o = readFrame($inOrders);
+
+tp1 = now();
+
+// ****************************************************************************
+// Query part
+// ****************************************************************************
+
+/*
+ * Equivalent to the following SQL query on TPC-H data:
+ *
+ * SELECT c.*, SUM(O_TOTALPRICE)
+ * FROM customer c, orders
+ * WHERE C_CUSTKEY = O_CUSTKEY
+ *   AND C_MKTSEGMENT <= $mktSegmentUpper
+ *   AND O_ORDERDATE >= $orderDateLower
+ * GROUP BY c.*
+ *
+ * Note that the grouping effectively only works on C_CUSTKEY, since that is
+ * the primary key of the customer table.
+ */
+
+// Retain only those columns in ORDERS we need for this query.
+o = cbind(cbind(o[, "O_CUSTKEY"], o[, "O_ORDERDATE"]), o[, "O_TOTALPRICE"]);
+
+selC = as.matrix(c[, "C_MKTSEGMENT"]) <= $mktSegUpper;
+c = c[[selC, ]];
+
+selO = as.matrix(o[, "O_ORDERDATE"]) >= $orderDateLower;
+// Drop O_ORDERDATE, we don't need it anymore.
+o = cbind(o[, "O_CUSTKEY"], o[, "O_TOTALPRICE"]);
+o = o[[selO, ]];
+
+frm, tidC = groupJoin(c, o, "C_CUSTKEY", "O_CUSTKEY", "O_TOTALPRICE");
+res = cbind(c[tidC, ], frm[, "O_TOTALPRICE"]);
+
+tp2 = now();
+
+// ****************************************************************************
+// ML part
+// ****************************************************************************
+
+// TODO Do this after the column extraction.
+XY = as.matrix.f64(res);
+
+tp3 = now();
+
+// TODO Do this on the frame, then it's zero cost.
+X0 = XY[, seq(1, as.si64(ncol(XY)) - 2, 1)];
+
+// TODO Most of the remaining ops (until the matmul) could be done (more)
+// efficiently on frames, no need to switch to matrices so early. But this also
+// applies to the baseline of Pandas+TF, even in MonetDB (although, then the
+// user would have to think about it manually).
+
+i0 = fill(-1, 1, 2); // don't encode C_NAME, C_ADDRESS
+i1 = fill(25, 1, 1); // encode C_NATIONKEY
+i2 = fill(-1, 1, 2); // don't encode C_PHONE, C_ACCTBAL
+i3 = fill(5, 1, 1); // encode C_MKTSEGMENT
+i4 = fill(-1, 1, 1); // don't encode C_COMMENT
+i = cbind(cbind(cbind(i0, i1), cbind(i2, i3)), i4);
+
+X = oneHot(X0, i);
+
+// TODO Do this on the frame, then it's zero cost.
+// TODO Ensure this is a no-op for one column of the correct value type.
+y = XY[, seq(as.si64(ncol(XY)) - 1, as.si64(ncol(XY)) - 1, 1)];
+
+X = (X - mean(X, 1)) / stddev(X, 1);
+
+X = cbind(X, fill(1.0, nrow(X), 1));
+
+lambda = fill(0.001, ncol(X), 1);
+A = t(X) @ X;
+b = t(X) @ y;
+
+// TODO: Does that still make sense, algorithmically?
+A = replace(A, nan, 0.0);
+b = replace(b, nan, 0.0);
+
+A = A + diagMatrix(lambda);
+
+beta = solve(A, b);
+
+// ****************************************************************************
+// Result output
+// ****************************************************************************
+
+print(beta);
+
+tp4 = now();
+
+print("\t", 0, 1);
+print(tp1 - tp0, 0, 1);
+print("\t", 0, 1);
+print(tp2 - tp1, 0, 1);
+print("\t", 0, 1);
+print(tp3 - tp2, 0, 1);
+print("\t", 0, 1);
+print(tp4 - tp3, 0, 1);
