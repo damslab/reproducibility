@@ -7,10 +7,14 @@ Paper link: http://www.cidrdb.org/cidr2022/papers/p4-damme.pdf
 
 The scripts contained in this repository reproduce the results presented in the paper. After checking with the hardware 
 and software requirements below, the results and plots should be produced by running `run-all.sh`. Alternatively,
-the numbered scripts (`1_setup_env.sh`, `...`) can be run independently in sequence.
-
-Once the experiment execution completes successfully, the data and plots can be found in the results directory in the repository root.
-
+the numbered scripts (`1_setup_env.sh`, `...`) can be run independently in sequence. In short, if all requirements can be met, 
+the results can be reproduced in a few easy steps:
+1. `git clone https://github.com/damslab/reproducibility.git`
+   1. Let's call `reproducibility/cidr2022-daphne` the experiment root directory. 
+2. Put CUDNN downloads to experiment root
+3. Run `run-all.sh` from experiment root
+Once the experiment execution completes successfully, the data and plots can be found in the results directory in the 
+experiment root 
 
 ### Hardware Requirements
 * Nvidia GPU, Turing Architecture (may run on Pascal or Volta, does not run on Ampere)
@@ -31,13 +35,13 @@ To run the experiments the following list of prerequisites should be considered:
   * Building the container image requires sudo/root privileges or a [fakeroot setup](https://sylabs.io/guides/3.9/user-guide/fakeroot.html) 
     Alternatively you can run the build step () on a computer where you have the required privileges using the definition file [provided in this repository](resources/singularity-container.def)
     to create the container image and copy it to the machine where you intend to run the experiments. The image needs to be in the 
-    root directory of your copy of this repository and the file name needs to be  **experiment-sandbox.sif**
+    experiment root directory and the file name needs to be  **experiment-sandbox.sif**
   * CUDA 10.2 + CUDNN 7.6.5 and CUDA 11.4.1 + CUDNN 8.2.2 will be set up locally and integrated into the container - no system installation needed.
     For this to work, the files 
     [cudnn-10.2-linux-x64-v7.6.5.32.tgz](https://developer.nvidia.com/compute/machine-learning/cudnn/secure/7.6.5.32/Production/10.2_20191118/cudnn-10.2-linux-x64-v7.6.5.32.tgz) 
     and 
     [cudnn-11.4-linux-x64-v8.2.2.26.tgz](https://developer.nvidia.com/compute/machine-learning/cudnn/secure/8.2.2/11.4_07062021/cudnn-11.4-linux-x64-v8.2.2.26.tgz) 
-    need to be downloaded manually (due to license restrictions) and placed in the repository root.
+    need to be downloaded manually (due to license restrictions) and placed in the experiment root.
   
 # Experiment Description
 
@@ -103,11 +107,6 @@ We used
   * Extracted from HDF5 to CSV
   * Converted to NCHW format
   * Mean removed
-* I tried to run the TF inference on the training set, but that did crash in all variants I tried:
-  * w/ TF Dataset API
-  * w/o -"-
-  * w/ eager mode (default for TF 2.x)
-  * w/o eager
 * Data loading for TF was done with Pandas
 #### Model
 * Trained with resnet20-training.py for 200 epochs
