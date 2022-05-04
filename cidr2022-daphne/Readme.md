@@ -12,6 +12,8 @@ the results can be reproduced in a few easy steps:
 1. `git clone https://github.com/damslab/reproducibility.git`
    1. Let's call `reproducibility/cidr2022-daphne` the experiment root directory. 
 2. Put CUDNN downloads to experiment root
+   1. If you want to go through the time consuming preparation step of training the model for
+      experiment P2, then remove the provided model file `reproducibility/cidr2022-daphne/workdir/p2-data/trained-model.h5`
 3. Run `run-all.sh` from experiment root
 Once the experiment execution completes successfully, the data and plots can be found in the results directory in the 
 experiment root 
