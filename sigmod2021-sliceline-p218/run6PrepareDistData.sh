@@ -17,5 +17,5 @@ hadoop fs -put data/USCensus_o_e1.bin.mtd /data/USCensus_o_e1.bin.mtd
 # run Criteo data preparation
 hadoop fs -put data/Criteo_D21.csv /data/Criteo_D21.csv
 
-./exp/expdist/sparkDML.sh SystemDS.jar \
+./exp/expdist/sparkDMLprep.sh SystemDS.jar \
   -f ./exp/dataprep/dataprepCriteo.dml -explain -exec hybrid -stats
