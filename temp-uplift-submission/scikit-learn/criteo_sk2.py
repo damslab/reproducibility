@@ -151,8 +151,9 @@ print("Elapsed time for transformations using plain pipeline = %s sec" % (time.t
 
 X_c = X.copy(deep=True)
 t2 = time.time()
-X_prep = transformFUnion(X_c, specfile, resfile)
+if specId == 1:
+    X_prep = transformFUnion(X_c, specfile, resfile)
+if specId == 2:
+    X_prep = transformFUnion(X_c, specfile, resfile, scale=True)
 print("Elapsed time for transformations using FeatureUnion = %s sec" % (time.time() - t2))
-#np.savetxt("X_prep_sk.csv", X_prep, fmt='%1.2f', delimiter=',') #dense
-#sp.sparse.save_npz("X_prep_sk.npz", X_prep)  #sparse
 

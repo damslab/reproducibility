@@ -1,0 +1,85 @@
+# Read the dataset
+# Read the specs
+# Iterate for iter times.
+# For each iteraation [1]: 
+# 1) generate features with transformation and other operators, 
+# 2) rank features via a cheap learning algorithm,
+# 3) select the best set of features (feature ranking) and repeat.
+
+selectBestFeatures = function(Matrix[Double] betas, Double nCol) 
+return (Matrix[Double] bestBetas)
+{
+  tbetas = t(betas);
+  k = floor(nrow(betas) * 0.8); #80% features
+  best = matrix(0, rows=nCol, cols=1);
+  for (i in 1:k) {
+    maxInd = as.scalar(rowIndexMax(tbetas));
+    best[maxInd,1] = 1;
+    tbetas[1,maxInd] = -1000;
+  }
+  bestBetas = best;
+}
+
+# Read the cleaned Criteo data
+data = read("file:/home/aphani/datasets/criteo_day21_5M_cleaned", 
+    data_type="frame", format="csv", header=FALSE,
+    naStrings=["NA", "na", "null", "NaN", "nan", "", "?"]);
+# Make a list of transform specifications
+specs = list();
+# NOTE: 1) Recoding the lable column is needed for NaiveBayes
+# 2) Pass through leaves -ve which is a problem for NB. Bin or normalize
+# Bin(13) w/ 10 bins, RC(27)
+jspec1 = read("file:/home/aphani/datasets/criteo_fe1.json", data_type="scalar", value_type="string");
+specs = append(specs, jspec1);
+# Bin(13) w/ 5 bins, RC(27)
+jspec2 = read("file:/home/aphani/datasets/criteo_fe2.json", data_type="scalar", value_type="string");
+specs = append(specs, jspec2);
+# Bin(13) w/ 10 bins, FH(26), RC(1)
+jspec3 = read("file:/home/aphani/datasets/criteo_fe3.json", data_type="scalar", value_type="string");
+specs = append(specs, jspec3);
+# Bin(13) w/ 5 bins, DC(26), RC(1)
+jspec4 = read("file:/home/aphani/datasets/criteo_fe4.json", data_type="scalar", value_type="string");
+specs = append(specs, jspec4);
+# Bin(13) w/ 5 bins, RC(12), FH(15)
+jspec5 = read("file:/home/aphani/datasets/criteo_fe5.json", data_type="scalar", value_type="string");
+specs = append(specs, jspec5);
+# Bin(13) w/ 5 bins, RC(1), DC(39)
+jspec6 = read("file:/home/aphani/datasets/criteo_fe6.json", data_type="scalar", value_type="string");
+specs = append(specs, jspec6);
+# TODO: Add one spec with normalization
+
+colList = matrix(1, rows=1, cols=ncol(data));
+maxIter = length(specs);
+
+t1 = time();
+for (iter in 1:maxIter) {
+  [tmp, jspec] = remove(specs, iter);
+  jspec = as.scalar(jspec);
+  t3 = time();
+  [X, M] = transformencode(target=data, spec=jspec);
+  t4 = time();
+  tft = floor((t4-t3)/1000000);  
+  print("Elapsed time for encoding criteo_fe"+iter+" = "+tft);
+  # FIXME: lineage trace for spec stays same. Investigate list and lineage handling 
+  #X = na_locf(X, "locf", FALSE);
+  #X = na_locf(X, "nocb", FALSE);
+  nr = nrow(X);
+  nc = ncol(X);
+  # Split in train and validation
+  tvSplit = floor(nr * 0.8);
+  X_train = X[1:tvSplit, 2:nc];
+  X_validatn = X[tvSplit+1:nr, 2:nc];
+  Y_train = X[1:tvSplit, 1];
+  Y_validatn = X[tvSplit+1:nr, 1];
+  # Calculate accuracy
+  [prior, cond] = naiveBayes(D=X_train, C=Y_train, verbose=FALSE);
+  [YRaw, Y_nb] = naiveBayesPredict(X=X_validatn, P=prior, C=cond);
+  acc = sum(Y_nb == Y_validatn) / nrow(X_validatn) * 100;
+  print("Accuracy with spec, criteo_fe"+iter+" = "+acc+"%");
+}
+t2 = time();
+print("Elapsed time for feature engineering using SystemDS = "+floor((t2-t1)/1000000)+" millsec");
+
+
+# [1] Gilad Katz et al. ExploreKit: Automatic Feature Generation and Selection.
+# 2016. ICDM.

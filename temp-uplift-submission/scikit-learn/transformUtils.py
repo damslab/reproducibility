@@ -72,7 +72,7 @@ class ColumnSelector(BaseEstimator, TransformerMixin):
     def transform(self, X):
         return X[self.columns]
 
-def transformFUnion(X, specfile, resultfile, scale=False):
+def transformFUnion(X, specfile, resultfile, scale=False, save=True):
     # TODO: Fuse json parsing and building pipeline to avoid passing many lists across
     encoders = getTransformSpec(X, specfile)
     timeres = np.zeros(3)
@@ -94,7 +94,7 @@ def transformFUnion(X, specfile, resultfile, scale=False):
     ])
     # Build the numeric pipeline
     if scale:
-        norm = preprocessing.Normalizer(norm='l2')
+        norm = preprocessing.StandardScaler()
         num_pipe.steps.append(['normalize', norm])
 
     bins = encoders['bins']
@@ -132,6 +132,10 @@ def transformFUnion(X, specfile, resultfile, scale=False):
         recode = preprocessing.OrdinalEncoder()
         cat_pipe.steps.append(['recode', recode])
 
+    if scale:
+        norm = preprocessing.StandardScaler(with_mean=False)
+        cat_pipe.steps.append(['normalize', norm])
+
     print(cat_pipe)
 
     # Wrap the pipelines in a FeatureUnion 
@@ -142,15 +146,20 @@ def transformFUnion(X, specfile, resultfile, scale=False):
     ], n_jobs=1, verbose=True)
 
     # Run fit_transform 3 times and record time
-    for i in range(3):
+    if save:
+        for i in range(3):
+            t1 = time.time()
+            transformed = preprocessor.fit_transform(X) #sparse
+            timeres[i] = timeres[i] + ((time.time() - t1) * 1000) #millisec
+        print(np.shape(transformed))
+        print("Elapsed time for transformations using FeatureUnion in millsec")
+        print(timeres)
+        resfile = "./results/" + resultfile
+        np.savetxt(resfile, timeres, delimiter="\t", fmt='%f')
+    else:
         t1 = time.time()
         transformed = preprocessor.fit_transform(X) #sparse
-        timeres[i] = timeres[i] + ((time.time() - t1) * 1000) #millisec
-    print(np.shape(transformed))
-    print("Elapsed time for transformations using FeatureUnion in millsec")
-    print(timeres)
-    resfile = "./results/" + resultfile
-    np.savetxt(resfile, timeres, delimiter="\t", fmt='%f')
+        print("Elapsed time for Transform = %s sec" % (time.time() - t1))
 
     # Return the transformed data
     return transformed 
