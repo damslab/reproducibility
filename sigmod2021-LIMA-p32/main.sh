@@ -15,6 +15,7 @@ cd ..
 # Edit libraries/runjava file to change JVM size
 
 # Cleanup results and plots
+mkdir results
 rm -f results/*
 rm -f plots/*.pdf
 
@@ -55,5 +56,5 @@ cd paper
 ./genPaper.sh
 cd ..
 
-# Step 11: Compare original paper (rdm32_org.pdf) with recompiled paper (rdm32_repro.pdf) 
+# Step 11: Compare original paper with recompiled paper (rdm32_repro.pdf) 
 
