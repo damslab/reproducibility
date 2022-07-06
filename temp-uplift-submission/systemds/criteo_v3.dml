@@ -16,8 +16,8 @@ return (Matrix[Double] X_scaled)
 # NOTE: UMM reduces 10sec for each transformencode call
 data = read("file:/home/aphani/datasets/criteo_day21_10M_cleaned", data_type="frame", format="csv", header=FALSE);
 # Replace dummycode with recode in spec1 before exeuting
-jspec = read("file:/home/aphani/datasets/criteo_spec1.json", data_type="scalar", value_type="string");
-#jspec = read("file:/home/aphani/datasets/criteo_norm1.json", data_type="scalar", value_type="string");
+jspec = read("file:/home/aphani/datasets/criteo_spec4.json", data_type="scalar", value_type="string");
+#jspec = read("file:/home/aphani/datasets/criteo_norm4.json", data_type="scalar", value_type="string");
 
 print(sum(as.matrix(data[,1]))); #initiate read
 lim = 10; #10
