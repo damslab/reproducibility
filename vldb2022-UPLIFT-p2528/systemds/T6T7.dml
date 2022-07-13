@@ -1,0 +1,45 @@
+# T6: run with argument 1 (spec1)
+# T7: run with argument 2 (spec2)
+
+data = read("file:/home/aphani/datasets/crypto.csv", data_type="frame", format="csv",
+    naStrings=["inf", "-inf", "", "NaN"], header=TRUE);
+# This dataset has .mtd file to reduce binning overhead
+# Having a schema removes the parseDouble overhead from both build and apply
+
+if ($1 == 1)
+  # spec1: Binning, equi-width, large #numbins
+  jspec = read("file:/home/aphani/datasets/crypto_spec1.json", data_type="scalar", value_type="string");
+if ($1 == 2)
+  # spec2: Binning, equi-height, large #numbins
+  jspec = read("file:/home/aphani/datasets/crypto_spec2.json", data_type="scalar", value_type="string");
+
+# Scale by repeating (scaling factor = 2)
+sfactor = 2; 
+if (sfactor > 1) {
+  train = data;
+  for (i in 2:sfactor) 
+    data = rbind(data, train);
+}
+print("("+nrow(data)+", "+ncol(data)+")");
+
+lim = 10; #10
+R = matrix(0, rows=lim, cols=1);
+for (i in 1:lim) {
+  print("INFO: starting transformencode");
+  t1 = time();
+  [X_en ,Meta] = transformencode(target=data, spec=jspec);
+  t2 = time();
+  R[i,1] = floor((t2-t1)/1000000);  
+  print("Elapsed time for transformations using SystemDS = "+floor((t2-t1)/1000000)+" millsec");
+}
+
+R = order(target=R, by=1);
+res = R[1:5,];
+if ($1 == 1)
+  write(res, "file:/home/aphani/submission_22/results/crypto_s1_dml.dat", format="csv", sep="\t");
+if ($1 == 2)
+  write(res, "file:/home/aphani/submission_22/results/crypto_s2_dml.dat", format="csv", sep="\t");
+
+print("("+nrow(X_en)+", "+ncol(X_en)+")");
+
+

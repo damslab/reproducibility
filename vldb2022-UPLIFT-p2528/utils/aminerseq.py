@@ -35,16 +35,14 @@ def tokenizeLine(abstract, maxLen):
     tokens = nltk.word_tokenize(abstract)
     # Calculate n-grams
     unitokens = [token.lower() for token in tokens if len(token) > 1] #unigram
-    #for item in sorted(set(unitokens)):
     for item in unitokens:
         rows.append([item])
 
-    #if len(rows) > 300:
-    #    return
-
+    # If #tokens > maxLen, take first maxLen tokens
     if len(rows) > maxLen:
         rows = rows[0:maxLen-1]
 
+    # If #tokens < maxLen, pad with token 'padword' upto maxLen
     for i in range(len(rows), maxLen):
         rows.append(['padword'])
 
@@ -58,8 +56,9 @@ def writeCSV(tokenlist):
         csv_out = csv.writer(out)
         csv_out.writerows(tokenlist)
 
+# Read K abstracts
 def readKAbstracts(K):
-    # For each enatry, separate the abstract, clean and tokenize
+    # For each entry, separate the abstract, clean and tokenize
     with open(os.path.join('/home/aphani/datasets/', 'AminerCitation_small.txt'), 'r') as f:
         dict_list = []
         c_dict = {}
@@ -80,6 +79,7 @@ def readKAbstracts(K):
     return abslist
 
 def readNprep():
+    # Read 100K abstracts
     abslist = readKAbstracts(100000)
     maxLen = 1000
     # Use all physical cores to tokenize and write to disk
