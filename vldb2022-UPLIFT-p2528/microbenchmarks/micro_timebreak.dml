@@ -1,0 +1,32 @@
+dataNum = read("file:/home/aphani/vldb_22/data1.csv", data_type="frame", format="csv", header=FALSE);
+dataCat = read("file:/home/aphani/vldb_22/data2.csv", data_type="frame", format="csv", header=FALSE);
+data = cbind(dataNum, dataCat);
+
+binning = "{id:1, method:equi-width, numbins:10}"
+for (i in 2:ncol(dataNum))
+  binning = binning+",\n{id:"+i+", method:equi-width, numbins:10}";
+
+recode = "51";
+for (i in 52:100)
+  recode = recode+","+i;
+
+#jspec1 = "{ ids:true, recode:["+recode+"], dummycode:["+dummy+"]}"; #RC-DC
+#jspec1 = "{ ids:true, recode:["+recode+"]}"; #RC
+jspec1 = "{ ids:true, recode:["+recode+"], bin:["+binning+"]}"; #Binning+RC
+
+hash = recode;
+K = 10000; #10% of #distinct values (i.e. results 10% #cols of OHE)
+jspec2 = "{ ids:true, hash:["+hash+"], K:"+100+"}"; #FH
+
+lim = 1;
+res = matrix(0, rows=lim, cols=1);
+for (i in 1:lim) {
+  print("INFO: starting transformencode");
+  t1 = time();
+  [X, M] = transformencode(target=data, spec=jspec1);
+  t2 = time();
+  print("Elapsed time for transformations using SystemDS = "+floor((t2-t1)/1000000)+" millsec");
+  res[i,1] = floor((t2-t1)/1000000);  
+}
+print("("+nrow(X)+", "+ncol(X)+")");
+#write(res, "file:/home/aphani/vldb_22/res_2thread.dat", format="csv", sep="\t");

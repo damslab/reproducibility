@@ -2,8 +2,8 @@
 
 This repository contains reproducibility submissions, related to publications of the DAMS Lab research group.
 
-## Under Submission
-- [UPLIFT: Parallelization Strategies for Feature Transformations in Machine Learning Workloads](temp-uplift-submission/README.md)
+## VLDB 2022
+- [p2528 UPLIFT: Parallelization Strategies for Feature Transformations in Machine Learning Workloads](vldb2022-UPLIFT-p2528/README.md)
 ## CIDR 2022
 - [DAPHNE: An Open and Extensible System Infrastructure for Integrated Data Analysis Pipelines](cidr2022-daphne/Readme.md)
 ## SIGMOD 2021

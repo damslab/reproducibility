@@ -1,0 +1,42 @@
+data = read("file:/home/aphani/vldb_22/data.csv", data_type="frame", format="csv", header=FALSE);
+allCols = "1";
+for (i in 2:ncol(data))
+  allCols = allCols+","+i;
+
+recode = allCols;
+dummy = allCols;
+#jspec1 = "{ ids:true, recode:["+recode+"], dummycode:["+dummy+"]}"; #RC-DC
+jspec1 = "{ ids:true, recode:["+recode+"]}"; #RC
+
+hash = allCols;
+K = 10000; #10% of #distinct values (i.e. results 10% #cols of OHE)
+jspec2 = "{ ids:true, hash:["+hash+"], K:"+100+"}"; #FH
+
+lim = 10;
+R = matrix(0, rows=lim, cols=1);
+for (i in 1:lim) {
+  print("INFO: starting transformencode");
+  t1 = time();
+  [X, M] = transformencode(target=data, spec=jspec1);
+  t2 = time();
+  print("Elapsed time for transformations using SystemDS = "+floor((t2-t1)/1000000)+" millsec");
+  R[i,1] = floor((t2-t1)/1000000);  
+}
+print("("+nrow(X)+", "+ncol(X)+")");
+R = order(target=R, by=1);
+res = R[1:5,];
+
+nthread = $1;
+if (nthread == 1)
+  write(res, "file:/home/aphani/vldb_22/results/res_RC_1thread.dat", format="csv", sep="\t");
+if (nthread == 2)
+  write(res, "file:/home/aphani/vldb_22/results/res_RC_2thread.dat", format="csv", sep="\t");
+if (nthread == 4)
+  write(res, "file:/home/aphani/vldb_22/results/res_RC_4thread.dat", format="csv", sep="\t");
+if (nthread == 8)
+  write(res, "file:/home/aphani/vldb_22/results/res_RC_8thread.dat", format="csv", sep="\t");
+if (nthread == 16)
+  write(res, "file:/home/aphani/vldb_22/results/res_RC_16thread.dat", format="csv", sep="\t");
+if (nthread == 32)
+  write(res, "file:/home/aphani/vldb_22/results/res_RC_32thread.dat", format="csv", sep="\t");
+
