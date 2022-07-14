@@ -1,3 +1,6 @@
+# Min/max scale numerical cols and recode categorical cols.
+# This script is needed to reproduce fig-4(e) - T4*
+
 columnsScale = function(Matrix[Double] X)
 return (Matrix[Double] X_scaled)
 {
@@ -15,7 +18,6 @@ return (Matrix[Double] X_scaled)
 # input file dimensions 10M x 40 
 # NOTE: UMM reduces 10sec for each transformencode call
 data = read("file:/home/aphani/datasets/criteo_day21_10M_cleaned", data_type="frame", format="csv", header=FALSE);
-# Replace dummycode with recode in spec1 before exeuting
 jspec = read("file:/home/aphani/datasets/criteo_spec4.json", data_type="scalar", value_type="string");
 #jspec = read("file:/home/aphani/datasets/criteo_norm4.json", data_type="scalar", value_type="string");
 

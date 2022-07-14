@@ -1,3 +1,5 @@
+# This NimbusML script runs into performance issues (single-threaded
+# and timed-out after long runtime).
 import sys
 import time
 import numpy as np
