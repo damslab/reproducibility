@@ -15,8 +15,8 @@ return (Matrix[Double] X_scaled)
 
 # Read the input file with dimensions 10M x 40 
 # NOTE: UMM reduces 10sec for each transformencode call
-data = read("file:/home/aphani/datasets/criteo_day21_10M_cleaned", data_type="frame", format="csv", header=FALSE);
-jspec = read("file:/home/aphani/datasets/criteo_spec2.json", data_type="scalar", value_type="string");
+data = read("../datasets/criteo_day21_10M_cleaned", data_type="frame", format="csv", header=FALSE);
+jspec = read("./specs/criteo_spec2.json", data_type="scalar", value_type="string");
 #jspec = read("file:/home/aphani/datasets/criteo_norm2.json", data_type="scalar", value_type="string");
 
 print(sum(as.matrix(data[,1]))); #initiate read

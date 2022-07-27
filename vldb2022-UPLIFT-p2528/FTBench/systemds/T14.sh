@@ -17,7 +17,7 @@ source .venv/bin/activate
 for ndist in {100000..1000000..100000} #100K to 1M
 do
   echo "Number of distinct values: $ndist"
-  time python dataGenPL.py $nrow $ndist $nchar
+  python ../utils/dataGenPL.py $nrow $ndist $nchar
 
   config partransform stop
   runjava -f T14.dml -stats

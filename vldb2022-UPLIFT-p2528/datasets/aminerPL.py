@@ -18,51 +18,49 @@ warnings.filterwarnings('ignore') #cleaner, but not recommended
 
 manager = Manager()
 #rows = manager.list()
-maxTokenCount = 0
 
-def findMaxTokenCount(tokenList):
-    global maxTokenCount
-    if maxTokenCount < len(tokenList):
-        maxTokenCount = len(tokenList)
-        print("New max token = ",maxTokenCount)
-
-def tokenizeLine(abstract, maxLen):
+def tokenizeLine(abstract, sentence):
     rows = []
-    #maxLen = 1000
     # Remove puncuations
     abstract = abstract.translate(str.maketrans('', '', string.punctuation))
     # Tokenize
     tokens = nltk.word_tokenize(abstract)
     # Calculate n-grams
     unitokens = [token.lower() for token in tokens if len(token) > 1] #unigram
-    for item in unitokens:
-        rows.append([item])
+    bitokens = list(bigrams(unitokens))
+    tritokens = list(trigrams(unitokens))
+    for item in sorted(set(unitokens)):
+        count = unitokens.count(item)
+        if count == 0:
+            continue
+        rows.append((item, sentence, count))
+    for item in sorted(set(bitokens)):
+        count = bitokens.count(item)
+        if count == 0:
+            continue
+        rows.append((item, sentence, count))
+    for item in sorted(set(tritokens)):
+        count = tritokens.count(item)
+        if count == 0:
+            continue
+        rows.append((item, sentence, count))
 
-    # If #tokens > maxLen, take first maxLen tokens
-    if len(rows) > maxLen:
-        rows = rows[0:maxLen-1]
-
-    # If #tokens < maxLen, pad with token 'padword' upto maxLen
-    for i in range(len(rows), maxLen):
-        rows.append(['padword'])
-
-    #findMaxTokenCount(rows) 
     # Concurrent append to the output file
     writeCSV(rows)
     return
 
 def writeCSV(tokenlist):
-    with open('/home/aphani/datasets/AminerAbstractSequence.csv', 'a') as out:
+    with open('AminerAbstract.csv', 'a') as out:
         csv_out = csv.writer(out)
         csv_out.writerows(tokenlist)
 
-# Read K abstracts
-def readKAbstracts(K):
-    # For each entry, separate the abstract, clean and tokenize
-    with open(os.path.join('/home/aphani/datasets/', 'AminerCitation_small.txt'), 'r') as f:
+def readNprep():
+    # For each enatry, separate the abstract, clean and tokenize
+    with open('AminerCitation_small.txt', 'r') as f:
         dict_list = []
         c_dict = {}
         abslist = []
+        sentence = 1;
         for i, line in enumerate(f):
             c_line = line.strip()[1:].strip()
             # Filter out the non-abstract fields
@@ -73,25 +71,17 @@ def readKAbstracts(K):
             else:
                 # Separate the abstract
                 abstract = c_line.strip('!')
-                abslist.append(abstract)
-                if len(abslist) == K:
-                    return abslist
-    return abslist
+                abslist.append((abstract, sentence))
+            sentence = sentence + 1
 
-def readNprep():
-    # Read 100K abstracts
-    abslist = readKAbstracts(100000)
-    maxLen = 1000
     # Use all physical cores to tokenize and write to disk
     print("Number of abstracts to process: ",len(abslist))
-    _= Parallel(n_jobs=16, verbose=1
-            )(delayed(tokenizeLine)(
-                    abstract, maxLen) for abstract in abslist)
+    _= Parallel(n_jobs=16, verbose=1)(delayed(tokenizeLine)(abstract,sentence) for abstract,sentence in abslist)
     return 
 
-os.remove("/home/aphani/datasets/AminerAbstractSequence.csv")
+#os.remove("AminerAbstract.csv")
 t1 = time.time()
 readNprep()
-print("Elapsed time for Aminar DS preparing for SystemDS = %s sec" % (time.time() - t1))
+print("Elapsed time for Aminar dataset prep for T10 = %s sec" % (time.time() - t1))
 
 

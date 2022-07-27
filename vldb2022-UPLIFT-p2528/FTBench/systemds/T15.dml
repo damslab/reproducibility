@@ -1,5 +1,5 @@
 # Read the cleaned Criteo data
-data = read("file:/home/aphani/datasets/criteo_day21_5M_cleaned", 
+data = read("../datasets/criteo_day21_5M_cleaned", 
     data_type="frame", format="csv", header=FALSE,
     naStrings=["NA", "na", "null", "NaN", "nan", "", "?"]);
 # Make a list of transform specifications
@@ -7,22 +7,22 @@ specs = list();
 # NOTE: 1) Recoding the lable column is needed for NaiveBayes
 # 2) Pass through leaves -ve which is a problem for NB. Bin or normalize
 # Bin(13) w/ 10 bins, RC(27)
-jspec1 = read("file:/home/aphani/datasets/criteo_fe1.json", data_type="scalar", value_type="string");
+jspec1 = read("../specs/criteo_fe1.json", data_type="scalar", value_type="string");
 specs = append(specs, jspec1);
 # Bin(13) w/ 5 bins, RC(27)
-jspec2 = read("file:/home/aphani/datasets/criteo_fe2.json", data_type="scalar", value_type="string");
+jspec2 = read("./specs/criteo_fe2.json", data_type="scalar", value_type="string");
 specs = append(specs, jspec2);
 # Bin(13) w/ 10 bins, FH(26), RC(1)
-jspec3 = read("file:/home/aphani/datasets/criteo_fe3.json", data_type="scalar", value_type="string");
+jspec3 = read("./specs/criteo_fe3.json", data_type="scalar", value_type="string");
 specs = append(specs, jspec3);
 # Bin(13) w/ 5 bins, DC(26), RC(1)
-jspec4 = read("file:/home/aphani/datasets/criteo_fe4.json", data_type="scalar", value_type="string");
+jspec4 = read("./specs/criteo_fe4.json", data_type="scalar", value_type="string");
 specs = append(specs, jspec4);
 # Bin(13) w/ 5 bins, RC(12), FH(15)
-jspec5 = read("file:/home/aphani/datasets/criteo_fe5.json", data_type="scalar", value_type="string");
+jspec5 = read("./specs/criteo_fe5.json", data_type="scalar", value_type="string");
 specs = append(specs, jspec5);
 # Bin(13) w/ 5 bins, RC(1), DC(39)
-jspec6 = read("file:/home/aphani/datasets/criteo_fe6.json", data_type="scalar", value_type="string");
+jspec6 = read("./specs/criteo_fe6.json", data_type="scalar", value_type="string");
 specs = append(specs, jspec6);
 
 colList = matrix(1, rows=1, cols=ncol(data));

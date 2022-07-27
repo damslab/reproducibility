@@ -1,7 +1,7 @@
 # Default size = 10M * 10 w/ 100K #distincts per col
 # Vary string length from 25 to 500
 
-data = read("file:/home/aphani/vldb_22/data.csv", data_type="frame", format="csv", header=FALSE);
+data = read("data.csv", data_type="frame", format="csv", header=FALSE);
 
 print("("+nrow(data)+", "+ncol(data)+")");
 allCols = "1";

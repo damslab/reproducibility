@@ -1,10 +1,8 @@
 # Read the datasets
-data1 = read("file:/home/aphani/submission_22/data1.csv", data_type="frame", format="csv", header=FALSE);
-data2 = read("file:/home/aphani/submission_22/data2.csv", data_type="frame", format="csv", header=FALSE);
+data1 = read("../datasets/data1.csv", data_type="frame", format="csv", header=FALSE);
+data2 = read("../datasets/data2.csv", data_type="frame", format="csv", header=FALSE);
 data = cbind(data1, data2);
 
-# Slice 100K rows
-data = data[1:100000,]
 print("("+nrow(data)+", "+ncol(data)+")");
 # Construct the spec (Bin, RC)
 binning = "{id:1, method:equi-width, numbins:10}"

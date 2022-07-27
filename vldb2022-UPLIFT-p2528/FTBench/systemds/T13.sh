@@ -17,7 +17,7 @@ source .venv/bin/activate
 for nchar in {25..500..25}
 do
   echo "String length: $nchar"
-  python dataGenPL.py $nrow $ndist $nchar
+  python ../utils/dataGenPL.py $nrow $ndist $nchar
 
   config partransform stop
   runjava -f T13.dml

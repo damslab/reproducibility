@@ -1,7 +1,7 @@
 # Read the dataset and the spec file
-data = read("file:/home/aphani/datasets/adult.data", data_type="frame", format="csv",header=FALSE);
+data = read("../datasets/adult.data", data_type="frame", format="csv",header=FALSE);
 # Bin+DC numeric and DC categorical cols
-jspec2 = read("file:/home/aphani/datasets/adult_spec2.json", data_type="scalar", value_type="string");
+jspec2 = read("./specs/adult_spec2.json", data_type="scalar", value_type="string");
 print("("+nrow(data)+", "+ncol(data)+")");
 
 lim = 10;

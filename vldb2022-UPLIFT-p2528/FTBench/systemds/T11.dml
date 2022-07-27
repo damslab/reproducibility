@@ -3,11 +3,11 @@ lim = 5;
 R = matrix(0, rows=lim, cols=1);
 t1 = time();
 # Read the sequence-of-words and the dictionary
-data = read("file:/home/aphani/datasets/AminerAbstractSequence.csv", data_type="frame", format="csv",header=FALSE);
-meta = read("file:/home/aphani/datasets/wiki_embeddings/wiki_metaframe",
+data = read("../datasets/AminerAbstractSequence.csv", data_type="frame", format="csv",header=FALSE);
+meta = read("../datasets/wiki_embeddings/wiki_metaframe",
     data_type="frame", format="csv",sep="--",header=FALSE);
 # Read the pre-trained model
-W = read("file:/home/aphani/datasets/wiki_embeddings/wiki_embeddings", header=FALSE);
+W = read("../datasets/wiki_embeddings/wiki_embeddings", header=FALSE);
 # Initiate reads
 print(toString(data[1,1]));
 print(toString(meta[1:10,]));

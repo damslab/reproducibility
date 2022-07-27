@@ -33,7 +33,7 @@ Clone Apache SystemDS and check out the commit hash. Next, follow the [documenta
 
 **Step 3:** Download and prepare the datasets.
 
-All the datasets are publicly available. Download them from the respective repositories as mentioned in the paper. Use the python scripts in `utils/` to generate the synthetic datasets and to tokenize the AMiner abstracts (FTBench use cases T10 and T11).
+All the datasets are publicly available. Use script `getAndPrep.sh` in the `datasets/` directory to automatically download and prepare the datasets. pass the use case ID as an argument to the script. E.g. `./getAndPrep.sh T5`.
 
 **Step 4:** Run micro benchmarks.
 

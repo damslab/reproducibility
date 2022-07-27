@@ -1,7 +1,7 @@
-Forig = read("file:/home/aphani/datasets/KDD98.csv", data_type="frame", format="csv", header=TRUE);
+Forig = read("../datasets/KDD98.csv", data_type="frame", format="csv", header=TRUE);
 # Num: Binning+DC, Cat: DC, All: Scale 
-jspec1 = read("file:/home/aphani/datasets/kdd_spec1.json", data_type="scalar", value_type="string");
-#jspec1 = read("file:/home/aphani/datasets/kdd_norm.json", data_type="scalar", value_type="string");
+jspec1 = read("./specs/kdd_spec1.json", data_type="scalar", value_type="string");
+#jspec1 = read("./specs/kdd_norm.json", data_type="scalar", value_type="string");
 F = Forig[,1:469];
 y = as.matrix(Forig[,472])
 print("("+nrow(F)+", "+ncol(F)+")");

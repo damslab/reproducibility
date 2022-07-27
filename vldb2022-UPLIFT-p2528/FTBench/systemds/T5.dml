@@ -1,9 +1,9 @@
-train = read("file:/home/aphani/datasets/santander.csv", data_type="frame", format="csv", header=TRUE);
+train = read("../datasets/santander.csv", data_type="frame", format="csv", header=TRUE);
 # Index out the row names and target columns
 data = train[,3:ncol(train)]; #200K * 200
 
 # equi-height binning with numbins=10 followd by DC
-jspec2 = read("file:/home/aphani/datasets/santander_spec2.json", data_type="scalar", value_type="string");
+jspec2 = read("../specs/santander_spec2.json", data_type="scalar", value_type="string");
 
 # Transformencode
 lim = 10;

@@ -1,17 +1,17 @@
 # T6: run with argument 1 (spec1)
 # T7: run with argument 2 (spec2)
 
-data = read("file:/home/aphani/datasets/crypto.csv", data_type="frame", format="csv",
+data = read("../datasets/crypto.csv", data_type="frame", format="csv",
     naStrings=["inf", "-inf", "", "NaN"], header=TRUE);
 # This dataset has .mtd file to reduce binning overhead
 # Having a schema removes the parseDouble overhead from both build and apply
 
 if ($1 == 1)
   # spec1: Binning, equi-width, large #numbins
-  jspec = read("file:/home/aphani/datasets/crypto_spec1.json", data_type="scalar", value_type="string");
+  jspec = read("./specs/crypto_spec1.json", data_type="scalar", value_type="string");
 if ($1 == 2)
   # spec2: Binning, equi-height, large #numbins
-  jspec = read("file:/home/aphani/datasets/crypto_spec2.json", data_type="scalar", value_type="string");
+  jspec = read("./specs/crypto_spec2.json", data_type="scalar", value_type="string");
 
 # Scale by repeating (scaling factor = 2)
 sfactor = 2; 

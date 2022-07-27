@@ -1,7 +1,7 @@
 # Default size = 100M * 4 w/ 5 char-strings
 # Vary #distinct values from 100K to 1M
 
-data = read("file:/home/aphani/submission_22/data.csv", data_type="frame", format="csv", header=FALSE);
+data = read("data.csv", data_type="frame", format="csv", header=FALSE);
 
 print("("+nrow(data)+", "+ncol(data)+")");
 allCols = "1";

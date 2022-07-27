@@ -1,9 +1,7 @@
-# Replaced tab in the downloaded dataset with comma -> %s/\t/,/g
-
 # Read the dataset
-data = read("file:/home/aphani/datasets/criteo_day21_10M", data_type="frame", format="csv", header=FALSE);
+data = read("../datasets/criteo_day21_10M", data_type="frame", format="csv", header=FALSE);
 # Read the spec: PT, DC
-jspec = read("file:/home/aphani/datasets/criteo_spec1.json", data_type="scalar", value_type="string");
+jspec = read("./specs/criteo_spec1.json", data_type="scalar", value_type="string");
 
 # Initiate read
 print(sum(as.matrix(data[,1]))); 
