@@ -24,7 +24,7 @@ warnings.filterwarnings('ignore') #cleaner, but not recommended
 
 def readNprep():
     # Read the dataset
-    criteo = pd.read_csv("~/datasets/criteo_day21_5M_cleaned", delimiter=",", header=None)
+    criteo = pd.read_csv("../datasets/criteo_day21_5M_cleaned", delimiter=",", header=None)
     print(criteo.head())
     y = criteo.iloc[:, 0]
     y.astype(int)

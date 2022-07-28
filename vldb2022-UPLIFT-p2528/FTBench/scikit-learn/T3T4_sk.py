@@ -20,7 +20,7 @@ warnings.filterwarnings('ignore') #cleaner, but not recommended
 def readNprep():
     # Read the dataset
     print("Reading file: criteo_day21_10M")
-    criteo = pd.read_csv("~/datasets/criteo_day21_10M", delimiter=",", header=None)
+    criteo = pd.read_csv("../datasets/criteo_day21_10M", delimiter=",", header=None)
     print(criteo.head())
     # Replace NaNs with 0 for numeric and empty string for categorical
     criteo = criteo.apply(lambda x: x.fillna(0) if x.dtype.kind in 'biufc' else x.fillna(''))

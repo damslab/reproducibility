@@ -19,7 +19,7 @@ warnings.filterwarnings('ignore') #cleaner, but not recommended
 
 def readNprep():
     # Read and isolate target and training data
-    kdd = pd.read_csv("~/datasets/KDD98.csv", delimiter=",", header=None)
+    kdd = pd.read_csv("../datasets/KDD98.csv", delimiter=",", header=None)
     print(kdd.head())
     kddX = kdd.iloc[:,0:469]
     kddX = kddX.drop([0], axis=0)

@@ -17,12 +17,11 @@ if [ "$1" = "T2" ]; then
   gzip -d cup98lrn.txt.Z
   mv cup98lrn.txt KDD98.csv
   sed -i 's/-//g' KDD98.csv #remove hyphens
-  rm *.Z
 fi
 
 # Criteo dataset for day 21
 if [ "$1" = "T3" -o "$1" = "T4" -o "$1" = "T15" ]; then
-  curl http://azuremlsampleexperiments.blob.core.windows.net/criteo/day_21.gz -o criteo_day21.gz
+  curl https://storage.googleapis.com/criteo-cail-datasets/day_21.gz -o criteo_day21.gz
   gzip -d criteo_day21.gz;
   if [ "$1" = "T3" -o "$1" = "T4" ]; then
     rm criteo_day21_10M
@@ -34,7 +33,7 @@ if [ "$1" = "T3" -o "$1" = "T4" -o "$1" = "T15" ]; then
   if [ "$1" = "T15" ]; then
     rm criteo_day21_5M
     # Copy first 5M rows
-    head -10000000 criteo_day21 >> criteo_day21_5M
+    head -5000000 criteo_day21 >> criteo_day21_5M
     # Replace tab with comma
     sed -i 's/\t/,/g' criteo_day21_5M
   fi

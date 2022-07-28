@@ -14,7 +14,7 @@ warnings.filterwarnings('ignore') #cleaner, but not recommended
 
 def readNprep(scaleFactor=1):
     # Read,isolate target and combine training and test data
-    train = pd.read_csv("~/datasets/catindattrain.csv", delimiter=",", header=None)
+    train = pd.read_csv("../datasets/catindattrain.csv", delimiter=",", header=None)
     train = train.iloc[1:,:] #remove header
     train.drop(24, axis=1, inplace=True); #remove target
     # Augment by repeating

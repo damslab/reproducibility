@@ -12,7 +12,7 @@ warnings.filterwarnings('ignore') #cleaner, but not recommended
 
 def readNprep(scaleFactor=1):
     # Read,isolate target and combine training and test data
-    train = pd.read_csv("~/datasets/crypto.csv", delimiter=",", header=None)
+    train = pd.read_csv("../datasets/crypto.csv", delimiter=",", header=None)
     crypto = train.iloc[1:,:] #remove header
     # Replace infinites and NaNs with before/after entries
     crypto.replace([np.inf, -np.inf], np.nan, inplace=True)
