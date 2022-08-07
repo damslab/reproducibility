@@ -21,6 +21,7 @@ unzip data/cup98lrn.zip -d data;
 mv data/cup98LRN.txt data/KDD98.csv
 rm data/cup98lrn.zip;
 sed -i 's/-/ /g' data/KDD98.csv; # fix suffix - at 5th column (numerical)
+# note: workaround for macOS issue: sed -i '' 's/-/ /g' data/KDD98.csv; 
 
 # US Census
 curl https://archive.ics.uci.edu/ml/machine-learning-databases/census1990-mld/USCensus1990.data.txt -o data/USCensus.csv;
