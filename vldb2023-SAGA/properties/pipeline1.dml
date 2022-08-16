@@ -1,0 +1,95 @@
+
+F = read($1, data_type="matrix", format="binary", header=TRUE);
+meta = read($2, data_type="frame", format="csv", header=FALSE);
+out = $3
+mask = as.matrix(meta[2, 2:ncol(meta)])
+schema = meta[3, 2:ncol(meta)]
+
+# data preparation
+split = nrow(F) * 0.7
+trainData = F[1:split,]
+testData = F[split+1:nrow(F),]
+
+
+ytrain = trainData[, ncol(trainData)]
+Xtrain = trainData[, 1:ncol(trainData) - 1]
+
+ytest = testData[, ncol(testData)]
+Xtest = testData[, 1:ncol(testData) - 1]
+
+
+mask = mask[1, 1:ncol(mask) - 1]
+
+pip = frame(["imputeByMean", "winsorize", "scale"], rows=1, cols=3)
+applyFunc = frame(["imputeByMeanApply", "winsorizeApply", "scaleApply"], rows=1, cols=3)
+hp = matrix("0 0 0 1 0 0 0 2 2 0.05 0.95 0 0 0 1 0 2 1 0 0 0 0 0 0", rows=1, cols=24)
+hp = matrix(hp, rows=3, cols=8)
+             
+metaList = list(mask=mask, schema=schema, fd=mask, applyFunc=applyFunc)
+# acc = CV(Xtrain, ytrain, pip, hp, 3, matrix("1 0.010 1e-3", rows=1, cols=3), metaList)
+evalFunHp = matrix("1 0.010 1e-3", rows=1, cols=3)
+[trainX, trainy, testX, testy, Tr, hpForPruning, changesByOp, changesByPip] = executePipeline(pipeline=pip,
+ Xtrain=Xtrain, Ytrain=ytrain, Xtest=Xtest, Ytest=ytest, metaList=metaList, hyperParameters=hp, flagsCount=5, test=TRUE, verbose=FALSE)
+acc = getAccuracy(trainX, trainy, testX, testy, evalFunHp)
+
+
+
+print("accuracies: "+toString(acc))
+write(acc, out, format="csv")
+
+
+getAccuracy = function(Matrix[Double] X, Matrix[Double] Y, Matrix[Double] Xtest, Matrix[Double] Ytest, Matrix[Double] evalFunHp)
+return(Matrix[Double] accuracy)
+{
+  print("Getting multiLogReg score")
+
+
+  beta = multiLogReg(X=X, Y=Y, icpt=as.scalar(evalFunHp[1,1]), reg=as.scalar(evalFunHp[1,2]), tol=as.scalar(evalFunHp[1,3]), 
+  maxi=50, maxii=50, verbose=FALSE);
+  [prob, yhat, accuracy] = multiLogRegPredict(Xtest, beta, Ytest, FALSE)
+  error = yhat != Ytest
+  accuracy = as.matrix(accuracy)
+  
+  output = cbind(accuracy, evalFunHp)
+  print("output: "+toString(output))
+}
+
+# CV = function(Matrix[double] X, Matrix[double] y, Frame[Unknown] pip, Matrix[Double] hp, Integer cvk, Matrix[Double] evalFunHp, List[Unknown] metaList) 
+# return (Double accuracy)
+# {
+
+  # accuracyMatrix = matrix(0, cvk, 1)
+  # allChanges = matrix(0, cvk, 1)
+  # #create empty lists
+  # dataset_X = list(); #empty list
+  # dataset_y = list();
+  # fs = ceil(nrow(X)/cvk);
+  # off = fs - 1;
+  # #divide X, y into lists of k matrices
+  # for (i in seq(1, cvk)) {  
+    # dataset_X = append(dataset_X, X[i*fs-off : min(i*fs, nrow(X)),]);
+    # dataset_y = append(dataset_y, y[i*fs-off : min(i*fs, nrow(y)),]);
+  # }
+
+  # beta_list = list();
+  # #keep one fold for testing in each iteration
+  # for (i in seq(1, cvk)) {
+    # [tmpX, testX] = remove(dataset_X, i); 
+    # [tmpy, testy] = remove(dataset_y, i);
+    # trainX = rbind(tmpX);
+    # trainy = rbind(tmpy);
+    # testX = as.matrix(testX)
+    # testy = as.matrix(testy)
+
+    # [trainX, trainy, testX, testy, Tr, hpForPruning, changesByOp, changesByPip] = executePipeline(pipeline=pip,
+      # Xtrain=trainX, Ytrain=trainy, Xtest= testX, Ytest=testy, metaList=metaList, hyperParameters=hp, flagsCount=5, test=TRUE, verbose=FALSE)
+    
+    # res = getAccuracy(trainX, trainy, testX, testy, evalFunHp)
+    # accuracyMatrix[i] = res[1, 1]
+  # }
+  # accuracy =  mean(accuracyMatrix)
+  # print("mean: \n"+toString(accuracyMatrix))
+  # print("cv accuracy: "+toString(accuracy))
+# }
+
+

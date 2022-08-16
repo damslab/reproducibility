@@ -1,0 +1,56 @@
+ F = read($1, data_type="matrix", format="binary", header=TRUE);
+meta = read($2, data_type="frame", format="csv", header=FALSE);
+out = $3
+mask = as.matrix(meta[2, 2:ncol(meta)])
+schema = meta[3, 2:ncol(meta)]
+
+# data preparation
+split = nrow(F) * 0.7
+trainData = F[1:split,]
+testData = F[split+1:nrow(F),]
+
+
+ytrain = trainData[, ncol(trainData)] + 1
+Xtrain = trainData[, 1:ncol(trainData) - 1]
+
+ytest = testData[, ncol(testData)] + 1
+Xtest = testData[, 1:ncol(testData) - 1]
+
+mask = mask[1, 1:ncol(mask) - 1]
+
+pip = frame(["imputeByMean", "scale", "outlierBySd"], rows=1, cols=3)
+applyFunc = frame(["imputeByMeanApply", "scaleApply", "outlierBySdApply"], rows=1, cols=3)
+hp = matrix("0 0 0 0 1 0 0 0 2 
+2 0 1 0 0 0 0 0 0 
+3.000 1.500 1.00 1.000 0.000 0.000 0.000 0.000 0.000 ", rows=3, cols=9)
+
+             
+metaList = list(mask=mask, schema=schema, fd=mask, applyFunc=applyFunc)
+# acc = CV(Xtrain, ytrain, pip, hp, 3, matrix("1 0.010 1e-3", rows=1, cols=3), metaList)
+evalFunHp = matrix("1 0.010 1e-3", rows=1, cols=3)
+[trainX, trainy, testX, testy, Tr, hpForPruning, changesByOp, changesByPip] = executePipeline(pipeline=pip,
+ Xtrain=Xtrain, Ytrain=ytrain, Xtest=Xtest, Ytest=ytest, metaList=metaList, hyperParameters=hp, flagsCount=5, test=TRUE, verbose=TRUE)
+print("Done with Pipelines in "+Tr)
+acc = getAccuracy(trainX, trainy, testX, testy, evalFunHp)
+
+print("Time taken by pipelines: "+toString(Tr))
+
+print("accuracies: "+toString(acc))
+# write(acc, out, format="csv")
+
+
+getAccuracy = function(Matrix[Double] X, Matrix[Double] Y, Matrix[Double] Xtest, Matrix[Double] Ytest, Matrix[Double] evalFunHp)
+return(Matrix[Double] accuracy)
+{
+  print("Getting multiLogReg score")
+
+
+  beta = multiLogReg(X=X, Y=Y, icpt=as.scalar(evalFunHp[1,1]), reg=as.scalar(evalFunHp[1,2]), tol=as.scalar(evalFunHp[1,3]), 
+  maxi=50, maxii=50, verbose=FALSE);
+  print("Predicting ----")
+  [prob, yhat, accuracy] = multiLogRegPredict(Xtest, beta, Ytest, FALSE)
+  accuracy = as.matrix(accuracy)
+  
+  output = cbind(accuracy, evalFunHp)
+  print("output: "+toString(output))
+}

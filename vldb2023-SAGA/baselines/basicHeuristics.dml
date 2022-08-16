@@ -1,0 +1,141 @@
+
+source("scripts/pipelines/scripts/utils.dml") as utils;
+
+train = read($1, data_type="frame", format="csv", header=TRUE);
+test = read($2, data_type="frame", format="csv", header=TRUE);
+meta = read($3, data_type="frame", format="csv", header=FALSE);
+
+mask = as.matrix(meta[2, 2:ncol(meta)])
+schema = meta[3, 2:ncol(meta)]
+
+# data preparation
+print("sum mask: \n"+toString(mask))
+if(sum(mask) > 0)
+{
+  index = vectorToCsv(mask)
+  jspecR = "{ids:true, recode:["+index+"]}"
+
+  [Xtrain,M] = transformencode(target=train, spec=jspecR);
+  Xtest = transformapply(target=test, spec=jspecR, meta=M);
+}
+else 
+{
+  Xtrain = as.matrix(train)
+  Xtest = as.matrix(test)
+}
+ytrain = Xtrain[, ncol(Xtrain)]
+Xtrain = Xtrain[, 1:ncol(Xtrain) - 1]
+
+ytest = Xtest[, ncol(Xtest)]
+Xtest = Xtest[, 1:ncol(Xtest) - 1]
+
+mask = mask[1, 1:ncol(mask) - 1]
+
+pip = frame(["imputeByMean", "winsorize", "scale", "dummycoding"], rows=1, cols=4)
+applyFunc = frame(["imputeByMeanApply", "winsorizeApply", "scaleApply", "dummycodingApply"], rows=1, cols=4)
+hp = matrix("0 0 0 1 0 0 0 2 2 0.05 0.95 0 0 0 1 0 2 1 0 0 0 0 0 0 0 0 0 1 0 0 0 2", rows=1, cols=32)
+hp = matrix(hp, rows=4, cols=8)
+             
+metaList = list(mask=mask, schema=schema, fd=mask, applyFunc=applyFunc)
+[Xtrain, ytrain, Xtest, ytest] = executePipeline(pip, Xtrain,  ytrain, Xtest, ytest, metaList, hp, as.matrix(0), as.matrix(0), 5, TRUE, TRUE)
+
+[acctr, hp, e_train] = getAccuracy(Xtrain, ytrain, Xtrain, ytrain, as.matrix(NaN))
+[accts, mhp, e_test] = getAccuracy(Xtrain, ytrain, Xtest, ytest, hp)
+
+acc = cbind(acctr, accts)
+
+print("accuracies: "+toString(acc))
+
+write(e_test, $4+"_e_test.csv", format="csv")
+write(e_train, $4+"_e_train.csv", format="csv")
+write(acc, $4+"_acc.csv", format="csv")
+write(hp, $4+"_mlhp.csv", format="csv")
+
+
+getAccuracy = function(Matrix[Double] X, Matrix[Double] Y, Matrix[Double] Xtest, Matrix[Double] Ytest, Matrix[Double] evalFunHp)
+return(Matrix[Double] accuracy, Matrix[Double] evalFunHp, Matrix[Double] error)
+{
+  print("Getting multiLogReg score")
+  if(is.na(as.scalar(evalFunHp[1,1])))
+  {
+    nc = max(Y);
+    params = list("icpt", "reg", "tol")
+    paramRanges = list(seq(0, 2, 1), 10^seq(1,-3), 10^seq(1,-5));
+    trainArgs = list(X=X, Y=Y, icpt=-1, reg=-1, tol=1e-9, maxi=1000, maxii=-1, verbose=FALSE);
+    dataArgs = list("X", "Y");
+    [B1,opt] = gridSearch(X=X, y=Y, train="multiLogReg", predict="accuracy", numB=(ncol(X)+1)*(nc-1),
+      params=params, paramValues=paramRanges, dataArgs=dataArgs, trainArgs=trainArgs, cv=TRUE, cvk=3, verbose=TRUE);
+    # opt = matrix("1 1e-6 1e-9 100", rows=1, cols=4)
+    evalFunHp = as.matrix(opt) 
+    B1 = matrix(B1, nrow(B1)/(nc-1), (nc-1), FALSE)
+    trainAcc = accuracy(X, Y, B1)
+    trainAcc = (1- as.scalar(trainAcc)) * 100
+    print("train cv accuracy: "+trainAcc)
+  }
+  if(min(Y) == max(Y))
+  {
+    accuracy = as.matrix(0)
+    a = 0
+  }
+  else {
+    beta = multiLogReg(X=X, Y=Y, icpt=as.scalar(evalFunHp[1,1]), reg=as.scalar(evalFunHp[1,2]), tol=as.scalar(evalFunHp[1,3]), 
+      maxi=1000, maxii=0, verbose=FALSE);
+    [prob, yhat, accuracy] = multiLogRegPredict(Xtest, beta, Ytest, FALSE)
+    error = yhat != Ytest
+    accuracy = as.matrix(accuracy)
+  }
+  output = cbind(accuracy, evalFunHp)
+  print("output: "+toString(output))
+}
+
+accuracy = function(Matrix[Double] X, Matrix[Double] Y, Matrix[Double] B) return (Matrix[Double] err) {
+  [M,yhat,acc] = multiLogRegPredict(X=X, B=B, Y=Y, verbose=FALSE);
+  err = as.matrix(1-(acc/100));
+}
+    
+getAccuracyMSVM = function(Matrix[Double] X, Matrix[Double] Y, Matrix[Double] Xtest, Matrix[Double] Ytest,  Matrix[Double] evalFunHp)
+return(Matrix[Double] accuracy, Matrix[Double] evalFunHp, Matrix[Double] error)
+{
+  print("Getting MSVM score")
+  if(is.na(as.scalar(evalFunHp[1,1])))
+  {
+    nc = max(Y);
+    params = list("intercept", "lambda", "epsilon")
+    paramRanges = list(seq(0, 1), 10^seq(1,-3), 10^seq(1,-5));
+    trainArgs = list(X=X, Y=Y, intercept=-1, lambda=-1, epsilon=-1, maxIterations=1000,  verbose=FALSE);
+    dataArgs = list("X", "Y");
+    [B1,opt] = gridSearch(X=X, y=Y, train="msvm", predict="accuracyMSVM", numB=(ncol(X)+1)*(nc),
+      params=params, paramValues=paramRanges, dataArgs=dataArgs, trainArgs=trainArgs, cv=TRUE, cvk=3, verbose=TRUE);
+    evalFunHp = as.matrix(opt) # opt #
+    # opt = matrix("2 10 0.001", rows=1, cols=3)
+    # evalFunHp = opt
+     B1 = matrix(B1, nrow(B1)/nc, nc, FALSE)
+    trainAcc = accuracyMSVM(X, Y, B1)
+    trainAcc = abs(as.scalar(trainAcc) - 1) * 100
+    print("msvm train cv accuracy: "+trainAcc)
+  }
+  if(min(Y) == max(Y))
+  {
+    accuracy = as.matrix(0)
+    a = 0
+  }
+  else {
+    beta = msvm(X=X, Y=Y, intercept=as.scalar(evalFunHp[1,1]), lambda=as.scalar(evalFunHp[1,2]), epsilon=as.scalar(evalFunHp[1,3]), 
+      maxIterations=1000, verbose=FALSE);
+    yhat = msvmPredict(X=Xtest, W=beta);
+    yhat = rowIndexMax(yhat)
+    accuracy = mean(yhat == Ytest) * 100
+    error = yhat != Ytest
+    accuracy = as.matrix(accuracy)
+  }
+  output = cbind(accuracy, evalFunHp)
+}
+accuracyMSVM = function(Matrix[Double] X, Matrix[Double] y, Matrix[Double] B) return (Matrix[Double] err) {
+  yhat = msvmPredict(X=X, W=B);
+  yhat = rowIndexMax(yhat)
+  acc = mean(yhat == y)
+  err = as.matrix(1-(acc));
+}
+
+
+
