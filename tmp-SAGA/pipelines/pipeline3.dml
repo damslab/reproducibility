@@ -1,4 +1,4 @@
- F = read($1, data_type="matrix", format="binary", header=TRUE);
+F = read($1, data_type="matrix", format="binary", header=TRUE);
 meta = read($2, data_type="frame", format="csv", header=FALSE);
 out = $3
 mask = as.matrix(meta[2, 2:ncol(meta)])
@@ -18,19 +18,16 @@ Xtest = testData[, 1:ncol(testData) - 1]
 
 mask = mask[1, 1:ncol(mask) - 1]
 
-pip = frame(["imputeByMean", "scale", "outlierBySd"], rows=1, cols=3)
-applyFunc = frame(["imputeByMeanApply", "scaleApply", "outlierBySdApply"], rows=1, cols=3)
-hp = matrix("0 0 0 0 1 0 0 0 2 
-2 0 1 0 0 0 0 0 0 
-3.000 1.500 1.00 1.000 0.000 0.000 0.000 0.000 0.000 ", rows=3, cols=9)
-
+pip = frame(["forward_fill", "scale", "winsorize", "imputeByMean", "SMOTE"], rows=1, cols=5)
+applyFunc = frame(["NA", "scaleApply", "winsorizeApply", "imputeByMeanApply", "NA"], rows=1, cols=5)
+hp = matrix("1 1 0 0 0 0 0 1 2 2 1 0 0 0 0 0 0 0 2 0.5 0.9 0 0 0 0 1 0 0 0 0 0 1 0 0 0 2 1 200 0 0 1 0 1 1 2", rows=1, cols=(9*5))
+hp = matrix(hp, rows=5, cols=9)
              
 metaList = list(mask=mask, schema=schema, fd=mask, applyFunc=applyFunc)
-# acc = CV(Xtrain, ytrain, pip, hp, 3, matrix("1 0.010 1e-3", rows=1, cols=3), metaList)
+
 evalFunHp = matrix("1 0.010 1e-3", rows=1, cols=3)
 [trainX, trainy, testX, testy, Tr, hpForPruning, changesByOp, changesByPip] = executePipeline(pipeline=pip,
- Xtrain=Xtrain, Ytrain=ytrain, Xtest=Xtest, Ytest=ytest, metaList=metaList, hyperParameters=hp, flagsCount=5, test=TRUE, verbose=TRUE)
-print("Done with Pipelines in "+Tr)
+ Xtrain=Xtrain, Ytrain=ytrain, Xtest=Xtest, Ytest=ytest, metaList=metaList, hyperParameters=hp, flagsCount=5, test=TRUE, verbose=FALSE)
 acc = getAccuracy(trainX, trainy, testX, testy, evalFunHp)
 
 print("Time taken by pipelines: "+toString(Tr))
@@ -47,8 +44,8 @@ return(Matrix[Double] accuracy)
 
   beta = multiLogReg(X=X, Y=Y, icpt=as.scalar(evalFunHp[1,1]), reg=as.scalar(evalFunHp[1,2]), tol=as.scalar(evalFunHp[1,3]), 
   maxi=50, maxii=50, verbose=FALSE);
-  print("Predicting ----")
   [prob, yhat, accuracy] = multiLogRegPredict(Xtest, beta, Ytest, FALSE)
+  error = yhat != Ytest
   accuracy = as.matrix(accuracy)
   
   output = cbind(accuracy, evalFunHp)

@@ -77,8 +77,7 @@ write(applyFunc, output+"/applyFunc.csv", format="csv")
 
 
 # UDF for evaluation  
-# choice of parameters provided by API, X, Y, clone_X, evalFunHp (hyper-param), trainML (boolean for optimizing hp internally or passed by externally )
-# choice of parameters provided by API, X, Y, clone_X, evalFunHp (hyper-param), trainML (boolean for optimizing hp internally or passed by externally )
+
 evalClassification = function(Matrix[Double] X, Matrix[Double] Y, Matrix[Double] Xtest, Matrix[Double] Ytest, Matrix[Double] Xorig=as.matrix(0),
   Matrix[Double] evalFunHp)
 return(Matrix[Double] output, Matrix[Double] error)
@@ -94,8 +93,6 @@ return(Matrix[Double] output, Matrix[Double] error)
     [B1,opt] = gridSearch(X=X, y=Y, train="multiLogReg", predict="accuracy", numB=(ncol(X)+1)*(nc-1),
       params=params, paramValues=paramRanges, dataArgs=dataArgs, trainArgs=trainArgs, cv=TRUE, cv=3, verbose=FALSE);
     print("time taken for gridsearch "+ (time() - t1)/1e9+"s")
-    # opt = matrix("2.000 10.000 0.001 1000.000", rows=1, cols=4)
-    # evalFunHp = op
     evalFunHp = as.matrix(opt) 
   }
   if(min(Y) == max(Y))
@@ -148,15 +145,6 @@ return(Matrix[Double] output, Matrix[Double] error)
   print("rmse: "+toString(rms))
   output = cbind(accuracy, evalFunHp)
 }
-
-
-# wape = function(Matrix[Double] X, Matrix[Double] y, Matrix[Double] B) return (Matrix[Double] loss) {
-  # # loss = as.matrix(sum((y - X%*%B)^2));
-  # pred = lmPredict(X=X, B=B, ytest=y);
-  # WAPE = sum(abs(y - pred))/sum(abs(y)) #this will give the lose into range of [0,1]
-  # WAPE = 1 - (WAPE/nrow(y))
-  # loss = ifelse(is.na(as.matrix(WAPE)), as.matrix(0), as.matrix(WAPE))  
-# }
 # # # adjusted R-square
 Rsquared = function(Matrix[Double] X, Matrix[Double] y, Matrix[Double] B) return (Matrix[Double] gain) {
   # loss = as.matrix(sum((y - X%*%B)^2));
@@ -169,11 +157,6 @@ Rsquared = function(Matrix[Double] X, Matrix[Double] y, Matrix[Double] B) return
   gain = ifelse(is.na(as.matrix(Rsqu)), as.matrix(0), as.matrix(Rsqu))  
 }
 
-rmse = function(Matrix[Double] X, Matrix[Double] y, Matrix[Double] B) return (Matrix[Double] loss) {
-  pred = lmPredict(X=X, B=B, ytest=y);
-  rmse = sqrt(mean((y - pred)^2))
-  loss = ifelse(is.na(as.matrix(rmse)), as.matrix(0), as.matrix(rmse))
-}
 
 RsquaredLoss = function(Matrix[Double] X, Matrix[Double] y, Matrix[Double] B) return (Matrix[Double] loss) {
   n = nrow(y)
@@ -181,7 +164,5 @@ RsquaredLoss = function(Matrix[Double] X, Matrix[Double] y, Matrix[Double] B) re
   pred = lmPredict(X=X, B=B, ytest=y);
   Rsqu = sum((y - pred)^2)/sum((y - mean(y))^2)
   Rsqu = 1 - (Rsqu)
-  # adjRsqu = (((n - 1)/(n - k - 1)) * (1 - Rsqu))
   loss = ifelse(is.na(as.matrix(Rsqu)), as.matrix(0), as.matrix(Rsqu))  
-  # loss = ifelse(is.na(as.matrix(Rsqu)), as.matrix(0), as.matrix(Rsqu))  
 }

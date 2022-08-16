@@ -4,7 +4,7 @@ task=evalClassification
 sep=","
 for test in EEG AnimalShelter
 do
-  for i in 1 #2 3 
+  for i in 1 2 3 
   do
   echo $test "iteration " $i
   pathout=../archive/$exp_num/$test/$i

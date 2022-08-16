@@ -35,7 +35,7 @@ pip = read(input+"pip.csv", data_type="frame", format="csv", header=FALSE);
 hp = read(input+"hp.csv", data_type="matrix", format="csv", header=FALSE);
 applyFunc = read(input+"applyFunc.csv", data_type="frame", format="csv", header=FALSE);
 evalHp = read(input+"evalHp.csv", data_type="matrix", format="csv", header=FALSE);
-# dirtyScore = read(input+"dirtyScore.csv", data_type="scalar", value_type="double");
+
 cv = as.logical($6)
 func = $7
 out = $8
@@ -54,9 +54,6 @@ write(writeRes, out+"/testAcc.csv", format="csv")
 
  
 # UDF for evaluation  
-# choice of parameters provided by API, X, Y, clone_X, evalFunHp (hyper-param), trainML (boolean for optimizing hp internally or passed by externally )
-# UDF for evaluation  
-# choice of parameters provided by API, X, Y, clone_X, evalFunHp (hyper-param), trainML (boolean for optimizing hp internally or passed by externally )
 evalClassification = function(Matrix[Double] X, Matrix[Double] Y, Matrix[Double] Xtest, Matrix[Double] Ytest, Matrix[Double] Xorig=as.matrix(0),
   Matrix[Double] evalFunHp)
   
@@ -106,26 +103,12 @@ return(Matrix[Double] output, Matrix[Double] error)
 }
 
 
-# wape = function(Matrix[Double] X, Matrix[Double] y, Matrix[Double] B) return (Matrix[Double] loss) {
-  # # loss = as.matrix(sum((y - X%*%B)^2));
-  # pred = lmPredict(X=X, B=B, ytest=y);
-  # WAPE = sum(abs(y - pred))/sum(abs(y)) #this will give the lose into range of [0,1]
-  # WAPE = 1 - (WAPE/nrow(y))
-  # loss = ifelse(is.na(as.matrix(WAPE)), as.matrix(0), as.matrix(WAPE))  
-# }
 # # # adjusted R-square
 Rsquared = function(Matrix[Double] X, Matrix[Double] y, Matrix[Double] B) return (Matrix[Double] gain) {
-  # loss = as.matrix(sum((y - X%*%B)^2));
   n = nrow(y)
   k = ncol(X)
   pred = lmPredict(X=X, B=B, ytest=y, verbose = TRUE);
   Rsqu = sum((y - pred)^2)/sum((y - mean(y))^2) #this will give the lose into range of [0,1]
   Rsqu = 1 - (Rsqu)
-  # adjRsqu = 1 - (((n - 1)/(n - k - 1)) * (1 - Rsqu))
   gain = ifelse(is.na(as.matrix(Rsqu)), as.matrix(0), as.matrix(Rsqu))  
-}
-rmse = function(Matrix[Double] X, Matrix[Double] y, Matrix[Double] B) return (Matrix[Double] loss) {
-  pred = lmPredict(X=X, B=B, ytest=y);
-  rmse = sqrt(mean((y - pred)^2))
-  loss = as.matrix(rmse)
 }

@@ -106,9 +106,7 @@ return(Matrix[Double] accuracy, Matrix[Double] evalFunHp, Matrix[Double] error)
     dataArgs = list("X", "Y");
     [B1,opt] = gridSearch(X=X, y=Y, train="msvm", predict="accuracyMSVM", numB=(ncol(X)+1)*(nc),
       params=params, paramValues=paramRanges, dataArgs=dataArgs, trainArgs=trainArgs, cv=TRUE, cvk=3, verbose=TRUE);
-    evalFunHp = as.matrix(opt) # opt #
-    # opt = matrix("2 10 0.001", rows=1, cols=3)
-    # evalFunHp = opt
+    evalFunHp = as.matrix(opt) 
      B1 = matrix(B1, nrow(B1)/nc, nc, FALSE)
     trainAcc = accuracyMSVM(X, Y, B1)
     trainAcc = abs(as.scalar(trainAcc) - 1) * 100

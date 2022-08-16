@@ -10,11 +10,7 @@ const = sys.argv[2]
 data = sys.argv[3]
 out = sys.argv[4]
 
-print("path ", path)
-print("const ", const)
-print("data ", data)
-print("out ", out)
-# 1. Setup a HoloClean session.
+
 hc = holoclean.HoloClean(
     db_name='holo',
     domain_thresh_1=0,
@@ -42,7 +38,7 @@ hc.load_dcs(const)
 hc.ds.set_constraints(hc.get_dcs())
 
 # 3. Detect erroneous cells using these two detectors.
-detectors = [NullDetector(), ViolationDetector()] # , ErrorLoaderDetector, ViolationDetector()
+detectors = [NullDetector(), ViolationDetector()] 
 hc.detect_errors(detectors)
 
 # 4. Repair errors utilizing the defined features.
@@ -52,14 +48,6 @@ featurizers = [
     FreqFeaturizer(),
     ConstraintFeaturizer()
 ]
-
 status, repaired_df = hc.repair_errors(featurizers)
 repaired_df.drop("_tid_", axis=1)
 repaired_df.to_csv(out, index=False, header=True, sep=",", encoding='utf-8')
-print("data repaired "+status)
-
-# 5. Evaluate the correctness of the results.
-#hc.evaluate(fpath='../testdata/adult_clean.csv',
- #           tid_col='tid',
-  #          attr_col='attribute',
-   #         val_col='correct_val')

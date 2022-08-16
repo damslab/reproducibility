@@ -26,7 +26,7 @@ hp = matrix("0 0 0 1 0 0 0 2 2 0.05 0.95 0 0 0 1 0 2 1 0 0 0 0 0 0", rows=1, col
 hp = matrix(hp, rows=3, cols=8)
              
 metaList = list(mask=mask, schema=schema, fd=mask, applyFunc=applyFunc)
-# acc = CV(Xtrain, ytrain, pip, hp, 3, matrix("1 0.010 1e-3", rows=1, cols=3), metaList)
+
 evalFunHp = matrix("1 0.010 1e-3", rows=1, cols=3)
 [trainX, trainy, testX, testy, Tr, hpForPruning, changesByOp, changesByPip] = executePipeline(pipeline=pip,
  Xtrain=Xtrain, Ytrain=ytrain, Xtest=Xtest, Ytest=ytest, metaList=metaList, hyperParameters=hp, flagsCount=5, test=TRUE, verbose=FALSE)
@@ -53,43 +53,3 @@ return(Matrix[Double] accuracy)
   output = cbind(accuracy, evalFunHp)
   print("output: "+toString(output))
 }
-
-# CV = function(Matrix[double] X, Matrix[double] y, Frame[Unknown] pip, Matrix[Double] hp, Integer cvk, Matrix[Double] evalFunHp, List[Unknown] metaList) 
-# return (Double accuracy)
-# {
-
-  # accuracyMatrix = matrix(0, cvk, 1)
-  # allChanges = matrix(0, cvk, 1)
-  # #create empty lists
-  # dataset_X = list(); #empty list
-  # dataset_y = list();
-  # fs = ceil(nrow(X)/cvk);
-  # off = fs - 1;
-  # #divide X, y into lists of k matrices
-  # for (i in seq(1, cvk)) {  
-    # dataset_X = append(dataset_X, X[i*fs-off : min(i*fs, nrow(X)),]);
-    # dataset_y = append(dataset_y, y[i*fs-off : min(i*fs, nrow(y)),]);
-  # }
-
-  # beta_list = list();
-  # #keep one fold for testing in each iteration
-  # for (i in seq(1, cvk)) {
-    # [tmpX, testX] = remove(dataset_X, i); 
-    # [tmpy, testy] = remove(dataset_y, i);
-    # trainX = rbind(tmpX);
-    # trainy = rbind(tmpy);
-    # testX = as.matrix(testX)
-    # testy = as.matrix(testy)
-
-    # [trainX, trainy, testX, testy, Tr, hpForPruning, changesByOp, changesByPip] = executePipeline(pipeline=pip,
-      # Xtrain=trainX, Ytrain=trainy, Xtest= testX, Ytest=testy, metaList=metaList, hyperParameters=hp, flagsCount=5, test=TRUE, verbose=FALSE)
-    
-    # res = getAccuracy(trainX, trainy, testX, testy, evalFunHp)
-    # accuracyMatrix[i] = res[1, 1]
-  # }
-  # accuracy =  mean(accuracyMatrix)
-  # print("mean: \n"+toString(accuracyMatrix))
-  # print("cv accuracy: "+toString(accuracy))
-# }
-
-
