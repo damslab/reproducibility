@@ -1,0 +1,7 @@
+ED,MVI,OTLR,EC,SCALE,CI,DUMMY,DIM
+imputeByFd,imputeByMean,,imputeByMean,scale,,dummycoding,pca
+,imputeByMedian,,imputeByMedian,,,,
+,,,fillDefault,,,,
+,fillDefault,,,,,,
+,imputeByFd,,,,,,
+,forward_fill,,,,,,

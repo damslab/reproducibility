@@ -1,0 +1,18 @@
+
+train = read($1, data_type="frame", format="csv", header=TRUE, naStrings= ["NA", "null","  ","NaN", "_nan_", "", "?", " "], sep=",");
+test = read($2, data_type="frame", format="csv", header=TRUE, naStrings= ["NA", "null","  ","NaN", "_nan_", "", "?", " "], sep=",");
+
+F = rbind(train, test)
+Fsingle = F
+
+for(i in 1:7)
+{
+  out = "rep/EEG"+i+".csv"
+  if(i == 1)
+    write(F,out, format="csv", header=TRUE)
+  else { 
+    F = rbind(F, Fsingle) 
+    write(F,out,format="csv", header=TRUE)
+    print("rows written: "+nrow(F))
+  }
+}

@@ -1,0 +1,8 @@
+applyName,name,param_no,maskFlag,FDFlag,yFlag,verboseFlag,dataFlag,default1,default2,default3,default4,dt1,dt2,dt3,dt4,st1,en1,st2,en2,st3,en3,st4,en4
+imputeByMeanApply,imputeByMean,0,1,0,0,0,2,,,,,,,,,,,,,,,,
+imputeByMedianApply,imputeByMedian,0,1,0,0,0,2,,,,,,,,,,,,,,,,
+fillDefaultApply,fillDefault,0,0,0,0,0,2,,,,,,,,,,,,,,,,
+dummycodingApply,dummycoding,0,1,0,0,0,2,,,,,,,,,,,,,,,,
+scaleApply,scale,2,0,0,0,0,0,1,0,,,BOOL,BOOL,0,1,0,1,,,,,,
+forward_fill,forward_fill,1,0,0,0,1,2,1,,,,BOOL,0,1,,,,,,,,,
+imputeByFdApply,imputeByFd,1,0,1,0,0,1,0.8,,,,FP,0.6,0.9,,,,,,,,,
