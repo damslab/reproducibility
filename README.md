@@ -2,7 +2,7 @@
 
 This repository contains reproducibility submissions, related to publications of the DAMS Lab research group.
 ## tmp
-- [SAGA: A Scalable Framework for Optimizing Data Cleaning Pipelines for Machine Learning Applications](tmp-SAGA/README.md)
+- [SAGA: A Scalable Framework for Optimizing Data Cleaning Pipelines for Machine Learning Applications](tmp-SAGA/)
 ## VLDB 2022
 - [p2528 UPLIFT: Parallelization Strategies for Feature Transformations in Machine Learning Workloads](vldb2022-UPLIFT-p2528/)
 ## CIDR 2022
