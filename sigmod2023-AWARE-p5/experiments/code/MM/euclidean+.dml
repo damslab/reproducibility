@@ -1,0 +1,12 @@
+x = read($1)
+C = rand(rows=$3, cols=ncol(x), min=0.99, max=1.01, seed= 13);
+x = x - 200
+print(nrow(x))
+print(sum(x))
+print(toString(colSums(x), cols = ncol(x), decimal = 0))
+for(i in 1 : $2){
+    # Euclidean
+    D = -2 * (x %*% t(C)) + t(rowSums (C ^ 2));
+    minD = rowMins (D);
+    print(sum(minD))
+}

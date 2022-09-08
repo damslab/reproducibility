@@ -1,0 +1,4 @@
+X = read("data/infimnist/train_infimnist_"+$1+".data")
+X = X > 0
+write(X, "data/binarymnist/train_binarymnist_"+$1+".data", format="binary")
+write(X, "data/binarymnist/train_binarymnist_"+$1+".csv", format="csv")

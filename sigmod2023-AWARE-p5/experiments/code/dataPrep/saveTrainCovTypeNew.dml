@@ -1,0 +1,14 @@
+X = read("data/covtype/covtype.data")
+x = X[,1:55-1]
+y = X[, 55:55] + 1
+
+[Xtrain, Xtest, Ytrain, Ytest] = split(X = x, Y = y, f = 0.9)
+
+write(Xtrain, "data/covtypeNew/train_covtypeNew.data", format="binary")
+write(Xtrain, "data/covtypeNew/train_covtypeNew.csv", format="csv")
+write(Ytrain, "data/covtypeNew/train_covtypeNew_labels.data", format="binary")
+write(Ytrain, "data/covtypeNew/train_covtypeNew_labels.csv", format="csv")
+write(Xtest, "data/covtypeNew/test_covtypeNew.data", format="binary")
+write(Xtest, "data/covtypeNew/test_covtypeNew.csv", format="csv")
+write(Ytest, "data/covtypeNew/test_covtypeNew_labels.data", format="binary")
+write(Ytest, "data/covtypeNew/test_covtypeNew_labels.csv", format="csv")

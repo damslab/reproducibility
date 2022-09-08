@@ -1,0 +1,3 @@
+X = read("data/census/train_census_enc_16k.data")
+write(X, "data/census/train_census_enc.csv", format="csv")
+

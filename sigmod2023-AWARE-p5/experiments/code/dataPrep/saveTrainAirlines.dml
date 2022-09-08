@@ -1,0 +1,17 @@
+data = read("data/airlines/sample", format="csv",  header=FALSE, sep="," , data_type= "frame", rows= 14462943, cols = 29, naStrings= ["NA"] )
+
+schema = detectSchema(data)
+
+s=""
+for(i in 1: ncol(data)) {
+  if(as.scalar(schema[1,i]) == "STRING" | as.scalar(schema[1,i]) == "BOOLEAN" )
+    s = s+as.integer(i)+","; 
+}
+jspecR = "{ids:true, recode:["+s+"]}";
+
+[X, M] = transformencode(target = data, spec = jspecR)
+X = replace(target= X, pattern= NaN, replacement= 0.0)
+
+
+write(X, "data/airlines/train_airlines.data", format="binary")
+write(X, "data/airlines/train_airlines.csv", format="csv")

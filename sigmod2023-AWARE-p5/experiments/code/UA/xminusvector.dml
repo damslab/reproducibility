@@ -1,0 +1,7 @@
+x = read($1)
+v = colMeans(x) 
+print(max(x))
+for(i in 1:$2) {
+    res =  x - v
+}
+print(mean(res))

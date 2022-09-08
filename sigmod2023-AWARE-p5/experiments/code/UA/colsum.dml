@@ -1,0 +1,7 @@
+x = read($1)
+print(max(x))
+res = matrix(1,1,1)
+for(i in 1:$2) {
+    res = colSums(x)
+}
+print(toString(res))

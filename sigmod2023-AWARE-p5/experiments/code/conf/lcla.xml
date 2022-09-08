@@ -1,0 +1,6 @@
+<root>
+    <sysds.compressed.linalg>true</sysds.compressed.linalg>
+    <sysds.compressed.lossy>true</sysds.compressed.lossy>
+    <sysds.cp.parallel.ops>true</sysds.cp.parallel.ops>
+    <!-- <sysds.native.blas>mkl</sysds.native.blas> -->
+</root>

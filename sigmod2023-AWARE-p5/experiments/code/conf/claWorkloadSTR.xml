@@ -1,0 +1,6 @@
+<root>
+    <sysds.compressed.linalg>WORKLOAD</sysds.compressed.linalg>
+    <sysds.cp.parallel.ops>false</sysds.cp.parallel.ops>
+    <sysds.cp.parallel.io>false</sysds.cp.parallel.io>
+    <sysds.compressed.overlapping>true</sysds.compressed.overlapping>
+</root>

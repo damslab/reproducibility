@@ -1,0 +1,15 @@
+x = read($1)
+
+x = x + 1
+print(max(x))
+
+m = matrix(1,1,1)
+for(i in 1:$2) {
+    cs = colSums(x)
+    cm = cs / nrow(x)
+    m =  x - cm
+    N = nrow(m)
+    ScaleFactor = sqrt(colSums(m^2)/(N-1)) 
+    m = m / ScaleFactor
+}
+print(toString(colSums(m)))

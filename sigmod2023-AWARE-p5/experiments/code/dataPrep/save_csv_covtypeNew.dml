@@ -1,0 +1,3 @@
+X = read("data/covtypeNew/train_covtypeNew.data")
+write(X, "data/covtypeNew/train_covtypeNew.csv", format="csv")
+

@@ -1,0 +1,6 @@
+x = read($1)
+print(max(x))
+for(i in 1:$2) {
+    res = rowSums(x)
+}
+print(toString(t(res)))

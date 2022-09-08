@@ -1,0 +1,11 @@
+X = read("data/census/train_census_enc.data")
+write(X, "data/census/train_census_enc.csv", format="csv")
+
+y = read("data/census/test_census.data")
+write(y, "data/census/test_census.csv", format="csv")
+
+z = read("data/census/train_census_enc_labels.data")
+write(z, "data/census/train_census_enc_labels.csv", format="csv")
+
+g = read("data/census/test_census_labels.data")
+write(g, "data/census/test_census_labels.csv", format="csv")

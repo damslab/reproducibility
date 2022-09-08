@@ -1,0 +1,3 @@
+wheel
+tensorflow==2.8.0
+pandas==1.4.2

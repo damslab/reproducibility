@@ -1,0 +1,5 @@
+<root>
+    <sysds.compressed.linalg>true</sysds.compressed.linalg>
+    <sysds.compressed.lossy>true</sysds.compressed.lossy>
+    <sysds.cp.parallel.ops>false</sysds.cp.parallel.ops>
+</root>

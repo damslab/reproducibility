@@ -1,0 +1,5 @@
+<root>
+    <sysds.compressed.linalg>true</sysds.compressed.linalg>
+    <sysds.compressed.valid.compressions>DDC,SDC,RLE</sysds.compressed.valid.compressions>
+    <sysds.defaultblocksize>16000</sysds.defaultblocksize>
+</root>

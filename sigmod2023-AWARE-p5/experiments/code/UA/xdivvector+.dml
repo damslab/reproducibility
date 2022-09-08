@@ -1,0 +1,14 @@
+x = read($1)
+v = sqrt(colSums(x^2)*0.0000001)
+
+v = replace(target=v,
+  pattern=NaN, replacement=1);
+v = replace(target=v,
+  pattern=0, replacement=1);
+x = x + 1
+print(max(x))
+ret = matrix(1,1,1)
+for(i in 1:$2) {
+    res = x / v
+}
+print(mean(res))

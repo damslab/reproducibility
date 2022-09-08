@@ -1,0 +1,10 @@
+x = read($1)
+v = rand(rows=ncol(x), cols=$3, min=0.0, max=1.0, seed= 13);
+v2 = rand(rows=ncol(v), cols=$3, min=0.0, max=1.0, seed= 13);
+x = (x + 1) %*% v
+print(nrow(x))
+print(sum(x))
+for(i in 1:$2) {
+    x = x %*% v2
+}
+print(sum(x))

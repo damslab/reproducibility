@@ -1,0 +1,8 @@
+x = read($1)
+print(nrow(x))
+print(sum(x))
+print(toString(colSums(x), cols = ncol(x), decimal = 0))
+for(i in 1:$2) {
+    res = t(x) %*% x
+}
+print(toString(res, cols = min(ncol(res),10), rows = min(nrow(res),10), decimal = 0))

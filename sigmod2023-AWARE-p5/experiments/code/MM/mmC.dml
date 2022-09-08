@@ -1,0 +1,10 @@
+x = read($1)
+y = read($4)
+v = rand(rows=ncol(y), cols=$3, min=0.99, max=1.01, seed= 13);
+y = y %*% v
+print(sum(x))
+print(sum(y))
+for(i in 1:$2) {
+    res = t(x) %*% y
+}
+print(toString(res))

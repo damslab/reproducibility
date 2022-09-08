@@ -1,0 +1,9 @@
+x = read($1)
+v = rand(rows=$3, cols=nrow(x), min=0.99, max=1.01, sparsity = 0.1, seed= 13);
+print(nrow(x))
+print(sum(x))
+print(toString(colSums(x), cols = ncol(x), decimal = 0))
+for(i in 1:$2) {
+    res = v %*% x
+}
+print(toString(res, cols = ncol(res), decimal = 0))

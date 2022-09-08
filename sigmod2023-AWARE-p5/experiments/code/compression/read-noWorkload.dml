@@ -1,0 +1,6 @@
+
+print("\n\n\n\n")
+for (i in 1:$2){
+    X = read($1)
+    print(sum(X))
+}

@@ -1,0 +1,6 @@
+X = read("data/infimnist/train_infimnist_"+$1+"m.data")
+X = rbind(X, X)
+write(X, "data/infimnist/train_infimnist_"+$2+"m.data", format="binary")
+Y = read("data/infimnist/train_infimnist_"+$1+"m_labels.data")
+Y = rbind(Y,Y)
+write(Y, "data/infimnist/train_infimnist_"+$2+"m_labels.data", format="binary")

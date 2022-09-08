@@ -1,0 +1,4 @@
+X = read("data/"+$1+".data")
+write(X, "data/"+$1+"_16k.data", format="binary")
+Y = read("data/"+$1+"_labels.data")
+write(Y, "data/"+$1+"_16k_labels.data", format="binary")

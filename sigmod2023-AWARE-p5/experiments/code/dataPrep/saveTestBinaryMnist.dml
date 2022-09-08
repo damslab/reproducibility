@@ -1,0 +1,4 @@
+Y = read("data/mnist/test_mnist.data")
+Y = Y > 0 
+write(Y, "data/binarymnist/test_binarymnist.data", format="binary")
+write(Y, "data/binarymnist/test_binarymnist.csv", format="csv")

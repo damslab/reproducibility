@@ -1,0 +1,6 @@
+res = read($1)
+print(sum(res))
+for(i in 1:$2) {
+    res = isNaN(res)
+}
+print(sum(res))

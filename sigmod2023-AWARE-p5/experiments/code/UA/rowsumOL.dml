@@ -1,0 +1,7 @@
+x = read($1)
+v = rand(rows=ncol(x), cols=2, min=0.99, max=1.01, seed= 13);
+x = x %*% v
+for(i in 1:$2) {
+    res = rowSums(x)
+}
+print(toString(t(res)))

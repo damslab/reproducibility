@@ -1,0 +1,4 @@
+
+X = read("data/amazon/train_amazon.data")
+
+write(X,"data/amazon/train_amazon.txt", format="text")

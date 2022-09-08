@@ -1,0 +1,13 @@
+A = read($1)
+x = matrix(1, rows=ncol(A), cols=1)
+ 
+for (i in 1:$2) {
+  y = A %*% x
+  z = t(A) %*% y
+  x = (z/ max(z)) 
+}
+
+print(sum(x))
+print(sum(y))
+write(y, "results/y_BIN.data", format="binary")
+write(y, "results/y_CSV.csv", format="csv")

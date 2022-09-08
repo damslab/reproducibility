@@ -1,0 +1,4 @@
+x = read($1)
+res =  x - colMeans(x) 
+
+print(sum(res))

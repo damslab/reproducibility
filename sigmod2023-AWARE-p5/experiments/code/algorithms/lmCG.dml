@@ -1,0 +1,30 @@
+
+x_raw = read($1)
+y = read($4) 
+xtest = read($5) 
+ytest = read($6)
+
+
+# LM only allows for 1 classification therefore we choose to classify label 0. 
+# (if this is MNIST this would corespond to predicting when the value is 0 or not.)
+y_corrected = (y == min(y))
+ytest_corrected = (ytest == min(y))
+
+# Scale input
+[x, Centering, ScaleFactor] = scale(x_raw, FALSE, FALSE)
+xtest = scaleApply(xtest, Centering, ScaleFactor)
+
+# Last paper: tol=0.000000001 reg=0.001 maxiter=10
+bias = lmCG(X=x, y=y_corrected, maxi = 100, tol = 1e-16)
+
+y_predict_test = lmPredict(X = xtest, B=bias, ytest=ytest_corrected, verbose = TRUE)
+
+print(toString(t(y_predict_test)))
+
+y_predict_classifications = (y_predict_test > 0.0) + 1
+
+[nn, ca_test] = confusionMatrix(y_predict_classifications, ytest_corrected + 1)
+print("Confusion: ")
+print(toString(ca_test))
+
+

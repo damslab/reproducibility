@@ -1,0 +1,8 @@
+x = read($1)
+x = x + 1
+print(max(x))
+res = 4
+for(i in 1:$2) {
+    res = sum(x)
+}
+print(res)

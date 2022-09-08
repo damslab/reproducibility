@@ -1,0 +1,8 @@
+
+
+sysds = read("code/tensorflow/systemdsModel.csv", format="csv")
+tensorflow = read("code/tensorflow/tensorflowModel.csv", format="csv")
+
+ab = sum(abs(sysds - tensorflow)<= 1e-4)
+
+print(ab)

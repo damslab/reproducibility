@@ -1,0 +1,5 @@
+<root>
+    <sysds.compressed.linalg>true</sysds.compressed.linalg>
+    <sysds.cp.parallel.ops>true</sysds.cp.parallel.ops>
+    <sysds.compressed.valid.compressions>DDC,SDC</sysds.compressed.valid.compressions>
+</root>

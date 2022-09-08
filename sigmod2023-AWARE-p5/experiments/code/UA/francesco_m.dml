@@ -1,0 +1,21 @@
+
+A = read($1);  # data file
+
+arows = nrow(A); # number of data records
+acols = ncol(A); # number of features/attributes
+
+x = matrix (1, rows=acols, cols=1) ;
+y = matrix (1, rows=arows, cols=1) ;
+
+sum = 0;
+lambda = 1;
+for (i in 1:$2) {
+    x = x / lambda;
+    y = A %*% x;
+    x = t(A) %*% y;
+    sum += max(x);	
+    lambda  =  max(x)
+}
+
+print("lambda: " + lambda)
+print("Ave maxy: " + (sum/$2))

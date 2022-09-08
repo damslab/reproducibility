@@ -1,0 +1,6 @@
+X = read("data/"+$1+".csv")
+X = rbind(X,X)
+write(X, "hdfs://charlie.dm.isds.tugraz.at:9000/user/sbaunsgaard/"+$2+".data", format="binary")
+Y = read("data/"+$1+"_labels.csv")
+Y = rbind(Y,Y)
+write(Y, "hdfs://charlie.dm.isds.tugraz.at:9000/user/sbaunsgaard/"+$2+"_labels.data", format="binary")

@@ -1,0 +1,9 @@
+x = read($1)
+v = rand(rows=ncol(x), cols=$3, min=0.99, max=1.01, sparsity = 0.1, seed= 13);
+x = x + 1
+print(sum(x))
+print(nrow(x))
+for(i in 1:$2) {
+    res = x %*% v
+}
+print(sum(res))

@@ -1,0 +1,2 @@
+X = read("data/"+$1+".data")
+write(X, "data/"+$1+".csv", format="csv")

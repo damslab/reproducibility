@@ -1,0 +1,5 @@
+<root>
+    <sysds.compressed.linalg>true</sysds.compressed.linalg>
+    <sysds.compressed.valid.compressions>RLE</sysds.compressed.valid.compressions>
+    <sysds.cp.parallel.ops>true</sysds.cp.parallel.ops>
+</root>

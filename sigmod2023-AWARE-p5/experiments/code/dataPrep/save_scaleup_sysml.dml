@@ -1,0 +1,6 @@
+X = read("hdfs://charlie.dm.isds.tugraz.at:9000/user/sbaunsgaard/data/"+$1+".data")
+X = rbind(X,X)
+write(X, "hdfs://charlie.dm.isds.tugraz.at:9000/user/sbaunsgaard/data/"+$2+".data", format="binary")
+Y = read("hdfs://charlie.dm.isds.tugraz.at:9000/user/sbaunsgaard/data/"+$1+"_labels.data")
+Y = rbind(Y,Y)
+write(Y, "hdfs://charlie.dm.isds.tugraz.at:9000/user/sbaunsgaard/data/"+$2+"_labels.data", format="binary")

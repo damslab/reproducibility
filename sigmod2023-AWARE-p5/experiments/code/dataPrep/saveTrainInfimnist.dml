@@ -1,0 +1,6 @@
+X = read("data/infimnist/train-"+$2+".csv", format= "csv", rows = $1, cols = 784)
+write(X, "data/infimnist/train_infimnist_"+$2+".data", format="binary")
+write(X, "data/infimnist/train_infimnist_"+$2+".csv", format="csv")
+Y = read("data/infimnist/trainL-"+$2+".csv", format= "csv", rows = $1, cols = 1)
+write(Y, "data/infimnist/train_infimnist_"+$2+"_labels.data", format="binary")
+write(Y, "data/infimnist/train_infimnist_"+$2+"_labels.csv", format="csv")

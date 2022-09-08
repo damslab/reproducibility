@@ -1,0 +1,8 @@
+<root>
+    <sysds.compressed.linalg>WORKLOAD</sysds.compressed.linalg>
+    <sysds.cp.parallel.ops>true</sysds.cp.parallel.ops>
+    <sysds.cp.parallel.io>true</sysds.cp.parallel.io>
+    <sysds.compressed.overlapping>true</sysds.compressed.overlapping>
+    <sysds.compressed.valid.compressions>DDC,SDC,RLE</sysds.compressed.valid.compressions>
+    <sysds.defaultblocksize>16000</sysds.defaultblocksize>
+</root>

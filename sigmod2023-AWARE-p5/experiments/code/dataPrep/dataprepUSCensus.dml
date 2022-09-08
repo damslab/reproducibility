@@ -1,0 +1,51 @@
+Forig = read("data/census/census.csv", data_type="frame", format="csv", header=TRUE);
+F = Forig;
+
+#t1 = as.matrix(F);
+#t2 = colMaxs(t1);
+#t3 = removeEmpty(target= t(t2) * t(t2>10), margin="rows")
+#t4 = removeEmpty(target=seq(1,ncol(t2)) * t(t2>10), margin="rows")
+#t5 = cbind(t3,t4)
+#print(toString(t5))
+#while(FALSE){}
+
+# data preparation
+jspec= "{ ids:true, recode:[2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,"
++"21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,"
++"41,42,43,44,45,47,48,49,50,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,68,69], bin:["
++"{id:46, method:equi-width, numbins:10},"
++"{id:51, method:equi-width, numbins:10},"
++"{id:67, method:equi-width, numbins:10}]}"
+
+[X,M] = transformencode(target=F, spec=jspec);
+X = X[,2:ncol(X)] #drop id
+
+# one hot encoding
+m = nrow(X)
+n = ncol(X)
+fdom = colMaxs(X);
+foffb = t(cumsum(t(fdom))) - fdom;
+# foffe = t(cumsum(t(fdom)))
+rix = matrix(seq(1,m) %*% matrix(1,1,n) , m*n, 1);
+cix = matrix(X + foffb, m*n, 1);
+X2 = table(rix, cix); #one-hot encoded
+
+# create lables via clustering
+[C,y] = kmeans(X=X2, k=4)
+
+[xTrain, xTest, yTrain, yTest] = split(X=X2,Y=y)
+
+write(X2, "data/census/train_census_enc.data", format="binary")
+write(y, "data/census/train_census_enc_labels.data", format="binary")
+write(xTest, "data/census/test_census.data", format="binary")
+write(yTest, "data/census/test_census_labels.data", format="binary")
+
+# write(X2, "data/census/train_census_enc.text", format="text")
+# write(y, "data/census/train_census_enc_labels.text", format="text")
+# write(xTest, "data/census/test_census.text", format="text")
+# write(yTest, "data/census/test_census_labels.text", format="text")
+
+# write(X2, "data/census/train_census_enc.csv", format="csv")
+# write(y, "data/census/train_census_enc_labels.csv", format="csv")
+# write(xTest, "data/census/test_census.csv", format="csv")
+# write(yTest, "data/census/test_census_labels.csv", format="csv")

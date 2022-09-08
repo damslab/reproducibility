@@ -1,0 +1,4 @@
+X = read("data/census/census.csv")
+y = X[,2:69]
+write(y, "data/census/train_census.data", format="binary")
+write(y, "data/census/train_census.csv", format="csv")

@@ -1,0 +1,6 @@
+x = read($1)
+x  = x * 2
+for(i in 1:$2) {
+    res = rowMaxs(x)
+}
+print(toString(t(res)))

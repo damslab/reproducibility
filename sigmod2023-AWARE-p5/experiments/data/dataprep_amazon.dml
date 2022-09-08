@@ -1,0 +1,8 @@
+F = read("file:///home/mboehm/cla/ratings_books.csv", data_type="frame", format="csv");
+
+[X,M] = transformencode(target=F[,1:3], spec="{ids:true, recode:[1,2]}");
+
+X = table(X[,1], X[,2], X[,3])
+
+print("output: "+nrow(X)+" "+ncol(X));
+write(X, "file:///home/mboehm/cla/ratings_books.bin", format="binary")

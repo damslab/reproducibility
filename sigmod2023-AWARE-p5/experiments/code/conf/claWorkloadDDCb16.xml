@@ -1,0 +1,7 @@
+<root>
+    <sysds.compressed.linalg>WORKLOAD</sysds.compressed.linalg>
+    <sysds.cp.parallel.ops>true</sysds.cp.parallel.ops>
+    <sysds.compressed.overlapping>true</sysds.compressed.overlapping>
+    <sysds.compressed.valid.compressions>DDC</sysds.compressed.valid.compressions>
+    <sysds.compressed.sampling.ratio>0.3</sysds.compressed.sampling.ratio>
+</root>

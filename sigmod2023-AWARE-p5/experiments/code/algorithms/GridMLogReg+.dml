@@ -1,0 +1,118 @@
+
+gs = function(Matrix[Double] X, Matrix[Double] y, Matrix[Double] X_test, Matrix[Double] y_test,
+    Integer numB=ncol(X), List[String] params, List[Unknown] paramValues,
+    List[Unknown] trainArgs = list(), 
+     Boolean verbose = TRUE)
+  return (Matrix[Double] B, Frame[Unknown] opt)
+{
+  # Step 0) handling default arguments, which require access to passed data
+  if( length(trainArgs) == 0 )
+    trainArgs = list(X=X, y=y, icpt=0, reg=-1, tol=-1, maxi=-1, verbose=FALSE);
+
+  # Step 1) preparation of parameters, lengths, and values in convenient form
+  numParams = length(params);
+  paramLens = matrix(0, numParams, 1);
+  for( j in 1:numParams ) {
+    vect = as.matrix(paramValues[j,1]);
+    paramLens[j,1] = nrow(vect);
+  }
+  paramVals = matrix(0, numParams, max(paramLens));
+  for( j in 1:numParams ) {
+    vect = as.matrix(paramValues[j,1]);
+    paramVals[j,1:nrow(vect)] = t(vect);
+  }
+  cumLens = rev(cumprod(rev(paramLens))/rev(paramLens));
+  numConfigs = prod(paramLens);
+
+  # Step 2) materialize hyper-parameter combinations
+  # (simplify debugging and compared to compute negligible)
+  HP = matrix(0, numConfigs, numParams);
+  parfor( i in 1:nrow(HP) ) {
+    for( j in 1:numParams )
+      HP[i,j] = paramVals[j,as.scalar(((i-1)/cumLens[j,1])%%paramLens[j,1]+1)];
+  }
+
+  if( verbose ) {
+    print("GridSeach: Number of hyper-parameters: \n"+toString(t(paramLens), decimal=0));
+    print("GridSeach: Hyper-parameter combinations: \n"+toString(HP, decimal=0));
+  }
+
+  # Step 3) training/scoring of parameter combinations
+  Rbeta = matrix(0, nrow(HP), numB);
+  Rloss = matrix(0, nrow(HP), 1);
+
+
+  parfor( i in 1:nrow(HP) ) {
+    # replace training arguments
+    ltrainArgs = trainArgs;
+    for( j in 1:numParams )
+      ltrainArgs[as.scalar(params[j])] = as.scalar(HP[i,j]);
+
+    # core training/scoring and write-back
+    lBeta = multiLogReg(X=X, Y=y, 
+      icpt   =  as.scalar(ltrainArgs["icpt"]),
+      tol    =  as.scalar(ltrainArgs["tol"]),
+      reg    =  as.scalar(ltrainArgs["reg"]),
+      maxi   =  as.scalar(ltrainArgs["maxi"]),
+      maxii  =  as.scalar(ltrainArgs["maxii"]),
+      verbose= (as.scalar(ltrainArgs["verbose"])== "true"))
+
+    # Evaluate model
+    [a, b, trainAcc] = multiLogRegPredict(X=X, B=lBeta, Y=y, verbose=FALSE);
+    [a, b, acc] = multiLogRegPredict(X=X_test, B=lBeta, Y=y_test, verbose=FALSE);
+    print("Model[%2d] train/test accuracy: %4.2f/%4.2f" , i, trainAcc, acc)
+
+    # save model
+    tBeta = t(lBeta)
+    Rbeta[i,1:length(tBeta)] = matrix(tBeta, 1, length(tBeta));
+    
+    err = as.matrix(1-(acc/100));
+    Rloss[i,] = err
+  }
+  
+  # Step 4) select best parameter combination
+  ix = as.scalar(rowIndexMin(t(Rloss)));
+  B = t(Rbeta[ix,]);       # optimal model
+  opt = as.frame(HP[ix,]); # optimal hyper-parameters
+}
+
+
+X = read($1)
+y_raw = read($4) 
+x_test = read($5) 
+y_test_raw = read($6)
+
+if(min(y_raw) == 0){
+ y = y_raw + 1
+ y_test = y_test_raw + 1
+}
+else{
+ y = y_raw
+ y_test = y_test_raw
+}
+
+
+# Scale input
+# [X, Centering, ScaleFactor] = scale(x_raw, TRUE, TRUE)
+# x_test = scaleApply(x_test_raw, Centering, ScaleFactor)
+
+nc = max(y);
+nB = (ncol(X)+1)*(nc-1);
+
+params = list("icpt", "reg", "maxii", "tol")
+paramValues = list(seq(0,2), seq(0,2), 5*seq(2,3), 10^seq(-1,-10, -2))
+# print(toString(10^seq(-5,-10),decimal=10 ))
+trainArgs = list(X=X, Y=y, icpt=-1, reg=-1, tol=-1, maxi=5, maxii=-1, verbose=FALSE)
+
+[B1, opt] = gs(X=X, y=y, X_test=x_test, y_test=y_test, numB=nB,
+    params=params, paramValues=paramValues, trainArgs=trainArgs, 
+     verbose=TRUE)
+
+B1 = matrix(B1, nrow(B1)/(nc-1), (nc-1), FALSE)
+
+[nn, y_predict_test, acc_test] = multiLogRegPredict(X=x_test, B=B1, Y=y_test)
+print("Accuracy:  " + acc_test)
+
+[nn, ca_test] = confusionMatrix(y_predict_test, y_test)
+print("Confusion: ")
+print(toString(ca_test))

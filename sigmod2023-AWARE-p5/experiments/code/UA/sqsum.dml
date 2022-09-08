@@ -1,0 +1,7 @@
+x = read($1)
+res = 0
+print(max(x))
+for(i in 1:$2) {
+    res = res + sum(x ^ 2)
+}
+print(res)

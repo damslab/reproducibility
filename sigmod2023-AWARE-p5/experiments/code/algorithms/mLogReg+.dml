@@ -1,0 +1,27 @@
+
+x_raw = read($1)
+y = read($4) 
+xtest = read($5) 
+ytest = read($6)
+
+if(min(y) == 0){
+ y_corrected = y + 1
+ ytest_corrected = ytest + 1
+}
+else{
+ y_corrected = y
+ ytest_corrected = ytest
+}
+
+# Scale input
+[x, Centering, ScaleFactor] = scale(x_raw, TRUE, TRUE)
+xtest = scaleApply(xtest, Centering, ScaleFactor)
+
+bias = multiLogReg(X=x, Y=y_corrected, maxi=10, maxii=50, icpt=0, reg=2.0, tol=1e-16, verbose=TRUE)
+
+[nn, y_predict_test, acc_test] = multiLogRegPredict(X=xtest, B=bias, Y=ytest_corrected)
+print("Accuracy:  " + acc_test)
+
+[nn, ca_test] = confusionMatrix(y_predict_test, ytest_corrected)
+print("Confusion: ")
+print(toString(ca_test))

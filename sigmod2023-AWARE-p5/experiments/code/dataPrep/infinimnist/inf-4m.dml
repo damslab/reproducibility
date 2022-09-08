@@ -1,0 +1,14 @@
+X = read("data/infimnist/train_infimnist_3m.data")
+X_4 = read("data/infimnist/csvData/train-3-4m.csv", format= "csv", rows = 1000000, cols = 784)
+
+
+X = rbind(X, X_4)
+
+write(X, "data/infimnist/train_infimnist_4m.data", format="binary")
+
+Y = read("data/infimnist/train_infimnist_3m_labels.data")
+Y_4 = read("data/infimnist/csvData/trainL-3-4m.csv", format= "csv", rows = 1000000, cols = 1)
+
+Y = rbind(Y, Y_4)
+
+write(Y, "data/infimnist/train_infimnist_4m_labels.data", format="binary")

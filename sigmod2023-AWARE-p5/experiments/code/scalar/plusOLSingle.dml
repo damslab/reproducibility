@@ -1,0 +1,8 @@
+res = read($1)
+v = rand(rows=ncol(res), cols=1, min=1.0, max=2.0, seed= 13);
+res = res %*% v
+print(sum(res))
+for(i in 1:$2) {
+    res = res + i
+}
+print(sum(res))

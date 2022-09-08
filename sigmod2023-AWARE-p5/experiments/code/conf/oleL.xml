@@ -1,0 +1,6 @@
+<root>
+    <sysds.compressed.linalg>true</sysds.compressed.linalg>
+    <sysds.compressed.lossy>true</sysds.compressed.lossy>
+    <sysds.compressed.valid.compressions>OLE</sysds.compressed.valid.compressions>
+    <sysds.cp.parallel.ops>true</sysds.cp.parallel.ops>
+</root>

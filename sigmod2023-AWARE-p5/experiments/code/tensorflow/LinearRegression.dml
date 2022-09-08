@@ -1,0 +1,32 @@
+
+X = read($1, format="CSV");
+Y = read($2, format="CSV");
+
+print(sum(X))
+print(sum(Y))
+
+eps = 0.00001;
+W = Rand(rows = ncol(X), cols = 1, min = 0, max = 0);
+max_iteration = $3;
+
+X = X - colMeans(X)
+
+p = t(X) %*% Y
+r = -(p);
+norm_r2 = sum(r * r);
+print("InitNorm:" + norm_r2)
+i = 0;
+while(i < max_iteration) {
+	q = ((t(X) %*% (X %*% p)) + eps  * p);
+	alpha = norm_r2 / as.scalar(t(p) %*% q);
+	W = W + alpha * p;
+	old_norm_r2 = norm_r2;
+	r = r + alpha * q;
+	norm_r2 = sum(r * r);
+	print(i + " : norm_r2 : " + norm_r2)
+	beta = norm_r2 / old_norm_r2;
+	p = -r + beta * p;
+	i = i + 1;
+}
+
+write(W, "code/tensorflow/systemdsModel.csv", format="csv");

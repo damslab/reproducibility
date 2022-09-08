@@ -1,0 +1,17 @@
+covtype/
+covtype.data
+covtype.data.mtd
+train_*
+
+covtypeNew/
+
+airlines/
+mnist/
+infimnist/
+binarymnist/
+census/
+amazon/
+
+siemens/anonymized_data*
+
+siemens_data_full.zip

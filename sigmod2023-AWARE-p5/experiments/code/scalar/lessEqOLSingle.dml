@@ -1,0 +1,7 @@
+x = read($1)
+v = rand(rows=ncol(x), cols=1, min=1.0, max=2.0, seed= 13);
+x = x %*% v
+for(i in 1:$2) {
+    res = x <= 10
+}
+print(sum(res))

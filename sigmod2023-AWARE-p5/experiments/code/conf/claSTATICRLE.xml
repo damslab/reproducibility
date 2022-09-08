@@ -1,0 +1,7 @@
+<root>
+    <sysds.compressed.linalg>true</sysds.compressed.linalg>
+    <sysds.cp.parallel.ops>true</sysds.cp.parallel.ops>
+    <sysds.compressed.overlapping>true</sysds.compressed.overlapping>
+    <sysds.compressed.valid.compressions>DDC,SDC,RLE</sysds.compressed.valid.compressions>
+    <sysds.compressed.cocode>STATIC</sysds.compressed.cocode>
+</root>

@@ -1,0 +1,9 @@
+<root>
+    <sysds.defaultblocksize>16000</sysds.defaultblocksize>
+    <defaultblocksize>16000</defaultblocksize>
+    <sysml.defaultblocksize>16000</sysml.defaultblocksize>
+    <sysml.yarn.appmaster>charlie.dm.isds.tugraz.at</sysml.yarn.appmaster>
+    <sysml.yarn.app.queue>default</sysml.yarn.app.queue>
+    <compressed.linalg>true</compressed.linalg>
+    <sysml.compressed.linalg>true</sysml.compressed.linalg>
+</root>

@@ -1,0 +1,4 @@
+X = read("data/covtype/covtype.data")
+y = X[,2:55]
+write(y, "data/covtype/train_covtype.data", format="binary")
+write(y, "data/covtype/train_covtype.csv", format="csv")

@@ -1,0 +1,228 @@
+x_raw = read($1)
+y = read($4) 
+xtest = read($5) 
+ytest = read($6)
+
+
+scale = function(Matrix[Double] X, Boolean center=TRUE, Boolean scale=TRUE) 
+  return (Matrix[Double] out, Matrix[Double] Centering, Matrix[Double] ScaleFactor) 
+{
+  if(center){
+    # ColMean = colMeans(replace(target=X, pattern=NaN, replacement=0))
+    ColMean = colMeans(X)
+    X =  X - ColMean
+  }
+  else {
+    # Allocate the ColMean as an empty matrix,
+    # to return something on the function call.
+    ColMean = matrix(0,rows=0,cols=0)
+  }
+
+  if (scale) {
+    N = nrow(X)
+    # ScaleFactor = sqrt(colSums(replace(target=X, pattern=NaN, replacement=0)^2)/(N-1))
+    ScaleFactor = sqrt(colSums(X^2)/(N-1))
+
+    # Replace entries in the scale factor that are 0 and NaN with 1.
+    # To avoid division by 0 or NaN, introducing NaN to the ouput.
+    # ScaleFactor = replace(target=ScaleFactor,
+      # pattern=NaN, replacement=1);
+    ScaleFactor = replace(target=ScaleFactor,
+      pattern=0, replacement=1);
+
+    X = X / ScaleFactor
+
+  }
+  else{
+    # Allocate the Scale factor as an empty matrix,
+    # to return something on the function call.
+    ScaleFactor = matrix(0, rows= 0, cols=0)
+  }
+
+  out = X
+  Centering = ColMean
+}
+
+
+scaleApply = function(Matrix[Double] X, Matrix[Double] Centering, Matrix[Double] ScaleFactor) 
+  return (Matrix[Double] Y) 
+{
+  centered = ifelse(nrow(Centering) > 0 & ncol(Centering) > 0, X - Centering, X)
+  if(nrow(ScaleFactor) > 0 & ncol(ScaleFactor) > 0)
+    Y = centered / ScaleFactor
+  else Y = centered
+}
+
+l2svm = function(Matrix[Double] X, Matrix[Double] Y, Boolean intercept = FALSE,
+    Double epsilon = 0.001, Double reg = 1, Integer maxIterations = 100, 
+    Integer maxii = 20, Boolean verbose = FALSE, Integer columnId = -1)
+  return(Matrix[Double] model)
+{
+    print(reg)
+    print(maxIterations)
+    print(maxii)
+    print(verbose)
+  #check input parameter assertions
+#   if(nrow(X) < 2)
+#     stop("L2SVM: Stopping due to invalid inputs: Not possible to learn a binary class classifier without at least 2 rows")
+#   if(epsilon < 0)
+#     stop("L2SVM: Stopping due to invalid argument: Tolerance (tol) must be non-negative")
+#   if(reg < 0)
+#     stop("L2SVM: Stopping due to invalid argument: Regularization constant (reg) must be non-negative")
+#   print(maxIterations)
+#   if(maxIterations < 1)
+#     stop("L2SVM: Stopping due to invalid argument: Maximum iterations should be a positive integer")
+#   if(ncol(Y) < 1)
+#     stop("L2SVM: Stopping due to invalid multiple label columns, maybe use MSVM instead?")
+
+  #check input lables and transform into -1/1
+  check_min = min(Y)
+  check_max = max(Y)
+
+  num_min = sum(Y == check_min)
+  num_max = sum(Y == check_max)
+
+  # TODO make this a stop condition for l2svm instead of just printing.
+  if(num_min + num_max != nrow(Y))
+    print("L2SVM: WARNING invalid number of labels in Y: "+num_min+" "+num_max)
+
+  # Scale inputs to -1 for negative, and 1 for positive classification
+  if(check_min != -1 | check_max != +1)
+    Y = 2/(check_max - check_min)*Y - (check_min + check_max)/(check_max - check_min)
+    
+  # If column_id is -1 then we assume that the fundamental algorithm is MSVM, 
+  # Therefore don't print message.
+#   if(verbose & columnId == -1)
+    # print('Running L2-SVM ')
+
+  num_samples = nrow(X)
+  num_classes = ncol(Y)
+  
+  # Add Bias 
+  num_rows_in_w = ncol(X)
+  if (intercept) {
+    ones  = matrix(1, rows=num_samples, cols=1)
+    X = cbind(X, ones);
+    num_rows_in_w += 1
+  }
+  
+  w = matrix(0, rows=num_rows_in_w, cols=1)
+
+  g_old = t(X) %*% Y
+  s = g_old
+
+  Xw = matrix(0, rows=nrow(X), cols=1)
+
+  iter = 0
+  continue = TRUE
+  while(continue & iter < maxIterations)  {
+    # minimizing primal obj along direction s
+    step_sz = 0
+    Xd = X %*% s
+    wd = reg * sum(w * s)
+    dd = reg * sum(s * s)
+    continue1 = TRUE
+    iiter = 0
+    while(continue1 & iiter < maxii){
+      tmp_Xw = Xw + step_sz*Xd
+      out = 1 - Y * (tmp_Xw)
+      sv = (out > 0)
+      out = out * sv
+      g = wd + step_sz*dd - sum(out * Y * Xd)
+      h = dd + sum(Xd * sv * Xd)
+      step_sz = step_sz - g/h
+      continue1 = (g*g/h >= epsilon)
+      iiter = iiter + 1
+    }
+
+    #update weights
+    w = w + step_sz*s
+    Xw = Xw + step_sz*Xd
+
+    out = 1 - Y * Xw
+    sv = (out > 0)
+    out = sv * out
+    obj = 0.5 * sum(out * out) + reg/2 * sum(w * w)
+    g_new = t(X) %*% (out * Y) - reg * w
+
+    if(verbose) {
+      colstr = ifelse(columnId!=-1, ", Col:"+columnId + " ,", " ,")
+      print("Iter: " + toString(iter) + " InnerIter: " + toString(iiter) +" --- "+ colstr + " Obj:" + obj)
+    }
+
+    tmp = sum(s * g_old)
+    continue = (step_sz*tmp >= epsilon*obj & sum(s^2) != 0);
+
+    #non-linear CG step
+    be = sum(g_new * g_new)/sum(g_old * g_old)
+    s = be * s + g_new
+    g_old = g_new
+
+    iter = iter + 1
+  }
+  model = w
+}
+
+
+l2svmPredict = function(Matrix[Double] X, Matrix[Double] W, Boolean verbose = FALSE)
+  return(Matrix[Double] YRaw, Matrix[Double] Y)
+{
+  if(ncol(X) != nrow(W)){
+    if(ncol(X) + 1 != nrow(W)){
+      stop("l2svm Predict: Invalid shape of W ["+ncol(W)+","+nrow(W)+"] or X ["+ncol(X)+","+nrow(X)+"]")
+    }
+    YRaw = X %*% W[1:ncol(X),] + W[ncol(X)+1,]
+    Y = rowIndexMax(YRaw)
+  }
+  else{
+    YRaw = X %*% W
+    Y = rowIndexMax(YRaw)
+  }
+}
+
+
+confusionMatrix = function(Matrix[Double] P, Matrix[Double] Y)
+  return(Matrix[Double] confusionSum, Matrix[Double] confusionAvg)
+{
+  if(ncol(P) > 1  | ncol(Y) > 1)
+    stop("CONFUSION MATRIX: Invalid input number of cols should be 1 in both P ["+ncol(P)+"] and Y ["+ncol(Y)+"]")
+  if(nrow(P) != nrow(Y))
+    stop("CONFUSION MATRIX: The number of rows have to be equal in both P ["+nrow(P)+"] and Y ["+nrow(Y)+"]")
+  if(min(P) < 1 | min(Y) < 1)
+    stop("CONFUSION MATRIX: All Values in P and Y should be abore or equal to 1, min(P):" + min(P) + " min(Y):" + min(Y) )
+
+  dim = max(max(Y),max(P))
+  confusionSum = table(P, Y,  dim, dim)
+  # max to avoid devision by 0, in case a colum contain no entries.
+  confusionAvg = confusionSum / max(1,colSums(confusionSum))
+}
+
+
+# LM only allows for 1 classification therefore we choose to classify label 0. 
+# (if this is MNIST this would corespond to predicting when the value is 0 or not.)
+
+y_corrected = (y == min(y))
+ytest_corrected = (ytest == min(y))
+
+
+# Scale input
+[x, Centering, ScaleFactor] = scale(x_raw, TRUE, TRUE)
+xtest = scaleApply(xtest, Centering, ScaleFactor)
+
+print(sum(y_corrected))
+print(sum(ytest_corrected))
+print(sum(x))
+print(sum(xtest))
+
+# Last paper: tol=0.000000001 reg=0.001 maxiter=10
+bias = l2svm(X=x, Y=y_corrected, maxIterations=90, verbose=TRUE, epsilon = 1e-17)
+
+print(toString(bias))
+
+[y_predict_test, n] = l2svmPredict(X=xtest, W=bias, verbose=TRUE)
+
+y_predict_classifications = (y_predict_test > 0.0) + 1
+
+[nn, ca_test] = confusionMatrix(y_predict_classifications, ytest_corrected + 1)
+print("Confusion: ")
+print(toString(ca_test))

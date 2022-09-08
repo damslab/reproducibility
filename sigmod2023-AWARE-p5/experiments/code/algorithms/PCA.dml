@@ -1,0 +1,7 @@
+data = read($1)
+
+[Y_n, C_n] = pca(X=data, K=4, center=TRUE, scale=TRUE)
+
+print(sum(C_n))
+# write(C_n, $3, format= "csv")
+
