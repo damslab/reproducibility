@@ -1,0 +1,6 @@
+
+m = rand(rows= 3, cols = 3, min = 0, max = 9, seed = 3)
+
+m2 = ceil(m)
+
+print(toString(m2))

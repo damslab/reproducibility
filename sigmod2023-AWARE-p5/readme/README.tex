@@ -6,13 +6,14 @@
 
 \maketitle
 
-
 This is the guide to reproduce the paper.
 To make the execution work there is a few setup requirements.
+But first it is sincerely recommended to follow the latest guide at: 
+\url{https://github.com/damslab/reproducibility.git}
 
-To produce a full reproduction of the paper it is expected that one have access to a Spark (v 3.2.0) cluster with Hadoop (v 3.3.1) running Java 11. But any single machine should be able to run small scale experiments covering most of the experiments shown. For baseline experiments 
+To produce a full reproduction of the paper it is expected that one have access to a Spark (v 3.2.0) cluster with Hadoop (v 3.3.1) running Java 11. But any single machine should be able to run small scale experiments covering most of the experiments shown. For baseline experiments
 
-The specifics of the resources used in the paper is: 6 Cluster nodes and a main node with 32 virtual cores and 128 GB RAM each. Local storage requirements is at least 100GB, and distributed HDFS is ~2.0 TB. 
+The specifics of the resources used in the paper is: 6 Cluster nodes and a main node with 32 virtual cores and 128 GB RAM each. Local storage requirements is at least 100GB, and distributed HDFS is ~2.0 TB.
 
 The machines have similar specifications as m5a.8xlarge in AWS. In there it should be simple to start a spark cluster, but setting such up is not covered in this guide.
 Note that if one wants to, it has to be able to switch hadoop and spark versions, to run all baseline experiments.
@@ -21,7 +22,7 @@ Further dependencies are:
 
 \begin{itemize}
     \item Java 11 and 8 available on main node
-    \item Maven 3.6+ 
+    \item Maven 3.6+
     \item Git
     \item rsync (installed per default on Ubuntu)
     \item ssh (also installed per default on Ubuntu)
@@ -29,11 +30,148 @@ Further dependencies are:
     \item pdflatex - If you want to make the paper.
 \end{itemize}
 
-\section{Setup / Verification}
+\section{Verification}
 
-verify install and setup.
+First we verify the setup is correct.
 
-change parameters to run what you want
+\begin{lstlisting}
+java -version
+mvn -version
+git --version
+python3 --version
+\end{lstlisting}
+
+The output should look something like:
+
+\begin{lstlisting}
+Me:~/github/reproducibility/sigmod2023-AWARE-p5$ java -version
+-versionopenjdk version "11.0.16" 2022-07-19
+OpenJDK Runtime Environment (build 11.0.16+8-post-Ubuntu-0ubuntu120.04)
+OpenJDK 64-Bit Server VM (build 11.0.16+8-post-Ubuntu-0ubuntu120.04, mixed mode, sharing)
+Me:~/github/reproducibility/sigmod2023-AWARE-p5$ mvn -version
+Apache Maven 3.8.3 (ff8e977a158738155dc465c6a97ffaf31982d739)
+Maven home: /home/baunsgaard/maven/mvn
+Java version: 11.0.16, vendor: Ubuntu, runtime: /usr/lib/jvm/java-11-openjdk-amd64
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "5.15.0-46-generic", arch: "amd64", family: "unix"
+Me:~/github/reproducibility/sigmod2023-AWARE-p5$ git --version
+git version 2.25.1
+Me:~/github/reproducibility/sigmod2023-AWARE-p5$ python3 --version
+Python 3.8.10
+\end{lstlisting}
+
+For the distributed parts of the experiments further installs are needed:
+Verify the install of :
+
+\begin{lstlisting}
+spark-submit --version
+hdfs version
+\end{lstlisting}
+    
+
+Output should look like:
+
+\begin{lstlisting}
+$ spark-submit --version
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.spark.unsafe.Platform (file:/home/sbaunsgaard/spark-3.2.0-bin-hadoop3.2/jars/spark-unsafe_2.12-3.2.0.jar) to constructor java.nio.DirectByteBuffer(long,int)
+WARNING: Please consider reporting this to the maintainers of org.apache.spark.unsafe.Platform
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+Welcome to
+      ____              __
+     / __/__  ___ _____/ /__
+    _\ \/ _ \/ _ `/ __/  '_/
+   /___/ .__/\_,_/_/ /_/\_\   version 3.2.0
+      /_/
+                        
+Using Scala version 2.12.15, OpenJDK 64-Bit Server VM, 11.0.13
+Branch HEAD
+Compiled by user ubuntu on 2021-10-06T12:46:30Z
+Revision 5d45a415f3a29898d92380380cfd82bfc7f579ea
+Url https://github.com/apache/spark
+Type --help for more information.
+
+$ hdfs version
+Hadoop 3.3.1
+Source code repository https://github.com/apache/hadoop.git -r a3b9c37a397ad4188041dd80621bdeefc46885f2
+Compiled by ubuntu on 2021-06-15T05:13Z
+Compiled with protoc 3.7.1
+From source with checksum 88a4ddb2299aca054416d6b7f81ca55
+This command was run using /home/hadoop/hadoop-3.3.1/share/hadoop/common/hadoop-common-3.3.1.jar
+\end{lstlisting}
+
+If any of the parts are missing or returns errors then please install the missing components.
+For our setup it is a further advantage if you are able to switch the spark and hadoop version to
+be able to run CLA baselines. If it is not possible to switch then all the experiments will not work.
+
+\vspace{1cm}
+\noindent
+\textbf{From this point Code is run inside the experiments folder}
+\vspace{1cm}
+
+\newpage
+\section{Install}
+
+Next we install SystemDS, SystemML, and a python virtual environment to run python.
+
+\begin{lstlisting}
+./install-all.sh
+\end{lstlisting}
+
+To verify the install we run a few simple scripts.
+
+\begin{lstlisting}
+./verify-install.sh 
+\end{lstlisting}
+
+Output should be like:
+
+\begin{lstlisting}
+SYSTEMDS
+22/09/09 16:51:48 INFO api.DMLScript: BEGIN DML run 09/09/2022 16:51:47
+22/09/09 16:51:48 INFO api.DMLScript: Process id:  725211
+7.000 4.000 4.000
+4.000 1.000 8.000
+7.000 7.000 9.000
+
+SystemDS Statistics:
+Total execution time:		0.065 sec.
+
+22/09/09 16:51:48 INFO api.DMLScript: END DML run 09/09/2022 16:51:48
+SYSTEMML
+22/09/09 16:51:49 INFO api.DMLScript: BEGIN DML run 09/09/2022 16:51:49
+22/09/09 16:51:49 INFO api.DMLScript: HADOOP_HOME: /home/hadoop/hadoop-2.7.7
+4.000 7.000 4.000
+4.000 4.000 1.000
+8.000 7.000 7.000
+
+SystemML Statistics:
+Total execution time:		0.024 sec.
+Number of executed MR Jobs:	0.
+
+22/09/09 16:51:50 INFO api.DMLScript: END DML run 09/09/2022 16:51:50    
+\end{lstlisting}
+
+\newpage
+
+\section{Parameters}
+
+Before starting the experiments or downloading datasets,
+we suggest to go through the settings to configure the execution of the experiments.
+
+While it is possible to run everything out of the box, in one go,
+we suggest to go through some setting first in: \\
+\textbf{experiments/parameters.sh}
+
+Here it is possible to change what version of systemDS to install.
+What directory to run the experiments in.
+Settings for remote synchronization of results.
+Change parameters for JVM.
+And much more.
+
+
+
 
 \section{Data Preparation}
 

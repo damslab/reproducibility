@@ -8,15 +8,10 @@ if [ ! -d "$SYSTEMDS_ROOT" ]; then
     exit
 fi
 
-if [[ ! -d "$VENV_PATH" ]]; then
-    echo "Creating Python Virtual Enviroment"
-    python3 -m venv $VENV_PATH
-    source "$VENV_PATH/bin/activate"
-    pip install pip --upgrade > /dev/null
-    pip -q install -r requirements.txt
-    echo "$HOSTNAME"
-    
-fi
+if [ ! -d "$VENV_PATH" ]; then
+    echo "Python virtual environment not setup"
+    exit
+fi 
 
 
 # if [[ ! -f "data/mnist/train_mnist.data" ]]; then
