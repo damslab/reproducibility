@@ -6,7 +6,7 @@ export SYSTEMDS_ROOT="$HOME/github/systemds"
 export PATH="$SYSTEMDS_ROOT/bin:$PATH"
 
 # export LOG4JPROP='code/conf/log4j-off.properties'
-export LOG4JPROP='code/conf/log4j-warn.properties'
+# export LOG4JPROP='code/conf/log4j-warn.properties'
 # export LOG4JPROP='code/conf/log4j-factory.properties'
 export LOG4JPROP='code/conf/log4j-compression.properties'
 # export LOG4JPROP='code/conf/log4j-compression-trace-sizeEstimator.properties'
