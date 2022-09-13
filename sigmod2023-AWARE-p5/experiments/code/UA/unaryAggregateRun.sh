@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source parameters.sh
-
 logstart="results/UA"
 SYSTEMDS_STANDALONE_OPTS_BASE="$SYSTEMDS_STANDALONE_OPTS"
 
@@ -27,8 +25,6 @@ for d in $data; do
                     rm -f $fullLogname
                     for i in $(seq $exrep); do
                         printf "."
-                        profile="hprof/$(date +"%Y-%m-%d-%T")-UA-$HOSTNAME-$d-$x-$y-$i.html"
-                        export SYSTEMDS_STANDALONE_OPTS="$SYSTEMDS_STANDALONE_OPTS_BASE -agentpath:$HOME/Programs/profiler/build/libasyncProfiler.so=start,event=cpu,file=$profile"
                         perf stat -d -d -d \
                             systemds \
                             code/UA/$x.dml \
@@ -61,8 +57,8 @@ for d in $data; do
                     rm -f $fullLognamesysml
                     for i in $(seq $exrep); do
                         printf "."
-                        profile="hprof/$(date +"%Y-%m-%d-%T")-UA-sysML-$HOSTNAME-$d-$x-$y-$i.html"
-                        export SYSTEMML_STANDALONE_OPTS="$SYSTEMDS_STANDALONE_OPTS_BASE -agentpath:$HOME/Programs/profiler/build/libasyncProfiler.so=start,event=cpu,file=$profile"
+
+
 
                         perf stat -d -d -d \
                             java ${SYSTEMML_STANDALONE_OPTS} \

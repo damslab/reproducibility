@@ -110,9 +110,6 @@ exrep=1
 # and the number of times to repeat.
 inrep=1000
 
-# Compression repetitions - for the compression experiments only.
-compressionRep=1
-
 # General mode to run experiments in.
 # If we want to force everything into spark use "spark"
 # If we want to force everything into local use "singlenode"
@@ -149,7 +146,7 @@ mode="singlenode"
 # sysmltechniques=("ula-sysml")
 
 # Others:
-techniques=("ulab16")
+# techniques=("ulab16")
 # techniques=("clab16")
 # techniques=("clab16 claWorkloadb16")
 # techniques=("clab16 claWorkloadb16")
@@ -198,12 +195,12 @@ techniques=("ulab16")
 # data=("census_enc_16k")
 
 ## COMPRESSION only:
-data=("covtypeNew census census_enc airlines infimnist_1m amazon")
+# data=("covtypeNew census census_enc airlines infimnist_1m amazon")
 # data=("covtypeNew census census_enc airlines infimnist_1m")
 # data=("amazon")
 
 ## ALL DATASETS microbenchmarks
-data=("covtypeNew census census_enc airlines infimnist_1m")
+# data=("covtypeNew census census_enc airlines infimnist_1m")
 
 # data=("census_enc_16k infimnist_1m_16k airlines covtypeNew mnist")
 # data=("census_enc infimnist_1m")
@@ -213,7 +210,7 @@ data=("covtypeNew census census_enc airlines infimnist_1m")
 # data=("mnist")
 # data=("airlines")
 # data=("airlines infimnist_1m")
-data=("census")
+# data=("census")
 # data=("census_enc")
 # data=("covtypeNew")
 # data=("amazon")
@@ -245,11 +242,11 @@ data=("census")
 # mm=("mml+")
 # mm=("mml mml+")
 # mm=("mmr mmr+")
-mm=("mmr")
+# mm=("mmr")
 # mm=("mmr+ euclidean+")
-mm=("euclidean+")
+# mm=("euclidean+")
 # mm=("mmr+")
-mm=("seqmmr")
+# mm=("seqmmr")
 
 # mm=("mml mml+ mmr mmr+ euclidean euclidean+")
 # mm=("mml")
@@ -264,8 +261,8 @@ mm=("seqmmr")
 # mm=("mmrbem")
 
 # FOR ALL COMPARE!
-mVSizes=("16")
-mVSizes=("512")
+# mVSizes=("16")
+# mVSizes=("512")
 
 # For Scaling:
 # mVSizes=("1 2 4 8 16 32 64 128 256 512 1024")
@@ -285,8 +282,8 @@ mVSizes=("512")
 # mVSizes=("8")
 
 # scalar=("mult plus cellwiseMV less lessOL2 lessEqOLSingle")
-scalar=("mult")
-scalar=("plus")
+# scalar=("mult")
+# scalar=("plus")
 # scalar=("plusOL")
 # scalar=("plusOLSingle")
 # scalar=("squared")
@@ -298,12 +295,12 @@ scalar=("plus")
 # unaryAggregate=("colmean rowmax rowsum sum xminusmean xminusmeanSingle xminusmeanTrick")
 # unaryAggregate=("sum sum+")
 # unaryAggregate=("xminusvector xminusvector+ xdivvector xdivvector+")
-unaryAggregate=("colsum colsum+ sum sum+ scaleshift scaleshift+ rowmax rowmax+")
+# unaryAggregate=("colsum colsum+ sum sum+ scaleshift scaleshift+ rowmax rowmax+")
 # unaryAggregate=("scaleshift scaleshift+")
 # unaryAggregate=("scaleshift+")
-unaryAggregate=("scaleshift")
-unaryAggregate=("sum sum+")
-unaryAggregate=("sum")
+# unaryAggregate=("scaleshift")
+# unaryAggregate=("sum sum+")
+# unaryAggregate=("sum")
 # unaryAggregate=("colsum colsum+")
 # unaryAggregate=("xdivvector xdivvector+")
 # unaryAggregate=("xdivvector+")
@@ -326,12 +323,12 @@ unaryAggregate=("sum")
 # algorithms=("lmCG lmCG")
 
 # algorithms=("l2svm")
-algorithms=("mLogReg")
+# algorithms=("mLogReg")
 # algorithms=("kmeans PCA mLogReg lmCG lmDS l2svm")
 # algorithms=("kmeans kmeans+ PCA PCA+ mLogReg mLogReg+ lmCG lmCG+ lmDS lmDS+ l2svm l2svm+")
-algorithms=("l2svm l2svm+")
+# algorithms=("l2svm l2svm+")
 # algorithms=("kmeans+ PCA PCA+ mLogReg mLogReg+ lmCG lmCG+ lmDS lmDS+ l2svm l2svm+")
-algorithms=("kmeans+ PCA+ mLogReg+ lmCG+ lmDS+ l2svm+")
+# algorithms=("kmeans+ PCA+ mLogReg+ lmCG+ lmDS+ l2svm+")
 # algorithms=("PCA+")
 # algorithms=("kmeans kmeans+")
 # algorithms=("kmeans+")
@@ -353,8 +350,8 @@ algorithms=("kmeans+ PCA+ mLogReg+ lmCG+ lmDS+ l2svm+")
 
 # algorithms=("printCol")
 # algorithms=("l2svm+")
-algorithms=("l2svm")
-algorithms=("l2svmml")
+# algorithms=("l2svm")
+# algorithms=("l2svmml")
 
 # algorithms=("GridMLogReg+")
 # algorithms=("mLogReg+")

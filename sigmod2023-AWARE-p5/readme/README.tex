@@ -8,7 +8,7 @@
 
 This is the guide to reproduce the paper.
 To make the execution work there is a few setup requirements.
-But first it is sincerely recommended to follow the latest guide at: 
+But first it is sincerely recommended to follow the latest guide at:
 \url{https://github.com/damslab/reproducibility.git}
 
 To produce a full reproduction of the paper it is expected that one have access to a Spark (v 3.2.0) cluster with Hadoop (v 3.3.1) running Java 11. But any single machine should be able to run small scale experiments covering most of the experiments shown. For baseline experiments
@@ -67,7 +67,7 @@ Verify the install of :
 spark-submit --version
 hdfs version
 \end{lstlisting}
-    
+
 
 Output should look like:
 
@@ -171,13 +171,89 @@ Change parameters for JVM.
 And much more.
 
 
-
-
 \section{Data Preparation}
 
-create datasets.
+To download and prepare the datasets for local execution use:
+
+
+\begin{lstlisting}
+./setup_local_data.sh
+\end{lstlisting}
+
+Once done, verify the download, by running it again.
+On the second run it should get done almost instantly and report back:
+
+
+\begin{lstlisting}
+Beginning download of Census
+Census is already downloaded
+Already constructed metadata for census.csv
+Already saved training data census.
+Already saved encoded training data census.
+Census Download / Setup Done
+
+
+Downloading Covtype
+Covtype already downloaded
+Already setup  train_covtype
+Already setup train_covtype new format ... (predicting cov type)
+Saving covtype training as csv already done.
+CovType Setup Done
+
+
+Beginning download of mnist
+Download part of Mnist is already done p1
+Download part of Mnist is already done p2
+Download part of Mnist is already done p3
+Download part of Mnist is already done p4
+Unzip of part MNIST already done p1
+Unzip of part MNIST already done p2
+Unzip of part MNIST already done p3
+Unzip of part MNIST already done p4
+Saving of CSV already done for MNIST
+Saving of SystemDS binary already done for MNIST
+Mnist Setup Done
+
+
+Beginning download of Infinimnist
+Infinimnist is already downloaded
+Infinimist is already unpacked training (2mil)
+Infinimnist is alreadt unpacked labels (2mil)
+Infinimnist is alreadt unpacked training (1mil)
+Infinimnist is alreadt unpacked labels (1mil)
+Saving 2 mil to csv already done
+Saving 1 mil to csv already done
+Saving SystemDS binary of 2 mil already done
+Saving SystemDS binary of 1 mil already done
+
+
+Airlines zip already downloaded
+Airlines already unzipped
+Airlines already preprocessed to Binary
+Airlines alreay preprocessed to CSV
+Airlines Setup Done
+\end{lstlisting}
+
+\section{Run All}
+
+If you want to run all experiments (with few exceptions)
+then simply execute the run script:
+
+The script is modified per default to allow you to select individual experiments to run.
+
+
+
+\begin{lstlisting}
+./run.sh
+\end{lstlisting}
+
+Note that this will take significant time, and you might want to
+control better what experiment is run at which time.
+
+The following sections specify how to do this.
 
 \section{Micro benchmarks}
+
 
 
 

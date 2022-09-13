@@ -33,6 +33,7 @@ X2 = table(rix, cix); #one-hot encoded
 # create lables via clustering
 [C,y] = kmeans(X=X2, k=4)
 
+# Continuous split ... aka not random.
 [xTrain, xTest, yTrain, yTest] = split(X=X2,Y=y)
 
 write(X2, "data/census/train_census_enc.data", format="binary")

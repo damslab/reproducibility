@@ -15,14 +15,16 @@ if [[ ! -f "airlines/airlines.zip" ]]; then
     # https://dataverse.harvard.edu/dataset.xhtml;jsessionid=fe17cc149e3d39ae7da34fa0acc7?persistentId=doi%3A10.7910%2FDVN%2FHG7NV7&version=&q=&fileTypeGroupFacet=&fileAccess=&fileSortField=date
     wget -nv -O airlines/airlines.zip https://dataverse.harvard.edu/api/access/datafiles/1375005,1375004,1375003,1375002,1375001,1375000,1374999,1374998,1374997,1374996,1374995,1374994,1374993,1374929,1374928,1374927,1374926,1374925,1374923,1374922,1374918,1374917,1374930,1374931,1374932,1374933?gbrecs=true
     echo "Download complete"
+else
+    echo "Airlines zip already downloaded"
 fi
 
 if [[ ! -f "airlines/airports.csv" ]]; then
-    # echo "airlines file already unzipped"
-# else
     cd airlines
     unzip airlines.zip
     cd ..
+else
+    echo "Airlines already unzipped"
 fi
 
 if [[ -f "airlines/1987.csv.bz2" ]]; then
@@ -48,10 +50,24 @@ if [[ ! -d "airlines/sample" ]]; then
     wait
 fi
 
+# CD out of data directory.
 cd ..
 
+# If there is no binary preprocess it
 if [[ ! -d "data/airlines/train_airlines.data" ]]; then
     systemds code/dataPrep/saveTrainAirlines.dml
+else
+    echo "Airlines already preprocessed to Binary" 
+fi
+
+# If there is no CSV preprocess it.
+if [[ ! -d "data/airlines/train_airlines.csv" ]]; then
+    systemds code/dataPrep/saveTrainAirlines.dml
+else
+   echo "Airlines alreay preprocessed to CSV"
 fi
 
 echo "Airlines Setup Done"
+
+echo ""
+echo ""

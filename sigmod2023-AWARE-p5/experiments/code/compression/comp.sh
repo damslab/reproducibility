@@ -2,6 +2,19 @@
 
 source parameters.sh
 
+# Compression repetitions - for the compression experiments only.
+compressionRep=1
+
+# Techniques used:
+techniques=("clab16 claWorkloadb16")
+sysmltechniques=("cla-sysml")
+
+# Data used
+data=("covtypeNew census census_enc airlines infimnist_1m")
+
+# Note be carefull about this experiments since it takes 37 hours in cla-sysml.
+# data=("amazon")
+
 #Setup
 # export LOG4JPROP='code/conf/log4j-factory.properties'
 
@@ -28,9 +41,6 @@ for d in $data; do
                 source loadSysDSSettings.sh
                 rm -f $fullLogname
                 for i in $(seq $exrep); do
-                    profile="hprof/$(date +"%Y-%m-%d-%T")-COMPRESS-$HOSTNAME-$d-$x-$y-$i.html"
-
-                    export SYSTEMDS_STANDALONE_OPTS="$SYSTEMDS_STANDALONE_OPTS_BASE -agentpath:$HOME/Programs/profiler/build/libasyncProfiler.so=start,event=cpu,file=$profile"
                     perf stat -d -d -d \
                         systemds \
                         code/compression/read.dml \
@@ -62,13 +72,8 @@ for d in $data; do
         if [ ! -f "$fullLognamesysml" ] || [ $clear == 1 ]; then
             if [ $sysml == 1 ]; then
                 source loadSysMLSettings.sh
-                # java -version
-                # mvn -version
-                # echo $PATH
                 rm -f $fullLognamesysml
                 for i in $(seq $exrep); do
-                    profile="hprof/$(date +"%Y-%m-%d-%T")-COMPRESS-sysML-$HOSTNAME-$d-$x-$y-$i.html"
-                    export SYSTEMML_STANDALONE_OPTS="$SYSTEMDS_STANDALONE_OPTS_BASE -agentpath:$HOME/Programs/profiler/build/libasyncProfiler.so=start,event=cpu,file=$profile"
 
                     perf stat -d -d -d \
                         java ${SYSTEMML_STANDALONE_OPTS} \
@@ -95,4 +100,5 @@ for d in $data; do
         fi
     done
 done
+
 SYSTEMDS_STANDALONE_OPTS="$SYSTEMDS_STANDALONE_OPTS_BASE"
