@@ -17,8 +17,10 @@ date +%T
 # ./code/compression/comp-spark.sh
 
 # Figure 6 Sum and ColSum.
-./code/UA/exp6.sh
+# ./code/UA/exp6.sh
 
+# Figure 7 Plust and Dib Row Vector
+./code/scalar/exp7.sh
 
 # ./code/UA/unaryAggregateRun.sh
 # ./code/scalar/scalar.sh

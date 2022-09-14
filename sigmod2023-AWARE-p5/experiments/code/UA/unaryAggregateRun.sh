@@ -58,8 +58,6 @@ for d in $data; do
                     for i in $(seq $exrep); do
                         printf "."
 
-
-
                         perf stat -d -d -d \
                             java ${SYSTEMML_STANDALONE_OPTS} \
                             -cp ${sysmlClassPath} \
