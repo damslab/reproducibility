@@ -32,7 +32,10 @@ date +%T
 # ./code/MM/exp8ef.sh
 
 # Figure 9 Scale and Shift
-./code/UA/exp9a.sh
+# ./code/UA/exp9a.sh
 
 # Figure 9 Euclidean Distance
 # ./code/MM/exp9b.sh
+
+# Figure 10 RMM Overlap Sequence
+./code/MM/exptab.sh
