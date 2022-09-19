@@ -19,43 +19,20 @@ date +%T
 # Figure 6 Sum and ColSum.
 # ./code/UA/exp6.sh
 
-# Figure 7 Plust and Dib Row Vector
-./code/scalar/exp7.sh
+# Figure 7 Plus and Div Row Vector
+# ./code/scalar/exp7.sh
 
-# ./code/UA/unaryAggregateRun.sh
-# ./code/scalar/scalar.sh
+# Figure 8 Matrix Multiplication (Figure 8 a and b)
+# ./code/MM/exp8ab.sh
 
-# if [ "$HOSTNAME" = "XPS-15-7590" ]; then
-    # ./code/MM/runMM.sh
-    # ./code/compression/comp.sh
-    # ./code/UA/unaryAggregateRun.sh
-    # ./code/scalar/scalar.sh
-    # ./code/tensorflow/tensorflow.sh
-    # ./code/algorithms/algorithmsLocal.sh
-#    ./code/algorithms/algorithmsSysML.sh
-# else
-    # ./code/compression/comp.sh
-    # ./code/MM/runMM.sh
-    # ./code/UA/unaryAggregateRun.sh
-    # ./code/scalar/scalar.sh
-    # ./code/algorithms/algorithms.sh
-    # ./code/algorithms/algorithmsSysML.sh
-    # ./code/tensorflow/tensorflow.sh
-    # ./code/algorithms/algorithmsLocal.sh
-# fi
+# Figure 8 TSMM (c and d)
+# ./code/UA/exp8cd.sh
 
-# >> results/out-$HOSTNAME-"`date +"%d-%m-%Y"`".log 2>&1
-# ./code/algorithqms/algorithmsSparkLocalFiles.sh >> results/out-$HOSTNAME-"`date +"%d-%m-%Y"`".log 2>&1
+# Figure 8 LMM and RMM Scaling
+# ./code/MM/exp8ef.sh
 
-# Signal IT IS DONE!
-printf 'DONE! \a'
-sleep 0.2
-printf '\a'
-sleep 0.1
-printf '\a'
-sleep 0.2
-printf '\a'
-sleep 0.4
-printf '\a'
-sleep 0.4
-printf '\a\n'
+# Figure 9 Scale and Shift
+./code/UA/exp9a.sh
+
+# Figure 9 Euclidean Distance
+# ./code/MM/exp9b.sh
