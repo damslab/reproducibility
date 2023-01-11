@@ -38,4 +38,21 @@ date +%T
 # ./code/MM/exp9b.sh
 
 # Figure 10 RMM Overlap Sequence
-./code/MM/exptab.sh
+# ./code/MM/exptab.sh
+
+### ALGORITHMS RUNS:
+
+# Table 9: Local baseline end-to-end experiments
+# ./code/algorithms/exptab9.sh
+
+# Table 10: Local CLA comparison. no scale and shift
+# ./code/algorithms/exptab10.sh
+
+## Table 10 SystemML baseline ... Require Hadoop 2.7 and Spark 2.4
+# WARNING SWITCH CLUSTER TO SPARK 2.4 and HADOOP to 2.7 !!!
+# ./code/algorithms/exptab10SysML.sh
+
+
+# Table 11: Distributed Baseline CLA ...
+./code/algorithms/exptab11.sh
+

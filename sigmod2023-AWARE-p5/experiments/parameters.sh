@@ -101,6 +101,7 @@ fi
 seed=333
 
 # ExpRep, the number of times to repeat experiments
+# Increase this to improve numerical stability of the results... but increase execution time.
 exrep=1
 
 # The number of times to repeat inner operations in a given microbenchmark.
@@ -134,16 +135,6 @@ mode="singlenode"
 # ula-sysml = SystemML ULA
 # cla-sysml = SystemML CLA                          -> Default CLA SystemML
 # cla-sysmlb16 = SystemML CLA with blocksize of 16k
-
-# Compression:
-# techniques=("clab16 claGreedyb16 claWorkloadb16 claGreedyWorkloadb16 claStatic")
-# techniques=("clab16 claGreedyb16 claWorkloadb16 claGreedyWorkloadb16 claStatic")
-# techniques=("claSTATICRLE")
-# techniques=("ulab16 clab16 claWorkloadb16")
-# techniques=("ulab16")
-# sysmltechniques=("cla-sysml")
-# sysmltechniques=("ula-sysml cla-sysml")
-# sysmltechniques=("ula-sysml")
 
 # Others:
 # techniques=("ulab16")

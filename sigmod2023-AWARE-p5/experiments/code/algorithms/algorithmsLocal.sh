@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source parameters.sh
+# source parameters.sh
 
 logstart="results/algorithms/"
 
@@ -24,8 +24,6 @@ for d in $data; do
             if [ ! -f "$fullLogname" ] || [ $clear == 1 ]; then
                 rm -f $fullLogname
                 for i in $(seq $exrep); do
-                    profile="hprof/$(date +"%Y-%m-%d-%T")-Alg-$HOSTNAME-$d-$x-$y-$i.html"
-                    export SYSTEMDS_STANDALONE_OPTS="$SYSTEMDS_STANDALONE_OPTS_BASE -agentpath:$HOME/Programs/profiler/build/libasyncProfiler.so=start,event=cpu,file=$profile"
                     printf "."
                     perf stat -d -d -d \
                         systemds \
