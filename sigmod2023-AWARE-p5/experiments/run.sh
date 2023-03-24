@@ -52,7 +52,14 @@ date +%T
 # WARNING SWITCH CLUSTER TO SPARK 2.4 and HADOOP to 2.7 !!!
 # ./code/algorithms/exptab10SysML.sh
 
+## Before running distributed created the distributed datasets for HDFS:
+##  hdfs dfs -put data/census data/
+## ./data/save_scaleup_census_systemds.sh 
+## ./data/save_scaleup_census_reblock_systemds.sh
 
 # Table 11: Distributed Baseline CLA ...
-./code/algorithms/exptab11.sh
+# ./code/algorithms/exptab11.sh
+
+# Table 12: Hybrid scaling
+./code/algorithms/exptab12.sh
 

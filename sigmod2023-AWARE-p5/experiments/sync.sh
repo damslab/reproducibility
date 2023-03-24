@@ -3,6 +3,13 @@
 source parameters.sh
 
 
+for index in ${!address[*]}; do
+
+        ssh ${address[$index]} " mkdir -p $remoteDir;" &
+done 
+
+wait
+
 # Synchronize code and setup.
 for index in ${!address[*]}; do
     if [ "${address[$index]}" != "localhost" ]; then

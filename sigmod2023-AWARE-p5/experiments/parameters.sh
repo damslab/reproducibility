@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source load-had-3.3-spark-3.2-java-11.sh
+# source load-had-3.3-spark-3.2-java-11.sh
 
 # SystemML github Hash to use (On fork: git@github.com:Baunsgaard/systemds.git)
 systemMLID="06e40c6165cce5d6ae1e822a16f702d8bcd77ff6"
@@ -8,7 +8,7 @@ systemMLID="06e40c6165cce5d6ae1e822a16f702d8bcd77ff6"
 systemDSID="c34ea60da241ad0d11b37565265b7824e5012d81"
 
 # SSH address of the machine running experiments.
-address=(tango)
+address=(so001)
 # Name of laptop if you are using one.
 laptop="XPS-15-7590"
 
@@ -87,7 +87,7 @@ fi
 # Load Intel MKL if available.
 if [ -d ~/intel ] && [ -d ~/intel/bin ] && [ -f ~/intel/bin/compilervars.sh ]; then
     . ~/intel/bin/compilervars.sh intel64
-else
+elif [ -d /opt/intel ]; then
     . /opt/intel/bin/compilervars.sh intel64
 fi
 
