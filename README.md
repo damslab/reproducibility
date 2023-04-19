@@ -9,6 +9,7 @@ This repository contains reproducibility submissions, related to publications of
 ## SIGMOD 2023
 
 - [AWARE: Workload-aware, Redundancy-exploiting Linear Algebra](sigmod2023-AWARE-p5/)
+- [GIO: Generating Efficient Matrix and Frame Readers for Custom Data Formats by Example](sigmod2023-GIO-p454/)
 
 ## VLDB 2022
 
