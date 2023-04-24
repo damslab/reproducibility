@@ -35,10 +35,7 @@ for d in $data; do
                 source loadSysDSSettings.sh
                 rm -f $fullLogname
                 for i in $(seq $exrep); do
-                    profile="hprof/$(date +"%Y-%m-%d-%T")-COMPRESS-SPARK-$HOSTNAME-$d-$x-$y-$i.html"
-
-                    export SYSTEMDS_STANDALONE_OPTS="$SYSTEMDS_STANDALONE_OPTS_BASE -agentpath:$HOME/Programs/profiler/build/libasyncProfiler.so=start,event=cpu,file=$profile"
-                    perf stat -d -d -d \
+                      perf stat -d -d -d \
                         systemds \
                         code/compression/read.dml \
                         -config code/conf/$y.xml \

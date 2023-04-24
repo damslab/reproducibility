@@ -97,7 +97,6 @@ def plotMM(data, outputFilePath, title, keys, yticks=[1, 10, 100, 1000], xlabel=
     ax.yaxis.set_label_coords(-0.13, 0.4)
     ax.margins(x=0)
     plt.ylim([minV / 1.8, maxV ])
-    print(str(minV) + " " + str(maxV))
     dy = 5/72.
     dx = -6.3/72.
     for idx, label in enumerate(ax.xaxis.get_majorticklabels()):
@@ -112,27 +111,33 @@ def plotMM(data, outputFilePath, title, keys, yticks=[1, 10, 100, 1000], xlabel=
     plt.close()
 
 
-tableFile = "plots/microbenchmark/table_mml_scale_tango.csv"
-xlabel = "# rows in left matrix"
-data = parsMM(tableFile)
-if data != {}:
-    keys = ["cla-sysml-singlenode-sysmlMM_mml",
-            "ulab16-singlenodeMM_mml",
-            "clab16-singlenodeMM_mml",
-            "claWorkloadb16-singlenodeMM_mml"]
-    plotMM(data, "plots/microbenchmark/mm/mml_census_tango.pdf",
-           "MM Left Census", keys, xlabel=xlabel,
-           yticks=[10, 100, 1000, 10000])
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument("-x", "--machines", nargs="+", required=False)
+args = parser.parse_args()
+machinesList = args.machines
+for machine in machinesList:
+    tableFile = "plots/microbenchmark/tab/table_mml_scale_"+machine+".csv"
+    xlabel = "# rows in left matrix"
+    data = parsMM(tableFile)
+    if data != {}:
+        keys = ["cla-sysml-singlenode-sysmlMM_mml",
+                "ulab16-singlenodeMM_mml",
+                "clab16-singlenodeMM_mml",
+                "claWorkloadb16-singlenodeMM_mml"]
+        plotMM(data, "plots/microbenchmark/mm/mml_census_"+machine+".pdf",
+               "MM Left Census", keys, xlabel=xlabel,
+               yticks=[10, 100, 1000, 10000])
 
-tableFile = "plots/microbenchmark/table_mmr_scale_tango.csv"
-xlabel = "# cols in right matrix"
-data = parsMM(tableFile)
-if data != {}:
-    keys = ["cla-sysml-singlenode-sysmlMM_mmr",
-            "ulab16-singlenodeMM_mmr",
-            "clab16-singlenodeMM_mmr",
-            "claWorkloadb16-singlenodeMM_mmr"]
-    plotMM(data, "plots/microbenchmark/mm/mmr_census_tango.pdf",
-           "MM Right Census", keys, xlabel=xlabel,
-           yticks=[1, 10, 100, 1000, 10000, 100000])
+    tableFile = "plots/microbenchmark/tab/table_mmr_scale_"+machine+".csv"
+    xlabel = "# cols in right matrix"
+    data = parsMM(tableFile)
+    if data != {}:
+        keys = ["cla-sysml-singlenode-sysmlMM_mmr",
+                "ulab16-singlenodeMM_mmr",
+                "clab16-singlenodeMM_mmr",
+                "claWorkloadb16-singlenodeMM_mmr"]
+        plotMM(data, "plots/microbenchmark/mm/mmr_census_"+machine+".pdf",
+               "MM Right Census", keys, xlabel=xlabel,
+               yticks=[1, 10, 100, 1000, 10000, 100000])
 

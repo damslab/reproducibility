@@ -6,6 +6,8 @@
 systemMLID="06e40c6165cce5d6ae1e822a16f702d8bcd77ff6"
 # SystemDS github Hash to use (On Main: git@github.com:apache/systemds.git)
 systemDSID="c34ea60da241ad0d11b37565265b7824e5012d81"
+# SystemDS 3.1
+systemDSID="c6195020bf19c9e50f091cfc120bd2ec1805c00e"
 
 # SSH address of the machine running experiments.
 address=(so001)
@@ -19,9 +21,10 @@ remoteDir="~/github/reproducibility/sigmod2023-AWARE-p5/experiments"
 # SystemDS set on path to enable running SystemDS
 export SYSTEMDS_ROOT="$HOME/github/systemds"
 export PATH="$SYSTEMDS_ROOT/bin:$PATH"
+export HADOOP_USER_NAME=hadoop
 
 # SystemML class path. to enable running SystemML
-sysmlClassPath="$HOME/github/systemml/target/SystemML.jar:$HOME/github/systemml_compression3/target/lib/*"
+sysmlClassPath="$HOME/github/systemml/target/SystemML.jar:$HOME/github/systemml/target/lib/*"
 
 # Boolean switches to enable running or disableing running SystemDS or SystemML
 sysml=1
@@ -69,19 +72,77 @@ elif [ "$HOSTNAME" = "alpha" ]; then
         "
 else
     export SYSTEMDS_STANDALONE_OPTS="-Xmx110g -Xms110g -Xmn11g"
+    # export SYSTEMDS_DISTRIBUTED_OPTS="\
+    #     --master yarn \
+    #     --deploy-mode client \
+    #     --driver-memory 110g \
+    #     --conf spark.driver.extraJavaOptions=\"-Xms110g -Xmn11g -Dlog4j.configuration=file:$LOG4JPROP\" \
+    #     --conf spark.executor.extraJavaOptions=\"-Dlog4j.configuration=file:$LOG4JPROP\" \
+    #     --conf spark.executor.heartbeatInterval=100s \
+    #     --files $LOG4JPROP \
+    #     --conf spark.network.timeout=512s \
+    #     --num-executors 6 \
+    #     --executor-memory 105g \
+    #     --executor-cores 32 \
+    #     "
+
     export SYSTEMDS_DISTRIBUTED_OPTS="\
-        --master yarn \
-        --deploy-mode client \
-        --driver-memory 110g \
-        --conf spark.driver.extraJavaOptions=\"-Xms110g -Xmn11g -Dlog4j.configuration=file:$LOG4JPROP\" \
-        --conf spark.executor.extraJavaOptions=\"-Dlog4j.configuration=file:$LOG4JPROP\" \
-        --conf spark.executor.heartbeatInterval=100s \
-        --files $LOG4JPROP \
-        --conf spark.network.timeout=512s \
-        --num-executors 6 \
-        --executor-memory 105g \
-        --executor-cores 32 \
-        "
+          --master yarn \
+          --deploy-mode client \
+          --driver-memory 110g \
+          --driver-cores 32 \
+          --conf spark.driver.extraJavaOptions=\"-XX:+UseG1GC -Xms110g -Xmn11g -Dlog4j.configuration=file:$LOG4JPROP\" \
+          --conf spark.executor.extraJavaOptions=\"-XX:+UseG1GC -Xms105g -Xmn10g\" \
+          --conf spark.executor.heartbeatInterval=10000000s \
+          --conf spark.executor.memoryOverhead=10000 \
+          --conf spark.yarn.archive=hdfs:///spark/libs/spark-libs.jar \
+          --conf spark.task.maxFailures=10 \
+          --conf spark.storage.memoryMapThreshold=150m \
+          --files $LOG4JPROP \
+          --conf spark.memory.fraction=.4 \
+          --conf spark.network.timeout=10000001s \
+          --num-executors 6 \
+          --executor-memory 105g \
+          --executor-cores 32 \
+          "
+
+
+                    # Num instance per machine
+                    # 32 -1 / 5 = 6
+
+                    # Total executor memory = 105g / num instance per machine
+                    # 17500m
+
+                    # spark executprs memory = total executor memory * 0.9
+                    # 15750m
+
+                    # memOverhead = total executor memory * 0.1
+                    #  1750m
+
+                    # default parallelizm 
+                    # executor intances * executor cores * 2 
+                    # 6 * 32 * 2 = 384
+
+
+    export SYSTEMDS_DISTRIBUTED_OPTS_OOM="\
+          --master yarn \
+          --deploy-mode client \
+          --driver-memory 110g \
+          --driver-cores 5 \
+          --conf spark.driver.extraJavaOptions=\"-XX:+UseG1GC -Xms110g -Xmn11g -Dlog4j.configuration=file:$LOG4JPROP -agentpath:$HOME/Programs/profiler/build/libasyncProfiler.so=start,event=cpu,file=$profile\" \
+          --conf spark.executor.extraJavaOptions=\"-XX:+UseG1GC -Xms15g -Xmn175m\" \
+          --conf spark.executor.heartbeatInterval=10000000s \
+          --conf spark.executor.memoryOverhead=5000 \
+          --conf spark.yarn.archive=hdfs:///spark/libs/spark-libs.jar \
+          --conf spark.task.maxFailures=10 \
+          --conf spark.memory.fraction=.3 \
+          --files $LOG4JPROP \
+          --conf spark.network.timeout=10000001s \
+          --num-executors 32 \
+          --executor-memory 15g \
+          --executor-cores 5 \
+          "
+
 fi
 
 # Load Intel MKL if available.

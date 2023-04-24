@@ -25,7 +25,7 @@ args = parser.parse_args()
 compressionTypes = args.techniques
 compressMeasures = args.compressMeasures
 dataSets = args.data
-machines = args.machines
+machinesArg = args.machines
 
 matrixVector = args.matrixVector
 unaryAggregate = args.unaryAggregate
@@ -37,7 +37,7 @@ algorithmsData = args.algorithmsData
 algorithmsTechniques = args.algorithmsTechniques
 
 
-machinesList = [["XPS-15-7590"], ["tango"]]
+machinesList =  [[x] for x in machinesArg]
 
 algorithmsTechniques = [
     "ulab16-singlenode",
@@ -51,11 +51,11 @@ sysmlTechniques = [
     "cla-sysml-singlenode-sysml"]
 
 for machines in machinesList:
-    with open("plots/microbenchmark/table_scalar_plus_"+machines[0]+".csv", "w") as f:
+    with open("plots/microbenchmark/tab/table_scalar_plus_"+machines[0]+".csv", "w") as f:
         base = "{0:20},{1:20},{2:35},".format("DATA", "RUN", "TYPE")
         for machine in machines:
             base = base + \
-                "{0:12} {1:6},{2:5},".format(machine, "TIME ms", "REP")
+                "{1:6},{2:5},{3:10},{4:10}".format(machine, "TIME ms", "REP", "Read", "Comp") 
         data_x = ["covtypeNew", "census", "airlines",
                   "infimnist_1m", "census_enc"]
 
@@ -77,11 +77,11 @@ for machines in machinesList:
                     dataSet,
                     sysmlTechniques,
                 )
-    with open("plots/microbenchmark/table_scalar_plus+_"+machines[0]+".csv", "w") as f:
+    with open("plots/microbenchmark/tab/table_scalar_plus+_"+machines[0]+".csv", "w") as f:
         base = "{0:20},{1:20},{2:35},".format("DATA", "RUN", "TYPE")
         for machine in machines:
             base = base + \
-                "{0:12} {1:6},{2:5},".format(machine, "TIME ms", "REP")
+                "{1:6},{2:5},{3:10},{4:10}".format(machine, "TIME ms", "REP", "Read", "Comp") 
         data_x = ["covtypeNew", "census", "airlines",
                   "infimnist_1m", "census_enc"]
 
@@ -104,11 +104,11 @@ for machines in machinesList:
                     sysmlTechniques,
                 )
 
-    with open("plots/microbenchmark/table_scalar_mult_"+machines[0]+".csv", "w") as f:
+    with open("plots/microbenchmark/tab/table_scalar_mult_"+machines[0]+".csv", "w") as f:
         base = "{0:20},{1:20},{2:35},".format("DATA", "RUN", "TYPE")
         for machine in machines:
             base = base + \
-                "{0:12} {1:6},{2:5},".format(machine, "TIME ms", "REP")
+                "{1:6},{2:5},{3:10},{4:10}".format(machine, "TIME ms", "REP", "Read", "Comp") 
         data_x = ["covtypeNew", "census", "airlines",
                   "infimnist_1m", "census_enc"]
 

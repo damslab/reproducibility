@@ -60,8 +60,8 @@ l2svm = function(Matrix[Double] X, Matrix[Double] Y)
   intercept = 1
   reg = 1
   epsilon = 1e-17
-  maxii = 20
-  maxIterations = 90
+  maxii = 10
+  maxIterations = 50
   #check input lables and transform into -1/1
   check_min = min(Y)
   check_max = max(Y)

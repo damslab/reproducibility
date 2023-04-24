@@ -26,13 +26,17 @@ techniques=("ulab16")
 sysmltechniques=("cla-sysml")
 
 inrep=100
-sysml=1
+sysds=1
 
 echo "Running baseline Sum and ColSum"
 echo ""
 
 source code/UA/unaryAggregateRun.sh
 
+sysds=0
+sysml=1
+
+source code/UA/unaryAggregateRun.sh
 
 
 

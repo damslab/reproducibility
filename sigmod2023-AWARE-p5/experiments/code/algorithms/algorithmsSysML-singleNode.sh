@@ -12,7 +12,7 @@ for d in $data; do
 
             mkdir -p "$logstart/$x/$d/$HOSTNAME/"
 
-            fullLognamesysml="$logstart/$x/$d/$HOSTNAME/$y-hybrid-spark.log"
+            fullLognamesysml="$logstart/$x/$d/$HOSTNAME/$y-singlenode-spark.log"
 
             if [ ! -f "$fullLognamesysml" ] || [ $clear == 1 ]; then
                 if [ $sysml == 1 ]; then
@@ -42,6 +42,7 @@ for d in $data; do
                             -f code/algorithms/${x}.dml \
                             -config code/conf/$y.xml \
                             -stats 100 \
+                            -exec singleNode \
                             -args "data/census/${d}_sysML.data" \
                             1 \
                             "results/algorithms/$x/$d/cla-sysml-spark.csv" \
@@ -49,7 +50,6 @@ for d in $data; do
                             "data/census/test_census_sysML.data" \
                             "data/census/test_census_labels_sysML.data" \
                             >>$fullLognamesysml 2>&1
-                        # -exec hybrid \
 
                         # --files $LOG4JPROP_SYSML \
                             # --conf spark.driver.extraJavaOptions=\"-XX:+UseG1GC -Xms110g -Xmn11g\" \

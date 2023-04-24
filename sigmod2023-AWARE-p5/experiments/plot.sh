@@ -29,10 +29,9 @@ algorithmsTechniques=("ulab16-hybrid claWorkloadb16-hybrid")
 
 unaryAggregate=("colmax colmean colsum max mean min rowmax rowmaxOL rowsum rowsumOL sqsum sum xminusmean xminusmeanTrick xminusmeanSingle tsmm tsmm+")
 
-machines=("XPS-15-7590 tango alpha")
-machines=("XPS-15-7590")
-# machines=("alpha")
-machines=("tango")
+machines=("XPS-15-7590 dams-so001 tango")
+
+mkdir -p plots/microbenchmark/tab
 
 python plots/microbenchmark/table_v3.py \
       -d $data -t $techniques \
@@ -43,7 +42,7 @@ python plots/microbenchmark/table_v3.py \
       -u $unaryAggregate \
       -c $scalar \
       -v $compressMeasures \
-      -x $machines &
+      -x $machines  &
 
 python plots/microbenchmark/table_v4_comp.py \
       -d $data -t $techniques \
@@ -54,7 +53,7 @@ python plots/microbenchmark/table_v4_comp.py \
       -u $unaryAggregate \
       -c $scalar \
       -v $compressMeasures \
-      -x $machines &
+      -x $machines  &
 
 python plots/microbenchmark/table_v4_ua.py \
       -d $data -t $techniques \
@@ -64,7 +63,8 @@ python plots/microbenchmark/table_v4_ua.py \
       -tt $algorithmsTechniques \
       -u $unaryAggregate \
       -c $scalar \
-      -v $compressMeasures  &
+      -v $compressMeasures  \
+      -x $machines  &
 
 python plots/microbenchmark/table_v4_scalar.py \
       -d $data -t $techniques \
@@ -85,7 +85,8 @@ python plots/microbenchmark/table_v4_mm.py \
       -tt $algorithmsTechniques \
       -u $unaryAggregate \
       -c $scalar \
-      -v $compressMeasures  &
+      -v $compressMeasures  \
+      -x $machines  &
 
 
 wait
@@ -94,35 +95,36 @@ mkdir -p plots/microbenchmark/mm
 mkdir -p plots/microbenchmark/ua
 mkdir -p plots/microbenchmark/sc
 mkdir -p plots/microbenchmark/comp
-
-
-# python plots/microbenchmark/plot_Algorithms.py &
-# python plots/microbenchmark/plot_v1.py &
-# python plots/microbenchmark/plot_mml.py &
-# python plots/microbenchmark/plot_mmr.py &
-# python plots/microbenchmark/plot_tsmm.py &
-
-
-
-
-
-python plots/microbenchmark/plot_comp_spark.py &
-python plots/microbenchmark/plot_tensorflow.py &
-
-
-python plots/microbenchmark/plot_census_sum.py &
-python plots/microbenchmark/plot_mean_div.py &
-python plots/microbenchmark/plot_mean_minus.py &
-python plots/microbenchmark/plot_UnaryAggOps.py &
-python plots/microbenchmark/plot_ScalarOps.py &
-python plots/microbenchmark/plot_mm_scale.py &
-python plots/microbenchmark/plot_new_mml.py &
-python plots/microbenchmark/generate_tex.py &
-
-python plots/microbenchmark/plot_comp_workload_size.py &
+mkdir -p plots/tables
 
 
 wait
+
+
+# ## Generate Plots.
+python plots/microbenchmark/plot_UnaryAggOps.py -x $machines &
+python plots/microbenchmark/plot_ScalarOps.py -x $machines &
+python plots/microbenchmark/plot_new_mml.py -x $machines &
+python plots/microbenchmark/plot_mm_scale.py -x $machines &
+python plots/microbenchmark/plot_tensorflow.py -x $machines &
+
+# ## Generate latex tables.
+python plots/microbenchmark/generate_tex_scaleup.py -x $machines &
+python plots/microbenchmark/generate_tex_scaleup_SYSML.py -x $machines &
+python plots/microbenchmark/generate_tex_scaleup_SYSML_v2.py -x $machines &
+python plots/microbenchmark/generate_tex_localExec.py -x $machines &
+python plots/microbenchmark/generate_tex_comp_times.py -x $machines &
+python plots/microbenchmark/generate_tex_spark_comp.py -x $machines &
+python plots/microbenchmark/generate_tex_rmm_overlap.py -x $machines &
+
+python plots/microbenchmark/generate_tex_TOPS.py -x $machines &
+python plots/microbenchmark/generate_tex_grid.py -x $machines &
+
+
+
+wait
+
+
 
 # cp plots/microbenchmark/mm/* ../v2/fig/results/ &
 # cp plots/microbenchmark/ua/* ../v2/fig/results/ &

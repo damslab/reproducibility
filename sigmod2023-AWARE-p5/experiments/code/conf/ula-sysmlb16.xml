@@ -1,7 +1,7 @@
 <root>
     <sysds.defaultblocksize>16000</sysds.defaultblocksize>
     <defaultblocksize>16000</defaultblocksize>
+    <compressed.linalg>false</compressed.linalg>
+    <sysml.compressed.linalg>false</sysml.compressed.linalg>
     <sysml.defaultblocksize>16000</sysml.defaultblocksize>
-    <compressed.linalg>true</compressed.linalg>
-    <sysml.compressed.linalg>true</sysml.compressed.linalg>
 </root>

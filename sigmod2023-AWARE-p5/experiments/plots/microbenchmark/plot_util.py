@@ -64,6 +64,8 @@ def plotBarWithNames(data, outputFilePath, yticks, times, names):
     for x in data:
         # labels.append(x)
         for idx, v in enumerate(data[x]):
+            if math.isnan(v):
+                v = -1
             if times[idx] is None:
                 times[idx] = []
             if v < minV and v > 0:
@@ -96,7 +98,11 @@ def plotBarWithNames(data, outputFilePath, yticks, times, names):
     startOffset = oddOffset - width * ((len(times)-1) / 2)
 
     hatchs = ["////", "\\\\\\\\", "----", "||||", "o", "*", "", "", "", "", "", ""]
+
     for idx, bars in enumerate(times):
+        # if( 0.0 in bars):
+        # bars = np.abs(bars)
+        # print( bars)
         # label = ""
         # if "ula" in runs[idx]:
         #     label = "ULA" + runs[idx][27:]
@@ -148,14 +154,21 @@ def plotBarWithNames(data, outputFilePath, yticks, times, names):
     # ax.set_yticks(yticks)
 
     absMin = max(minV/ 1.8, 0.0001)
-    absMax = maxV * 3
+    absMax = maxV * 5
     ax.set_yscale("log")
 
     yticks = []
-    s = 10 ** math.ceil(math.log10(absMin))
+    s = 10 ** math.floor(math.log10(absMin))
     while(s <= absMax):
-        yticks.append(int( s))
+        yticks.append(float( s))
         s = s * 10
+
+    if yticks == []:
+        yticks = [0.01, 0.1, 1.0]
+    if yticks[0] == 0 and len(yticks) == 1:
+        yticks = [0.01, 0.1, 1.0]
+    if yticks[0] == 0:
+        yticks = yticks[1:]
 
     plt.ylim([absMin, absMax])
     if yticks is not []:
@@ -174,7 +187,7 @@ def plotBarWithNames(data, outputFilePath, yticks, times, names):
         ncol=4, loc="upper center", bbox_to_anchor=(0.5, 1.07), 
         fontsize=7.45, frameon=False
     )
-    ax.yaxis.set_label_coords(-0.13, 0.43)
+    ax.yaxis.set_label_coords(-0.14, 0.43)
     ax.margins(x=width / len(times))
     fix.autofmt_xdate(rotation=10)
     dy = 5/72. 
@@ -183,7 +196,7 @@ def plotBarWithNames(data, outputFilePath, yticks, times, names):
         offset = matplotlib.transforms.ScaledTranslation(dx, dy, fix.dpi_scale_trans)
         label.set_transform(label.get_transform() + offset)
     plt.subplots_adjust(
-        left=0.15, right=0.99, top=0.96, bottom=0.18, wspace=0.35, hspace=0.35
+        left=0.16, right=0.99, top=0.96, bottom=0.18, wspace=0.35, hspace=0.35
     )
     plt.grid(True,"major",axis='y', ls='--',linewidth=0.3, alpha=0.8)
     plt.savefig(outputFilePath,dpi=1600)

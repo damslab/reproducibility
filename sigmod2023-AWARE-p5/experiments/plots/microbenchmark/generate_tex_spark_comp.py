@@ -1,36 +1,35 @@
+import argparse
 import os
 
 import numpy as np
 
-folder = "results/sparkCompression/census_enc/XPS-15-7590/"
-
-exp = ["1", "2", "16", "64", "256"]
 
 numprint = "\\numprint{"
 end = "}"
+
 
 def makeBytes(v):
 
     if v > 1000000000:
         vf = v / 1000000000.0
-        return "{0}{1:0.2f}{2} GB".format(numprint,vf,end)
+        return "{0}{1:0.2f}{2} GB".format(numprint, vf, end)
     elif v > 1000000:
         vf = v / 1000000.0
-        return "{0}{1:0.2f}{2} MB".format(numprint,vf,end)
+        return "{0}{1:0.2f}{2} MB".format(numprint, vf, end)
     elif v > 1000:
         vf = v / 1000.0
-        return "{0}{1:0.2f}{2} KB".format(numprint,vf,end)
+        return "{0}{1:0.2f}{2} KB".format(numprint, vf, end)
     else:
-        return "{0}{1}{2} B".format(numprint,v,end)
+        return "{0}{1}{2} B".format(numprint, v, end)
 
 
 def formatRatio(v):
     if v > 100:
-        return "{0}{1:0.0f}{2}".format(numprint,v,end)
+        return "{0}{1:0.0f}{2}".format(numprint, v, end)
     elif v > 10:
-        return "{0}{1:0.1f}{2}".format(numprint,v,end)
+        return "{0}{1:0.1f}{2}".format(numprint, v, end)
     else:
-        return "{0}{1:0.2f}{2}".format(numprint,v,end)
+        return "{0}{1:0.2f}{2}".format(numprint, v, end)
 
 
 def pars(path):
@@ -60,7 +59,7 @@ def pars(path):
     # ratio - min - q1 - mean - q3 - max - blocks - spark - spark ratio
 
     if len(ratio) == 0 or sparkInSize == 0:
-        return "NA","NA","NA"
+        return "NA", "NA", "NA"
     ratio = np.array(ratio)
     sizeBlocks = np.array(sizeBlocks)
     actualRatio = formatRatio(sparkInSize / sparkOutSize)
@@ -74,18 +73,39 @@ def pars(path):
     sparkInString = makeBytes(sparkInSize)
     return actualRatio, sparkOutString, sparkInString
 
+parser = argparse.ArgumentParser()
+parser.add_argument("-x", "--machines", nargs="+", required=False)
+args = parser.parse_args()
+machinesArg = args.machines
 
-with open("plots/tables/compression_spark.tex", "w") as f:
-   
-    # f.write("\\toprule \n")
-    for x in exp:
-        f.write(x + "K   \t")
-        res = pars(folder + "clab" + x + "-spark.log")
-        for d in res[:-1]:
-            f.write(" &\t")
-            f.write(d )
-        res = pars(folder + "claWorkloadb" + x + "-spark.log")
-        for d in res:
-            f.write(" &\t")
-            f.write(d )
-        f.write("    \\\\\n")
+
+header = """\\begin{tabular}{r|cr|cr|c}
+\\toprule
+          & \\multicolumn{2} {c|}{\\textbf{\\name-Mem}} & \\multicolumn{2} {c|}{\\textbf{\\name}} &                          \\\\
+Blocksize & Ratio                                    & Total Size                           & Ratio & Total Size & ULA \\\\
+\\midrule
+"""
+
+footer = """\\bottomrule
+\end{tabular}"""
+for machine in machinesArg:
+    with open("plots/tables/compression_spark_" +machine+".tex", "w") as f:
+        folder = "results/sparkCompression/census_enc/"+machine+"/"
+
+        exp = ["1", "2", "16", "64", "256"]
+
+        f.write(header)
+
+        for x in exp:
+            f.write(x + "K   \t")
+            res = pars(folder + "clab" + x + "-spark.log")
+            for d in res[:-1]:
+                f.write(" &\t")
+                f.write(d)
+            res = pars(folder + "claWorkloadb" + x + "-spark.log")
+            for d in res:
+                f.write(" &\t")
+                f.write(d)
+            f.write("    \\\\\n")
+        f.write(footer)
+

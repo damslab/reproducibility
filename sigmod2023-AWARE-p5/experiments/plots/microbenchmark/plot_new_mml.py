@@ -1,7 +1,10 @@
 
 import plot_util
-
-machinesList = ["XPS-15-7590", "tango"]
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument("-x", "--machines", nargs="+", required=False)
+args = parser.parse_args()
+machinesList = args.machines
 mVSizes = ["16"]
 plus = ["", "+"]
 names = ["mml", "mmr", "euclidean"]
@@ -14,7 +17,7 @@ for machine in machinesList:
             for name in names:
                 full = s+"_"+name+p+"_"+machine
                 data = plot_util.pars(
-                    "plots/microbenchmark/table_"+full+".csv")
+                    "plots/microbenchmark/tab/table_"+full+".csv")
 
                 if data != {}:
                     plot_util.plotBarPartial(

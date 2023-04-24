@@ -1,8 +1,6 @@
 import os
 
-
-def parse():
-    file = "plots/microbenchmark/table_algs_v2.csv"
+def parse(file):
 
     col = {"kmeans+": 1, "PCA+": 3, "mLogReg+": 5,
            "lmCG+": 7, "lmDS+": 9, "l2svm+": 11}
@@ -60,19 +58,13 @@ def make_tex_table(data):
     return s
 
 
+
+machine = "dams-so001"
+file = "plots/microbenchmark/table_algs_v2_"+machine+".csv"
 with open("plots/tables/end_to_end_table.tex", "w") as f:
-    d = parse()
+    d = parse(file)
     s = make_tex_table(d)
-    # f.write("& \multicolumn{2}{c|}{KMEANS} & \multicolumn{2}{c|}{PCA} & \multicolumn{2}{c|}{mLogReg} & \multicolumn{2}{c|}{lmCG} & \multicolumn{2}{c|}{lmDS} & \multicolumn{2}{c}{l2svm}\\\\\n")
-    # f.write("& \multicolumn{2}{c|}{\\textbf{K-Means}} & \multicolumn{2}{c|}{\\textbf{PCA}} & \multicolumn{2}{c|}{\\textbf{MLogReg}} & \multicolumn{2}{c|}{\\textbf{lmCG}} & \multicolumn{2}{c|}{\\textbf{lmDS}} & \multicolumn{2}{c}{\\textbf{L2SVM}}\\\\\n")
-
-    # f.write("# & \\textbf{\\name} & \\textbf{\\name} & \\textbf{ULA} & \\textbf{\\name} & \\textbf{ULA} & \\textbf{\\name} & \\textbf{ULA} & \\textbf{\\name} & \\textbf{ULA} & \\textbf{\\name} & \\textbf{ULA} & \\textbf{\\name} \\\\\n")
-    # f.write("& ULA & CLA & ULA & CLA & ULA & CLA & ULA & CLA & ULA & CLA & ULA & CLA \\\\\n")
-    # f.write("\\toprule \n")
-
     f.write(s)
-    # for l in d:
-    #     f.write(l)
 
 
 def parsComp(path):

@@ -9,7 +9,7 @@ export LOG4JPROP_SYSML='code/conf/log4j-off.properties'
 
 data=("covtypeNew census census_enc airlines infimnist_1m")
 # data=("census_enc")
-scalar=("plus divcellwise")
+scalar=("plus plus+ divcellwise")
 
 # High Repeat  (because it is fast!)
 inrep=10000

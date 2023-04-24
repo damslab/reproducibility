@@ -59,5 +59,6 @@
         "**/*.fdb_latexmk": true,
         "**/*.fls": true,
     },
-    "editor.copyWithSyntaxHighlighting": false
+    "editor.copyWithSyntaxHighlighting": false,
+    "r.lsp.promptToInstall": false
 }

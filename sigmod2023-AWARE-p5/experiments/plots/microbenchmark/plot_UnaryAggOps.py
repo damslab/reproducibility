@@ -1,7 +1,11 @@
-
 import plot_util
 
-machinesList = ["XPS-15-7590", "tango"]
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument("-x", "--machines", nargs="+", required=False)
+args = parser.parse_args()
+machinesList = args.machines
+
 
 small = ["colsum", "sum", "scaleshift", "divvector"]
 
@@ -15,7 +19,7 @@ for machine in machinesList:
 
         for s in small:
             data = plot_util.pars(
-                "plots/microbenchmark/table_"+s+p+"_"+machine+".csv")
+                "plots/microbenchmark/tab/table_"+s+p+"_"+machine+".csv")
             if data != {}:
                 plot_util.plotBarPartial(
                     data, "plots/microbenchmark/ua/"+s+p+"_"+machine+".pdf", yticks)
@@ -40,7 +44,7 @@ for machine in machinesList:
         yticks = [10, 100, 1000, 10000, 100000]
         for l in large:
             data = plot_util.pars(
-                "plots/microbenchmark/table_"+l+p+"_new_"+machine+".csv")
+                "plots/microbenchmark/tab/table_"+l+p+"_new_"+machine+".csv")
             if data != {}:
                 plot_util.plotBarPartial(
                     data, "plots/microbenchmark/ua/"+l+p+"_"+machine+".pdf", yticks)

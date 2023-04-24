@@ -15,38 +15,58 @@ def parse(file, op, seconds=False):
             else:
                 mainString = "Total elapsed time:"
             time = []
+            total_time = []
+            read_times = []
+            comp_times = []
             repeats = 0
+            distributed = False
 
             for line in f:
                 if "java.lang.OutOfMemoryError" in line:
-                    return [[-1], -1]
+                    return [[-1], -1, 0, 0,[0]]
                 if "Exception in thread" in line:
-                    return [[-2], -2]
+                    return [[-2], -2, 0, 0,[0]]
                 if "An Error Occured" in line:
-                    return [[-3], -3]
+                    return [[-3], -3, 0, 0,[0]]
+                if "java.lang.NullPointerException" in line: 
+                    return [[-4], -4, 0, 0,[0]]
                 if "----" in line:
                     continue
                 if "realpath: /home/hadoop/hadoop-3.3.1:" in line:
+                    continue
+                if "Spark ctx create time (lazy):" in line:
+                    distributed = float(line[30:].split("sec.")[0]) > 0
+
+                if "Cache times (ACQr/m, RLS, EXP)" in line:
+                    read_times.append( float(line[32:].split("/")[0]))
+                    continue
+                if "  compress     " in line:
+                    comp_times.append( float( line.split("compress")[1].strip()[:-5]))
                     continue
                 if op:
                     if isinstance(op, str):
                         mainString = op
                         if "Not implemented direct tsmm colgroup" in line:
                             continue
+                        
                         if mainString in line:
                             rep = float(
                                 line.split(mainString)[
-                                    1].replace("\t", "")[-5:]
+                                    1].replace("\t", "")[-6:]
                             )
-                            time.append(
-                                float(
-                                    line.split(mainString)[1]
-                                    .replace("\t", "")
-                                    .replace(",", "")[:-5]
+                            if(rep == 0):
+                                print("WARNING: rep == 0 on string: " + line)
+                                time.append(float("NaN"))
+                            else:    
+                                time.append(
+                                    float(
+                                        line.split(mainString)[1]
+                                        .replace("\t", "")
+                                        .replace(",", "")[:-6]
+                                    )
+                                    * 1000
+                                    / rep
                                 )
-                                * 1000
-                                / rep
-                            )
                             repeats += rep
                     elif isinstance(op, list):
 
@@ -55,15 +75,15 @@ def parse(file, op, seconds=False):
                                 if ("MATRIX" not in line and "WARN" not in line):
                                     rep = float(
                                         line.split(ent)[1].replace(
-                                            "\t", "")[-5:]
+                                            "\t", "")[-6:]
                                     )
                                     v = float(line.split(ent)[
-                                              1].replace("\t", "").replace(",", "")[:-5])
+                                              1].replace("\t", "").replace(",", "")[:-6])
                                     time.append(v * 1000 / rep)
-                                    # print(v)
+                                    
                                     if ido == 0:
                                         repeats += rep
-                        # print(time)
+                       
                 else:
                     if mainString in line:
                         time.append(
@@ -71,6 +91,14 @@ def parse(file, op, seconds=False):
                                   1].replace("\t", "")[:-5])
                         )
                         repeats = repeats + 1
+                if "Total elapsed time:" in line: 
+                           total_time.append(
+                               float(line.split("Total elapsed time:")[
+                                     1].replace("\t", "")[:-5])
+                           )
+
+
+
             if isinstance(op, list):
                 a = time
                 time = [0] * (int)(round(len(a) / len(op)))
@@ -81,10 +109,26 @@ def parse(file, op, seconds=False):
                             time[index] = time[index] + a[idx + idy]
                 # repeats = repeats / len(op)
                 # for idx in range(0, len(time)):
-                #     time[idx] = time[idx] / repeats
-            return [time, repeats]
+                #     time[idx] = time[idx] / repeats                
+            
+            if len(read_times) > 0:
+                read_times = sum(read_times) / len(read_times)
+            else:
+                read_times = 0
+            
+            if len(comp_times) >0:
+                comp_times = sum(comp_times) / len(comp_times)
+            else:
+                comp_times = 0
+
+
+            if distributed:
+                return [time, repeats, read_times, comp_times, total_time,"Dist"]
+            else:
+                return [time, repeats, read_times, comp_times, total_time ]
+            # return [time, repeats]
     else:
-        return [[float("NaN")], 0]
+        return [[float("NaN")], 0, 0, 0, [0]]
 
 
 def parseSysML(file, op, seconds=False):
@@ -99,23 +143,33 @@ def parseSysML(file, op, seconds=False):
                 else:
                     mainString = "Total elapsed time:"
                 time = []
+                read_times = []
+                comp_times = []
+                total_time= []
                 repeats = 0
                 for line in f:
                     if "java.lang.OutOfMemoryError" in line:
-                        return [[-1], -1]
+                        return [[float("NaN")], -1, 0, 0,[0]]
                     if "Exception in thread" in line:
-                        return [[-2], -2]
+                        return [[float("NaN")], -2, 0, 0,[0]]
                     if "An Error Occured" in line:
-                        return [[-3], -3]
+                        return [[float("NaN")], -3, 0, 0,[0]]
                     if "----" in line:
                         continue
                     if "realpath: /home/hadoop/hadoop-3.3.1:" in line:
+                        continue
+#Cache times (ACQr/m, RLS, EXP):	128.721/0.014/107.630/0.000 sec.
+
+                    if "Cache times (ACQr/m, RLS, EXP)" in line:
+                        read_times.append( float(line[32:].split("/")[0]))
+                        continue
+                    if " compress     " in line:
+                        comp_times.append( float( line.split("compress")[1].strip()[:-5]))
                         continue
                     if op:
                         line = line.replace("\t", " ")
                         if isinstance(op, str):
                             if mainString in line:
-                                # print(line)
                                 rep = float(line.split(mainString)
                                             [1].split("sec")[1])
 
@@ -145,14 +199,20 @@ def parseSysML(file, op, seconds=False):
 
                                         if ido == 0:
                                             repeats += rep
-
                     else:
-                        if mainString in line:
-                            time.append(
-                                float(line.split(mainString)[
-                                      1].replace("\t", "")[:-5])
-                            )
-                            repeats = repeats + 1
+                        if mainString in line: 
+                           time.append(
+                               float(line.split(mainString)[
+                                     1].replace("\t", "")[:-5])
+                           )
+                           repeats = repeats + 1
+                    if "Total elapsed time:" in line: 
+                           total_time.append(
+                               float(line.split("Total elapsed time:")[
+                                     1].replace("\t", "")[:-5])
+                           )
+
+
 
                 if isinstance(op, list):
                     a = time
@@ -163,10 +223,19 @@ def parseSysML(file, op, seconds=False):
                             if idx + idy < len(a) and index < len(time):
                                 time[index] = time[index] + a[idx + idy]
 
-                return [time, repeats]
-            return [[float("NaN")], 0]
+                if len(read_times) >0:
+                    read_times = sum(read_times) / len(read_times)
+                else:
+                    read_times = 0
+                
+                if len(comp_times) >0:
+                    comp_times = sum(comp_times) / len(comp_times)
+                else:
+                    comp_times = 0
+
+                return [time, repeats, read_times, comp_times, total_time]
         else:
-            return [[float("NaN")], 0]
+            return [[float("NaN")], 0, 0 , 0,[0]]
     except:
         return parse(file, op, seconds)
 
@@ -383,8 +452,15 @@ def appendOut(f, path, op, name, techniques, machines, dataSet, sysmlTechniques=
             fullPath = path + machine + "/" + comp + ".log"
             data = parseSysML(fullPath, op, seconds)
             times = np.average(data[0]) if (len(data[0]) > 0) else float("NaN")
+            total_time = np.average(data[4] if (len(data[4]) > 0) else float("NaN"))
+           
             reps = data[1]
-            resString = resString + "{0:20.2f},{1:5.0f},".format(times, reps)
+            read_time = data[2]
+            comp_time = data[3]
+            if(len(data) == 6):
+                resString = resString + "{0:20.2f},{1:5.0f},{2:10.3f},{3:10.3f},{4:10.3f}, Dist".format(times, reps, read_time, comp_time,total_time)
+            else:
+                resString = resString + "{0:20.2f},{1:5.0f},{2:10.3f},{3:10.3f},{4:10.3f}".format(times, reps, read_time, comp_time,total_time)
         f.write("{0:20},{1:20},{2:35},{3}\n".format(
             dataSet, name, comp, resString))
     for comp in techniques:
@@ -395,8 +471,14 @@ def appendOut(f, path, op, name, techniques, machines, dataSet, sysmlTechniques=
             fullPath = path + machine + "/" + comp + ".log"
             data = parse(fullPath, op, seconds)
             times = np.average(data[0]) if (len(data[0]) > 0) else float("NaN")
+            total_time = np.average(data[4] if (len(data[4]) > 0) else float("NaN"))
             reps = data[1]
-            resString = resString + "{0:20.2f},{1:5.0f},".format(times, reps)
+            read_time = data[2]
+            comp_time = data[3]
+            if(len(data) == 6):
+                resString = resString + "{0:20.2f},{1:5.0f},{2:10.3f},{3:10.3f},{4:10.3f}, Dist".format(times, reps, read_time, comp_time,total_time)
+            else:
+                resString = resString + "{0:20.2f},{1:5.0f},{2:10.3f},{3:10.3f},{4:10.3f}".format(times, reps, read_time, comp_time,total_time)
         f.write("{0:20},{1:20},{2:35},{3}\n".format(
             dataSet, name, comp, resString))
 

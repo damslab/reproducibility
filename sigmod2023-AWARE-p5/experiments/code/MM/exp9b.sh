@@ -14,7 +14,7 @@ inrep=50
 techniques=("ulab16 clab16 claWorkloadb16")
 sysmltechniques=("cla-sysml")
 
-echo "Running compressed MML scaling all"
+echo "Running Euclidean+  all"
 sysds=1
 sysml=1
 mm=("euclidean+")

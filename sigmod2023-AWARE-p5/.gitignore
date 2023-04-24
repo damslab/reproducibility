@@ -28,8 +28,15 @@ activation.pdf
 
 experiments/plots/microbenchmark/**/*.pdf
 experiments/plots/microbenchmark/*/*.pdf
+experiments/plots/microbenchmark/tab
+experiments/plots/tables/**
 experiments/comp3Paper/lib
 experiments/comp3Paper/results
 
 *.~lock*
 **/__pycache__
+
+
+experiments/plots/microbenchmark/*.csv
+
+experiments/archive/*.zip

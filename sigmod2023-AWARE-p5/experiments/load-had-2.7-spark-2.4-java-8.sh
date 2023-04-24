@@ -1,8 +1,8 @@
 #!/bin/bash
 
-export HADOOP_HOME=/home/hadoop/hadoop-2.7.1
+export HADOOP_HOME=/home/hadoop/hadoop-2.7.7
 export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
-export SPARK_HOME="$HOME/spark-2.4.7-bin-hadoop2.7"
+export SPARK_HOME="/home/hadoop/spark-2.4.7-bin-hadoop2.7"
 
 export HADOOP_INSTALL=$HADOOP_HOME
 export HADOOP_MAPRED_HOME=$HADOOP_HOME

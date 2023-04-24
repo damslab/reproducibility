@@ -1,16 +1,16 @@
 #!/bin/bash
 
-source parameters.sh
+# source parameters.sh
 
-# Compression repetitions - for the compression experiments only.
-compressionRep=1
+# # Compression repetitions - for the compression experiments only.
+# compressionRep=1
 
-# Techniques used:
-techniques=("clab16 claWorkloadb16")
-sysmltechniques=("cla-sysml")
+# # Techniques used:
+# techniques=("clab16 claWorkloadb16")
+# sysmltechniques=("cla-sysml")
 
-# Data used
-data=("covtypeNew census census_enc airlines infimnist_1m")
+# # Data used
+# data=("covtypeNew census census_enc airlines infimnist_1m")
 
 # Note be carefull about this experiments since it takes 37 hours in cla-sysml.
 # data=("amazon")

@@ -19,10 +19,12 @@ def parse(path):
                 elif "DEBUG colgroup.ColGroupFactory: time[ms]:" in line:
                     l = line.split(" est ")[1]
                     sp = l.split("-- act")
+                    # print(sp)
                     estCost = float(sp[0])
+                    # print(estCost)
 
                     d[1].append(estCost)
-                    actCost = float(sp[1].split("cols:[")[0])
+                    actCost = float(sp[1].split("distinct")[0].split("cols:[")[0])
                     d[2].append(actCost)
         d[0].sort()
         d[1].sort()
@@ -157,44 +159,51 @@ def scaleToGigaFLOPS(data):
 
 
 sources = ["covtypeNew", "census", "census_enc", "airlines", "infimnist_1m"]
-machine = "XPS-15-7590"
 work = "claWorkloadb16-singlenode"
 comp = "clab16-singlenode"
 static = "claStatic-singlenode"
 staticW = "claStaticWorkload-singlenode"
 
-for s in sources:
-    try:
-        f = "results/compression/" + s + "/" + machine + "/" + work + ".log"
-        try:
-            dataW = parse(f)
-        except:
-            print("Failed parsing and plotting: " + f)
-            exit()
-        f = "results/compression/" + s + "/" + machine + "/" + staticW + ".log"
-        try:
-            dataSW = parse(f)
-        except:
-            print("Failed parsing and plotting: " + f)
-            exit()
-        f = "results/compression/" + s + "/" + machine + "/" + static + ".log"
-        try:
-            dataS = parse(f)
-        except:
-            print("Failed parsing and plotting: " + f)
-            exit()
-        f = "results/compression/" + s + "/" + machine + "/" + comp + ".log"
-        try:
-            dataC = parse(f)
-        except:
-            print("Failed parsing and plotting: " + f)
-            exit()
 
-        dataW = scaleToGigaFLOPS(dataW)
-        dataSW = scaleToGigaFLOPS(dataSW)
-        dataS = scaleToMB(dataS)
-        dataC = scaleToMB(dataC)
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument("-x", "--machines", nargs="+", required=False)
+args = parser.parse_args()
+machinesList = args.machines
+for machine in machinesList:
+    for s in sources:
+        try:
+            f = "results/compression/" + s + "/" + machine + "/" + work + ".log"
+            try:
+                dataW = parse(f)
+            except Exception as e:
+                print("Failed parsing and plotting: "+ f + " " +str(e))
+                exit()
+            f = "results/compression/" + s + "/" + machine + "/" + staticW + ".log"
+            try:
+                dataSW = parse(f)
+            except Exception as e:
+                print("Failed parsing and plotting: " + f + " " +str(e))
+                exit()
+            f = "results/compression/" + s + "/" + machine + "/" + static + ".log"
+            try:
+                dataS = parse(f)
+            except Exception as e:
+                print("Failed parsing and plotting: " + f + " " +str(e))
+                exit()
+            f = "results/compression/" + s + "/" + machine + "/" + comp + ".log"
+            try:
+                dataC = parse(f)
+            except Exception as e:
+                print("Failed parsing and plotting: " + f + " " +str(e))
+                exit()
 
-        plot(dataW, dataSW, dataC, dataS, "plots/microbenchmark/comp/"+s+".pdf")
-    except:
-        print("Failed in: " + s)
+            dataW = scaleToGigaFLOPS(dataW)
+            dataSW = scaleToGigaFLOPS(dataSW)
+            dataS = scaleToMB(dataS)
+            dataC = scaleToMB(dataC)
+
+            print(len(dataW), len(dataSW), len(dataS), len(dataC))
+            plot(dataW, dataSW, dataC, dataS, "plots/microbenchmark/comp/"+s+"_"+machine+".pdf")
+        except Exception  as e2:
+            print("Failed in: " + s+" "+ machine + " \t\t " + str(e2))

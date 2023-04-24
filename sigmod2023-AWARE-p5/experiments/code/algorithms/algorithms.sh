@@ -2,11 +2,10 @@
 
 # source parameters.sh
 
-export SYSDS_DISTRIBUTED=1
-
 logstart="results/algorithms/"
 
 SYSTEMDS_STANDALONE_OPTS_BASE="$SYSTEMDS_STANDALONE_OPTS"
+SYSTEMDS_DISTRIBUTED_OPTS_BASE="$SYSTEMDS_DISTRIBUTED_OPTS"
 for d in $data; do
     if [[ "$d" =~ "infimnist" ]]; then
         folder="infimnist"
@@ -26,7 +25,9 @@ for d in $data; do
             if [ ! -f "$fullLogname" ] || [ $clear == 1 ]; then
                 rm -f $fullLogname
                 for i in $(seq $exrep); do
+
                     printf "."
+
                     perf stat -d -d -d \
                         systemds \
                         code/algorithms/$x.dml \
@@ -41,6 +42,7 @@ for d in $data; do
                         "data/$folder/test_${folder}.data" \
                         "data/$folder/test_${folder}_labels.data" \
                         >>$fullLogname 2>&1
+                        # -explain \
 
                 done
 
@@ -56,3 +58,5 @@ for d in $data; do
 done
 
 SYSTEMDS_STANDALONE_OPTS="$SYSTEMDS_STANDALONE_OPTS_BASE"
+
+SYSTEMDS_DISTRIBUTED_OPTS="$SYSTEMDS_DISTRIBUTED_OPTS_BASE"

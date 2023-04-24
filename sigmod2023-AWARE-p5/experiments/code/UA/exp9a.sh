@@ -6,7 +6,7 @@ LOG4JPROP='code/conf/log4j-off.properties'
 LOG4JPROP_SYSML='code/conf/log4j-off.properties'
 
 data=("covtypeNew census census_enc airlines infimnist_1m")
-unaryAggregate=("scaleshift")
+unaryAggregate=("scaleshift scaleshift+ xdivvector xdivvector+")
 
 # Low Repeat because it is slow.
 
@@ -21,7 +21,7 @@ echo "Running scale and shift baselines"
 
 source code/UA/unaryAggregateRun.sh
 
-inrep=1000
+inrep=10000
 # Techniques used:
 # sysmltechniques=("cla-sysml")
 techniques=("clab16 claWorkloadb16")

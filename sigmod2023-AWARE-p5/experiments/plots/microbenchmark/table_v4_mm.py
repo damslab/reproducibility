@@ -18,14 +18,14 @@ parser.add_argument("-tt", "--algorithmsTechniques", nargs="+", required=False)
 parser.add_argument("-u", "--unaryAggregate", nargs="+", required=False)
 parser.add_argument("-c", "--scalar", nargs="+", required=False)
 parser.add_argument("-v", "--compressMeasures", nargs="+", required=False)
-# parser.add_argument("-x", "--machines", nargs="+", required=False)
+parser.add_argument("-x", "--machines", nargs="+", required=False)
 args = parser.parse_args()
 
 
 compressionTypes = args.techniques
 compressMeasures = args.compressMeasures
 dataSets = args.data
-# machines = args.machines
+machinesArg = args.machines
 
 matrixVector = args.matrixVector
 unaryAggregate = args.unaryAggregate
@@ -36,17 +36,18 @@ algorithms = args.algorithms
 algorithmsData = args.algorithmsData
 algorithmsTechniques = args.algorithmsTechniques
 
-machinesList = [["XPS-15-7590"], ["tango"]]
+machinesList = [[x] for x in machinesArg]
+# [["XPS-15-7590"], ["tango"]]
 mVSizes = ["1", "2", "4", "8", "16", "32", "64", "128", "256"]
 plus = ["", "+"]
 for machines in machinesList:
     for s in mVSizes:
         for p in plus:
-            with open("plots/microbenchmark/table_"+s+"_euclidean"+p+"_"+machines[0]+".csv", "w") as f:
+            with open("plots/microbenchmark/tab/table_"+s+"_euclidean"+p+"_"+machines[0]+".csv", "w") as f:
                 base = "{0:20},{1:20},{2:35},".format("DATA", "RUN", "TYPE")
                 for machine in machines:
                     base = base + \
-                        "{0:12} {1:6},{2:5},".format(machine, "TIME ms", "REP")
+                        "{1:6},{2:5},{3:10},{4:10}".format(machine, "TIME ms", "REP", "Read", "Comp") 
                 data_x = ["covtypeNew", "census", "airlines",
                           "infimnist_1m", "census_enc"]
                 algorithmsTechniques = [
@@ -77,11 +78,11 @@ for machines in machinesList:
                         sysmlTechniques,
                     )
 
-            with open("plots/microbenchmark/table_"+s+"_mml"+p+"_"+machines[0]+".csv", "w") as f:
+            with open("plots/microbenchmark/tab/table_"+s+"_mml"+p+"_"+machines[0]+".csv", "w") as f:
                 base = "{0:20},{1:20},{2:35},".format("DATA", "RUN", "TYPE")
                 for machine in machines:
                     base = base + \
-                        "{0:12} {1:6},{2:5},".format(machine, "TIME ms", "REP")
+                        "{1:6},{2:5},{3:10},{4:10}".format(machine, "TIME ms", "REP", "Read", "Comp") 
                 data_x = ["covtypeNew", "census", "airlines",
                           "infimnist_1m", "census_enc"]
                 algorithmsTechniques = [
@@ -112,11 +113,11 @@ for machines in machinesList:
                         sysmlTechniques,
                     )
 
-            with open("plots/microbenchmark/table_"+s+"_mmr"+p+"_"+machines[0]+".csv", "w") as f:
+            with open("plots/microbenchmark/tab/table_"+s+"_mmr"+p+"_"+machines[0]+".csv", "w") as f:
                 base = "{0:20},{1:20},{2:35},".format("DATA", "RUN", "TYPE")
                 for machine in machines:
                     base = base + \
-                        "{0:12} {1:6},{2:5},".format(machine, "TIME ms", "REP")
+                        "{0:12} {1:6},{2:5},{3:10},{4:10}".format(machine, "TIME ms", "REP", "Read", "Comp")
                 data_x = ["covtypeNew", "census", "airlines",
                           "infimnist_1m", "census_enc"]
                 algorithmsTechniques = [
@@ -147,11 +148,11 @@ for machines in machinesList:
                         sysmlTechniques,
                     )
 
-    with open("plots/microbenchmark/table_mml_scale_"+machines[0]+".csv", "w") as f:
+    with open("plots/microbenchmark/tab/table_mml_scale_"+machines[0]+".csv", "w") as f:
         base = "{0:20},{1:20},{2:30},".format("DATA", "RUN", "TYPE")
 
         for machine in machines:
-            base = base + "{0:12} {1:6},{2:5},".format(machine, "TIME ms", "REP")
+            base = base + "{1:6},{2:5},{3:10},{4:10}".format(machine, "TIME ms", "REP", "Read", "Comp") 
         census_data = ["census_enc"]
         algorithmsTechniques = [
             "cla-sysml-singlenode-sysml", "ulab16-singlenode", "clab16-singlenode", "claWorkloadb16-singlenode"]
@@ -180,14 +181,55 @@ for machines in machinesList:
                         dataSet
                     )
 
+    with open("plots/microbenchmark/tab/table_512_seqmmr+_"+machines[0]+".csv", "w") as f:
+               
+        base = "{0:20},{1:20},{2:30},".format("DATA", "RUN", "TYPE")
 
-    with open("plots/microbenchmark/table_mmr_scale_"+machines[0]+".csv", "w") as f:
+        for machine in machines:
+            base = base + "{1:6},{2:5},{3:10},{4:10}".format(machine, "TIME ms", "REP", "Read", "Comp") 
+        census_data = ["census_enc"]
+
+        algorithmsTechniques = [
+            "ulab16-singlenode", 
+              "claWorkloadb16NoOL-singlenode",
+            "clab16-singlenode",
+              "claWorkloadb16-singlenode"]
+        
+        sysmlTechniques = [
+            "cla-sysml-singlenode-sysml",
+            "cla-sysmlb16-singlenode-sysml",
+            "ula-sysmlb16-singlenode-sysml"
+            ]
+            # "ula-sysml-singlenode-sysml",
+        size = "512"
+
+        ops = " ba+*"
+        base = base + "\n"
+        f.write(base)
+        for dataSet in census_data:
+
+            path = "results/MM/seqmmr-512/" + dataSet + "/"
+            table_util.appendOut(
+                f,
+                path,
+                ops,
+                "MMR " + s,
+                algorithmsTechniques,
+                machines,
+                dataSet,
+                sysmlTechniques,
+            )
+
+    with open("plots/microbenchmark/tab/table_mmr_scale_"+machines[0]+".csv", "w") as f:
         base = "{0:10},{1:20},{2:16},".format("DATA", "RUN", "TYPE")
         for machine in machines:
-            base = base + "{0:12} {1:6},{2:5},".format(machine, "TIME ms", "REP")
+            base = base + "{1:6},{2:5},{3:10},{4:10}".format(machine, "TIME ms", "REP", "Read", "Comp") 
         census_data = ["census_enc"]
         algorithmsTechniques = [
-            "cla-sysml-singlenode-sysml", "ulab16-singlenode", "clab16-singlenode", "claWorkloadb16-singlenode"]
+            "cla-sysml-singlenode-sysml", 
+            "ulab16-singlenode",
+            "clab16-singlenode",
+            "claWorkloadb16-singlenode"]
         matrixVectorInstances = ["mmr"]
         sizes = ["1", "2", "4", "8", "16", "32", "64", "128", "256", "512"]
         base = base + "\n"

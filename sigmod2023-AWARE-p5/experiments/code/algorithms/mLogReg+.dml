@@ -17,7 +17,7 @@ else{
 [x, Centering, ScaleFactor] = scale(x_raw, TRUE, TRUE)
 xtest = scaleApply(xtest, Centering, ScaleFactor)
 
-bias = multiLogReg(X=x, Y=y_corrected, maxi=10, maxii=50, icpt=0, reg=2.0, tol=1e-16, verbose=TRUE)
+bias = multiLogReg(X=x, Y=y_corrected, maxi=10, maxii=5, icpt=0, reg=2.0, tol=1e-16, verbose=TRUE)
 
 [nn, y_predict_test, acc_test] = multiLogRegPredict(X=xtest, B=bias, Y=ytest_corrected)
 print("Accuracy:  " + acc_test)

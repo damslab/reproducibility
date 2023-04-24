@@ -18,14 +18,14 @@ parser.add_argument("-tt", "--algorithmsTechniques", nargs="+", required=False)
 parser.add_argument("-u", "--unaryAggregate", nargs="+", required=False)
 parser.add_argument("-c", "--scalar", nargs="+", required=False)
 parser.add_argument("-v", "--compressMeasures", nargs="+", required=False)
-# parser.add_argument("-x", "--machines", nargs="+", required=False)
+parser.add_argument("-x", "--machines", nargs="+", required=False)
 args = parser.parse_args()
 
 
 compressionTypes = args.techniques
 compressMeasures = args.compressMeasures
 dataSets = args.data
-# machines = args.machines
+machinesArg = args.machines
 
 matrixVector = args.matrixVector
 unaryAggregate = args.unaryAggregate
@@ -36,7 +36,7 @@ algorithms = args.algorithms
 algorithmsData = args.algorithmsData
 algorithmsTechniques = args.algorithmsTechniques
 
-machinesList = [["XPS-15-7590"], ["tango"]]
+machinesList = [[x] for x in machinesArg]
 
 
 algorithmsTechniques = [
@@ -53,11 +53,11 @@ sysmlTechniques = [
 
 for machines in machinesList:
 
-    with open("plots/microbenchmark/table_colsum_"+machines[0]+".csv", "w") as f:
+    with open("plots/microbenchmark/tab/table_colsum_"+machines[0]+".csv", "w") as f:
         base = "{0:20},{1:20},{2:35},".format("DATA", "RUN", "TYPE")
         for machine in machines:
             base = base + \
-                "{0:12} {1:6},{2:5},".format(machine, "TIME ms", "REP")
+               "{1:6},{2:5},{3:10},{4:10}".format(machine, "TIME ms", "REP", "Read", "Comp") 
         data_x = ["covtypeNew", "census", "airlines",
                   "infimnist_1m", "census_enc"]
 
@@ -79,11 +79,11 @@ for machines in machinesList:
                     sysmlTechniques,
                 )
 
-    with open("plots/microbenchmark/table_colsum+_"+machines[0]+".csv", "w") as f:
+    with open("plots/microbenchmark/tab/table_colsum+_"+machines[0]+".csv", "w") as f:
         base = "{0:20},{1:20},{2:35},".format("DATA", "RUN", "TYPE")
         for machine in machines:
             base = base + \
-                "{0:12} {1:6},{2:5},".format(machine, "TIME ms", "REP")
+               "{1:6},{2:5},{3:10},{4:10}".format(machine, "TIME ms", "REP", "Read", "Comp") 
         data_x = ["covtypeNew", "census", "airlines",
                   "infimnist_1m", "census_enc"]
 
@@ -105,12 +105,12 @@ for machines in machinesList:
                     sysmlTechniques,
                 )
 
-    with open("plots/microbenchmark/table_sum_"+machines[0]+".csv", "w") as f:
+    with open("plots/microbenchmark/tab/table_sum_"+machines[0]+".csv", "w") as f:
         base = "{0:20},{1:20},{2:35},".format("DATA", "RUN", "TYPE")
 
         for machine in machines:
             base = base + \
-                "{0:12} {1:6},{2:5},".format(machine, "TIME ms", "REP")
+               "{1:6},{2:5},{3:10},{4:10}".format(machine, "TIME ms", "REP", "Read", "Comp") 
         data_x = ["covtypeNew", "census", "airlines",
                   "infimnist_1m", "census_enc"]
 
@@ -136,12 +136,12 @@ for machines in machinesList:
                 print("failed reading sum" + dataSet)
 
 
-    with open("plots/microbenchmark/table_sum+_"+machines[0]+".csv", "w") as f:
+    with open("plots/microbenchmark/tab/table_sum+_"+machines[0]+".csv", "w") as f:
         base = "{0:20},{1:20},{2:35},".format("DATA", "RUN", "TYPE")
 
         for machine in machines:
             base = base + \
-                "{0:12} {1:6},{2:5},".format(machine, "TIME ms", "REP")
+               "{1:6},{2:5},{3:10},{4:10}".format(machine, "TIME ms", "REP", "Read", "Comp") 
         data_x = ["covtypeNew", "census", "airlines",
                   "infimnist_1m", "census_enc"]
 
@@ -167,11 +167,11 @@ for machines in machinesList:
             except:
                 print("failed reading sum+" + dataSet)
 
-    with open("plots/microbenchmark/table_tsmm_new_"+machines[0]+".csv", "w") as f:
+    with open("plots/microbenchmark/tab/table_tsmm_new_"+machines[0]+".csv", "w") as f:
         base = "{0:20},{1:20},{2:35},".format("DATA", "RUN", "TYPE")
         for machine in machines:
             base = base + \
-                "{0:12} {1:6},{2:5},".format(machine, "TIME ms", "REP")
+               "{1:6},{2:5},{3:10},{4:10}".format(machine, "TIME ms", "REP", "Read", "Comp") 
         data_x = ["covtypeNew", "census", "airlines",
                   "infimnist_1m", "census_enc"]
 
@@ -193,11 +193,11 @@ for machines in machinesList:
                     sysmlTechniques,
                 )
 
-    with open("plots/microbenchmark/table_tsmm+_new_"+machines[0]+".csv", "w") as f:
+    with open("plots/microbenchmark/tab/table_tsmm+_new_"+machines[0]+".csv", "w") as f:
         base = "{0:20},{1:20},{2:35},".format("DATA", "RUN", "TYPE")
         for machine in machines:
             base = base + \
-                "{0:12} {1:6},{2:5},".format(machine, "TIME ms", "REP")
+               "{1:6},{2:5},{3:10},{4:10}".format(machine, "TIME ms", "REP", "Read", "Comp") 
         data_x = ["covtypeNew", "census", "airlines",
                   "infimnist_1m", "census_enc"]
 
@@ -220,11 +220,11 @@ for machines in machinesList:
                 )
 
     
-    with open("plots/microbenchmark/table_scaleshift+_"+machines[0]+".csv", "w") as f:
+    with open("plots/microbenchmark/tab/table_scaleshift+_"+machines[0]+".csv", "w") as f:
         base = "{0:20},{1:20},{2:35},".format("DATA", "RUN", "TYPE")
         for machine in machines:
             base = base + \
-                "{0:12} {1:6},{2:5},".format(machine, "TIME ms", "REP")
+               "{1:6},{2:5},{3:10},{4:10}".format(machine, "TIME ms", "REP", "Read", "Comp") 
         data_x = ["covtypeNew", "census", "airlines",
                   "infimnist_1m", "census_enc"]
 
@@ -246,11 +246,11 @@ for machines in machinesList:
                     sysmlTechniques,
                 )
 
-    with open("plots/microbenchmark/table_scaleshift_"+machines[0]+".csv", "w") as f:
+    with open("plots/microbenchmark/tab/table_scaleshift_"+machines[0]+".csv", "w") as f:
         base = "{0:20},{1:20},{2:35},".format("DATA", "RUN", "TYPE")
         for machine in machines:
             base = base + \
-                "{0:12} {1:6},{2:5},".format(machine, "TIME ms", "REP")
+               "{1:6},{2:5},{3:10},{4:10}".format(machine, "TIME ms", "REP", "Read", "Comp") 
         data_x = ["covtypeNew", "census", "airlines",
                   "infimnist_1m", "census_enc"]
 
@@ -272,11 +272,11 @@ for machines in machinesList:
                     sysmlTechniques,
                 )
     
-    with open("plots/microbenchmark/table_divvector+_"+machines[0]+".csv", "w") as f:
+    with open("plots/microbenchmark/tab/table_divvector+_"+machines[0]+".csv", "w") as f:
         base = "{0:20},{1:20},{2:35},".format("DATA", "RUN", "TYPE")
         for machine in machines:
             base = base + \
-                "{0:12} {1:6},{2:5},".format(machine, "TIME ms", "REP")
+               "{1:6},{2:5},{3:10},{4:10}".format(machine, "TIME ms", "REP", "Read", "Comp") 
         data_x = ["covtypeNew", "census", "airlines",
                   "infimnist_1m", "census_enc"]
 
@@ -298,11 +298,11 @@ for machines in machinesList:
                     sysmlTechniques,
                 )
 
-    with open("plots/microbenchmark/table_divvector_"+machines[0]+".csv", "w") as f:
+    with open("plots/microbenchmark/tab/table_divvector_"+machines[0]+".csv", "w") as f:
         base = "{0:20},{1:20},{2:35},".format("DATA", "RUN", "TYPE")
         for machine in machines:
             base = base + \
-                "{0:12} {1:6},{2:5},".format(machine, "TIME ms", "REP")
+               "{1:6},{2:5},{3:10},{4:10}".format(machine, "TIME ms", "REP", "Read", "Comp") 
         data_x = ["covtypeNew", "census", "airlines",
                   "infimnist_1m", "census_enc"]
 

@@ -13,8 +13,6 @@ systemds code/dataPrep/save_reblock.dml -config code/conf/ulab16.xml -args "cens
 systemds code/dataPrep/save_reblock.dml -config code/conf/ulab16.xml -args "census/train_census_enc_64x"   
 systemds code/dataPrep/save_reblock.dml -config code/conf/ulab16.xml -args "census/train_census_enc_128x"  
 systemds code/dataPrep/save_reblock.dml -config code/conf/ulab16.xml -args "census/train_census_enc_256x"  
-# systemds code/dataPrep/save_scaleup.dml -args "census/train_census_enc_512x"  
-# systemds code/dataPrep/save_scaleup.dml -args "census/train_census_enc_1024x" 
 
 
 

@@ -1,4 +1,6 @@
+import argparse
 import os
+import numpy as np
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -28,7 +30,7 @@ def parse_systemds(path):
                     io = float(line[32:-5].split("/")[0])
         return time, io
     else:
-        print("Missing : " + path)
+        # print("Missing : " + path)
         return 0, 0
 
 
@@ -44,8 +46,44 @@ def parse_tensorflow(path):
                     io = float(line[8:])
         return time, io
     else:
-        print("Missing : " + path)
+        # print("Missing : " + path)
         return 0, 0
+
+
+def parse_avg(path_template, number=10, tensorflow=True):
+    times = []
+    io = []
+    for i in range(1, number):
+        if tensorflow:
+            t = parse_tensorflow(path_template.format(i=i))
+        else:
+            t = parse_systemds(path_template.format(i=i))
+        if t[0] > 0.0:
+            times.append(t[0])
+            io.append(t[1])
+
+    if len(times) == 0:
+        return 0, 0
+    # Remove outliers... did not make a difference.
+    # if len(times)> 3:
+    #     maxTime = max(times)
+    #     minTime = min(times)
+    #     tmp = times 
+    #     tmpIO = io 
+    #     times=[]
+    #     io =[]
+    #     for i in range(len(tmp)):
+            
+    #         if maxTime == tmp[i] or  minTime == tmp[i]:
+    #             continue
+
+    #         times.append(tmp[i])
+    #         io.append(tmpIO[i])
+        
+    ret = (np.average(times), np.average(io))
+    if np.isnan(ret[0]) or np.isnan(ret[1]):
+        return 0, 0
+    return ret
 
 
 def plot_times(times, outputFilePath):
@@ -190,27 +228,33 @@ def plot_times(times, outputFilePath):
     plt.close()
 
 
-machine = "tango"
-base = "results/tensorflow/"
-times = []
-# times.append(parse_tensorflow(base + "tlr-"+machine+".log"))
-times.append(parse_tensorflow(base + "tlrG-"+machine+"-1.log"))
-times.append(parse_tensorflow(base + "tlrG-FP32-"+machine+"-1.log"))
-times.append(parse_tensorflow(base + "tlrG-BF16-"+machine+"-2.log"))
-times.append(parse_tensorflow(base + "tlrG-Sparse-"+machine+"-1.log"))
-times.append(parse_tensorflow(base + "tlrG-SparseFP32-"+machine+"-1.log"))
+parser = argparse.ArgumentParser()
+parser.add_argument("-x", "--machines", nargs="+", required=False)
+args = parser.parse_args()
+machinesList = args.machines
 
-times.append(parse_systemds(base + "ds_ula-"+machine+"-1.log"))
-# times.append(parse_systemds(base + "ds_ST-"+machine+"-1.log"))
-times.append(parse_systemds(base + "ds_STR-"+machine+"-1.log"))
+for machine in machinesList:
+    try:
+        base = "results/tensorflow/" + machine
+        times = []
+        # Tensorflow:
 
-times.append(parse_systemds(base + "ds_claWorkload-"+machine+"-1.log"))
-# times.append(parse_systemds(base + "ds_claWorkloadST-"+machine+"-1.log"))
-times.append(parse_systemds(base + "ds_claWorkloadSTR-"+machine+"-1.log"))
+        times.append(parse_avg(base + "/tlrG-{i}.log"))
+        times.append(parse_avg(base + "/tlrG-FP32-{i}.log"))
+        times.append(parse_avg(base + "/tlrG-BF16-{i}.log"))
+        times.append(parse_avg(base + "/tlrG-Sparse-{i}.log"))
+        times.append(parse_avg(base + "/tlrG-SparseFP32-{i}.log"))
 
-# print(times)
-# names = ["tfG", "",  "ula", "cla", "ulaST", "claST"]
-# print(times)
+        # ULA
+        times.append(parse_avg(base + "/ds_ula-{i}.log", tensorflow=False))
+        times.append(parse_avg(base + "/ds_STR-{i}.log", tensorflow=False))
 
-plot_times(
-    times,  "plots/microbenchmark/comp/tensorflow_compare_" + machine+".pdf")
+        # AWARE
+        times.append(parse_avg(base + "/ds_claWorkload-{i}.log", tensorflow=False))
+        times.append(parse_avg(base + "/ds_claWorkloadSTR-{i}.log", tensorflow=False))
+
+        resFile = "plots/microbenchmark/comp/tensorflow_compare_" + machine+".pdf"
+        plot_times(times, resFile)
+    except:
+        continue
+        # do nothing.
