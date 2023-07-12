@@ -1,3 +1,20 @@
+#!/bin/bash
+
+mkdir -p tmpdata
+cd tmpdata
+
+# HIGGS (CSV)
+wget https://archive.ics.uci.edu/ml/machine-learning-databases/00280/HIGGS.csv.gz
+
+# Mnist8m (LibSVM)
+wget https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/multiclass/mnist8m.xz
+
+# Susy (LibSVM)
+wget https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/binary/SUSY.xz
+
+# Queen (Matrix Market)
+wget https://suitesparse-collection-website.herokuapp.com/MM/Janna/Queen_4147.tar.gz
+
 
 
 # HIGGS CSV
