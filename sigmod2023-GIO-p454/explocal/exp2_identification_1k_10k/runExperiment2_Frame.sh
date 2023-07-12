@@ -2,7 +2,7 @@
 
 dataset=$1
 log_file_name=$2
-parallel=$3
+parallel=true
 
 # write header to log file
 if [[ ! -f results/$log_file_name.dat ]] ; then

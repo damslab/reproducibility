@@ -16,7 +16,7 @@ for query in "${query_list[@]}"; do
                        -DschemaFileName=data/${dataset}/${query}/${dataset}.schema\
                        -DschemaMapFileName=data/${dataset}/${query}/${dataset}.schemaMap\
                        -Dparallel=${parallel}\
-                       -cp ./setup/SystemDS/lib/*:./setup/SystemDS/SystemDS.jar org.apache.sysds.runtime.iogen.EXP.SystemDS
+                       -cp ./setup/JavaBaselines/lib/*:./setup/JavaBaselines/JavaBaselines.jar at.tugraz.benchmark.SystemDS
                "
       echo $SCRIPT
      

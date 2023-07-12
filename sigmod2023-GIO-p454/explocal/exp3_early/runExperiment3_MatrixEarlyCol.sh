@@ -2,7 +2,7 @@
 
 dataset=$1
 log_file_name=$2
-parallel=$3
+parallel=true
 
 for examples in 100 200 300 400 500 600 700 800 900 1000; do      
       SCRIPT="$CMD  -DsampleRawFileName=data/${dataset}/sample-${dataset}${examples}.raw\

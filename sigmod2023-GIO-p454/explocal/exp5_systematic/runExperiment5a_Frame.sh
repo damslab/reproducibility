@@ -19,7 +19,7 @@ for field in "${field_list[@]}"; do
                      -DsampleFrameFileName=data/${dataset}/${field}/sample-${dataset}${examples}.frame\
                      -DschemaFileName=data/${dataset}/${field}/${dataset}.schema\
                      -Dparallel=${parallel}\
-                     -cp ./setup/SystemDS/lib/*:./setup/SystemDS/SystemDS.jar org.apache.sysds.runtime.iogen.EXP.GIOFrameIdentification
+                     -cp ./setup/JavaBaselines/lib/*:./setup/JavaBaselines/JavaBaselines.jar at.tugraz.benchmark.GIOFrameIdentification
                "
        echo $SCRIPT
 

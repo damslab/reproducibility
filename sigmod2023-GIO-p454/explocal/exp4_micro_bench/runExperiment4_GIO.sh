@@ -18,7 +18,7 @@ for query in "${query_list[@]}"; do
                      -DdataFileName=data/${dataset}.dat\
                      -DschemaFileName=data/${dataset}/${query}/${dataset}.schema\
                      -Dparallel=${parallel}\
-                     -cp ./setup/SystemDS/lib/*:./setup/SystemDS/SystemDS.jar org.apache.sysds.runtime.iogen.EXP.GIOFrame
+                     -cp ./setup/JavaBaselines/lib/*:./setup/JavaBaselines/JavaBaselines.jar at.tugraz.benchmark.GIOFrame
             "
       echo $SCRIPT
 
