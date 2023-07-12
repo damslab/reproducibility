@@ -10,8 +10,8 @@ for parallel in false; do
     for rp in {1..1}; do
 
         #./explocal/exp1_micor_bench_identification/runExperiment1.sh $parallel # EXP1: Figure 8 (diagrams a-g)
-
-        ./explocal/exp3_early/runExperiment3.sh $parallel # EXP3: Figure 9 (diagrams a-b)
+        #./explocal/exp2_identification_1k_10k/runExperiment2.sh $parallel # EXP2: Table 3 (1k to 10k rows)
+        #./explocal/exp3_early/runExperiment3.sh $parallel # EXP3: Figure 9 (diagrams a-b)
 
         # ## <<<  Experiment1 Micro-Benchmark Identification Part >>>
         # #########################################################
