@@ -13,12 +13,12 @@ declare -a query_list=("Q1" "Q2" "Q3" "Q4" "Q5")
 
 for query in "${query_list[@]}"; do
   if [ -d "data/${dataset}/${query}" ]; then
-    for examples in 1000 2000 3000 4000 5000 6000 7000 8000 9000 10000; do            
+    for examples in 200 300 400 500 600 700 800 900 1000; do                  
             SCRIPT="$CMD  -DsampleRawFileName=data/${dataset}/${query}/sample-${dataset}${examples}.raw\
                           -DsampleFrameFileName=data/${dataset}/${query}/sample-${dataset}${examples}.frame\
                           -DschemaFileName=data/${dataset}/${query}/${dataset}.schema\
                           -Dparallel=${parallel}\
-                          -cp ./setup/SystemDS/lib/*:./setup/SystemDS/SystemDS.jar org.apache.sysds.runtime.iogen.EXP.GIOFrameIdentification
+                          -cp ./setup/JavaBaselines/lib/*:./setup/JavaBaselines/JavaBaselines.jar at.tugraz.benchmark.GIOFrameIdentification
                           "
             echo $SCRIPT
 

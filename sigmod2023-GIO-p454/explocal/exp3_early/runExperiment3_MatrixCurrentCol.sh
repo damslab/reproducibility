@@ -9,11 +9,11 @@ if [[ ! -f results/$log_file_name.dat ]] ; then
   echo "baseline,dataset,example_nrows,time,parallel" >>results/$log_file_name.dat
 fi
 
-for examples in 100 200 300 400 500 600 700 800 900 1000; do      
+for examples in 100 200 300 400 500 600 700 800 900 1000; do     
       SCRIPT="$CMD  -DsampleRawFileName=data/${dataset}/sample-${dataset}${examples}.raw\
                     -DsampleMatrixFileName=data/${dataset}/sample-${dataset}${examples}.matrix\
                     -Dparallel=${parallel}\
-                    -cp ./setup/SystemDS/lib/*:./setup/SystemDS/SystemDS.jar org.apache.sysds.runtime.iogen.EXP.GIOMatrixIdentification
+                    -cp ./setup/JavaBaselines/lib/*:./setup/JavaBaselines/JavaBaselines.jar at.tugraz.benchmark.GIOMatrixIdentification
               "
       echo $SCRIPT
 
