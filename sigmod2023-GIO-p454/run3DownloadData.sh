@@ -3,6 +3,21 @@
 mkdir -p tmpdata
 cd tmpdata
 
+# clean-up
+rm -rf HIGGS.csv.gz
+rm -rf mnist8m.xz
+rm -rf SUSY.xz
+rm -rf Queen_4147.tar.gz
+rm -rf AMiner-Paper.rar
+rm -rf AMiner-Author.zip
+
+rm -rf HIGGS.csv
+rm -rf mnist8m
+rm -rf SUSY
+rm -rf Queen_4147
+rm -rf AMiner-Paper.txt
+rm -rf AMiner-Author.txt
+
 # HIGGS (CSV)
 wget https://archive.ics.uci.edu/ml/machine-learning-databases/00280/HIGGS.csv.gz
 
@@ -15,30 +30,26 @@ wget https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/binary/SUSY.xz
 # Queen (Matrix Market)
 wget https://suitesparse-collection-website.herokuapp.com/MM/Janna/Queen_4147.tar.gz
 
+# AMiner
+wget https://lfs.aminer.cn/lab-datasets/aminerdataset/AMiner-Paper.rar
+wget https://lfs.aminer.cn/lab-datasets/aminerdataset/AMiner-Author.zip
+
+# Yelp (JSON):
+# download YELP dataset from this link: https://www.yelp.com/dataset/download
 
 
-# HIGGS CSV
-#https://archive.ics.uci.edu/ml/machine-learning-databases/00280/HIGGS.csv.gz
+# Extract datasets and rename
+gzip -d HIGGS.csv.gz
+unxz mnist8m.xz
+unxz SUSY.xz
+tar -xvzf Queen_4147.tar.gz
+unrar e AMiner-Paper.rar
+unzip AMiner-Author.zip
 
-# LibSVM : https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/
-# KDD 12
-# https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/binary/kdd12.bz2
-
-
-#MM
-#https://graphchallenge.mit.edu/data-sets
-#https://graphchallenge.s3.amazonaws.com/synthetic/graph500-scale25-ef16/graph500-scale25-ef16_adj.mmio.gz
-
-#MM
-#https://sparse.tamu.edu/
-
-# 786,431	786,431	2,710,370,560	Undirected Graph
-#https://sparse.tamu.edu/Mycielski/mycielskian20
-
-
-
-#1. 2186	relat9	JGD_Relat	12,360,060	549,336	38,955,420	Combinatorial Problem	2008
-# https://sparse.tamu.edu/JGD_Relat/relat9
-
-#2.	Queen_4147	Janna	4,147,110	4,147,110	316,548,962	2D/3D Problem
-#https://sparse.tamu.edu/Janna/Queen_4147
+mv HIGGS.csv ../data/higgs-csv.dat
+mv mnist8m ../data/mnist8m-libsvm.dat
+mv SUSY ../data/susy-libsvm.dat
+mv Queen_4147/Queen_4147.mtx ../data/queen-mm.dat
+rm -rf Queen_4147
+mv AMiner-Paper.txt ../data/aminer-paper.dat
+mv AMiner-Author.txt ../data/aminer-author.dat

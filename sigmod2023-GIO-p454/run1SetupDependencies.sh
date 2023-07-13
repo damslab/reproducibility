@@ -4,6 +4,9 @@ sudo apt update
 sudo apt-get install openjdk-11-jdk-headless
 sudo apt install -y maven
 sudo apt install -y git
+sudo apt-get install unzip
+sudo apt-get install unrar
+sudo apt install xz-utils
 
 rm -rf envGIO # clean up
 

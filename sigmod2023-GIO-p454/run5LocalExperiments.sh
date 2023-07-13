@@ -1,8 +1,6 @@
 #!/bin/bash
 
 # This script runs all local experiments on the specified scale-up machine.
-export LOG4JPROP='explocal/log4j.properties'
-export CMD="java -Xms12g -Xmx12g -Dlog4j.configuration=file:$LOG4JPROP"
 
 for rp in {1..5}; do  
     ./explocal/exp1_micor_bench_identification/runExperiment1.sh # EXP1: Figure 8 (diagrams a-g)

@@ -1,6 +1,7 @@
 package at.tugraz.aminer;
 
 import at.tugraz.util.GenerateData;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -9,7 +10,6 @@ import java.util.Collections;
 import java.util.HashMap;
 
 public class AminerPaperDataGen extends GenerateData {
-
 	private String authorPath;
 	private String paperPath;
 	private int maxAffiliationsSize;
@@ -21,9 +21,9 @@ public class AminerPaperDataGen extends GenerateData {
 	HashMap<String, Long> authorNameMap = new HashMap<String, Long>();
 	HashMap<Long, Paper> papers = new HashMap<Long, Paper>();
 
-	public AminerPaperDataGen(String path) {
-		this.paperPath = path + "/AMiner-Paper.txt";
-		this.authorPath = path + "/AMiner-Author.txt";
+	public AminerPaperDataGen(String paper, String author) {
+		this.paperPath = paper;
+		this.authorPath = author;
 		loadAuthorData();
 		loadPaperData();
 	}
@@ -205,9 +205,10 @@ public class AminerPaperDataGen extends GenerateData {
 	}
 
 	public static void main(String[] args) throws IOException {
-		String dataset = "aminer";
-		mainGenerateData(args, dataset);
-		AminerPaperDataGen aminer = new AminerPaperDataGen(inDataPath);
+		String in_paper = args[0];
+		String in_author = args[1];
+		outDataPath = args[2];
+		AminerPaperDataGen aminer = new AminerPaperDataGen(in_paper, in_author);
 
 		HashMap<Long, Paper> papers = aminer.getPapers();
 
@@ -219,7 +220,6 @@ public class AminerPaperDataGen extends GenerateData {
 			dataFileHandler.write("\n");
 		}
 		flushFileHandlers();
-
 	}
 
 }

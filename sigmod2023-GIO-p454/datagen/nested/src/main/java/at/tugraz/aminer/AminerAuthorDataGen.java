@@ -19,7 +19,7 @@ public class AminerAuthorDataGen extends GenerateData {
 	HashMap<String, Long> authorNameMap = new HashMap<String, Long>();
 
 	public AminerAuthorDataGen(String path) {
-		this.authorPath = path + "/AMiner-Author.txt";
+		this.authorPath = path;
 		maxAffiliationsSize = 0;
 		maxResearchInterestsSize = 0;
 		loadAuthorData();
@@ -104,8 +104,8 @@ public class AminerAuthorDataGen extends GenerateData {
 	}
 
 	public static void main(String[] args) throws IOException {
-		String dataset = "aminer";
-		mainGenerateData(args, dataset);
+		inDataPath = args[0];
+		outDataPath = args[1];
 		AminerAuthorDataGen aminer = new AminerAuthorDataGen(inDataPath);
 		HashMap<Long, Author> authors = aminer.getAuthorMap();
 		createDataFile("aminer-author", "json");
