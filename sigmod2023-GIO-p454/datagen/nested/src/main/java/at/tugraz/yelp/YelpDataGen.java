@@ -23,12 +23,12 @@ public class YelpDataGen extends GenerateData {
 
 	private Gson gson = new Gson();
 
-	public YelpDataGen(String path) {
-		this.userPath = path + "/yelp_academic_dataset_user.json";
-		this.businessPath = path + "/yelp_academic_dataset_business.json";
-		this.checkinPath = path + "/yelp_academic_dataset_checkin.json";
+	public YelpDataGen(String business, String checkin, String review, String user) {
+		this.userPath = user;
+		this.businessPath = business;
+		this.checkinPath = checkin;
 		//this.photoPath = path + "/yelp_academic_dataset_photo.json";
-		this.reviewPath = path + "/yelp_academic_dataset_review.json";
+		this.reviewPath = review;
 
 		userData();
 		checkinData();
@@ -117,10 +117,14 @@ public class YelpDataGen extends GenerateData {
 //	}
 
 	public static void main(String[] args) throws IOException, InterruptedException {
-		mainGenerateData(args, "yelp");
-		createDataFile("yelp","json");
+		String in_yelp_business = args[0];
+		String in_yelp_checkin = args[1];
+		String in_yelp_review = args[2];
+		String in_yelp_user = args[3];
+		outDataPath = args[4];
 
-		YelpDataGen yelp = new YelpDataGen(inDataPath);
+		createDataFile("yelp","json");
+		YelpDataGen yelp = new YelpDataGen(in_yelp_business, in_yelp_checkin, in_yelp_review, in_yelp_user);
 
 		Gson gson = new Gson();
 		Map<String, User> userMap = yelp.getUserMap();

@@ -45,6 +45,8 @@ unxz SUSY.xz
 tar -xvzf Queen_4147.tar.gz
 unrar e AMiner-Paper.rar
 unzip AMiner-Author.zip
+tar -xvzf yelp_dataset.tar
+
 
 mv HIGGS.csv ../data/higgs-csv.dat
 mv mnist8m ../data/mnist8m-libsvm.dat
@@ -53,3 +55,5 @@ mv Queen_4147/Queen_4147.mtx ../data/queen-mm.dat
 rm -rf Queen_4147
 mv AMiner-Paper.txt ../data/aminer-paper.dat
 mv AMiner-Author.txt ../data/aminer-author.dat
+
+
