@@ -37,6 +37,9 @@ wget https://lfs.aminer.cn/lab-datasets/aminerdataset/AMiner-Author.zip
 # Yelp (JSON):
 # download YELP dataset from this link: https://www.yelp.com/dataset/download
 
+# ReWaste F (CSV)
+# TODO: add download link here
+
 
 # Extract datasets and rename
 gzip -d HIGGS.csv.gz

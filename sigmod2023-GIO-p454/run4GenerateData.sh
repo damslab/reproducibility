@@ -23,8 +23,8 @@ adf_sample_data=ADF-Sample.dat
 hl7_out_path=../../data/message-hl7.dat
 adf_out_path=../../data/autolead-xml.dat
 
-hl7_nrows=2048 #10240000
-adf_nrows=1000 #10000000
+hl7_nrows=10240000
+adf_nrows=10000000
 
 
 # Sample-base Data Gene (HL7 and ADF)
@@ -50,10 +50,10 @@ mv target/nested-1.0-SNAPSHOT-jar-with-dependencies.jar nested.jar
 rm -rf target 
 
 # Aminer-Author (JSON):
-#$CMD -cp  ./nested.jar at.tugraz.aminer.AminerAuthorDataGen $in_aminer_author $data_root
+$CMD -cp  ./nested.jar at.tugraz.aminer.AminerAuthorDataGen $in_aminer_author $data_root
 
 # Aminer-Paper (JSON):
-#$CMD -cp  ./nested.jar at.tugraz.aminer.AminerPaperDataGen $in_aminer_paper $in_aminer_author $data_root
+$CMD -cp  ./nested.jar at.tugraz.aminer.AminerPaperDataGen $in_aminer_paper $in_aminer_author $data_root
 
 # Yelp (JSON):
-#$CMD -cp  ./nested.jar at.tugraz.yelp.YelpDataGen $in_yelp_business $in_yelp_checkin $in_yelp_review $in_yelp_user $data_root
+$CMD -cp  ./nested.jar at.tugraz.yelp.YelpDataGen $in_yelp_business $in_yelp_checkin $in_yelp_review $in_yelp_user $data_root
