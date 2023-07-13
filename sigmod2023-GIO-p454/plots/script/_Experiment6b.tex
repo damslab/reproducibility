@@ -1,0 +1,81 @@
+\begin{tikzpicture}
+  
+   \newcommand{\myaddplotGIO}[3]{
+	   \addplot[xshift=#1,draw=black,line width=0.15pt, fill=#2, discard if singlegio={#3}] 
+	   table[ y=time, col sep=comma, x=dataset] {../../results/Experiment6b_times.dat};
+	   \label{pp#3}
+   };
+   
+   
+   \pgfplotsset{
+	   discard if singlegio/.style n args={1}{
+		   x filter/.code={
+			   \edef\tempa{\thisrow{baseline}}
+			   \edef\tempb{#1}
+			   \ifx\tempa\tempb
+					   \edef\tempe{\thisrow{parallel}}
+					   \edef\tempf{true}
+					   \ifx\tempe\tempf						
+					   \else
+					   \def\pgfmathresult{inf}
+					   \fi      
+			   \else
+			   \def\pgfmathresult{inf}
+			   \fi			
+		   }
+	   }
+   };
+   
+   
+	   \begin{axis}[
+		   %ymode=log,
+		   xtick style={draw=none},		
+			 every major tick/.append style={ thick,major tick length=2.5pt, gray},
+			axis line style={gray},
+			 ybar,        
+			 ybar=0pt,
+		   ymin=0,
+		   log ticks with fixed point,
+		   %ymax = 1700000,
+		   y tick label style={/pgf/number format/1000 sep={}},
+		   x tick label style={/pgf/number format/1000 sep={}},
+		   scaled y ticks=false,
+		   enlarge y limits={0.4,upper},
+		   enlarge x limits=0.15,
+		   ylabel={Execution Time[s]},
+		   ytick={0,50,100,150,200, 250, 300},
+           yticklabels={0,50,100,150,200, 250, 300},
+		   ytick align=outside,
+		   xtick pos=left,
+		   ytick pos=left,
+		   yticklabel style = {font=\Large},
+		   ylabel style = {font=\Large, yshift=-2pt},
+		   xticklabel style = {font=\large, xshift=0pt},
+		   xtick=data,
+		   height=0.52\columnwidth,  
+		   bar width=13pt,
+		   width=.85\columnwidth,   
+		   ymajorgrids=true,
+		   grid style=dotted,   
+		   minor grid style={gray!50},  
+		  %symbolic x coords={aminer-author,aminer-author-json,aminer-paper,aminer-paper-json,yelp-json,yelp-csv,ReWasteF-csv,higgs-csv, message-hl7, autolead-xml},
+		  symbolic x coords={yelp-json,yelp-csv,ReWasteF-csv,higgs-csv, message-hl7},   
+		  xticklabels={Yelp,Yelp, Indus., Higgs, HL7}, 
+		  extra x ticks={yelp-json,yelp-csv,ReWasteF-csv,higgs-csv, message-hl7},
+		  every x tick label/.append style={font=\normalsize},
+		  extra x tick style={yshift=-13pt},
+          extra x tick labels={(JSON),(CSV),(CSV),(CSV),(Custom)},   
+		  nodes near coords,	
+		  nodes near coords style={font=\small}, 	  
+		   legend image code/.code={
+			   \draw [#1] (0cm,-0.1cm) rectangle (0.2cm,0.2cm); },			
+		   ]	  	  
+		\myaddplotGIO{0pt}{tug}{GIO};
+		\myaddplotGIO{0pt}{tugb}{OLDGIO};		
+
+		\node [draw=none,inner sep=0, font=\normalsize, anchor=west] (leg1) at (rel axis cs: 0.02,0.78) {\shortstack[l]{
+			\ref{ppGIO} GIO \\ \\
+			\ref{ppOLDGIO} Early GIO
+	}};
+	   \end{axis}		
+	 \end{tikzpicture}

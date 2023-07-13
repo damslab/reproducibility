@@ -1,0 +1,99 @@
+\begin{tikzpicture}[scale=1]
+
+    \newcommand{\myaddplotExpOne}[5]{
+        \addplot[ybar,xshift=#3,draw=black,fill=#4,line width=0.15pt, discard if not={#1}{#2}]
+        table[ y=time, col sep=comma, x=example_nrows]
+            {../../results/Experiment1d10k_times.dat};
+        \addlegendentry{#5};
+    };
+    \newcommand{\myaddplotIndex}[2]{
+        \addplot[color=#1,mark=-,xshift=#2, line width=1pt, only marks,mark options={scale=1.3,solid}]
+        table[ y=time, col sep=comma, x=example_nrows] {../../results/Experiment0d_times.dat};
+        \label{ppfza}
+    };
+
+    \pgfplotsset{
+        discard if/.style 2 args={
+            x filter/.code={
+                \edef\tempa{\thisrow{#1}}
+                \edef\tempb{#2}
+                \ifx\tempa\tempb
+                \def\pgfmathresult{inf}
+                \fi
+            }
+        },
+        discard if not/.style 2 args={
+            x filter/.code={
+                \edef\tempa{\thisrow{dataset}}
+                \edef\tempb{#1}
+                \ifx\tempa\tempb
+                \edef\tempc{\thisrow{query}}
+                \edef\tempd{#2}
+                \ifx\tempc\tempd
+                    \edef\tempe{\thisrow{parallel}}
+                    \edef\tempf{true}
+                    \ifx\tempe\tempf
+                    \else
+                    \def\pgfmathresult{inf}
+                    \fi        
+                \else
+                \def\pgfmathresult{inf}
+                \fi
+                \else
+                \def\pgfmathresult{inf}
+                \fi
+            }
+        },
+    };
+
+    \begin{axis}
+        [        
+        bar width=5pt,
+        scaled x ticks=false,
+        ymin=0,
+        y tick label style={/pgf/number format/1000 sep={}},
+        x tick label style={/pgf/number format/1000 sep={}},
+        scaled y ticks=false,
+        enlarge y limits={0.25,upper},
+        enlarge x limits=0.05,
+        ylabel={Execution Time[s]},
+        xlabel={$\#$Sample Records},
+        ytick={0,20000,40000,60000,80000},
+        yticklabels={0,20,40,60,80},
+        xtick pos=left,
+        ytick pos=left,
+        yticklabel style = {font=\LARGE},
+        ylabel style = {font=\LARGE, xshift=-4pt},
+        xticklabel style = {font=\LARGE},
+        xtick=data,
+        xtick={1000,2000,3000,4000,5000,6000,7000,8000,9000,10000},
+        xticklabels={1k,2k,3k,4k,5k,6k,7k,8k,9k,10k},
+        xlabel style = {font=\LARGE, yshift=0pt},
+        height=0.63\columnwidth,
+        width=1.3\columnwidth,
+        nodes near coords,
+        every node near coord/.style={font=\fontsize{0.1pt}{0.1}, rotate=0},
+        legend image code/.code={\draw [#1] (0cm,-0.1cm) rectangle (0.20cm,0.25cm); },
+        legend style = {
+            font=\LARGE,
+            draw=none,
+            legend columns = -1,
+            legend cell align={left},
+        },
+        legend pos = {north west}
+        ]
+
+        \myaddplotExpOne{aminer-author}{Q1}{-7.5pt}{color1}{Q14};
+        \myaddplotExpOne{aminer-author}{Q2}{-2.5pt}{color2}{Q15};
+        \myaddplotExpOne{aminer-author}{Q3}{2.5pt}{color4}{Q16};
+        \myaddplotExpOne{aminer-author}{Q4}{7.5pt}{color5}{Q17};
+
+        \myaddplotIndex{color3}{-7.5pt};
+        \myaddplotIndex{color3}{-2.5pt};
+        \myaddplotIndex{color3}{2.5pt};
+        \myaddplotIndex{color3}{7.5pt};
+        \node [draw=none,inner sep=0, font=\LARGE, anchor=west] (leg1) at (rel axis cs: 0.58,0.9) {\Huge{---} \LARGE{Raw Load \& Index} };
+
+
+    \end{axis}
+\end{tikzpicture}

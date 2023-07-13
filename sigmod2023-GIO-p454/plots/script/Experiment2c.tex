@@ -1,0 +1,198 @@
+
+ \newcommand{\myaddplot}[6]{
+	\addplot[xshift=#3,draw=black,line width=0.15pt, fill=#4, discard if single={#1}{#2}{#5}{#6}]
+	table[ y=time, col sep=comma, x=query] {../../results/Experiment2c_times.dat};
+	\label{pp#1}
+};
+\newcommand{\myaddplotidentify}[4]{
+	\addplot[xshift=#2,draw=none, fill=black,line width=0.15pt, discard if notidentify={#1}{#3}{#4}]
+	table[ y=time, col sep=comma, x=query] {../../results/Experiment1c_times.dat};
+	\label{ppiGIO}
+};
+
+
+\newcommand{\myaddplotp}[6]{
+	\addplot[xshift=#3,draw=black,line width=0.15pt, fill=#4, discard if single={#1}{#2}{#5}{#6}, postaction={pattern=north east lines,pattern color=black}]
+	table[ y=time, col sep=comma, x=query] {../../results/Experiment2c_times.dat};
+	%\label{pp#1}
+};
+
+\newcommand{\addDiagramExpThree}[6]{	
+	\nextgroupplot[
+		title style={font=\small, yshift=-7pt},		
+		bar width=7pt,
+		width=0.35\columnwidth,    	
+		yticklabels=#5,
+		xticklabels={#6,#6,#6,#6,#6}, 		
+	]
+	\myaddplot{GIO}{#1}{3.5pt}{tug}{#2}{#3};
+	\myaddplotidentify{#1}{-3.5pt}{#2}{#3};
+	\myaddplot{RapidJSON}{#1}{-3.5pt}{color1}{#2}{#3};
+	\myaddplot{SystemDS+JACKSON}{#1}{-3.5pt}{color6}{#2}{#3};
+	\myaddplot{SystemDS+GSON}{#1}{-3.5pt}{color4}{#2}{#3};
+	\myaddplot{SystemDS+JSON4J}{#1}{-3.5pt}{color5}{#2}{#3};	
+	\node [draw=none,inner sep=0, font=\LARGE, anchor=west,rotate=90](leg1) at (rel axis cs: 0.2,.63) {#4};	
+};  
+
+\newcommand{\addDiagramExpThreep}[6]{	
+	\nextgroupplot[
+		title style={font=\small, yshift=-7pt},		
+		bar width=7pt,
+		width=0.36\columnwidth,    	
+		yticklabels=#5,
+		xticklabels={#6,#6,#6,#6,#6}, 		
+	]
+	\myaddplotp{GIO}{#1}{3.5pt}{tug}{#2}{#3};
+	\myaddplotidentify{#1}{-3.5pt}{#2}{#3};
+	\myaddplotp{RapidJSON}{#1}{-3.5pt}{color1}{#2}{#3};
+	\myaddplotp{SystemDS+JACKSON}{#1}{-3.5pt}{color6}{#2}{#3};
+	\myaddplotp{SystemDS+GSON}{#1}{-3.5pt}{color4}{#2}{#3};
+	\myaddplotp{SystemDS+JSON4J}{#1}{-3.5pt}{color5}{#2}{#3};	
+	\node [draw=none,inner sep=0, font=\LARGE, anchor=west,rotate=90](leg1) at (rel axis cs: 0.2,.595) {#4};	
+}; 
+
+\pgfplotsset{
+	discard if single/.style n args={4}{
+		x filter/.code={
+			\edef\tempa{\thisrow{baseline}}
+			\edef\tempb{#1}
+			\ifx\tempa\tempb
+			\edef\tempc{\thisrow{dataset}}
+			\edef\tempd{#2}
+			\ifx\tempc\tempd
+				\edef\tempe{\thisrow{parallel}}
+				\edef\tempf{#3}
+				\ifx\tempe\tempf
+					\edef\tempg{\thisrow{query}}
+					\edef\temph{#4}
+					\ifx\tempg\temph
+					\else
+					\def\pgfmathresult{inf}
+					\fi   
+				\else
+				\def\pgfmathresult{inf}
+				\fi      
+			\else
+			\def\pgfmathresult{inf}
+			\fi
+			\else
+			\def\pgfmathresult{inf}
+			\fi
+		}
+	},
+	discard if notidentify/.style n args={3}{
+		x filter/.code={
+			\edef\tempa{\thisrow{dataset}}
+			\edef\tempb{#1}
+			\ifx\tempa\tempb
+			\edef\tempc{\thisrow{example_nrows}}
+			\edef\tempd{200}
+			\ifx\tempc\tempd
+				\edef\tempe{\thisrow{parallel}}
+				\edef\tempf{true}
+				\ifx\tempe\tempf
+					\edef\tempg{\thisrow{query}}
+					\edef\temph{#3}
+					\ifx\tempg\temph
+					\else
+					\def\pgfmathresult{inf}
+					\fi 
+				\else
+				\def\pgfmathresult{inf}
+				\fi      
+			\else
+			\def\pgfmathresult{inf}
+			\fi
+			\else
+			\def\pgfmathresult{inf}
+			\fi
+		}
+	}
+};
+
+\begin{tikzpicture}
+	\begin{groupplot}[
+	  group style={
+		group size=10 by 1,
+		x descriptions at=edge bottom,
+		y descriptions at=edge left,
+		horizontal sep=4pt,
+		vertical sep=0pt
+	  },
+	  	axis y line*=left,
+		axis x line*=bottom,
+		xtick style={draw=none},		
+	  	every major tick/.append style={ thick,major tick length=2.5pt, gray},
+	 	axis line style={gray},
+	  	ybar,        
+      	ybar=0pt,
+        ymin=0,
+		ymax = 350000,
+        y tick label style={/pgf/number format/1000 sep={}},
+        x tick label style={/pgf/number format/1000 sep={}},
+        scaled y ticks=false,
+        enlarge y limits={0.1,upper},
+        enlarge x limits=0,
+        ylabel={Execution Time[s]},
+		ytick={0,50000,100000,150000,200000,250000,300000,350000},
+        yticklabels={0,50,100,150,200,250,300,350},
+        ytick align=outside,
+        xtick pos=left,
+        ytick pos=left,
+        yticklabel style = {font=\Huge},
+        ylabel style = {font=\Huge, yshift=-1pt},
+        xticklabel style = {font=\Huge, xshift=25pt},
+        xtick=data,
+		height=0.75\columnwidth,   
+		ymajorgrids=true,
+  		grid style=dotted,   
+		minor grid style={gray!50},  
+	  	symbolic x coords={Q1,Q2,Q3,Q4,Q5},      
+		legend image code/.code={
+            \draw [#1] (0cm,-0.1cm) rectangle (0.25cm,0.3cm); },			
+        ]
+	  ]	  
+	  \addDiagramExpThree{yelp-json}{false}{Q1}{1-Thread}{{0,50,100,150,200,250,300,350}}{Q9};
+	  \addDiagramExpThreep{yelp-json}{true}{Q1}{32-Thread}{{}}{}; 	 
+	  \addDiagramExpThree{yelp-json}{false}{Q2}{1-Thread}{{}}{Q10};
+	  \addDiagramExpThreep{yelp-json}{true}{Q2}{32-Thread}{{}}{};
+	  \addDiagramExpThree{yelp-json}{false}{Q3}{1-Thread}{{}}{Q11};
+	  \addDiagramExpThreep{yelp-json}{true}{Q3}{32-Thread}{{}}{};
+	  \addDiagramExpThree{yelp-json}{false}{Q4}{1-Thread}{{}}{Q12};
+	  \addDiagramExpThreep{yelp-json}{true}{Q4}{32-Thread}{{}}{};
+	  \addDiagramExpThree{yelp-json}{false}{Q5}{1-Thread}{{}}{Q13};
+	  \addDiagramExpThreep{yelp-json}{true}{Q5}{32-Thread}{{}}{};
+
+	\end{groupplot}	
+	\node[font=\huge] at ($(group c5r1.north west) + (1.5cm,0.4cm)$) {\shortstack[l]{
+		\ref{ppGIO} GIO 
+		\ref{ppiGIO} I/O Gen
+		\ref{ppRapidJSON} RapidJSON
+		\ref{ppSystemDS+JACKSON} Jackson
+	    \ref{ppSystemDS+GSON} Gson
+	    \ref{ppSystemDS+JSON4J} JSON4J
+	}};	
+
+	\draw[thick, black] ($(group c1r1.north west)+(0pt,0)$) -- ($(group c2r1.north east)+(0pt,0pt)$) -- 
+	($(group c2r1.south east)+(0pt,0pt)$) -- ($(group c1r1.south west)+(0pt,0pt)$) -- ($(group c1r1.north west)+(0pt,0)$);
+
+	\draw[thick, black] ($(group c3r1.north west)+(0pt,0)$) -- ($(group c4r1.north east)+(0pt,0pt)$) -- 
+	($(group c4r1.south east)+(0pt,0pt)$) -- ($(group c3r1.south west)+(0pt,0pt)$) -- ($(group c3r1.north west)+(0pt,0)$);
+
+
+	\draw[thick, black] ($(group c5r1.north west)+(0pt,0)$) -- ($(group c6r1.north east)+(0pt,0pt)$) -- 
+	($(group c6r1.south east)+(0pt,0pt)$) -- ($(group c5r1.south west)+(0pt,0pt)$) -- ($(group c5r1.north west)+(0pt,0)$);
+
+	\draw[thick, black] ($(group c7r1.north west)+(0pt,0)$) -- ($(group c8r1.north east)+(0pt,0pt)$) -- 
+	($(group c8r1.south east)+(0pt,0pt)$) -- ($(group c7r1.south west)+(0pt,0pt)$) -- ($(group c7r1.north west)+(0pt,0)$);
+
+	\draw[thick, black] ($(group c9r1.north west)+(0pt,0)$) -- ($(group c10r1.north east)+(0pt,0pt)$) -- 
+	($(group c10r1.south east)+(0pt,0pt)$) -- ($(group c9r1.south west)+(0pt,0pt)$) -- ($(group c9r1.north west)+(0pt,0)$);
+
+	\draw[thick, black] ($(group c2r1.south west)+(0pt,0)$) -- ($(group c2r1.south west)+(0pt,-3pt)$);
+	\draw[thick, black] ($(group c4r1.south west)+(0pt,0)$) -- ($(group c4r1.south west)+(0pt,-3pt)$);
+	\draw[thick, black] ($(group c6r1.south west)+(0pt,0)$) -- ($(group c6r1.south west)+(0pt,-3pt)$);
+	\draw[thick, black] ($(group c8r1.south west)+(0pt,0)$) -- ($(group c8r1.south west)+(0pt,-3pt)$);
+	\draw[thick, black] ($(group c10r1.south west)+(0pt,0)$) -- ($(group c10r1.south west)+(0pt,-3pt)$);
+
+  \end{tikzpicture}

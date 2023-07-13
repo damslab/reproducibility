@@ -1,0 +1,92 @@
+\begin{tikzpicture}[scale=1]
+
+    \newcommand{\myaddplotExpOne}[5]{
+        \addplot[mark=#3,color=#4,line width=1pt, discard if not={#1}{#2}]
+        table[ y=time, col sep=comma, x=example_nrows]
+            {../../results/Experiment6a_times.dat};
+        \addlegendentry{#5};
+    };
+
+    %\addplot[color=#4,mark=#3,discard if single={#1}{#2}{#5}]
+    %    table[ y=time, col sep=comma, x=field] {../../results/Experiment4f_times.dat};
+    %    \label{ppfa#1}
+
+    \pgfplotsset{
+        discard if/.style 2 args={
+            x filter/.code={
+                \edef\tempa{\thisrow{#1}}
+                \edef\tempb{#2}
+                \ifx\tempa\tempb
+                \def\pgfmathresult{inf}
+                \fi
+            }
+        },
+        discard if not/.style 2 args={
+            x filter/.code={
+                \edef\tempa{\thisrow{dataset}}
+                \edef\tempb{#1}
+                \ifx\tempa\tempb
+                \edef\tempc{\thisrow{baseline}}
+                \edef\tempd{#2}
+                \ifx\tempc\tempd
+                    \edef\tempe{\thisrow{parallel}}
+                    \edef\tempf{true}
+                    \ifx\tempe\tempf
+                    \else
+                    \def\pgfmathresult{inf}
+                    \fi        
+                \else
+                \def\pgfmathresult{inf}
+                \fi
+                \else
+                \def\pgfmathresult{inf}
+                \fi
+            }
+        },
+    };
+
+    \begin{axis}
+        [
+        %ybar,
+        ymode=log,        
+        %bar width=5.5pt,
+        ymin=1000,
+        y tick label style={/pgf/number format/1000 sep={}},
+        x tick label style={/pgf/number format/1000 sep={}},
+        scaled y ticks=false,
+        enlarge y limits={0.4,upper},
+        enlarge x limits=0.08,
+        ylabel={Execution Time[s]},
+        xlabel={$\#$Sample Records},
+        ytick={1000,10000,100000,1000000,10000000},
+        yticklabels={0,$10$,$10^2$,$10^3$, $10^4$},
+        xtick pos=left,
+        ytick pos=left,
+        yticklabel style = {font=\large},
+        ylabel style = {font=\large, xshift=-4pt},
+        xticklabel style = {font=\large},
+        xtick=data,
+        xtick={100,200,300,400,500,600,700,800,900,1000},
+        %xticklabels={100,,300,,500,,700,,900,},
+        xticklabels={,200,,400,,600,,800,,1000},
+        % symbolic x coords={Q1,Q2,Q3,Q4,Q5},
+        xlabel style = {font=\large, yshift=0pt},
+        height=0.48\columnwidth,
+        width=0.7\columnwidth,
+        nodes near coords,
+        every node near coord/.style={font=\fontsize{0.1pt}{0.1}, rotate=0},
+        %legend image code/.code={\draw [#1] (0cm,-0.1cm) rectangle (0.20cm,0.25cm); },
+        legend style = {
+            font=\large,
+            draw=none,
+            legend columns = -1,
+            legend cell align={left},
+        },
+        legend pos = {north west}
+        ]
+
+        \myaddplotExpOne{mm-col}{GIO}{*}{tug}{GIO};
+        \myaddplotExpOne{mm-col}{OLDGIO}{square*}{color1}{Early GIO};
+        
+    \end{axis}
+\end{tikzpicture}

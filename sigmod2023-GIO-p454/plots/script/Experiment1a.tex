@@ -1,0 +1,87 @@
+\begin{tikzpicture}[scale=1]
+
+    \newcommand{\myaddplotExpOne}[5]{
+        \addplot[xshift=#3,draw=black,fill=#4,line width=0.15pt, discard if not={#1}{#2}]
+        table[ y=time, col sep=comma, x=example_nrows]
+            {../../results/Experiment1a_times.dat};
+        \addlegendentry{#5};
+    };
+
+    \pgfplotsset{
+        discard if/.style 2 args={
+            x filter/.code={
+                \edef\tempa{\thisrow{#1}}
+                \edef\tempb{#2}
+                \ifx\tempa\tempb
+                \def\pgfmathresult{inf}
+                \fi
+            }
+        },
+        discard if not/.style 2 args={
+            x filter/.code={
+                \edef\tempa{\thisrow{dataset}}
+                \edef\tempb{#1}
+                \ifx\tempa\tempb
+                \edef\tempc{\thisrow{query}}
+                \edef\tempd{#2}
+                \ifx\tempc\tempd
+                    \edef\tempe{\thisrow{parallel}}
+                    \edef\tempf{true}
+                    \ifx\tempe\tempf
+                    \else
+                    \def\pgfmathresult{inf}
+                    \fi        
+                \else
+                \def\pgfmathresult{inf}
+                \fi
+                \else
+                \def\pgfmathresult{inf}
+                \fi
+            }
+        },
+    };
+
+    \begin{axis}
+        [
+        ybar,
+        bar width=7pt,
+        ymin=0,
+        y tick label style={/pgf/number format/1000 sep={}},
+        x tick label style={/pgf/number format/1000 sep={}},
+        scaled y ticks=false,
+        enlarge y limits={0.25,upper},
+        enlarge x limits=0.08,
+        ylabel={Execution Time[s]},
+        xlabel={$\#$Sample Records},
+        ytick={0,1000,2000,3000, 4000},
+        yticklabels={0,1,2,3,4},
+        xtick pos=left,
+        ytick pos=left,
+        yticklabel style = {font=\Huge},
+        ylabel style = {font=\Huge, xshift=-4pt},
+        xticklabel style = {font=\Huge},
+        xtick=data,
+        xtick={200,300,400,500,600,700,800,900,1000},
+        % symbolic x coords={Q1,Q2,Q3,Q4,Q5},
+        xlabel style = {font=\Huge, yshift=0pt},
+        height=0.8\columnwidth,
+        width=1.6\columnwidth,
+        nodes near coords,
+        every node near coord/.style={font=\fontsize{0.1pt}{0.1}, rotate=0},
+        legend image code/.code={\draw [#1] (0cm,-0.2cm) rectangle (0.3cm,0.25cm); },
+        legend style = {
+            font=\Huge,
+            draw=none,
+            legend columns = -1,
+            legend cell align={left},
+        },
+        legend pos = {north west}
+        ]
+
+        \myaddplotExpOne{aminer-author-json}{Q1}{2.7pt}{color1}{Q1\ \  };
+        \myaddplotExpOne{aminer-author-json}{Q2}{0.9pt}{color2}{Q2\ \  };
+        \myaddplotExpOne{aminer-author-json}{Q3}{-0.9pt}{color3}{Q3\ \  };
+        \myaddplotExpOne{aminer-author-json}{Q4}{-2.7pt}{color4}{Q4\ \  };
+
+    \end{axis}
+\end{tikzpicture}

@@ -15,5 +15,7 @@ source load-had3.3-java11.sh
 #./run1SetupDependencies.sh;
 #./run2SetupBaseLines.sh;
 #./run3DownloadData.sh;
-./run4GenerateData.sh;
+#./run4GenerateData.sh;
 #./run5LocalExperiments.sh;
+
+./run6PlotResults.sh

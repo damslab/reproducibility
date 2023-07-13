@@ -1,0 +1,185 @@
+
+ \newcommand{\myaddplot}[6]{
+	\addplot[xshift=#3,draw=black,line width=0.15pt, fill=#4, discard if single={#1}{#2}{#5}{#6}]
+	table[ y=time, col sep=comma, x=query] {../../results/Experiment2e_times.dat};
+	\label{pp#1}
+};
+\newcommand{\myaddplotidentify}[4]{
+	\addplot[xshift=#2,draw=none, fill=black,line width=0.15pt, discard if notidentify={#1}{#3}{#4}]
+	table[ y=time, col sep=comma, x=query] {../../results/Experiment1e_times.dat};
+	\label{ppiGIO}
+};
+
+
+\newcommand{\myaddplotp}[6]{
+	\addplot[xshift=#3,draw=black,line width=0.15pt, fill=#4, discard if single={#1}{#2}{#5}{#6}, postaction={pattern=north east lines,pattern color=black}]
+	table[ y=time, col sep=comma, x=query] {../../results/Experiment2e_times.dat};
+	%\label{pp#1}
+};
+
+\newcommand{\addDiagramExpThree}[6]{	
+	\nextgroupplot[
+		title style={font=\small, yshift=-7pt},		
+		bar width=7pt,
+		width=0.28\columnwidth,    	
+		yticklabels=#5,
+		xticklabels={#6,#6,#6,#6,#6}, 		
+	]
+	\myaddplot{GIO}{#1}{6pt}{tug}{#2}{#3};
+	\myaddplotidentify{#1}{-1pt}{#2}{#3};
+	\myaddplot{SystemDS+aminer-paper}{#1}{-1pt}{color1}{#2}{#3};	
+	\node [draw=none,inner sep=0, font=\LARGE, anchor=west,rotate=90](leg1) at (rel axis cs: 0.3,.63) {#4};	
+};  
+
+\newcommand{\addDiagramExpThreep}[6]{	
+	\nextgroupplot[
+		title style={font=\small, yshift=-7pt},		
+		bar width=7pt,
+		width=0.28\columnwidth,    	
+		yticklabels=#5,
+		xticklabels={#6,#6,#6,#6,#6}, 		
+	]
+	\myaddplotp{GIO}{#1}{4.5pt}{tug}{#2}{#3};
+	\myaddplotidentify{#1}{-2.5pt}{#2}{#3};
+	\myaddplotp{SystemDS+aminer-paper}{#1}{-2.5pt}{color1}{#2}{#3};	
+	\node [draw=none,inner sep=0, font=\LARGE, anchor=west,rotate=90](leg1) at (rel axis cs: 0.3,.59) {#4};	
+}; 
+
+\pgfplotsset{
+	discard if single/.style n args={4}{
+		x filter/.code={
+			\edef\tempa{\thisrow{baseline}}
+			\edef\tempb{#1}
+			\ifx\tempa\tempb
+			\edef\tempc{\thisrow{dataset}}
+			\edef\tempd{#2}
+			\ifx\tempc\tempd
+				\edef\tempe{\thisrow{parallel}}
+				\edef\tempf{#3}
+				\ifx\tempe\tempf
+					\edef\tempg{\thisrow{query}}
+					\edef\temph{#4}
+					\ifx\tempg\temph
+					\else
+					\def\pgfmathresult{inf}
+					\fi   
+				\else
+				\def\pgfmathresult{inf}
+				\fi      
+			\else
+			\def\pgfmathresult{inf}
+			\fi
+			\else
+			\def\pgfmathresult{inf}
+			\fi
+		}
+	},
+	discard if notidentify/.style n args={3}{
+		x filter/.code={
+			\edef\tempa{\thisrow{dataset}}
+			\edef\tempb{#1}
+			\ifx\tempa\tempb
+			\edef\tempc{\thisrow{example_nrows}}
+			\edef\tempd{200}
+			\ifx\tempc\tempd
+				\edef\tempe{\thisrow{parallel}}
+				\edef\tempf{true}
+				\ifx\tempe\tempf
+					\edef\tempg{\thisrow{query}}
+					\edef\temph{#3}
+					\ifx\tempg\temph
+					\else
+					\def\pgfmathresult{inf}
+					\fi 
+				\else
+				\def\pgfmathresult{inf}
+				\fi      
+			\else
+			\def\pgfmathresult{inf}
+			\fi
+			\else
+			\def\pgfmathresult{inf}
+			\fi
+		}
+	}
+};
+
+\begin{tikzpicture}
+	\begin{groupplot}[
+	  group style={
+		group size=8 by 1,
+		x descriptions at=edge bottom,
+		y descriptions at=edge left,
+		horizontal sep=4pt,
+		vertical sep=0pt
+	  },
+	  	axis y line*=left,
+		axis x line*=bottom,
+		xtick style={draw=none},		
+	  	every major tick/.append style={ thick,major tick length=2.5pt, gray},
+	 	axis line style={gray},
+	  	ybar,        
+      	ybar=0pt,
+        ymin=0,
+		ymax = 30000,
+        y tick label style={/pgf/number format/1000 sep={}},
+        x tick label style={/pgf/number format/1000 sep={}},
+        scaled y ticks=false,
+        enlarge y limits={0.5,upper},
+        enlarge x limits=0,
+        ylabel={Execution Time[s]},
+        ytick={0,5000,10000,15000,20000,25000,30000},
+        yticklabels={0,5,10,15,20,25,30},
+        ytick align=outside,
+        xtick pos=left,
+        ytick pos=left,
+        yticklabel style = {font=\Huge},
+        ylabel style = {font=\Huge, yshift=-1pt},
+        xticklabel style = {font=\Huge, xshift=17pt},
+        xtick=data,
+		height=0.7\columnwidth,   
+		ymajorgrids=true,
+  		grid style=dotted,   
+		minor grid style={gray!50},  
+	  	symbolic x coords={Q1,Q2,Q3,Q4,Q5},      
+		legend image code/.code={
+            \draw [#1] (0cm,-0.1cm) rectangle (0.25cm,0.3cm); },			
+        ]
+	  ]	  
+	  \addDiagramExpThree{aminer-paper}{false}{Q1}{1-Thread}{{0,5,10,15,20,25,30}}{Q18};
+	  \addDiagramExpThreep{aminer-paper}{true}{Q1}{32-Thread}{{}}{}; 	 
+	  \addDiagramExpThree{aminer-paper}{false}{Q2}{1-Thread}{{}}{Q19};
+	  \addDiagramExpThreep{aminer-paper}{true}{Q2}{32-Thread}{{}}{};
+	  \addDiagramExpThree{aminer-paper}{false}{Q3}{1-Thread}{{}}{Q20};
+	  \addDiagramExpThreep{aminer-paper}{true}{Q3}{32-Thread}{{}}{};
+	  \addDiagramExpThree{aminer-paper}{false}{Q4}{1-Thread}{{}}{Q21};
+	  \addDiagramExpThreep{aminer-paper}{true}{Q4}{32-Thread}{{}}{};
+
+	\end{groupplot}	
+	\node[font=\huge] at ($(group c4r1.north west) + (0.8cm,0.4cm)$) {\shortstack[l]{
+		\ref{ppGIO} GIO 
+		\ref{ppiGIO} I/O Gen
+		\ref{ppSystemDS+aminer-paper} Java Hand-coded 	    	    
+	}};	
+
+	\draw[thick, black] ($(group c1r1.north west)+(0pt,0)$) -- ($(group c2r1.north east)+(0pt,0pt)$) -- 
+	($(group c2r1.south east)+(0pt,0pt)$) -- ($(group c1r1.south west)+(0pt,0pt)$) -- ($(group c1r1.north west)+(0pt,0)$);
+
+	\draw[thick, black] ($(group c3r1.north west)+(0pt,0)$) -- ($(group c4r1.north east)+(0pt,0pt)$) -- 
+	($(group c4r1.south east)+(0pt,0pt)$) -- ($(group c3r1.south west)+(0pt,0pt)$) -- ($(group c3r1.north west)+(0pt,0)$);
+
+
+	\draw[thick, black] ($(group c5r1.north west)+(0pt,0)$) -- ($(group c6r1.north east)+(0pt,0pt)$) -- 
+	($(group c6r1.south east)+(0pt,0pt)$) -- ($(group c5r1.south west)+(0pt,0pt)$) -- ($(group c5r1.north west)+(0pt,0)$);
+
+	\draw[thick, black] ($(group c7r1.north west)+(0pt,0)$) -- ($(group c8r1.north east)+(0pt,0pt)$) -- 
+	($(group c8r1.south east)+(0pt,0pt)$) -- ($(group c7r1.south west)+(0pt,0pt)$) -- ($(group c7r1.north west)+(0pt,0)$);
+
+	\draw[thick, black] ($(group c2r1.south west)+(0pt,0)$) -- ($(group c2r1.south west)+(0pt,-3pt)$);
+	\draw[thick, black] ($(group c4r1.south west)+(0pt,0)$) -- ($(group c4r1.south west)+(0pt,-3pt)$);
+	\draw[thick, black] ($(group c6r1.south west)+(0pt,0)$) -- ($(group c6r1.south west)+(0pt,-3pt)$);
+	\draw[thick, black] ($(group c8r1.south west)+(0pt,0)$) -- ($(group c8r1.south west)+(0pt,-3pt)$);
+
+
+	
+  \end{tikzpicture}
