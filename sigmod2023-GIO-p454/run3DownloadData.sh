@@ -18,6 +18,9 @@ rm -rf Queen_4147
 rm -rf AMiner-Paper.txt
 rm -rf AMiner-Author.txt
 
+Download ReWasteF Dataset and Examples
+Add TUBerlin NextCloud link here (TODO)
+
 # HIGGS (CSV)
 wget https://archive.ics.uci.edu/ml/machine-learning-databases/00280/HIGGS.csv.gz
 
@@ -37,10 +40,6 @@ wget https://lfs.aminer.cn/lab-datasets/aminerdataset/AMiner-Author.zip
 # Yelp (JSON):
 # download YELP dataset from this link: https://www.yelp.com/dataset/download
 
-# ReWaste F (CSV)
-# TODO: add download link here
-
-
 # Extract datasets and rename
 gzip -d HIGGS.csv.gz
 unxz mnist8m.xz
@@ -58,5 +57,3 @@ mv Queen_4147/Queen_4147.mtx ../data/queen-mm.dat
 rm -rf Queen_4147
 mv AMiner-Paper.txt ../data/aminer-paper.dat
 mv AMiner-Author.txt ../data/aminer-author.dat
-
-
