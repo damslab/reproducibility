@@ -18,8 +18,8 @@ rm -rf Queen_4147
 rm -rf AMiner-Paper.txt
 rm -rf AMiner-Author.txt
 
-Download ReWasteF Dataset and Examples
-Add TUBerlin NextCloud link here (TODO)
+#Download ReWasteF Dataset and Examples
+# Add TUBerlin NextCloud link here (TODO)
 
 # HIGGS (CSV)
 wget https://archive.ics.uci.edu/ml/machine-learning-databases/00280/HIGGS.csv.gz

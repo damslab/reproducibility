@@ -1,7 +1,8 @@
 #!/bin/bash
 
-dataset=$1
-log_file_name=$2
+dataset_path=$1
+dataset=$2
+log_file_name=$3
 parallel=true
 
 # write header to log file
@@ -12,11 +13,11 @@ fi
 declare -a query_list=("Q1" "Q2" "Q3" "Q4" "Q5")
 
 for query in "${query_list[@]}"; do
-  if [ -d "data/${dataset}/${query}" ]; then
+  if [ -d "data/${dataset_path}/${query}" ]; then
     for examples in 1000 2000 3000 4000 5000 6000 7000 8000 9000 10000; do                  
-            SCRIPT="$CMD  -DsampleRawFileName=data/${dataset}/${query}/sample-${dataset}${examples}.raw\
-                          -DsampleFrameFileName=data/${dataset}/${query}/sample-${dataset}${examples}.frame\
-                          -DschemaFileName=data/${dataset}/${query}/${dataset}.schema\
+            SCRIPT="$CMD  -DsampleRawFileName=data/${dataset_path}/${query}/sample-${dataset}${examples}.raw\
+                          -DsampleFrameFileName=data/${dataset_path}/${query}/sample-${dataset}${examples}.frame\
+                          -DschemaFileName=data/${dataset_path}/${query}/${dataset}.schema\
                           -Dparallel=${parallel}\
                           -cp ./setup/JavaBaselines/lib/*:./setup/JavaBaselines/JavaBaselines.jar at.tugraz.benchmark.GIOFrameIdentification
                           "
