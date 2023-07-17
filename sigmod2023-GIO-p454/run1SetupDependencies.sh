@@ -1,7 +1,7 @@
 #!/bin/bash
 
 sudo apt update
-sudo apt-get install openjdk-11-jdk-headless
+sudo apt-get install -y openjdk-11-jdk-headless
 sudo apt install -y maven
 sudo apt install -y git
 sudo apt-get install unzip
