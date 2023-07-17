@@ -16,7 +16,7 @@ class ADFDataGen(object):
     def generateData(self, count):
         dataFile = open(self.outFileName, 'w')
 
-        for i in range(1, int(count/200)+1):
+        for i in range(1, int(count/5000)+1):
             for l in self.lines:
                 print(l.strip(), file=dataFile)
             print("\n", file=dataFile)    
