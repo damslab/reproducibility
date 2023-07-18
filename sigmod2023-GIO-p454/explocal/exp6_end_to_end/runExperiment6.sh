@@ -18,10 +18,10 @@
 ./explocal/exp6_end_to_end/runExperiment6_GIOFrame.sh autolead-xml Experiment6b_times $parallel
 
 # SystemDS baseline
-./explocal/exp6_end_to_end/runExperiment6_SystemDS.sh aminer-author Experiment6b_times $parallel
-./explocal/exp6_end_to_end/runExperiment6_SystemDS.sh aminer-paper Experiment6b_times $parallel
-./explocal/exp6_end_to_end/runExperiment6_SystemDS.sh message-hl7 Experiment6b_times $parallel
-./explocal/exp6_end_to_end/runExperiment6_SystemDS.sh autolead-xml Experiment6b_times $parallel
+./explocal/exp6_end_to_end/runExperiment6_SystemDS.sh aminer-author Experiment6b_times SystemDS $parallel
+./explocal/exp6_end_to_end/runExperiment6_SystemDS.sh aminer-paper Experiment6b_times SystemDS $parallel
+./explocal/exp6_end_to_end/runExperiment6_SystemDS.sh message-hl7 Experiment6b_times SystemDS+HAPI-HL7 $parallel
+./explocal/exp6_end_to_end/runExperiment6_SystemDS.sh autolead-xml Experiment6b_times SystemDS+Jackson $parallel
 
 # Python baseline
 ./explocal/exp6_end_to_end/runExperiment6_Python.sh message-hl7 Experiment6b_times $parallel  

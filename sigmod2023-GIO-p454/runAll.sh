@@ -4,7 +4,7 @@ export LOG4JPROP='explocal/log4j.properties'
 export CMD="java -Xms120g -Xmx120g -Dlog4j.configuration=file:$LOG4JPROP"
 
 # clean original results
-rm -rf results/*;
+#rm -rf results/*;
 mkdir -p results;
 
 mkdir -p setup
@@ -17,5 +17,4 @@ source load-had3.3-java11.sh
 ./run3DownloadData.sh;
 ./run4GenerateData.sh;
 ./run5LocalExperiments.sh;
-
-#./run6PlotResults.sh
+./run6PlotResults.sh 

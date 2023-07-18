@@ -1,0 +1,16 @@
+
+\documentclass{standalone}
+\usepackage{csvsimple}
+\usepackage{caption}
+
+\begin{document}
+%\input{paper_info.tex}
+
+\begin{tabular}{c|cccc|cccc|ccccc|cccc|cccc|cc|cc}%
+        $\#Rows$ & Q1 & Q2 & Q3 & Q4 & Q5 & Q6 & Q7 & Q8 & Q9 & Q10 & Q11 & Q12 & Q13 & Q14 & Q15 & Q16 & Q17 & Q18 &Q19 & Q20 & Q21 & Q22 & Q23 & Q24 & Q25% specify table head
+        \csvreader[head to column names]{results/exp2_identification_1k_10k.dat}{}% use head of csv as column names
+        {\\\hline\Rows & \csuse{Q1}& \csuse{Q2}& \csuse{Q3}& \csuse{Q4}& \csuse{Q5}& \csuse{Q6}& \csuse{Q7}& \csuse{Q8}& \csuse{Q9}& \csuse{Q10}& \csuse{Q11}& \csuse{Q12}& \csuse{Q13}& \csuse{Q14}& \csuse{Q15}& \csuse{Q16}& \csuse{Q17}& \csuse{Q18}& \csuse{Q19}& \csuse{Q20}& \csuse{Q21}& \csuse{Q22}& \csuse{Q23}& \csuse{Q24}& \csuse{Q25}}% specify your coloumns here
+\end{tabular}
+
+\end{document}
+\endinput
