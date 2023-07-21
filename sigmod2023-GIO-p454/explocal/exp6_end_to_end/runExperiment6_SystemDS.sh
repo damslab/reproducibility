@@ -9,7 +9,7 @@ SCRIPT="$CMD  -DdataFileName=data/${dataset}.dat\
               -Dparallel=${parallel}\
               -DschemaFileName=data/${dataset}/${dataset}.schema\
               -DschemaMapFileName=data/${dataset}/${dataset}.schemaMap\
-              -cp ./setup/SystemDS/lib/*:./setup/SystemDS/SystemDS.jar org.apache.sysds.runtime.iogen.EXP.SystemDS
+              -cp ./setup/JavaBaselines/lib/*:./setup/JavaBaselines/JavaBaselines.jar at.tugraz.benchmark.SystemDS
        "
 echo $SCRIPT
 

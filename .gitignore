@@ -5,8 +5,10 @@
 /sigmod2023-GIO-p454/envGIO/
 /sigmod2023-GIO-p454/baselines/RapidJSONCPP/bin/
 /sigmod2023-GIO-p454/data
-/sigmod2023-GIO-p454/tmpdata
 /sigmod2023-GIO-p454/results
+/sigmod2023-GIO-p454/plots
+/sigmod2023-GIO-p454/explocal/plotting/results
+/sigmod2023-GIO-p454/baselines/plotting/results
 /sigmod2023-GIO-p454/datagen/hl7/datagen
 /sigmod2023-GIO-p454/datagen/nested/.idea
 /sigmod2023-GIO-p454/datagen/nested/target

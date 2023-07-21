@@ -6,7 +6,7 @@ parallel=true
 
 # write header
 if [[ ! -f results/$log_file_name.dat ]] ; then
-  echo "dataset,field,example_nrows,time,parallel" >>results/$log_file_name.dat
+  echo "baseline,dataset,field,example_nrows,time,parallel" >>results/$log_file_name.dat
 fi
 
 examples=200
@@ -29,6 +29,6 @@ for field in "${field_list[@]}"; do
         start=$(date +%s%N)
         $SCRIPT
         end=$(date +%s%N)
-        echo ${dataset}","${field}","${examples}","$((($end - $start) / 1000000))","${parallel} >>results/$log_file_name.dat
+        echo "GIO,"${dataset}","${field}","${examples}","$((($end - $start) / 1000000))","${parallel} >>results/$log_file_name.dat
   fi
 done

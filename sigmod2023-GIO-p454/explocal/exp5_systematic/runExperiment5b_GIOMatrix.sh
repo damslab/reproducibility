@@ -19,7 +19,7 @@ for field in "${field_list[@]}"; do
                     -DsampleMatrixFileName=data/${dataset}/${field}/sample-${dataset}${example_nrows}.matrix\
                     -DdataFileName=data/${dataset}.dat\
                     -Dparallel=${parallel}\
-                    -cp ./setup/SystemDS/lib/*:./setup/SystemDS/SystemDS.jar org.apache.sysds.runtime.iogen.EXP.GIOMatrix
+                    -cp ./setup/JavaBaselines/lib/*:./setup/JavaBaselines/JavaBaselines.jar at.tugraz.benchmark.GIOMatrix
                     "
         echo $SCRIPT
 

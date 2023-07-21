@@ -2,6 +2,10 @@
 
 # This script runs all local experiments on the specified scale-up machine.
 
+# clean original results
+rm -rf results/*;
+mkdir -p results;
+
 for rp in {1..5}; do  
     ./explocal/exp1_micor_bench_identification/runExperiment1.sh # EXP1: Figure 8 (diagrams a-g)
     ./explocal/exp2_identification_1k_10k/runExperiment2.sh # EXP2: Table 3 (1k to 10k rows)

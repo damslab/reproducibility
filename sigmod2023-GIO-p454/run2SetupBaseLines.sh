@@ -31,10 +31,11 @@ cd ..
 
 # clone Apache SystemDS repository
 rm -rf systemds #cleanup
-git clone https://github.com/fathollahzadeh/systemds.git
+git clone git@github.com:apache/systemds.git
+
 # checkout commit hash as of camera-ready version
 cd systemds
-git checkout -b   GIOV02 d1ed124a04bc2ec42c704382c3a8097b2c3243a9
+git checkout -b reproducibility c648fd2bcd6ff4dfaa39681c7e314c2924ec72c4
 
 #build systemds and prepare all dependencies
 mvn clean package -P distribution

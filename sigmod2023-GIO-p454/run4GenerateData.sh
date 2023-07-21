@@ -9,6 +9,7 @@ rm -rf "$data_root/aminer-paper-json.dat"
 rm -rf "$data_root/message-hl7.dat"
 rm -rf "$data_root/autolead-xml.dat"
 rm -rf "$data_root/yelp-json.dat"
+rm -rf "$data_root/yelp-csv.dat"
 
 in_aminer_author="$data_root/aminer-author.dat"
 in_aminer_paper="$data_root/aminer-paper.dat"
@@ -57,3 +58,6 @@ $CMD -cp  ./nested.jar at.tugraz.aminer.AminerPaperDataGen $in_aminer_paper $in_
 
 # Yelp (JSON):
 $CMD -cp  ./nested.jar at.tugraz.yelp.YelpDataGen $in_yelp_business $in_yelp_checkin $in_yelp_review $in_yelp_user $data_root
+
+# Yelp-Review (CSV):
+$CMD -cp  ./nested.jar at.tugraz.yelp.YelpDataGenCSV $in_yelp_review $data_root

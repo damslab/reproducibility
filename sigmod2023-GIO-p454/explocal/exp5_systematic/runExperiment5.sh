@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Systematic Experiments
-
+parallel=$1
 # Identification for Vary Number of Fields
 ##########################################
 ./explocal/exp5_systematic/runExperiment5a_Frame.sh aminer-author-json Experiment5aa_times $parallel

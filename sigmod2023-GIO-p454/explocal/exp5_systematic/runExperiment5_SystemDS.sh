@@ -6,10 +6,7 @@ log_file_name=$3
 parallel=$4
 example_nrows=200
 
-#declare -a field_list=("F0" "F1" "F2" "F3" "F4" "F5" "F6" "F7" "F8" "F9" "F10" "F11" "F12" "F13" "F14" "F15" "F16" "F17" "F18" "F19" "F20" "F21"
-#"F22" "F23" "F24" "F25" "F26" "F27" "F28" "F29" "F30" "F31" "F32")
-
-declare -a field_list=("F10")
+declare -a field_list=("F0" "F1" "F2" "F3" "F4" "F5" "F6" "F7" "F8" "F9" "F10" "F11" "F12" "F13" "F14" "F15" "F16" "F17" "F18" "F19" "F20" "F21" "F22" "F23" "F24" "F25" "F26" "F27" "F28" "F29" "F30" "F31" "F32")
 
 for field in "${field_list[@]}"; do
   if [ -d "data/${dataset}/${field}" ]; then        
@@ -20,7 +17,7 @@ for field in "${field_list[@]}"; do
                         -DschemaFileName=data/${dataset}/${field}/${dataset}.schema\
                         -DschemaMapFileName=data/${dataset}/${field}/${dataset}.schemaMap\
                         -Dparallel=${parallel}\
-                        -cp ./setup/SystemDS/lib/*:./setup/SystemDS/SystemDS.jar org.apache.sysds.runtime.iogen.EXP.SystemDS
+                        -cp ./setup/JavaBaselines/lib/*:./setup/JavaBaselines/JavaBaselines.jar at.tugraz.benchmark.SystemDS
                         "
         echo $SCRIPT
 

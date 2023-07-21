@@ -12,7 +12,7 @@ SCRIPT="$CMD  -DsampleRawFileName=data/${dataset}/sample-${dataset}200.raw\
               -DsampleFrameFileName=data/${dataset}/sample-${dataset}200.frame\
               -DschemaFileName=data/${dataset}/${dataset}.schema\
               -Dparallel=${parallel}\
-              -cp ./setup/SystemDS/lib/*:./setup/SystemDS/SystemDS.jar org.apache.sysds.runtime.iogen.EXP.GIOFrameIdentification
+              -cp ./setup/JavaBaselines/lib/*:./setup/JavaBaselines/JavaBaselines.jar at.tugraz.benchmark.GIOFrameIdentification
        "
 echo $SCRIPT
 

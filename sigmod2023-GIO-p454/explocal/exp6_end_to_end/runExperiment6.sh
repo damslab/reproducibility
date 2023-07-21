@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # End-to-End Experiments
+parallel=$1
 
 # Identification for End-to-End Reader
 ######################################

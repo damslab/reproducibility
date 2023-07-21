@@ -13,7 +13,7 @@ SCRIPT="$CMD  -DsampleRawFileName=data/${dataset}/sample-${dataset}200.raw\
               -DdataFileName=data/${dataset}.dat\
               -DschemaFileName=data/${dataset}/${dataset}.schema\
               -Dparallel=${parallel}\
-              -cp ./setup/SystemDS/lib/*:./setup/SystemDS/SystemDS.jar org.apache.sysds.runtime.iogen.EXP.GIOFrame
+              -cp ./setup/JavaBaselines/lib/*:./setup/JavaBaselines/JavaBaselines.jar at.tugraz.benchmark.GIOFrame
        "
 echo $SCRIPT
 
