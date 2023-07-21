@@ -7,7 +7,7 @@
 **Paper Link:**  <https://dl.acm.org/doi/pdf/10.1145/3589265> 
 
 **Source Code Info:**
- * Repository: Apache SystemDS (<https://github.com/apache/systemds>)
+ * Repository: Apache SystemDS (<https://github.com/apache/systemds>, commit [82d9d130861be8e36d37a08c22cdd8d3231de6c2](https://github.com/apache/systemds/commit/82d9d130861be8e36d37a08c22cdd8d3231de6c2))
  * Reproducibility Repository: <https://github.com/damslab/reproducibility/tree/master/sigmod2023-GIO-p454>
  * Programming Language: Java, Clang++10, Python 3.8, SystemDS 
  * Packages/Libraries Needed: JDK 11, Git, Maven, Clang++, Python, LaTex
