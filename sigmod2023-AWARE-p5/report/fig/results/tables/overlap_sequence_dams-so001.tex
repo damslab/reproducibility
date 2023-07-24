@@ -1,0 +1,12 @@
+\begin{tabular}{r|r|r|r|r}
+    \toprule
+                   & \textbf{I/O}        & \textbf{Comp}        & \textbf{RMM}          & \textbf{Total}        \\
+    \midrule
+    SystemML - ULA & \numprint{0.84} sec & ---                  & \numprint{188.40} sec & \numprint{190.03} sec \\
+    SystemML - CLA & \numprint{0.88} sec & \numprint{24.34} sec & \numprint{374.13} sec & \numprint{401.27} sec \\
+    SystemDS - ULA & \numprint{0.81} sec & ---                  & \numprint{189.27} sec & \numprint{190.42} sec \\
+    \name-No OL    & \numprint{0.76} sec & \numprint{3.97} sec  & \numprint{189.59} sec & \numprint{195.51} sec \\
+    \name-Mem      & \numprint{0.80} sec & \numprint{8.00} sec  & \numprint{0.38} sec   & \numprint{9.72} sec   \\
+    \name          & \numprint{0.78} sec & \numprint{3.93} sec  & \numprint{0.42} sec   & \numprint{5.69} sec   \\
+    \bottomrule
+\end{tabular}

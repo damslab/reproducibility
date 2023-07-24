@@ -1,0 +1,20 @@
+
+\begin{table}[!t]
+    \centering \setlength\tabcolsep{10pt}
+    \caption{\label{tab:colgroups}Overview of CLA and \name \ Column Groups.}
+    \vspace{-0.4cm}
+    \begin{tabular}{llcc}
+        \toprule
+        \textbf{Type} & \textbf{Description}      & \textbf{CLA}~\cite{ElgoharyBHRR16,ElgoharyBHRR18} & \textbf{\name} \\
+        \midrule
+        CON           & Constant or Empty Columns &                                                   & \checkmark     \\
+        DDC           & Dense Dictionary Coding   & \checkmark                                        & \checkmark     \\
+        OLE           & Offset-list Encoding      & \checkmark                                        & (\checkmark)   \\
+        FOR           & Frame of Reference        &                                                   & \checkmark     \\
+        RLE           & Run-length Encoding       & \checkmark                                        & (\checkmark)   \\
+        SDC           & Sparse Dictionary Coding  &                                                   & \checkmark     \\
+        UC            & Uncompressed (dense/sparse) & \checkmark                                        & \checkmark     \\
+        \bottomrule
+    \end{tabular}
+    \vspace{0.1cm}
+\end{table}

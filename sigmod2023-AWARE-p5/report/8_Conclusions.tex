@@ -1,0 +1,16 @@
+\section{Conclusions}
+\label{sec:conclusion}
+
+%summary
+We introduced \name~ as a workload-aware, lossless matrix compression framework with new encoding schemes and compressed operations.
+Compared to previous lossless matrix compression, \name~ summarizes the workload characteristics of a linear algebra program
+and selects where and how to compress the inputs and intermediates for minimizing total execution time.
+%conclusions
+Based on a variety of experiments, we draw two major conclusions.
+First, the broader spectrum of compression techniques (column groups, fast compression, overlapped representations) yields
+runtime improvements even when uncompressed operations fit in memory, and can handle increasingly complex ML pipelines of data preparation,
+model training, and debugging. Second, the workload-aware compression planning nicely adapts the compressed representation
+for higher compression ratios when needed, and otherwise prefers operation performance.
+Together, these characteristics yield a compression framework with robust performance and thus, more general applicability.
+%future work
+Interesting future work includes the pushdown of compression into data preparation (e.g., feature transformations, and data cleaning) \cite{XinMPP21}, extensions for federated learning (e.g., extended asynchronous compression) \cite{Baunsgaard0CDGG21, Baunsgaard0IKLO22}, and combinations with lossy compression (e.g., bounded loss\cite{JinZJFGLST2022,ChunbinEY20}).

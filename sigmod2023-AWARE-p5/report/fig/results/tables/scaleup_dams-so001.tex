@@ -1,0 +1,30 @@
+\begin{tabular}{r|rr|rr|rr}
+    \toprule
+    \headendtoendone
+    \midrule
+    \subhead
+    \midrule
+    1x    & \numprint{51.6}         & (\numprint{6}) \numprint{27.1}   & \numprint{12.7}       & (\numprint{6}) \numprint{9.4}   & \numprint{32.0}        & (\numprint{7}) \numprint{26.0}   \\
+    8x    & \numprint{471.0}        & (\numprint{26}) \numprint{117.8} & \numprint{330.3}      & (\numprint{26}) \numprint{42.6} & \numprint{393.3}       & (\numprint{29}) \numprint{88.2}  \\
+    16x   & \dist\numprint{484.3}   & (\numprint{48}) \numprint{183.9} & \dist\numprint{76.3}  & (\numprint{47}) \numprint{67.5} & \dist\numprint{570.3}  & (\numprint{58}) \numprint{144.2} \\
+    32x   & \dist\numprint{1491.6}  & \dist\numprint{1496.3}           & \dist\numprint{70.3}  & \dist\numprint{61.2}            & \dist\numprint{671.5}  & \dist\numprint{629.9}            \\
+    \midrule
+    128x  & \dist\numprint{17819.0} & \dist\numprint{6298.0}           & \dist\numprint{137.0} & \dist\numprint{140.3}           & \dist\numprint{3502.9} & \dist\numprint{1710.6}           \\
+    % MLogReg is not comparable with old results, since it is run with a different configuration of inner iterations (5 instead of 50 in the second cluster)
+    *128x & \dist\numprint{33039.0} & \dist\numprint{11616.0}          & \dist\numprint{269.0} & \dist\numprint{259.0}           & \dist\numprint{50998.0} & \dist\numprint{8599.6}           \\
+    \midrule
+    \midrule
+    \headendtoendtwo
+    \midrule
+    \subhead
+    \midrule
+    1x    & \numprint{19.8}         & (\numprint{6}) \numprint{18.6}   & \numprint{15.6}       & (\numprint{6}) \numprint{14.3}  & \numprint{38.9}        & (\numprint{6}) \numprint{36.5}   \\
+    8x    & \numprint{366.2}        & (\numprint{26}) \numprint{60.6}  & \numprint{334.4}      & (\numprint{29}) \numprint{51.5} & \numprint{405.2}       & (\numprint{26}) \numprint{115.4} \\
+    16x   & \dist\numprint{104.4}   & (\numprint{44}) \numprint{91.7}  & \dist\numprint{80.2}  & (\numprint{50}) \numprint{75.8} & \dist\numprint{252.6}  & (\numprint{56}) \numprint{195.5} \\
+    32x   & \dist\numprint{264.6}   & \dist\numprint{105.3}            & \dist\numprint{91.5}  & \dist\numprint{70.8}            & \dist\numprint{433.2}  & \dist\numprint{479.4}            \\
+    \midrule
+    128x  & \dist\numprint{1611.4}  & \dist\numprint{242.6}            & \dist\numprint{175.9} & \dist\numprint{162.4}           & \dist\numprint{5286.9} & \dist\numprint{1904.5}           \\
+    % last number (l2svm+) is not included since the iterations stopped at 34 iterations of the algorithm not 80 (altho it was converged.) this discrepancy is not in the new results.
+    *128x & \dist\numprint{33090.0}  & \dist\numprint{469.0}            & \dist\numprint{365.9} & \dist\numprint{465.0}           & \dist\numprint{74016.0} & \dist\numprint{1060.0}           \\
+    \bottomrule
+\end{tabular}

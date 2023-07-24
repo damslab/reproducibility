@@ -1,0 +1,14 @@
+\begin{tabular}{r|rr|rrrr}
+    \toprule
+                   & \multicolumn{2} {c|}{\textbf{ULA}} & \multicolumn{4} {c}{\textbf{\name}}                                                                                                                  \\
+    Op ($100\times$) & \multicolumn{1}{c}{TOPS}           & \multicolumn{1}{c|}{Time}           & \multicolumn{1}{c}{Est. TOPS} & \multicolumn{1}{c}{TOPS} & \multicolumn{1}{c}{Comp} & \multicolumn{1}{c}{Time} \\
+    \midrule
+    SUM & 3.38e+10  & \numprint{2.25} sec & 1.29e+05  & 1.14e+05 & \numprint{4.60} sec  & \numprint{0.08} sec \\
+    SUM Dense & 1.90e+11  & \numprint{8.96} sec & 1.31e+05  & 1.14e+05 & \numprint{4.65} sec  & \numprint{0.07} sec \\
+    RMM-256 & 2.81e+13  & \numprint{156.97} sec & 2.13e+07  & 1.94e+07 & \numprint{4.74} sec  & \numprint{0.25} sec \\
+    LMM-256 & 4.28e+12  & \numprint{185.69} sec & 6.87e+11  & 7.14e+11 & \numprint{7.22} sec  & \numprint{53.76} sec \\
+    TSMM & 6.32e+12  & \numprint{111.12} sec & 9.83e+11  & 9.98e+11 & \numprint{7.19} sec  & \numprint{16.91} sec \\
+    ScaleShift & 7.47e+11  & \numprint{3216.21} sec & 4.08e+05  & 3.42e+05 & \numprint{4.89} sec  & \numprint{0.36} sec \\
+    Euclidean-256 & 4.80e+13  & \numprint{308.85} sec & 8.61e+11  & 9.04e+11 & \numprint{7.87} sec  & \numprint{78.55} sec \\
+    \bottomrule
+    \end{tabular}

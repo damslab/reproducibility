@@ -1,0 +1,55 @@
+
+\tikzset{indexstructure/.style={rectangle, draw, fill=black, minimum width=0.03cm, minimum height =1cm,
+inner sep=0pt, text width =0mm}}
+
+\tikzstyle{every node}=[font=\small]
+
+\resizebox{0.3\textwidth}{!}
+{
+\begin{tikzpicture}[node distance=0.35cm, transform shape]
+
+    \node(overlappingOut)[draw, minimum height =1.3cm, minimum width=2cm, yshift=-0.1cm, xshift=0.3cm]{};
+    \node(right)[draw, thick, fill=white,
+        minimum width=1cm, minimum height=0.8cm, text width =0.9cm] at (-2,1.2){Right Matrix};
+
+    \node(outG1)[ pattern =crosshatch dots,  pattern color =black, draw,
+        minimum width = 1cm, minimum height=1.1cm,
+        yshift=-0.08cm, xshift = 0.1cm]{};
+    \node(outG)[draw, thick, fill=white,
+        minimum width = 1cm, minimum height= 0.8cm]{$\mat{P}_i$};
+
+    \node(colG1)[left=of outG, pattern =crosshatch dots, pattern color =black, draw,
+        minimum width=0.38cm, minimum height=1.1cm, yshift=-0.08cm, xshift = -0.1cm]{};
+    \node(colG) [left=of outG,draw, thick, fill=white,
+        minimum width=0.6cm, minimum height=0.8cm]{$D_n$};
+
+    \node(rightSlice1)[above=of outG,draw,  pattern =crosshatch dots, pattern color =black, draw,
+        minimum width = 1cm, minimum height= 0.38cm,  xshift = 0.1cm,yshift=0.24cm]{};
+    \draw[->](colG1.north east) to[out=35,in=135](outG1.north west);
+    \draw[->](rightSlice1.south west) to[out=-135,in=135](outG1.north west);
+    \node(rightSlice)[above=of outG, draw, thick, fill=white,
+        minimum width = 1cm, minimum height= 0.2cm]{$Right_n$};
+
+    \draw[->](right) to [out=0, in = 125] node[above, xshift=-0.2cm] {Slice}(rightSlice1.north west);
+    \draw[->](right) to [out=0, in = 125] (rightSlice.north west);
+
+    \node(labelOO)[text width=1.8cm] at(1.,-1.2){Overlapping Output};
+    \draw[->](labelOO) to [out=180, in=-130] (overlappingOut);
+    \node(labelDictionary)[] at(-1.8, -1.){Dictionaries};
+    \draw[->](labelDictionary) to [out=60, in=-110] (colG1);
+    \draw[->](labelDictionary) to [out=80, in=-140] (colG.south west);
+
+    \draw[->](colG.north east) to[out=35,in=135](outG.north west);
+    \draw[->](rightSlice.south west) to[out=-135,in=135] node[above, xshift=-0.35cm, yshift=-0.1cm]{MM}(outG.north west);
+
+    \node(idx1)[right=of outG, indexstructure, xshift=.1cm, yshift=-0.2cm]{};
+    \node(idx)[right=of outG, indexstructure, xshift=.2cm, yshift=-0.1cm]{};
+    \node(labelIndexStructure)[text width= 1cm] at (2.0,0){Shallow Copy Indexes};
+    \draw[->](labelIndexStructure) to [out=140, in=90] (idx.north);
+    \draw[->](labelIndexStructure) to [out=130, in=90] (idx1.north);
+
+    \node at(-1.8,0){$d_i$};
+    \node at(0.9,1){$\card{\mathcal{G}_i}$};
+    \node at(0,1.8){$k$};
+\end{tikzpicture}
+}

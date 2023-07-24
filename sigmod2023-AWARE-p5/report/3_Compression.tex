@@ -1,0 +1,149 @@
+
+\section{Compression}
+\label{sec:compression}
+
+This section describes \name's compressed representation, selected new concepts, and the overall compression algorithm.
+The new encoding schemes are designed for redundancy exploitation across operations, while the new compression algorithm ensures fast, easy to amortize compression.
+
+\subsection{Compressed Representation}
+\label{sec:compressedRepresentation}
+
+\input{fig/tabEnc.tex}
+
+% with the ``best'' encoding type, by some objective.
+% Our optimizers minimize compression size, workload cost or hybrid costs combining multiple objectives.
+
+\name\ encodes each column group independently in a specific encoding type.
+Table~\ref{tab:colgroups} shows these column-group encodings, as well as the differences to CLA.
+Figure~\ref{fig:encoded} then presents an example of compressing a $10\times 6$ matrix into three single-column groups (0, 2 and 5), one two-column group ($\{1,3\}$), and an empty group. Also shown is an element-wise scalar subtraction on the compressed matrix, creating two alternative compressed outputs (A and B).
+
+
+\textbf{Dense Dictionary Coding (DDC)} contains two parts: a \emph{dictionary} with the distinct value tuples in the column group,
+(shown in Figure~\ref{fig:encoded} as a Dict with 2 values for column $\{0\}$), and an \emph{index structure} with a row-to-tuple mapping (e.g., dictionary position). DDC is dense because each row input is assigned a code in the map.
+
+\textbf{Sparse Dictionary Coding (SDC)}
+is a combination of DDC and sparse matrix formats like compressed sparse rows (CSR).
+An example is shown in yellow for columns $\{1,3\}$ in Figure~\ref{fig:encoded}. Like DDC, each group has a dictionary of all unique tuples except the most frequent tuple named ``Def'' for default. This scheme encodes row locations of non-default tuples in the index structure as row-index pairs. This approach is similar to compressed sparse columns (CSC) that store row-index/value pairs for non-zero values, but extends it for general redundancy exploitation (default values, dictionary references).
+% SDC Index structure
+The row part is further specialized to delta offsets (``Off'') from previous rows to allow smaller physical codewords.
+Finally, a ``Map'' (index part of CSC) maps offsets to tuples in the dictionary, similar to DDC.
+% Specialization
+SDC specializes into SDCZero, where zero default entries are removed like in the
+$\{2\}$
+blue column group, and SDCSingle for binary data (one dictionary entry, one default), removing the need of codes like in the
+$\{4\}$
+orange column group.
+
+\textbf{Frame of Reference (FOR)} is used as a second layer on top of DDC or SDC (called DDCFOR, SDCFOR). This encoding shallow-copies the index structures and dictionaries, and allocates a reference tuple, that indicates a global value offset.
+An SDC group can zero-out the default tuple by adding it to the dictionary and subtracting it from the reference tuple (converted to SDCZero).
+
+\textbf{Offset-list Encoding (OLE)} is a CLA encoding scheme, but largely superseded by SDC. SDC has in general worse compression than OLE, but SDC allow the group to densify its values without having to modify its index structure, while if densified OLE encode a value for each row making it inefficient and potentially bigger.
+
+\textbf{Run-length Encoding (RLE)} is unlikely beneficial in \name\ since co-coding many columns---which is good for operation performance, and likely to be done in scenarios with good RLE compression---makes it unlikely to retain sufficiently long runs. RLE also reallocates the index structure on densifying operations.
+
+\textbf{Constant Encodings} are used for empty, constant columns, and constant tuple column groups. CLA encodes such groups using run-length encoding (RLE).
+Instead we specialize with constant groups in order to simplify operations with compressed outputs.
+
+\textbf{Dictionaries:} CLA uses basic \texttt{FP64} dictionaries. In contrast, \name \ generalizes the data binding of dictionaries and uses basic \texttt{FP64} and \texttt{INT8} arrays, or sparse matrices.
+The more columns co-coded, the more zeros might be included in unique tuples and thus, warrant a sparse dictionary. \name \ does not share dictionaries across multiple column groups like CLA does in some cases.
+
+\textbf{Index Encodings:} The different column group implementations share common primitives such as Map and Off, of different value types (not shown in the figure). Map supports encodings in Bit, Byte, UByte, Char, Char+Byte and Int, while Off supports delta-encoded Byte or Char arrays, and specializations for one/two offsets.
+
+\textbf{Overlapping Column Groups:} \name\ allows column groups to overlap with partial sum semantics. Multiple column groups may refer to the same column but store separate dictionaries and index structures. Overlapping helps column groups preserve (and due to compression, eliminate) structural redundancy of intermediates for chains of operations such as matrix multiplication, row sums aggregation, and scalar or column addition.
+
+
+\input{fig/fig01-v2.tex}
+
+\textbf{An Operation Example:}
+Figure~\ref{fig:encoded} (right) shows an operation example subtracting 7 from the compressed matrix.
+Option \emph{A} creates an overlapping representation with pointers to the input column groups and a new constant group subtracting 7 from the entire matrix.
+In contrast, Option \emph{B} performs the subtraction on all column groups, creating different output group types.
+The empty column becomes a \emph{Const} group of -7.
+Column $\{2\}$ in blue becomes a \emph{SDCFOR} group that copies pointers to the previous dictionary and index structure, and only materializes a new reference value.
+The \emph{SDCSingle} group in orange becomes an \emph{SDCSingleZero} because Def 7-7 yields 0.
+The \emph{SDC} group in yellow has a different default value, and thus, produces an \emph{SDCFOR} group, where we subtract the default value from the dictionary, and subtract 7 from the default value as new reference value.
+%
+The total costs of Option \emph{A} is 1 FLOP and allocation of small arrays and pointers.
+Option \emph{B} requires 13 FLOPs but outputs a non-overlapping state, which can be beneficial for following operations.
+Uncompressed requires 60 FLOPs and an allocation in the input size.
+In contrast to \name, CLA with DDC$\{0\}$ DDC $\{1,3\}$, DDC $\{5\}$, OLE $\{2\}$ and RLE $\{5\}$ compression requires 16 FLOPs (3 more due to OLE/RLE/DDC), but more significantly, allocates new index structures in columns $\{2\}$ and $\{5\}$. Our current heuristic for such additive scalar operations is to return an overlapped representation (with a new/reused constant group) if the input was overlapping, and processed groups otherwise.
+
+\subsection{Compression Algorithm}
+\label{sec:compressalg}
+
+Our compression algorithm aims to reduce the online compression\footnote{Online compression refers to the compression of inputs or intermediates during runtime of a linear algebra program (e.g., after reading uncompressed inputs).} time, introduce workload-awareness via generic cost functions (computation, memory or combinations), and handle matrices with many columns. Together, solutions to these issues, allow us to apply compression for a wide variety of inputs and intermediates with robust performance improvements. Given an uncompressed matrix, the \name\ compression algorithm (Figure~\ref{fig:phases} and Alg~\ref{alg:compress}) comprises the following phases:
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=0.8\linewidth ]{fig/fig03}
+  \vspace{-0.25cm}
+  \caption{\label{fig:phases}Workflow of Compression Phases.}
+  \Description{
+    A figure showing all the compression phases that are processed.
+  }
+\end{figure}
+
+\begin{algorithm}[!t]
+  \caption{Compression Algorithm}\label{alg:compress}
+  \begin{algorithmic}
+    \Require{Matrix input $M$}\\
+    \Return{$M_c$}
+    \State $\textsc{G} \gets \textsc{ExtractIndexStructures}(\textsc{Sample}(M))$
+    \State $\textsc{SingleColumInfos} \gets \textsc{Classify(G)}$ \Comment{Abort 1}
+    \State $\textsc{Plan} \gets \textsc{Grouping}(\textsc{SingleColumInfos}, G)$ \Comment{Abort 2}
+    \State $(M, t) \gets \textsc{TransposeMaybe}(\textsc{Plan}, M)$ \Comment{ t is true if M is transposed}
+    \State $M_c \gets \textsc{Finalize}(\textsc{Compress}(\textsc{Plan}, M, t))$ \Comment{Abort 3}
+  \end{algorithmic}
+\end{algorithm}
+
+\textbf{a) Classify:} For efficient compression planning, we first obtain an index structure (dense or sparse for DDC or SDC) for each column in a sample of the input matrix, as well as counts of non zeros (NNZ) per column in the input matrix. Using the index structure and NNZ count, we compute summary statistics for individual columns (e.g., the frequency of distinct items), estimate the cost of the individual columns, classify columns as compressible or incompressible, and extract empty columns. For classifying a column or list of columns, the same summary statistics are needed, irrespective of optimizing for workload cost or size in memory. Compared to the CLA compression algorithm---where the entire uncompressed matrix was transposed first for efficient extraction in Classify and Compress---we benefit from working only with small index structures until deciding on aborting the compression for non-amenable matrices. Furthermore, we gain more efficient sample extraction, and bounded temporary memory requirements for incompressible matrices.
+
+\begin{algorithm}[!t]
+  \caption{Combine Algorithm for Dense Index Structures}\label{alg:combine}
+  \begin{algorithmic}
+    \Require{Index structures for two groups $I^l, I^r$}\\
+    \Return{Combined index structure $I^c$}
+    \State $ M \gets I[d_l \cdot d_r]$ , $u \gets 1$ \Comment{Allocate map of possible distinct size}
+    \For{ $i \gets 0$ to $n$}
+    \State $m \gets I^l_i + I^r_i \cdot d_r$ \Comment{Calculate new unique index}
+    \If{$M_m = 0$} \Comment{Non-existing value at the unique index}
+    \State $ M_m \gets u\texttt{++} $ \Comment{Assign unique index to next unique value}
+    \EndIf
+    \State $ I^c_i \gets M_m - 1$ \Comment{Assign output to map value at unique index}
+    \EndFor
+  \end{algorithmic}
+\end{algorithm}
+
+
+\textbf{b) Grouping:} Column co-coding seeks to find column groups in order to exploit redundancy among correlated columns. \name\ introduces two techniques to improve CLA's co-coding algorithm.
+%
+First, instead of extracting statistics from the sample when combining columns, we combine the index structures of two already extracted groups from the classification phase or previously combined columns. Algorithm~\ref{alg:combine} combines two dense index structures ($I^r$ and $I^l$) into a combined index structure $I^c$. This algorithm allocates a mapping $M$ that is able to encode all possible unique mappings from combining $I^r$ and $I^l$ by the product of their numbers of distinct items $d_l$ and $d_r$. Further specializations are algorithms for sparse-sparse and sparse-dense combining.
+%
+Second, we introduce a new co-coding algorithm (see Algorithm~\ref{alg:priorityQueue}) that uses a priority queue $Q$ for sorting columns (or column groups) based on a configurable cost function, and combines groups at the head of the queue. We found that starting with this new co-coding algorithm and switching to a greedy combining approach at a threshold number of remaining groups gives a good balance of compression time and quality. In cases with millions of columns, we do a static partitioning of the columns to available threads and combine columns in a thread-local manner.
+
+\begin{algorithm}[!t]
+  \caption{PriorityQueue Co-coding Algorithm}\label{alg:priorityQueue}
+  \begin{algorithmic}
+    \Require{A queue of all current index structures $Q$}\\
+    \Return{A list of index structures $G$}
+    \While{$Q.peek \neq NULL$ ,   $I^l \gets Q.poll$} \Comment{Remove cheapest Index}
+    \State $I^r \gets Q.peek$                \Comment{Look at next cheapest Index}
+    \State $I^c \gets combine(I^l, I^r)$       \Comment{Combine two cheapest}
+    \If{$I^c.cost$ < $I^l.cost + I^r.cost$} \Comment{Costs of combined is lower}
+    \State $Q.poll$ , $Q.put(I^c)$ \Comment{Remove $I^r$ from queue and add $I^c$}
+    \Else
+    \State $G.add(I^l)$ \Comment{Add cheapest (already extracted) to output}
+    \EndIf
+    \EndWhile
+  \end{algorithmic}
+\end{algorithm}
+
+\textbf{c) Transpose:} The uncompressed input matrix can be transposed (columns in row-major) if the compress phase would benefit from sequential access and amortize such data reorganization. This decision is dependent on the data characteristics (e.g., matrix dimensions, dense or sparse) and the chosen compression plan (e.g., co-coded columns).
+% By default, we transpose sparse matrices that have more than 500\text{K} rows or a number of column groups greater than $m/2$ (few co-coded columns).
+
+
+\textbf{d) Compress:} During compression, we take the input matrix and compression plan (co-coding decisions, and column-group types), and create the compressed column groups. For every group, we first extract its single- or multi-column uncompressed bitmap as a canonical representation of distinct tuples and offset lists per tuple. With these temporary offset lists, we re-evaluate the group types, and finally create the physical encoding of the compressed column groups, which involves various specializations (e.g., delta-encoded offsets) for smaller code words. Once a column group is compressed---and it is beneficial in terms of workload costs---we analyze if we can sparsify its dictionary via a frame-of-reference encoding, and if so apply the transformation. In contrast to CLA, we apply no corrections for estimated compressible but actually incompressible columns because the estimators and co-coding show robust behavior.
+
+\textbf{e) Finalize:} In a last phase, we perform compaction of special groups, and compare costs of the actual compressed representation with the uncompressed costs (and abort if needed). Finally, we cleanup all temporary buffers but keep a soft reference (subject to garbage collection under memory pressure) to the uncompressed block to skip potential decompressions.
+
+\textbf{Parallelization Strategies:} When compressing distributed matrices, blocks are compressed independently in a data-parallel manner with single-threaded compression per block. In contrast, local, in-memory compression utilizes multi-threading with barriers per phase. Classify parallelizes over columns, Grouping over blocks of columns, Compress over column groups and in some cases row partitions, and Transpose uses a multi-threaded cache-conscious uncompressed transpose operation. A more fine-grained parallelization with a task graph \cite{MoritzNWTLLEYPJ18} is interesting future work.

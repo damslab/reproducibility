@@ -1,0 +1,133 @@
+
+
+\newcommand{\mycomment}[1]{
+
+    \noindent \rule{\linewidth}{0.2mm}
+
+    \noindent #1
+
+    \noindent \rule{\linewidth}{0.2mm}}
+
+
+\newcommand{\tmpFigure}[2]{
+    \begin{figure}
+        \includegraphics[width=\linewidth]{example-image}
+        \caption{#2}
+        \Description[#1]{#2}
+    \end{figure}
+}
+
+\newcommand{\largeTmpFigure}[2]{
+    \begin{figure*}
+        \includegraphics[width=\linewidth]{example-image}
+        \caption{#2}
+        \Description[#1]{#2}
+    \end{figure*}
+}
+
+% REMOVE ALL COMMENTS:
+%\renewcommand{\mycomment}[1]{}
+
+\newcommand{\todo}[1]{{\color{red} \mycomment{#1}}}
+
+\newcommand{\commentBauns}[1]{{\color{blue} \mycomment{#1}}}
+
+% Variables
+\newcommand{\Gv}{\mathcal{G}}
+\newcommand{\Dv}{\mathcal{D}}
+\newcommand{\Tv}{\mathcal{T}}
+\newcommand{\Ov}{\mathcal{O}}
+\newcommand{\Rv}{\mathcal{R}}
+\newcommand{\Cv}{\mathcal{C}}
+\newcommand{\Sv}{\mathcal{S}}
+
+
+% vertical sepereator
+\newcommand{\rulesep}{\unskip\ \vrule\ }
+\setlength{\textfloatsep}{9pt}
+
+% math commands
+\newcommand{\mat}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\card}[1]{\lvert #1\rvert}
+\newcommand{\num}[1]{\numprint{#1}}
+\npstyleenglish %. digits and , thousand seperators
+
+% unit commands
+\newcommand{\h}{\unit{\,h}}
+\newcommand{\s}{\unit{\,s}}
+\newcommand{\ms}{\unit{\,ms}}
+\newcommand{\bbb}{\unit{\,b}}
+\newcommand{\bb}{\unit{\,B}}
+\newcommand{\kb}{\unit{\,KB}}
+\newcommand{\mb}{\unit{\,MB}}
+\newcommand{\gb}{\unit{\,GB}}
+\newcommand{\tb}{\unit{\,TB}}
+\newcommand{\mbs}{\unit{\,MB/s}} %{~\unitfrac{MB}{s}}
+\newcommand{\gbs}{\unit{\,GB/s}} %{~\unitfrac{GB}{s}} 
+\newcommand{\gflop}{\unit{\,GFLOP}} %{~\unitfrac{GFLOP}{s}}
+\newcommand{\gflops}{\unit{\,GFLOP/s}} %{~\unitfrac{GFLOP}{s}}
+\newcommand{\tflops}{\unit{\,TFLOP/s}} %{~\unitfrac{TFLOP}{s}}
+
+\clubpenalty = 10000
+\widowpenalty = 10000
+\sloppy
+\frenchspacing
+
+
+\tikzset{ts/.style={text height = 0.5ex, text depth=.08ex}}
+
+\tikzset{cg/.style={
+            matrix of nodes, anchor=north,
+            every node/.style={inner sep=0.5mm},
+            % nodes={},
+            % column 1/.style={nodes={text width=0.5cm, align=right}}
+        }}
+\tikzset{cgs/.style={
+            matrix of nodes, anchor=north,
+            every node/.style={anchor=base, ts},
+            nodes={},
+            % column 1/.style={nodes={text width=0.45cm, align=right}}
+        }}
+\tikzset{mlabel/.style={yshift=0.1cm}}
+\tikzset{dictL/.style={right, align=right, xshift= 1.cm, node distance=1cm, ts}}
+\tikzset{dict/.style={
+    ts,    
+    right,
+    xshift= -1cm,
+    text width=2.4ex,  node distance=1cm}}
+\tikzset{bb/.style={draw, inner sep=-0.5mm, rounded corners}}
+
+
+\newcommand{\name}{\textsc{\emph{Aware}}}
+\newcommand{\sname}{\textsc{\emph{Sys XYC}}}
+
+% show diff:
+
+% \newcommand{\blue}[1]{\color{blue}  #1 \color{black}}
+% \newcommand{\redd}[1]{\color{red}  \st{#1} \color{black}}
+% \newcommand{\change}[1]{\color{teal} #1 \color{black}}
+
+% disable diff:
+
+\newcommand{\blue}[1]{\ #1}
+\newcommand{\redd}[1]{}
+\newcommand{\change}[1]{\ #1}
+
+
+
+% \newcommand{\source}{../experiments/plots}
+\newcommand{\source}{fig/results}
+
+\ExplSyntaxOn
+\cs_new:Npn \expandableinput #1
+  { \use:c { @@input } { \file_full_name:n {#1} } }
+\AddToHook{env/tabular/begin}
+  { \cs_set_eq:NN \input \expandableinput }
+\ExplSyntaxOff
+
+
+\algnewcommand{\SLIf}[2]{\State\algorithmicif\ #1\ \algorithmicthen\  #2\ }
+\algnewcommand{\SLIfnThen}[1]{\State\algorithmicif\ #1\  }
+\algnewcommand{\SLThen}[1]{\State\algorithmicthen\ #1\ }
+\algnewcommand{\SLElse}[1]{\State\algorithmicelse\ #1\ }
+

@@ -1,0 +1,104 @@
+\documentclass[acmsmall,screen,pdfa]{acmart}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\usepackage{tikz}
+\usepackage[inline]{enumitem}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{relsize}
+\usepackage{cleveref}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{units}
+\usepackage{numprint}
+\usepackage{subfigure}
+\usepackage{soul}
+\usepackage{array}
+
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+\usetikzlibrary{
+    matrix,
+    decorations.pathreplacing, 
+    calc, 
+    positioning,
+    fit, 
+    backgrounds, 
+    shapes, 
+    shapes.misc,
+    patterns}
+
+\input{sigmodSettings.tex}
+\input{customCommands.tex}
+
+
+%%
+%% end of the preamble, start of the body of the document source.
+\begin{document}
+
+%%
+%% The "title" command has an optional parameter,
+%% allowing the author to define a "short title" to be used in page headers.
+% \title{AWARE: Adaptive Workload Aware Redundancy Exploitation}
+\title[AWARE: Workload-aware, Redundancy-exploiting Linear Algebra]{AWARE: \\Workload-aware, Redundancy-exploiting Linear Algebra}
+% \author{Paper-ID: 5}
+
+
+\author{Sebastian Baunsgaard}
+\orcid{0009-0001-1463-7294}
+\authornote{This work was partially done at Graz University of Technology, Austria.}
+\affiliation{
+    \institution{Technische Universität Berlin}
+    \city{Berlin}
+    \country{Germany}
+}
+
+\author{Matthias Boehm}
+\authornotemark[1]
+\orcid{0000-0003-1344-3663}
+\affiliation{
+    \institution{Technische Universität Berlin}
+    \city{Berlin}
+    \country{Germany}
+}
+
+\renewcommand{\shortauthors}{Sebastian Baunsgaard \& Matthias Boehm}
+
+% \keywords{}
+\begin{abstract}
+    \input{0_Abstract.tex}
+\end{abstract}
+
+\received{April 2022}
+\received[revised]{July 2022}
+\received[accepted]{August 2022}
+
+\maketitle
+
+% \acmBooktitle{}
+% \subtitle{}
+
+\input{1_Introduction.tex} 
+\input{2_Background.tex}
+\input{3_Compression.tex}
+\input{4_Operations.tex}
+\input{5_WorkloadAwareness.tex}
+\input{6_Experiments.tex}
+\input{7_RelatedWork.tex}
+\input{8_Conclusions.tex}
+\input{9_Acknowledgements.tex}
+
+
+% \newpage
+
+% \balance
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{references}
+
+% \input{10_RevisionComments.tex}
+
+\end{document}
+\endinput

@@ -1,0 +1,48 @@
+
+% CLA
+% DDC, OLE, RLE, UC. Encodings: DDC 2, OLE 1, RLE 1, UC 1. -> 4(5)
+
+% NEW:
+% DDC 4, CON 2, OLE, RLE, UC, SDC 4 * 2 * 4, PFOR 2 * 4 = 4 + 2 + 1 + 1 + 1 + 32 + 8 = ColumnGroup Index Structures 49
+% Dictionary encodings: 3 (Double Dense, MatrixBlock Dense, MatrixBlock Sparse) * 49 = 147 possibilities.
+% with UByte (debatable)
+% DDC 5, CON 2, OLE, RLE, UC, SDC 5 * 2 * 4, PFOR 2 * 5 = 5 + 2 + 1 + 1 + 1 + 35 + 10 = ColumnGroup Index Structures 55
+% Dictionary encodings: 3 (Double Dense, MatrixBlock Dense, MatrixBlock Sparse) * 55 = 165 possibilities.
+
+% DDC 7 * 2*( FOR), CON 2, UC, SDC 7 * 4 * 3 (Zero,_, FOR)  SDCSingle, 4*2 
+% 7 *2 + 2 + 1 + 1 + 1 + 7*4*3 + 4*2 = 109 col group index structures.
+%  3 * 111 = 333
+
+% YetAgain:
+% DT = 3 // dictionary types
+% DDC 7 * DT  = 21
+% DDCFOR 7 * DT =21
+% CON  DT = 3
+% Empty 1  = 1
+% Uncompressed = 2 // Sparse or dense 
+% SDC 7 * 4 * DT = 84
+% SDC Zero 7 * 4 * DT = 84
+% SDC Single 4 * DT = 12
+% SDC Single Zero 4 * DT = 12
+% SDC FOR 7 * 4 * DT = 84
+% RLE DT = 3
+%% Sum = 327
+
+\begin{table}[!t]
+    \centering \setlength\tabcolsep{10pt}
+    \caption{\label{tab:diff}Differences of CLA and \name}
+    \vspace{-0.4cm}
+    \begin{tabular}{rcc}
+        \toprule
+                               & \textbf{CLA}~\cite{ElgoharyBHRR16,ElgoharyBHRR18} & \textbf{\name}   \\
+        \midrule
+        Co-Coding              & $\mathcal{O}(m^2)$                                & $\mathcal{O}(m)$ \\
+        Column Group Encodings & 4 (5)                                             & 7 (327)          \\
+        Materialization        & Eager                                             & Deferred         \\
+        Optimization Objective & Data                                              & Data \& Ops      \\
+        Matrix Multiplication  & MV, VM                                            & MV, VM, MM       \\
+
+        \bottomrule
+    \end{tabular}
+    \vspace{0.3cm}
+\end{table}

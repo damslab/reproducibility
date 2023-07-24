@@ -1,0 +1,58 @@
+
+\section{Background and Overview}
+\label{sec:background}
+
+This section reviews the main characteristics of CLA
+and its limitations, which directly motivate key design decisions of \name.
+% Inspired by database compression schemes and sparse matrix representations,
+CLA~\cite{ElgoharyBHRR16, ElgoharyBHRR18} is a lossless compression framework leveraging
+column-wise compression, column co-coding (encode groups of columns as single units), and heterogeneous column encoding schemes.
+This design exploits characteristics of feature matrices---with categorical and numerical features in columns---namely,
+tall and skinny matrices, non-uniform sparsity, low cardinality and correlations.
+Since the selection of column groups is strongly data-dependent,
+CLA introduced a sampling-based compression planning for online compression after
+an initial read of an input matrix.
+Once compressed, specialized kernels work directly on the compressed representation if applicable and efficient,
+otherwise fall back to decompression followed by uncompressed kernels.
+
+\subsection{Limitations of CLA}
+
+
+Despite CLA's compelling properties---allowing operations directly on the compressed representations---there are limitations and missing functionality that hinder general applicability.
+
+\textbf{Compression Costs:}
+The original CLA's \cite{ElgoharyBHRR16} sampling-based compression planning used a sample fraction and a co-coding algorithm
+that---ignoring greedy partitioning---required $\mathcal{O}(m^3)$ group extractions from the sample.
+The refined CLA \cite{ElgoharyBHRR18} %\redd{increased the sample fraction to $f=0.05$ for better robustness, but}
+improved the co-coding approach via memoization to $\mathcal{O}(m^2)$ group extractions.
+However, despite column classification into compressible and incompressible columns,
+matrices with no or minor compression benefits were recognized much too late,
+after incurring already substantial overhead.
+Furthermore, the super-linear co-coding complexity becomes infeasible for millions of columns.
+
+\textbf{Compressed Intermediates:}
+CLA performs online compression for input matrices and keeps outputs of amenable operations like matrix-scalar element-wise multiplications,
+or scaling and shifting compressed.
+Other operations produce uncompressed outputs (e.g., after feature transformations or data cleaning).
+In complex, exploratory ML pipelines there are multiple sources of redundancy though,
+which would largely benefit from a more fine-grained selection of intermediates and optimization of their individual compression schemes.
+
+\textbf{Optimization Objective:}
+The design and implementation of CLA aimed at the sweet spot of compressed operation performance close to uncompressed (low in-memory overhead),
+while achieving good compression ratios (fit larger data in memory, reduced I/O for large data).
+Besides this hand-crafted tuning, the internal objective for selecting compression schemes and co-coding then only focuses on minimizing compressed size.
+Fundamentally, however, the overall optimization objective should be total execution time,
+factoring in compression, compressed operations, and potential I/O in order to better adapt to data, operation, and cluster characteristics.
+
+
+\input{fig/tabDiff.tex}
+
+\subsection{\name\ Overview}
+
+Our workload-aware compression addresses these limitations with new techniques for compression planning, compressed intermediates, and different optimization objectives. Table~\ref{tab:diff} highlights these key differences between CLA and \name.
+%
+First, to reduce compression time, we introduce a new co-coding technique that performs group \emph{combinations} instead of group \emph{extractions}, reducing the overhead to analyze groups. Our co-coding approach further includes a new enumeration heuristic that only evaluates $\mathcal{O}(m)$ group combinations.
+%
+Second, for extended utilization of compressed intermediates, we provide new column group encodings that facilitate shallow-copy operations. Table~\ref{tab:diff} shows the number of high-level column group types and---in parenthesis---the total number of variations of these encodings. We also introduce a deferred operation/encoding design, where compressed operations can output different types of encodings, allowing compressed intermediates where CLA would decompress or return inefficient representations. Furthermore, \name\ natively supports compressed matrix-matrix multiplication (even with two compressed inputs), unlike CLA that would process it via repeated matrix-vector multiplications and thus decompresses one side.
+%
+And above all, \name\ uses a cost-based optimization objective of minimizing the workload execution time and thus, tuning the compression process, the compressed representation, and compressed operations in a principled way.

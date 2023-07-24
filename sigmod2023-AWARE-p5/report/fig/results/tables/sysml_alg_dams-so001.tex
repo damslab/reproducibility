@@ -1,0 +1,15 @@
+
+\begin{tabular}{r|r|r|r|r||r}
+    \toprule
+                   & \multicolumn{4}{c||}{Local {\tiny(1x)}} & Distributed {\tiny(256x)}                                                                                   \\
+    \midrule
+                   & \textbf{I/O}                            & \textbf{Comp}             & \textbf{L2SVM}      & \textbf{Total}      & \multicolumn{1}{c}{ \textbf{Total}} \\
+
+    \midrule
+    SystemML - ULA & \numprint{1.6} sec                      & ---                       & \numprint{36.7} sec & \numprint{38.4} sec & \numprint{5689.6} sec               \\
+    SystemML - CLA & \numprint{1.5} sec                      & \numprint{32.8} sec       & \numprint{31.7} sec & \numprint{66.0} sec & \numprint{4722.7} sec               \\
+    SystemDS - ULA & \numprint{1.6} sec                      & ---                       & \numprint{19.3} sec & \numprint{20.9} sec & \numprint{2849.1} sec               \\
+    \name-Mem      & \numprint{1.4} sec                      & \numprint{6.0} sec        & \numprint{21.3} sec & \numprint{28.7} sec & \numprint{2300.4} sec               \\
+    \name          & \numprint{1.6} sec                      & \numprint{7.9} sec        & \numprint{15.9} sec & \numprint{25.3} sec & \numprint{2294.9} sec               \\
+    \bottomrule
+\end{tabular}

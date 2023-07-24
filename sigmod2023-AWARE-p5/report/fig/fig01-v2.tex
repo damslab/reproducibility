@@ -1,0 +1,285 @@
+
+\def\bottom#1#2{\hbox{\vbox to #1{\vfill\hbox{#2}}}}
+\begin{figure*}
+    \centering
+    \resizebox{\textwidth}{!}
+    {
+    \begin{tikzpicture}[font=\Small, ampersand replacement=\&]
+
+        \begin{scope}[xshift=-0.35cm]
+            \matrix[cg, every node/.style={minimum width=1em,inner sep=0.5mm},
+            ](UC) at(-0.2cm,0.5) {
+                1 \& 2 \& 0   \& 6 \& 0 \& 4 \\
+                7 \& 3 \& 0   \& 4 \& 0 \& 7 \\
+                1 \& 2 \& 0   \& 6 \& 0 \& 4 \\
+                7 \& 2 \& 0   \& 5 \& 0 \& 7 \\
+                1 \& 3 \& 9   \& 4 \& 0 \& 4 \\
+                7 \& 0 \& 8.5 \& 0 \& 0 \& 7 \\
+                1 \& 3 \& 8.5 \& 4 \& 0 \& 7 \\
+                7 \& 3 \& 0   \& 4 \& 0 \& 7 \\
+                1 \& 2 \& 0   \& 6 \& 0 \& 4 \\
+                7 \& 3 \& 9   \& 4 \& 0 \& 7 \\
+            };
+            \node[mlabel](UCL) at (UC.north){\textbf{Uncompressed}};
+            \begin{scope}[on background layer]
+                \node[bb, fit=(UCL) (UC), fill = black!10](UCBB){};
+                \node[bb, thin,fit=(UC-1-1) (UC-10-1),          inner sep = -0.15, rounded corners=1mm, fill = teal!30]{};
+                \node[bb, thin,fit=(UC-1-2) (UC-10-2),          inner sep = -0.15, rounded corners=1mm, fill = yellow!30]{};
+                \node[bb, thin,fit=(UC-1-3) (UC-10-3) (UC-6-3), inner sep = -0.15, rounded corners=1mm, fill = blue!30]  {};
+                \node[bb, thin,fit=(UC-1-4) (UC-10-4),          inner sep = -0.15, rounded corners=1mm, fill = yellow!30]{};
+                \node[bb, thin,fit=(UC-1-5) (UC-10-5),          inner sep = -0.15, rounded corners=1mm, fill = green!30] {};
+                \node[bb, thin,fit=(UC-1-6) (UC-10-6),          inner sep = -0.15, rounded corners=1mm, fill = orange!30]{};
+            \end{scope}
+        \end{scope}
+
+        \begin{scope}[xshift=0.8cm]
+            % G1 SDC:
+            \matrix[cg](G1) at (3.2,0) {
+                Off \& [1mm] Map \& [1mm] Dict \& [1mm] Def \\
+                1   \& 0                                          \& 2,6                                         \& 3,4                                        \\
+                2   \& 0                                          \& 2,5                                         \&                                            \\
+                1   \& 1                                          \& 0,0                                         \&                                            \\
+                2   \& 2                                          \&                                             \&                                            \\
+                3   \& 0                                          \&                                             \&                                            \\
+                \   \&                                            \&                                             \&                                            \\
+            };
+
+            \node[mlabel](G1L) at (G1.north){\textbf{SDC\{1,3\}}};
+            \node[bb, fit=(G1L.north) (G1.south) (G1.east) (G1.west)](G1BG){};
+
+            % G2 SDCZero:              
+            \matrix[cg](G2) at (5.6,0){
+                Off \& [1mm] Map \& [1mm] Dict \\
+                5   \& 0                                          \& 9                                           \\
+                1   \& 1                                          \& 8.5                                         \\
+                1   \& 1                                          \&                                             \\
+                3   \& 0                                          \&                                             \\
+                \   \&                                            \&                                             \\
+            };
+            \node[mlabel](G2L) at (G2.north){\textbf{SDCZero\{2\}}};
+            \node[bb, fit=(G2L.north) (G2.south) (G2.east) (G2.west)](G2BG){};
+
+            % G4 SDCSingle:
+            \matrix[cg, align=center ](G4) at(7.6,0){
+                Off \& [1mm] Dict \\
+                1   \& 4                                           \\
+                2   \&                                             \\
+                2   \& Def                                         \\
+                4   \& 7                                           \\
+                \   \&                                             \\
+            };
+            \node[mlabel](G4L) at (G4.north){\textbf{SDCSingle\{5\}}};
+            \node[bb, fit=(G4L) (G4)](G4BG){};
+            \node[mlabel](COMPL) at ([yshift=0.35cm, xshift=-0.2cm]G1.north){\textbf{Compressed}};
+
+
+            % G5 DDC:
+            \matrix[cg, align=center](G5) at(1,0.4){
+                Map \& [1mm] Dict \\
+                0   \& 1                                           \\
+                1   \& 7                                           \\
+                0   \&                                             \\
+                1   \&                                             \\
+                0   \&                                             \\
+                1   \&                                             \\
+                0   \&                                             \\
+                1   \&                                             \\
+                0   \&                                             \\
+                1   \&                                             \\
+            };
+
+            \node[mlabel](G5L) at (G5.north){\textbf{DDC\{0\}}};
+
+            \begin{scope}[on background layer]
+                \node[bb, inner sep=1mm, fit=(G4L) (G1) (G2)  (G4) (G5) (COMPL) , fill=black!10](COMPBB){};
+                \node[bb, fit=(G1L) (G1), fill=yellow!30](G1BB){};
+                \node[bb, thin,fit=(G1-1-1) (G1-6-1), inner sep = -0.15, rounded corners=1mm, fill = yellow!50](G1Off){};
+                \node[bb, thin,fit=(G1-1-2) (G1-6-2), inner sep = -0.15, rounded corners=1mm, fill = yellow!30](G1Map){};
+                \node[bb, thin,fit=(G1-1-3) (G1-4-3), inner sep = -0.15, rounded corners=1mm, fill = yellow!10](G1Dic){};
+                \node[bb, thin,fit=(G1-1-4) (G1-2-4), inner sep = -0.15, rounded corners=1mm, fill = yellow!10](G1Def){};
+
+                \node[bb, fit=(G2L) (G2), fill=blue!30](G2BB){};
+                \node[bb, thin,fit=(G2-1-1) (G2-5-1), inner sep = -0.15, rounded corners=1mm, fill=blue!50](G2Off){};
+                \node[bb, thin,fit=(G2-1-2) (G2-5-2), inner sep = -0.15, rounded corners=1mm, fill=blue!30](G2Map){};
+                \node[bb, thin,fit=(G2-1-3) (G2-3-3), inner sep = -0.15, rounded corners=1mm, fill=blue!10](G2Dic){};
+
+                % \node[bb, fit=(G3L) (G3), fill=green!30](G3BB){};
+
+                \node[bb, fit=(G4L) (G4), fill=orange!30](G4BB){};
+                \node[bb, thin,fit=(G4-1-1) (G4-5-1), inner sep = -0.15, rounded corners=1mm, fill=orange!50](G4Off){};
+                \node[bb, thin,fit=(G4-1-2) (G4-2-2), inner sep = -0.15, rounded corners=1mm, fill=orange!10](G4Dic){};
+                \node[bb, thin,fit=(G4-4-2) (G4-5-2), inner sep = -0.15, rounded corners=1mm, fill=orange!10](G4Def){};
+
+                \node[bb, fit=(G5L) (G5), fill=teal!30](G5BB){};
+                \node[bb, thin,fit=(G5-1-1) (G5-11-1), inner sep = -0.15, rounded corners=1mm, fill=teal!50](G5Map){};
+                \node[bb, thin,fit=(G5-1-2) (G5-3-2), inner sep = -0.15, rounded corners=1mm, fill=teal!10](G5Dic){};
+            \end{scope}
+
+
+
+        \end{scope}
+
+        \begin{scope}[yshift=0.4cm]
+            \begin{scope}[xshift=14.cm, yshift=-0.5cm]
+                % G1 SDCZero:
+                \begin{scope}[yshift=0.25cm]
+                    \node[bb, inner sep=1.5mm, outer sep=1mm, fill=teal!30, rectangle] (GDDCA) at (0.25,0.35)  { };
+                    \node[bb, inner sep=1.5mm, outer sep=1mm, fill=yellow!30, rectangle] (G1A) at (0,0.15){ };
+                    \node[bb, inner sep=1.5mm, outer sep=1mm, fill=blue!30,   rectangle] (G2A) at (0.2,-0.1){ };
+                    \node[bb, inner sep=1.5mm, outer sep=1mm, fill=orange!30, rectangle] (G4A) at (0,-0.35){ };
+                \end{scope}
+
+                \node[cg](G5A) at (1.7,0.2) {
+                    Dict \& -7,-7,-7,-7,-7,-7 \\
+                };
+                \node[mlabel](G5AL) at (G5A.north){\textbf{Const\{0, 1, 2, 3, 4, 5\}}};
+                \node[ inner sep=0mm, fit=(G1A) (G2A) (G4A) (G5AL) (G5A) ](optA){};
+                \node[mlabel](optAL) at ([yshift=0.03cm]G5AL.north){\textbf{\emph{A}: Overlapping}};
+
+                \begin{scope}[on background layer]
+                    \node[bb, inner sep=0mm, fit=(optA) (optAL), fill=black!10](optA){};
+                    \node[bb, fit=(G5AL.north) (G5A.south) (G5A.east) (G5A.west), fill=red!30]{};
+                    \node[bb, thin, fit=(G5A-1-1) (G5A-1-2), inner sep = -0.15, rounded corners=1mm, fill = red!10](G1Dic){};
+                \end{scope}
+
+                \draw[<->, dashed] (GDDCA.center) to[out=170, in=0] ([yshift=-0.1cm, xshift=3cm]COMPBB.north east) -- ([yshift=-0.1cm]COMPBB.north east) -- ([yshift=-0.1cm, xshift=-1cm]COMPBB.north)  to [out=180, in = 10] ([yshift=-0.05cm, xshift=-0.05cm]G5BB.north east);
+                \draw[<->, dashed] (G1A.center) to[out=160, in=0]   ([yshift=-0.2cm, xshift=3cm]COMPBB.north east) -- ([yshift=-0.2cm]COMPBB.north east) -- ([yshift=-0.2cm, xshift=1.5cm]COMPBB.north) to [out=180, in = 45] ([yshift=-0.05cm, xshift=-0.05cm]G1BB.north east);
+                \draw[<->, dashed] (G2A.center) to[out=170, in=0]   ([yshift=-0.3cm, xshift=3cm]COMPBB.north east) -- ([yshift=-0.3cm]COMPBB.north east) -- ([yshift=-0.3cm, xshift=3cm]COMPBB.north) to [out=180, in = 45] ([yshift=-0.05cm, xshift=-0.05cm]G2BB.north east);
+                \draw[<->, dashed] (G4A.center) to[out=155, in=0]   ([yshift=-0.4cm, xshift=3cm]COMPBB.north east) -- ([yshift=-0.4cm]COMPBB.north east) -- ([yshift=-0.4cm, xshift=3.5cm]COMPBB.north) to [out=180, in = 60] ([ xshift=0.4cm]G4BB.north);
+                % \node at([yshift=0.1cm, xshift= 0.15cm]COMPBB.north east) {\tiny Pointers};
+            \end{scope}
+
+            \begin{scope}[xshift=15.cm, yshift=-1.8cm](optB)
+
+                \matrix[cg](G1A2){
+                    Ref   \& [1mm] Dict \\
+                    -4,-3 \& -1,2                                        \\
+                    \     \& -1,1                                        \\
+                    \     \& -3,-4                                       \\
+                };
+
+                \node[bb, inner sep=1.5mm, outer sep=1mm, fill=yellow!30, rectangle](G1A2Map) at ([yshift = -0.02cm, xshift = -0.2cm]G1A2-3-1) {};
+                \node[bb, inner sep=1.5mm, outer sep=1mm, fill=yellow!50, rectangle](G1A2Off) at ([yshift = 0.1cm, xshift = 0.1cm]G1A2-4-1) {};
+
+                \node[mlabel](G1A2L) at (G1A2.north){\textbf{SDCFOR\{1,3\}}};
+
+                \matrix[cgs](G2A2) at (-1.75,0){
+                    Ref \&    \& -7 \\
+                    \   \& \  \& \  \\
+                };
+                \node[bb, inner sep=1.5mm, outer sep=1mm, fill=blue!50, rectangle](G2A2Off) at ([yshift = -0.0cm, xshift= 0.01cm]G2A2-2-3) {};
+                \node[bb, inner sep=1.5mm, outer sep=1mm, fill=blue!30, rectangle](G2A2Map) at ([yshift = -0.0cm, xshift= -0.06cm]G2A2-2-2) {};
+                \node[bb, inner sep=1.5mm, outer sep=1mm, fill=blue!10, rectangle](G2A2Dic) at ([yshift = -0.0cm, xshift= -0.06cm]G2A2-2-1) {};
+                \node[mlabel](G2A2L) at (G2A2.north){\textbf{SDCFOR\{2\}}};
+
+
+
+                \matrix[cgs](G4A2) at(-3.8,-0.3){
+                    \  \& [2mm]  Dict \& -3 \\
+                };
+                \node[bb, inner sep=1.5mm, outer sep=1mm, fill=orange!50, rectangle](G4A2Off) at ([yshift = 0.05cm]G4A2-1-1) {};
+
+                \node[mlabel](G4A2L) at (G4A2.north){\textbf{SDCSingleZero\{5\}}};
+
+                \matrix[cgs](G3A2) at(1.60, 0){
+                    Dict \& -7 \\
+                };
+                \node[mlabel](G3A2L) at (G3A2.north){\textbf{Const\{4\}}};
+
+                \matrix[cgs](G5A2) at(1.80,-1.05){
+                    \  \& [2mm] Ref \& -7 \\
+                };
+                \node[bb, inner sep=1.5mm, outer sep=1mm, fill=teal!50, rectangle](G5A2Map) at ([yshift = 0.05cm, xshift=0.1cm]G5A2-1-1) {};
+                \node[mlabel](G5A2L) at (G5A2.north){\textbf{DDCFOR\{0\}}};
+
+                \node[mlabel](optAL) at ([yshift=0.35cm, xshift = -0.3cm]G4A2.north){\textbf{\emph{B}: Processed}};
+
+                \begin{scope}[on background layer]
+                    \node[bb, inner sep=0mm, fit=(G1A2L) (G1A2) (G2A2L) (G2A2) (G3A2) (G3A2L) (G4A2) (G4A2L) (G5A2) (G5A2L), fill=black!10](optB){};
+                    \node[bb, fit=(G1A2L) (G1A2), fill=yellow!30](G1ABB){};
+                    \node[bb, fit=(G2A2L) (G2A2), fill=blue!30](G2ABB){};
+                    \node[bb, fit=(G3A2L) (G3A2), fill=green!30]{};
+                    \node[bb, fit=(G4A2L) (G4A2), fill=orange!30]{};
+                    \node[bb, fit=(G5A2L) (G5A2), fill=teal!30]{};
+                    \node[bb, thin,fit=(G1A2-1-1) (G1A2-2-1), inner sep = -0.15, rounded corners=1mm, fill = yellow!10](){};
+                    \node[bb, thin,fit=(G1A2-1-2) (G1A2-4-2), inner sep = -0.15, rounded corners=1mm, fill = yellow!10](){};
+
+
+                    \node[bb, thin,fit=(G2A2-1-1) (G2A2-1-3), inner sep = -0.15, rounded corners=1mm, fill = blue!10, yshift=0.4mm](){};
+                    \node[bb, thin,fit=(G3A2-1-1) (G3A2-1-2), inner sep = -0.15, rounded corners=1mm, fill = green!10, yshift=0.4mm](){};
+                    \node[bb, thin,fit=(G5A2-1-2) (G5A2-1-3), inner sep = -0.15, rounded corners=1mm, fill = teal!10, yshift=0.4mm](){};
+                    \node[bb, thin,fit=(G4A2-1-2) (G4A2-1-3), inner sep = -0.15, rounded corners=1mm, fill = orange!10, yshift=0.4mm](){};
+                \end{scope}
+
+                %% from bottom
+                \draw[<->, dashed] (G5A2Map.center)
+                to[out=-130, in=0] ([yshift=0.1cm, xshift = 4.9cm]optB.south west)
+                to[out=-180, in=0] ([yshift=0.1cm, xshift = -0.2cm]optB.south west)
+                to[out=-180, in=0] ([yshift=0.1cm]COMPBB.south east)
+                to[out =180, in = 0] ([yshift=0.1cm, xshift= 1.5cm]COMPBB.south)
+                to[ out=180, in = -45] ([xshift=-0.0cm, yshift=1.03cm]G5Map.south east);
+
+                \draw[<->, dashed] (G1A2Off.center)
+                to[out=-170, in=0] ([yshift=0.2cm, xshift = 2.2cm]optB.south west)
+                to[out=-180, in=0] ([yshift=0.2cm, xshift = -0.2cm]optB.south west)
+                to[out=-180, in=0] ([yshift=0.2cm]COMPBB.south east)
+                to[out =180, in = 0] ([yshift=0.2cm, xshift= 1.5cm]COMPBB.south)
+                to[ out=180, in = -45] ([xshift=-0.03cm, yshift=0.03cm]G1Off.south east);
+
+                \draw[<->, dashed] (G1A2Map.center)
+                to[out=-160, in=0] ([yshift=0.3cm, xshift = 2.2cm]optB.south west)
+                to[out=-180, in=0] ([yshift=0.3cm, xshift = -0.2cm]optB.south west)
+                to[out=-180, in=0] ([yshift=0.3cm] COMPBB.south east)
+                to[out =180, in = 0] ([yshift=0.3cm, xshift= 1cm]COMPBB.south)
+                to[ out=180, in = -45] ([xshift=-0.03cm, yshift=0.03cm]G1Map.south east);
+
+
+                \draw[<->, dashed] (G2A2Off.center)
+                to[out=-110, in=0] ([yshift=0.4cm, xshift = 1.7cm]optB.south west)
+                to[out=-180, in=0] ([yshift=0.4cm, xshift = -0.2cm]optB.south west)
+                to[out=-180, in=0] ([yshift=0.4cm]COMPBB.south east)
+                to[out =180, in = 0] ([yshift=0.4cm, xshift= -1cm]COMPBB.south east)
+                to[ out=180, in = -45] ([xshift=-0.03cm, yshift=0.03cm]G2Off.south east);
+
+                \draw[<->, dashed] (G2A2Map.center)
+                to[out=-110, in=0] ([yshift=0.5cm, xshift = 1.7cm]optB.south west)
+                to[out=-180, in=0] ([yshift=0.5cm, xshift = -0.2cm]optB.south west)
+                to[out=-180, in=0] ([yshift=0.5cm]COMPBB.south east)
+                to[out =180, in = 0] ([yshift=0.5cm, xshift= -1cm]COMPBB.south east)
+                to[ out=180, in = -45] ([xshift=-0.03cm, yshift=0.03cm]G2Map.south east);
+
+
+                \draw[<->, dashed] (G2A2Dic.center)
+                to[out=-110, in=0] ([yshift=0.6cm, xshift = 1.5cm]optB.south west)
+                to[out=-180, in=0] ([yshift=0.6cm, xshift = -0.2cm]optB.south west)
+                to[out=-180, in=0] ([yshift=0.6cm]COMPBB.south east)
+                to[out =180, in = 0] ([yshift=0.6cm, xshift= -1cm]COMPBB.south east)
+                to[ out=180, in = -90] (G2Dic.south);
+
+                \draw[<->, dashed] (G4A2Off.center)
+                to[out=-100, in=0] ([yshift=0.7cm, xshift = -0.2cm]optB.south west)
+                to[out=-180, in=0] ([yshift=0.7cm]COMPBB.south east)
+                to[out =180, in = 0] ([yshift=0.7cm, xshift= -0.2cm]COMPBB.south east)
+                to[ out=180, in = 270] ([xshift=-0.03cm, yshift=0.03cm]G4Off.south east);
+
+
+            \end{scope}
+        \end{scope}
+
+        \node[align = center, draw, fill = purple!30](compressIns) at ([xshift=0.5cm, yshift=-0.3cm] UCBB.south) {\textbf{Compress}};
+        \draw[->, thick] ([xshift=0.2cm]UCBB.south west) to[out=-80 , in =180] (compressIns.west);
+        \draw[->, thick] (compressIns) to ([yshift=0.26cm]COMPBB.south west);
+
+
+        \node[align = center, draw, fill = purple!30](sup7) at ([xshift=2.0cm, yshift=0.7cm] COMPBB.east) {\textbf{Binary MatrixScalar}\\\textbf{Operation: Subtract 7}};
+
+        \draw[->, thick] (COMPBB) to[ out=7 , in =180] (sup7);
+        \draw[->, thick] (sup7) to[ out=5 , in =195] (optA);
+        \draw[->, thick] (sup7) to[ out=-5 , in =90] (optB);
+
+    \end{tikzpicture}
+    }
+    \vspace{-0.65cm}
+    \caption{\label{fig:encoded}Example \name \ Matrix Compression and Operation {\normalfont(with Alternative Compressed Outputs)}.}
+    \Description[Example \name \ Matrix Compression and Operation]{}
+\end{figure*}

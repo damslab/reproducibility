@@ -1,0 +1,27 @@
+
+\section{Introduction}
+\label{sec:Introduction}
+
+
+% context: compression history and compression in ML systems
+Data compression dates back to old Morse code (from the eighteen-hundreds) that uses shorter codewords for common letters~\cite{Wolfram02}.
+In modern data management and machine learning (ML) systems, compression is a well-established and effective technique for fitting data in available memory, reducing I/O and memory bandwidth requirements~\cite{RamanS06, ElgoharyBHRR16}, and increasing instruction parallelism~\cite{WillhalmPBPZS09}.
+Data management systems with declarative interfaces almost exclusively rely on lossless compression in order to ensure correct results,
+and lightweight techniques \cite{DammeUHHL19,DammeHHL17} that offer a good balance of compression ratios and (de)compression speed.
+
+% state-of-the-art lossy compression
+\textbf{Compression:} In contrast to lossless compression in data systems, ML systems---especially for mini-batch training of deep neural networks (DNN) predominately exploit the approximate nature of ML models and apply lossy compression such as quantization (i.e., static or dynamic discretization)~\cite{tfmopt2, Zhang0KALZ17}, sparsification (clipping of low quantities)~\cite{tfmopt1, A100}, new data types (e.g., \texttt{bfloat16}, \texttt{TF32})~\cite{Saeta18, KosterWWNBCEHHK17,A100}, dimensionality reduction~\cite{IlkhechiCGMFSC20} and sampling (few step/epoch mini-batch training~\cite{SuchRLSC20}, or sampled batch training~\cite{ParkQSM19}).
+However, lossy compression introduces unknown behavior on new datasets and models, which creates trust concerns and requires an exploratory trial-and-error process~\cite{WangKZAZM19}.
+In contrast, lossless compression ensures result correctness, but is less commonly applied in ML.
+Examples include---besides general-purpose lossless matrix compression like Snappy or LZ4---value-indexed representations~\cite{KourtisGK08, KarakasisGKGK13}, grammar-compressed matrices~\cite{TabeiSYP16}, tuple-oriented coding (TOC)~\cite{LiCZ00NP19} and Compressed Linear Algebra (CLA)~\cite{ElgoharyBHRR16, ElgoharyBHRR18}.
+
+% background and limitations of CLA
+\textbf{Redundancy Exploitation:} Sparsity exploitation is currently a major trend across the stack from hardware~\cite{A100, Olukotun21}, over systems~\cite{BoehmRHSEP18, LuoJYJ21,Sommer0ERH19}, to algorithms~\cite{tfmopt1, FrankleD0C21, abs-2107-05768}, but its applicability is limited to sparse data (many zero values). Previous work on compressed linear algebra (CLA)~\cite{ElgoharyBHRR16, ElgoharyBHRR18} further allowed for more general redundancy exploitation (with repeated values and correlation) by applying lightweight lossless compression techniques like dictionary, run-length, and offset-list encoding and executing linear algebra operations like matrix-vector multiplications and element-wise operations directly on compressed representations. CLA was integrated into Apache SystemML~\cite{BoehmDEEMPRRSST16}, but by default only applied for multi-column matrices, whose size exceed aggregated cluster memory, and all operations are supported in compressed space. These constraints ensure that online compression overheads are amortized but limit applicability in practice.
+
+% vision
+\textbf{\name~Goals and Contributions:} We aim to improve the applicability of lossless matrix compression in complex ML pipelines. The key objective is to optimize for execution time of a given workload instead of compression ratios. This metric also covers reduced compression time to amortize online compression, optimization for size if data access is the bottleneck, and fast operations via specialized compression decisions, kernels, and execution plans. To this end, we introduce a workload-aware matrix compression framework (for full matrices or tiles of a distributed matrix), and make the following detailed technical contributions:
+\begin{itemize}
+ \item \emph{Compression Framework:} New encodings and compressed operations (Section~\ref{sec:compression} and \ref{sec:ops}), which are designed for compressed intermediates and thus, chains of operations.
+ \item \emph{Workload-aware Compression:} Novel workload-aware compression planning and compilation techniques (Section~\ref{sec:workload}).
+ \item \emph{Experiments:} Local \& distributed experiments comparing uncompressed linear algebra (ULA), CLA~\cite{ElgoharyBHRR16, ElgoharyBHRR18}, TensorFlow, and \name\ on various workloads (Section~\ref{sec:Experiments}).
+\end{itemize}

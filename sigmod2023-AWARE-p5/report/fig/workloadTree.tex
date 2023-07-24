@@ -1,0 +1,58 @@
+\begin{tikzpicture}[node distance=0.23cm, transform shape,
+        cell/.style={rectangle,draw=black},
+        space/.style={minimum height=1.5em,matrix of nodes,row sep=-\pgflinewidth,column sep=-\pgflinewidth,column 1/.style={font=\ttfamily}},text depth=0.5ex,text height=2ex,nodes in empty cells]
+
+    \matrix (counts) [space, column 1/.style={font=\ttfamily},column 2/.style={nodes={cell,minimum width=2em}} ] at (-2,-2)
+    {
+        0 & 0 \\
+        1 & 0 \\
+        2 & 0 \\
+        3 & 1 \\
+        4 & 1 \\
+        5 & 4 \\
+        6 & 0 \\} ;
+
+
+
+    \node(X)[draw,cyan]{X};
+    \node(colMeansX)[draw,cyan,below=of X, xshift=2cm, yshift =0.7cm]{colMeans(\_)};
+    \draw[->,cyan](X) to[] (colMeansX);
+    \node(CenterX)[draw,cyan,below=of X, yshift=-0.2cm]{\_ - \_};
+    \draw[->,cyan](X) to[] (CenterX);
+    \draw[->,orange](colMeansX) to[] (CenterX);
+    \node(colSumSquared)[draw,cyan,below=of CenterX, xshift=2cm, yshift = 0.7cm]{colSums(\_)};
+    \draw[->,cyan](CenterX) to[](colSumSquared);
+    \node(Sqroot)[draw,orange,below=of colSumSquared]{sqrt(\_)};
+    \draw[->,orange](colSumSquared) to[](Sqroot);
+    \node(ScaleX)[draw,cyan,below=of CenterX, yshift=-.2cm]{\_ / \_};
+    \draw[->,cyan](CenterX) to[] (ScaleX);
+    \draw[->,orange](Sqroot) to[] (ScaleX);
+
+    \node(tsmm)[draw,cyan,below=of ScaleX, xshift=0.8cm]{tsmm(\_)};
+    \draw[->,cyan](ScaleX) to[] (tsmm);
+    \node(eigen)[draw,orange,below=of tsmm]{eigen(\_)};
+    \draw[->,orange](tsmm) to[] (eigen);
+
+    \node(mult)[draw,cyan,below=of eigen]{rightMM(\_ , \_)};
+    \draw[->,orange](eigen) to[](mult);
+    \draw[->,cyan](ScaleX) to[out=270, in=150](mult);
+
+
+    \draw[->,dotted](colMeansX) to[out=180, in=0] (-0.3,-0.3) to[out=180, in=0](counts-6-2);
+    \draw[->,dotted](CenterX) to[out=180, in=0](counts-6-2);
+    \draw[->,dotted](colSumSquared) to[out=180, in=0] (-0.3,-1.8)to[out=180, in=0](counts-6-2);
+    \draw[->,dotted](ScaleX) to[out=180, in=0](counts-6-2);
+    \draw[->,dashed](tsmm) to[out=180, in=0](counts-5-2);
+    \draw[->,dashed](mult) to[out=180, in=0](counts-4-2);
+
+    \node[rotate=90] at(-2.6,-2.2){WTree Decomposition};
+    % \draw(-3,1) rectangle (tsmm.south |- colSumSquared.east);
+    \node(C)[draw, fill, cyan, minimum width=0.2cm, minimum height = 0.2cm, text width = 0.2cm ]at (3,-3){}; 
+    \node(UC)[draw, fill, orange, minimum width=0.2cm, minimum height = 0.2cm, text width = 0.2cm ]at (3,-4){}; 
+
+    \node at (C) {Compressed};
+    \node at (UC) {Uncompressed};
+
+    \node[draw, minimum height = 2.8cm, minimum width = 4cm, label={
+        [rotate=90, label distance =-1.cm, yshift=0.2cm]right:Scale and Shift}] at(1.5,-1){};
+\end{tikzpicture}

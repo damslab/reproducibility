@@ -1,0 +1,71 @@
+
+\tikzstyle{every node}=[font=\small]
+\resizebox{0.3\textwidth}{!}
+{
+
+\begin{tikzpicture}[node distance=0.35cm, font=\footnotesize]
+
+    \node(out) [ draw,  minimum width=1.21cm, minimum height=1.21cm]{};
+    % gray diagonal.
+    \draw[fill=gray, opacity=0.5] ([xshift=0.01cm, yshift=-0.01cm]out.north west)--([xshift=0.01cm, yshift=0.01cm]out.south west) -- ([xshift=-0.01cm, yshift=0.01cm]out.south east);
+
+
+
+    % Above
+    \begin{scope}[above=of out, xshift=-0.328cm,yshift=0.925cm]
+
+        \node(colG2)[fill=white, pattern =grid, pattern color =black, draw, minimum width=0.2cm, minimum height=0.4cm,xshift=.82cm]{};
+        \node(colG1)[fill=white, pattern =crosshatch dots,  pattern color =black, draw, minimum width=0.38cm, minimum height=1.1cm,xshift=0.49cm]{};
+        \node(colG) [ draw,  fill=white, minimum width=0.6cm, minimum height=0.8cm]{};
+        \node at ([yshift = -0.2cm]colG.center){$\mat{D}_i$};
+
+    \end{scope}
+    % left
+    \begin{scope}[left=of out, xshift=-1.2cm, yshift=0.025cm]
+
+        \node(colG2)[fill=white, pattern =grid, pattern color =black, draw, minimum width=0.4cm, minimum height=0.2cm,
+            yshift=-0.52cm]{};
+        \node(colG1)[fill=white, pattern =crosshatch dots,  pattern color =black, draw, minimum width=1.1cm, minimum height=0.38cm,
+            yshift=-0.19cm]{};
+        \node(colG) [ draw, fill=white, minimum width=0.8cm, minimum height=0.6cm,
+            yshift=0.3cm]{$\mat{D}_i$};
+    \end{scope}
+
+
+    %top left
+    \node(tsm)[ minimum width=0.6cm, minimum height=0.6cm, draw, anchor = north west] at(out.north west){$S_i$};
+
+    %middle top
+    \node[minimum height=0.6cm, minimum width=0.38cm,  pattern =crosshatch dots, draw,anchor = north west, pattern color =black, opacity=0.2]  at ([xshift=0.6cm]out.north west) {};
+    \node(cgmme)[minimum height=0.6cm, minimum width=0.38cm, draw,anchor = north west,  label=center:$G_i^j$] at ([xshift=0.6cm]out.north west) {};
+
+
+    % top right
+    \node[minimum height=0.6cm, minimum width=0.2cm,  pattern =grid, pattern color =black, opacity=0.2, anchor= north west] at ([xshift=-0.02cm]cgmme.north east) {};
+    \node[minimum height=0.6cm, minimum width=0.2cm,  draw, anchor= north west] at ([xshift=-0.02cm]cgmme.north east)  {};
+
+
+    % middle right
+    \node[minimum height=0.38cm, minimum width=0.2cm,  pattern =grid, pattern color =black, opacity=0.2,anchor= north west] at ([xshift=-0.02cm, yshift=0.02cm]cgmme.south east) {};
+    \node[minimum height=0.38cm, minimum width=0.2cm,  pattern =crosshatch dots, pattern color =black, opacity=0.2,anchor= north west] at ([xshift=-0.02cm, yshift=0.02cm]cgmme.south east) {};
+
+    % bottom right            
+    \node[ minimum width=0.2cm, minimum height=0.2cm, draw, pattern =grid, pattern color =black, anchor = south east] at(out.south east){};
+
+    % middle
+    \node[ minimum width=0.38cm, minimum height=0.38cm, draw, pattern =crosshatch dots, pattern color =black, anchor = north west] at([xshift=-0.014cm, yshift=0.02cm]tsm.south east){};
+
+    % ColGroup TSMM
+    \node(cgt)[text width= 1.3cm]at(-1.5,1.4){ColGroup TSMM};
+    \draw[->] (cgt) to [out=-90, in = 90](tsm);
+
+    % ColGroup MM
+    \node(cgmm)[text width = 1.3cm] at (1.5,1.4){ColGroup MM};
+    \draw[->] (cgmm) to [out=-90, in = 90](cgmme);
+
+
+    \node(mtdT)[] at(-0.2,-1.2){Logically Transposed Dictionaries};
+    \draw[->](mtdT) to[out=90, in=-90] (colG2);
+
+\end{tikzpicture}
+}
