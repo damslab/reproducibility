@@ -10,7 +10,7 @@
  * Repository: Apache SystemDS (<https://github.com/apache/systemds>, commit [82d9d130861be8e36d37a08c22cdd8d3231de6c2](https://github.com/apache/systemds/commit/82d9d130861be8e36d37a08c22cdd8d3231de6c2))
  * Reproducibility Repository: <https://github.com/damslab/reproducibility/tree/master/sigmod2023-GIO-p454>
  * Programming Language: Java, Clang++10, Python 3.8, SystemDS 
- * Packages/Libraries Needed: JDK 11, Git, Maven, Clang++, Python, LaTex
+ * Packages/Libraries Needed: JDK 11, cmake, RapidJSON, Clang++, Python, Git, Maven, pdflatex, unzip, unrar, xz-utils
 
 **Datasets Used:**
 Dataset | URL | Download Link
@@ -29,7 +29,7 @@ ADF| Local Dataset | in-repository link
 
 All datasets (except Yelp) will be downloaded automatically.
 
-** The Yelp (yelp_dataset.tar) dataset needs to be downloaded manually and stored in the "tmodata" directory. After extracting it (you don't need to manually extract it; we will handle the extraction process automatically), we will have the following data::
+** The Yelp (yelp_dataset.tar) dataset needs to be downloaded manually and stored in the "tmpdata" directory. After extracting it (you don't need to manually extract it; we will handle the extraction process automatically), we will have the following data::
 * yelp_academic_dataset_review.json
 * yelp_academic_dataset_business.json 
 * yelp_academic_dataset_tip.json
@@ -78,4 +78,4 @@ Since we run experiments five times in the `./run6PlotResults.sh` script, we fol
 * Plot the averaged results using LaTeX's tikzpicture and store the plots in the `plots` directory.
 
 
-**Last Update:** Jul 19, 2023 (draft version)
+**Last Update:** Jul 24, 2023 (submitted version)
