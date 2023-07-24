@@ -18,8 +18,7 @@ class ADFDataGen(object):
 
         for i in range(1, int(count/5000)+1):
             for l in self.lines:
-                print(l.strip(), file=dataFile)
-            print("\n", file=dataFile)    
+                print(l, file=dataFile)            
 
         dataFile.close()
 

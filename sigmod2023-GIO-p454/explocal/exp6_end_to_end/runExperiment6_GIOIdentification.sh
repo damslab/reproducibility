@@ -23,4 +23,4 @@ sleep 3
 start=$(date +%s%N)
 $SCRIPT
 end=$(date +%s%N)
-echo "GIO,"${dataset}","$((($end - $start) / 1000000))","${parallel} >>results/$log_file_name.dat      
+echo ${dataset}","$((($end - $start) / 1000000))","${parallel} >>results/$log_file_name.dat      

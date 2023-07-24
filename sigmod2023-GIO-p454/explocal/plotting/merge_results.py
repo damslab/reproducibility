@@ -143,6 +143,24 @@ class merge_results(object):
     
         return df_final 
     
+    def merge_results8(self, header, datasets, parallels, path, ratio):
+        
+        data = pd.read_csv( path, sep=',')         
+        df_final = pd.DataFrame(columns = header)  
+
+        for dataset in datasets:
+            for parallel in parallels:
+                df_tmp =  data.loc[(data['dataset']==dataset) &                                                                           
+                                    (data["parallel"]==parallel)]                                                    
+                list_times = np.array(df_tmp['time'].tolist())                         
+                                
+                if len(list_times) > 0 :                                    
+                    time = self.calc_mean(list=list_times)    
+                    record= [dataset,f'{time/ratio:.2f}',f'{parallel}'.lower()]
+                    df_final.loc[len(df_final)] = record
+    
+        return df_final 
+    
 if __name__ == "__main__":
     root_path = '../../results'
     mearged_path = 'results/'
@@ -200,17 +218,17 @@ if __name__ == "__main__":
                         f'{root_path}/Experiment5k_times.dat',
                         f'{root_path}/Experiment5l_times.dat']
 
-    exp6_end_to_end = [f'{root_path}/Experiment6a_times.dat',
-                       f'{root_path}/Experiment6b_times.dat']  
-
-    exp4_results = [f'{root_path}/Experiment4l_times.dat']                   
+    exp6a_end_to_end = f'{root_path}/Experiment6a_times.dat'  
+    exp6b_end_to_end = f'{root_path}/Experiment6b_times.dat'  
+          
                                            
     exp1_2_headers=["dataset","query","example_nrows","time","parallel"]
     exp3_headers=["baseline","dataset","example_nrows","time","parallel"]   
     exp4_headers=["baseline","dataset","query","time","parallel"]
     exp5a_headers=["dataset","field","example_nrows","time","parallel"] 
     exp5b_headers=["baseline","dataset","field","time","parallel"]       
-    exp6_headers=["baseline","dataset","time","parallel"]  
+    exp6a_headers=["dataset","time","parallel"]  
+    exp6b_headers=["baseline","dataset","time","parallel"]  
 
     datasets=["aminer-author-json",
               "aminer-paper-json",
@@ -239,7 +257,8 @@ if __name__ == "__main__":
                 "SystemDS+Jackson",
                 "SystemDS+LibSVM",
                 "SystemDS+MM",
-                "SystemDS+message-hl7"]  
+                "SystemDS+message-hl7",
+                "SystemDS+HAPI-HL7"]  
 
     Q = ["Q1", "Q2", "Q3", "Q4", "Q5"]                     
     F = [f'F{n}' for n in range(0,33)]
@@ -347,14 +366,12 @@ if __name__ == "__main__":
         fname = path.split("/")
         exp_df.to_csv(f'{mearged_path}/{fname[len(fname)-1]}', index=False)  
 
-    # for path in exp5a_results:
-    #     exp_df = merge_results5(header=exp5a_headers, baselines=base_lines, datasets=datasets, parallels=parallel, path=path)
-    #     fname = path.split("/")
-    #     exp_df.to_csv(f'{mearged_path}/{fname[len(fname)-1]}', index=False)   
+    #*********** exp6_end_to_end ************    
+    exp_df = mr.merge_results8(ratio=1000, header=exp6a_headers, datasets=datasets, parallels=parallel, path=exp6a_end_to_end)
+    fname = exp6a_end_to_end.split("/")
+    exp_df.to_csv(f'{mearged_path}/{fname[len(fname)-1]}', index=False)   
 
-    # for path in exp5b_results:
-    #     exp_df = merge_results5(header=exp5b_headers, baselines=base_lines, datasets=datasets, parallels=parallel, path=path)
-    #     fname = path.split("/")
-    #     exp_df.to_csv(f'{mearged_path}/{fname[len(fname)-1]}', index=False)          
-    
+    exp_df = mr.merge_results5(header=exp6b_headers, baselines=base_lines, datasets=datasets, parallels=parallel, path=exp6b_end_to_end)
+    fname = exp6b_end_to_end.split("/")
+    exp_df.to_csv(f'{mearged_path}/{fname[len(fname)-1]}', index=False)          
 
