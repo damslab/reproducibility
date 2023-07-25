@@ -30,11 +30,10 @@
         <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
         <maven-assembly-plugin.version>3.5.0</maven-assembly-plugin.version>
         <maven-dependency-plugin.version>3.5.0</maven-dependency-plugin.version>
+        <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
         <!-- Set java compile level via argument, ex: 1.8 1.9 10 11-->
         <java.level>11</java.level>
         <java.version>{java.level}</java.version>
-        <argLine>-Xms3000m -Xmx3000m -Xmn300m</argLine>
-        <enableStats>false</enableStats>
     </properties>
 
     <build>
@@ -802,7 +801,6 @@
             <artifactId>log4j-core</artifactId>
             <version>${log4j.version}</version>
         </dependency>
-
 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
