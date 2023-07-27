@@ -4,6 +4,7 @@ This repository contains reproducibility submissions, related to publications of
 
 ## tmp
 
+- [POLAR: Adaptive and Non-invasive Join Order Selection via Plans of Least Resistance](tmp-POLAR/)
 - [SAGA: A Scalable Framework for Optimizing Data Cleaning Pipelines for Machine Learning Applications](tmp-SAGA/)
 
 ## SIGMOD 2023
