@@ -36,5 +36,3 @@ if [[ ! -d "$PWD/ssb-dbgen" ]]; then
   sed -i "s|PATHVAR|`pwd`/data/ssb|" ./duckdb-polr/benchmark/ssb/init/load.sql
   sed -i "s|PATHVAR|`pwd`/data/ssb|" ./duckdb-polr/benchmark/ssb-skew/init/load.sql
 fi
-
-
