@@ -20,5 +20,4 @@ for examples in 100 200 300 400 500 600 700 800 900 1000; do
       $SCRIPT
       end=$(date +%s%N)
       echo "OLDGIO,"${dataset}","${examples}","$((($end - $start) / 1000000))","${parallel} >>results/$log_file_name.dat
-    done    
-  done
+done
