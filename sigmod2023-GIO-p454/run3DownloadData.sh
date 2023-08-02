@@ -10,6 +10,7 @@ rm -rf SUSY.xz
 rm -rf Queen_4147.tar.gz
 rm -rf AMiner-Paper.rar
 rm -rf AMiner-Author.zip
+rm -rf 
 
 rm -rf HIGGS.csv
 rm -rf mnist8m
@@ -19,7 +20,7 @@ rm -rf AMiner-Paper.txt
 rm -rf AMiner-Author.txt
 
 # Download ReWasteF Dataset and Examples
-# Add TUBerlin NextCloud link here (TODO)
+wget https://tubcloud.tu-berlin.de/s/rikMbMYS3soJzWZ/download/GIOData.tar.xz
 
 # HIGGS (CSV)
 wget https://archive.ics.uci.edu/ml/machine-learning-databases/00280/HIGGS.csv.gz
@@ -48,8 +49,9 @@ tar -xvzf Queen_4147.tar.gz
 unrar e AMiner-Paper.rar
 unzip AMiner-Author.zip
 tar -xvzf yelp_dataset.tar
+tar -xf GIOData.tar.xz
 
-
+mv GIOData ../data
 mv HIGGS.csv ../data/higgs-csv.dat
 mv mnist8m ../data/mnist8m-libsvm.dat
 mv SUSY ../data/susy-libsvm.dat
