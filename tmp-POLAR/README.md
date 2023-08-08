@@ -1,7 +1,7 @@
 **Paper name:** POLAR: Adaptive and Non-invasive Join Order Selection via Plans of Least Resistance
 
 Source Code Info
-- Repository: POLAR [1] (https://github.com/d-justen/duckdb-polr)
+- Repository: POLAR (https://github.com/d-justen/duckdb-polr)
 - Programming Language: C++
 - Additional Programming Language info: Clang-12 is recommended but other compilers may work as well
 
