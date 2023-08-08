@@ -15,7 +15,7 @@ done
 
 if [[ ! -d "$PWD/duckdb-polr" ]]; then
   echo "Downloading POLAR..."
-  git clone git@github.com:d-justen/duckdb-polr.git
+  git clone https://github.com/d-justen/duckdb-polr.git
   cd duckdb-polr
   BUILD_BENCHMARK=1 BUILD_TPCH=1 BUILD_HTTPFS=1 make -j
   cd ..
@@ -23,7 +23,7 @@ fi
 
 if [[ ! -d "$PWD/ssb-dbgen" ]]; then
   echo "Downloading SSB DBGen..."
-  git clone git@github.com:eyalroz/ssb-dbgen.git
+  git clone https://github.com/eyalroz/ssb-dbgen.git
   cd ssb-dbgen
   cmake .
   cmake --build .
