@@ -93,7 +93,9 @@ def execute_benchmark_2():
     cwd = os.getcwd()
 
     for b in benchmarks:
-        for s in routing_strategies:
+        for s in routing_strategies["static"]:
+            sp.call(["mkdir", "-p", f"{cwd}/experiment-results/3_1_pipeline/{b}/{s}"])
+        for s in routing_strategies["dynamic"]:
             sp.call(["mkdir", "-p", f"{cwd}/experiment-results/3_1_pipeline/{b}/{s}"])
         sp.call(["mkdir", "-p", f"{cwd}/experiment-results/3_1_pipeline/{b}/default"])
 
