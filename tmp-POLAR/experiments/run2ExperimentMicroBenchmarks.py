@@ -108,11 +108,11 @@ def execute_benchmark_2():
                      "--log_tuples_routed",
                      "--nruns=1"
                      ])
-            path = os.getcwd() + f"{cwd}/duckdb-polr/tmp"
+            path = f"{cwd}/duckdb-polr/tmp"
             csv_files = glob.glob(os.path.join(path, "*.csv"))
             if len(csv_files) > 0:
                 move_files(f"{cwd}/duckdb-polr/tmp", "*", "")
-                sp.call([f"{cwd}/experiment/util/runDuckDBRestrict1.sh",
+                sp.call([f"{cwd}/experiments/util/runDuckDBRestrict1.sh",
                          f"benchmark/{b}/{q}.benchmark",
                          "--measure_pipeline",
                          "--threads=1",
@@ -122,7 +122,7 @@ def execute_benchmark_2():
 
                 for s in routing_strategies["static"]:
                     move_files(f"{cwd}/duckdb-polr/tmp", "*", "")
-                    sp.call([f"{cwd}/experiment/util/runDuckDBRestrict1.sh",
+                    sp.call([f"{cwd}/experiments/util/runDuckDBRestrict1.sh",
                              f"benchmark/{b}/{q}.benchmark",
                              "--polr_mode=bushy",
                              f"--multiplexer_routing={s}",
@@ -135,7 +135,7 @@ def execute_benchmark_2():
                     nthreads = 1 if s != "backpressure" else 24
                     for r in regret_budgets:
                         move_files(f"{cwd}/duckdb-polr/tmp", "*", "")
-                        sp.call([f"{cwd}/experiment/util/runDuckDBRestrict1.sh",
+                        sp.call([f"{cwd}/experiments/util/runDuckDBRestrict1.sh",
                                  f"benchmark/{b}/{q}.benchmark",
                                  "--polr_mode=bushy",
                                  f"--multiplexer_routing={s}",
