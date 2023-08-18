@@ -54,12 +54,24 @@ mkdir -p data/imdb
 mkdir -p data/ssb
 mkdir -p data/ssb-skew
 
-sed -i.".original" -e "s|PATHVAR|`pwd`|" ./experiments/util/export-imdb.sql
-sed -i.".original" -e "s|PATHVAR|`pwd`|" ./experiments/util/load-imdb.sql
-sed -i.".original" -e "s|PATHVAR|`pwd`|" ./experiments/util/export-ssb.sql
-sed -i.".original" -e "s|PATHVAR|`pwd`|" ./experiments/util/load-ssb.sql
-sed -i.".original" -e "s|PATHVAR|`pwd`|" ./experiments/util/export-ssb-skew.sql
-sed -i.".original" -e "s|PATHVAR|`pwd`|" ./experiments/util/load-ssb-skew.sql
+sed -i.".original" -e "s|PATHVAR|`pwd`|" ./experiments/util/*.sql
+# sed -i.".original" -e "s|PATHVAR|`pwd`|" ./experiments/util/export-imdb.sql
+# sed -i.".original" -e "s|PATHVAR|`pwd`|" ./experiments/util/load-imdb.sql
+# sed -i.".original" -e "s|PATHVAR|`pwd`|" ./experiments/util/export-ssb.sql
+# sed -i.".original" -e "s|PATHVAR|`pwd`|" ./experiments/util/load-ssb.sql
+# sed -i.".original" -e "s|PATHVAR|`pwd`|" ./experiments/util/export-ssb-skew.sql
+# sed -i.".original" -e "s|PATHVAR|`pwd`|" ./experiments/util/load-ssb-skew.sql
 cat experiments/util/export-imdb.sql | duckdb-polr/build/release/duckdb duckdb-polr/duckdb_benchmark_data/imdb.duckdb
 cat experiments/util/export-ssb.sql | duckdb-polr/build/release/duckdb duckdb-polr/duckdb_benchmark_data/ssb.duckdb
 cat experiments/util/export-ssb-skew.sql | duckdb-polr/build/release/duckdb duckdb-polr/duckdb_benchmark_data/ssb-skew.duckdb
+
+if [[ ! -d "$PWD/skinnerdb" ]]; then
+  echo "Downloading SkinnerDB..."
+  git clone https://github.com/cornelldbgroup/skinnerdb.git
+  mkdir -p data/skinnerimdb
+  java -jar -Xmx32G -XX:+UseConcMarkSweepGC skinnerdb/jars/CreateDB.jar skinnerimdb data/skinnerimdb
+  mkdir -p data/skinnerssb
+  java -jar -Xmx32G -XX:+UseConcMarkSweepGC skinnerdb/jars/CreateDB.jar skinnerssb data/skinnerssb
+  mkdir -p data/skinnerssb-skew
+  java -jar -Xmx32G -XX:+UseConcMarkSweepGC skinnerdb/jars/CreateDB.jar skinnerssb-skew data/skinnerssb-skew
+fi

@@ -121,18 +121,18 @@ def execute_benchmark_2():
                 gather_pipeline_durations("default", b, q, path)
 
                 for s in routing_strategies["static"]:
+                    nthreads = 1 if s != "backpressure" else 24
                     move_files(f"{cwd}/duckdb-polr/tmp", "*", "")
                     sp.call([f"{cwd}/experiments/util/runDuckDBRestrict1.sh",
                              f"benchmark/{b}/{q}.benchmark",
                              "--polr_mode=bushy",
                              f"--multiplexer_routing={s}",
                              "--measure_pipeline",
-                             "--threads=1",
+                             f"--threads={nthreads}",
                              f"--nruns={nruns}"
                              ])
                     gather_pipeline_durations(s, b, q, path)
                 for s in routing_strategies["dynamic"]:
-                    nthreads = 1 if s != "backpressure" else 24
                     for r in regret_budgets:
                         move_files(f"{cwd}/duckdb-polr/tmp", "*", "")
                         sp.call([f"{cwd}/experiments/util/runDuckDBRestrict1.sh",
@@ -141,7 +141,7 @@ def execute_benchmark_2():
                                  f"--multiplexer_routing={s}",
                                  f"--regret_budget={r}",
                                  "--measure_pipeline",
-                                 f"--threads={nthreads}",
+                                 "--threads=1",
                                  f"--nruns={nruns}"
                                  ])
                         gather_pipeline_durations(s, b, q, path)
