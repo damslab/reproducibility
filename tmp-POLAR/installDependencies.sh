@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 declare -a packages=(
-  "cgroup-tools" "git" "libssl-dev" "postgresql-12"
+  "cgroup-tools" "gdown" "git" "libssl-dev" "postgresql-12" "unzip"
 )
 
 for package in "${packages[@]}"
@@ -12,6 +12,9 @@ do
     sudo apt install "${package}"
   fi
 done
+
+echo "Starting Postgres..."
+sudo systemctl start postgresql.service
 
 echo "Creating cgroups..."
 sudo cgcreate -a "$USER" -t "$USER" -g cpu:/limitcpu1
@@ -39,8 +42,8 @@ if [[ ! -d "$PWD/ssb-dbgen" ]]; then
   cd ..
   mkdir -p data/ssb
   mv ssb-dbgen/*.tbl data/ssb
-  sed -i.".original" -e "s|PATHVAR|`pwd`/data/ssb|" ./duckdb-polr/benchmark/ssb/init/load.sql
-  sed -i.".original" -e "s|PATHVAR|`pwd`/data/ssb|" ./duckdb-polr/benchmark/ssb-skew/init/load.sql
+  sed -i"" -e "s|PATHVAR|`pwd`/data/ssb|" ./duckdb-polr/benchmark/ssb/init/load.sql
+  sed -i"" -e "s|PATHVAR|`pwd`/data/ssb|" ./duckdb-polr/benchmark/ssb-skew/init/load.sql
 fi
 
 echo "Generating benchmark data..."
@@ -54,25 +57,26 @@ mkdir -p data/imdb
 mkdir -p data/ssb
 mkdir -p data/ssb-skew
 
-sed -i.".original" -e "s|PATHVAR|`pwd`|" ./experiments/util/*.sql
-sed -i.".original" -e "s|PATHVAR|`pwd`/data|" ./experiments/util/skinnerdb/*.sql
-# sed -i.".original" -e "s|PATHVAR|`pwd`|" ./experiments/util/export-imdb.sql
-# sed -i.".original" -e "s|PATHVAR|`pwd`|" ./experiments/util/load-imdb.sql
-# sed -i.".original" -e "s|PATHVAR|`pwd`|" ./experiments/util/export-ssb.sql
-# sed -i.".original" -e "s|PATHVAR|`pwd`|" ./experiments/util/load-ssb.sql
-# sed -i.".original" -e "s|PATHVAR|`pwd`|" ./experiments/util/export-ssb-skew.sql
-# sed -i.".original" -e "s|PATHVAR|`pwd`|" ./experiments/util/load-ssb-skew.sql
+sed -i"" -e "s|PATHVAR|`pwd`|" ./experiments/util/*.sql
+sed -i"" -e "s|PATHVAR|`pwd`/data|" ./experiments/util/skinnerdb/*.sql
 cat experiments/util/export-imdb.sql | duckdb-polr/build/release/duckdb duckdb-polr/duckdb_benchmark_data/imdb.duckdb
 cat experiments/util/export-ssb.sql | duckdb-polr/build/release/duckdb duckdb-polr/duckdb_benchmark_data/ssb.duckdb
 cat experiments/util/export-ssb-skew.sql | duckdb-polr/build/release/duckdb duckdb-polr/duckdb_benchmark_data/ssb-skew.duckdb
+sed -i"" -e "s|true|1|g" ./data/ssb/date.tbl
+sed -i"" -e "s|false|0|g" ./data/ssb/date.tbl
+sed -i"" -e "s|true|1|g" ./data/ssb-skew/date.tbl
+sed -i"" -e "s|false|0|g" ./data/ssb-skew/date.tbl
 
 if [[ ! -d "$PWD/skinnerdb" ]]; then
   echo "Downloading SkinnerDB..."
   git clone https://github.com/cornelldbgroup/skinnerdb.git
-  mkdir -p data/skinnerimdb
-  java -jar -Xmx32G -XX:+UseConcMarkSweepGC skinnerdb/jars/CreateDB.jar skinnerimdb data/skinnerimdb
+  gdown https://drive.google.com/uc?id=1UCXtiPvVlwzUCWxKM6ic-XqIryk4OTgE
+  unzip imdbskinner.zip -d data
+  rm imdbskinner.zip
   mkdir -p data/skinnerssb
   java -jar -Xmx32G -XX:+UseConcMarkSweepGC skinnerdb/jars/CreateDB.jar skinnerssb data/skinnerssb
+  echo -e "exec experiments/util/schema-ssb.sql\nexec experiments/util/load-ssb.sql\nquit" | java -jar -Xmx32G -XX:+UseConcMarkSweepGC skinnerdb/jars/Skinner.jar data/skinnerssb
   mkdir -p data/skinnerssb-skew
   java -jar -Xmx32G -XX:+UseConcMarkSweepGC skinnerdb/jars/CreateDB.jar skinnerssb-skew data/skinnerssb-skew
+  echo -e "exec experiments/util/schema-ssb-skew.sql\nexec experiments/util/load-ssb-skew.sql\nquit" | java -jar -Xmx32G -XX:+UseConcMarkSweepGC skinnerdb/jars/Skinner.jar data/skinnerssb-skew
 fi

@@ -55,6 +55,7 @@ cur = pg_con.cursor()
 for benchmark in benchmarks:
     sp.call(["mkdir", "-p", f"{cwd}/experiment-results/4_1_endtoend/{benchmark}/postgres"])
     print(f"Loading {benchmark} data...")
+    cur.execute(open(f"{os.getcwd()}/experiments/util/schema-{benchmark}.sql", "r").read())
     cur.execute(open(f"{os.getcwd()}/experiments/util/load-{benchmark}.sql", "r").read())
     cur.execute("commit;")
     print("Done.")
