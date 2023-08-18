@@ -55,6 +55,7 @@ mkdir -p data/ssb
 mkdir -p data/ssb-skew
 
 sed -i.".original" -e "s|PATHVAR|`pwd`|" ./experiments/util/*.sql
+sed -i.".original" -e "s|PATHVAR|`pwd`/data|" ./experiments/util/skinnerdb/*.sql
 # sed -i.".original" -e "s|PATHVAR|`pwd`|" ./experiments/util/export-imdb.sql
 # sed -i.".original" -e "s|PATHVAR|`pwd`|" ./experiments/util/load-imdb.sql
 # sed -i.".original" -e "s|PATHVAR|`pwd`|" ./experiments/util/export-ssb.sql
