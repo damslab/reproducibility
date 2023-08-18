@@ -23,7 +23,7 @@ for benchmark in benchmarks:
     for nthreads in threads:
         for mode in ["tuned", "generic"]:
             sp.call(["mkdir", "-p", f"{cwd}/experiment-results/4_1_endtoend/{benchmark}/polar"])
-            sp.call([f"{cwd}/experiment/util/runDuckDBRestrict{nthreads}.sh",
+            sp.call([f"{cwd}/experiments/util/runDuckDBRestrict{nthreads}.sh",
                      f"benchmark/{benchmark}/.*",
                      "--polr_mode=bushy",
                      "--multiplexer_routing=adaptive_reinit",
@@ -39,7 +39,7 @@ for benchmark in benchmarks:
 for benchmark in benchmarks:
     for nthreads in threads:
         sp.call(["mkdir", "-p", f"{cwd}/experiment-results/4_1_endtoend/{benchmark}/duckdb"])
-        sp.call([f"{cwd}/experiment/util/runDuckDBRestrict{nthreads}.sh",
+        sp.call([f"{cwd}/experiments/util/runDuckDBRestrict{nthreads}.sh",
                  f"benchmark/{benchmark}/.*",
                  f"--out=tmp/duckdb-{nthreads}.csv",
                  f"--nruns={nruns}",
@@ -106,5 +106,4 @@ for benchmark in benchmarks:
     sp.call(["mkdir", "-p", f"{cwd}/experiment-results/4_1_endtoend/{benchmark}/skinnerdb"])
     for nthreads in threads:
         sp.call([f"{cwd}/experiments/util/runSkinnerDB.sh", benchmark, nthreads])
-        sp.call(["mv", f"{cwd}/experiments/util/skinnerdb-{benchmark}-{nthreads}.csv",
-                 f"{cwd}/experiment-results/4_1_endtoend/{benchmark}/skinnerdb"])
+

@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS date;
 DROP TABLE IF EXISTS locust;
 DROP TABLE IF EXISTS lopart;
 
-CREATE TABLE lineorder_tmp (
+CREATE TABLE lineorder (
                                LO_ORDERKEY             integer NOT NULL,
                                LO_LINENUMBER           integer NOT NULL,
                                LO_CUSTKEY              integer NOT NULL,
