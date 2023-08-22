@@ -42,7 +42,7 @@ for benchmark in benchmarks:
             results[benchmark][strategy].append(sum(intms))
 
     strategy = "alternate"
-    path = os.getcwd() + "/experiment-results/2_3_routing/" + mode + "/" + benchmark + "/" + strategy
+    path = os.getcwd() + "/experiment-results/2_3_routing/" + benchmark + "/" + strategy
     intms_opt = []
     intms_default = []
     csv_files = glob.glob(os.path.join(path, "*.csv"))

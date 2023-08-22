@@ -3,13 +3,11 @@
 BENCHMARK=$1
 THREADS=$2
 
-mkdir ../../experiment-results/4_1_endtoend/"${BENCHMARK}"/skinnerdb
-
-bench_dir=duckdb-polr/benchmark/"${bench_dir}"/queries
+bench_dir=duckdb-polr/benchmark/"${BENCHMARK}"
 if [[ "$BENCHMARK" = "imdb" ]]; then
-  bench_dir=skinnerdb/imdb/queries
+  bench_dir=skinnerdb/imdb
 fi
 
-echo -e "index all\nbench duckdb-polr/benchmark/${bench_dir}/queries experiment-results/4_1_endtoend/"${BENCHMARK}"/skinnerdb/skinnerdb-${BENCHMARK}-${THREADS}.csv\nquit" | \
+echo -e "index all\nbench ${bench_dir}/queries experiment-results/4_1_endtoend/"${BENCHMARK}"/skinnerdb/skinnerdb-${THREADS}.csv\nquit" | \
   cgexec -g cpu:limitcpu"${THREADS}" \
   java -jar -Xmx32G -XX:+UseConcMarkSweepGC ../../skinnerdb/jars/Skinner.jar data/skinner"${BENCHMARK}"

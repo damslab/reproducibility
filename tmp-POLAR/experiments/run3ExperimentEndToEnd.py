@@ -95,7 +95,7 @@ for benchmark in benchmarks:
             for timing in timings:
                 output += f"{query_name},{duration:.4f}\n"
 
-        with open(f"{cwd}/experiment-results/4_1_endtoend/{benchmark}/postgres-{worker_count}.csv", "w") as file:
+        with open(f"{cwd}/experiment-results/4_1_endtoend/{benchmark}/postgres/postgres-{worker_count}.csv", "w") as file:
             file.write(output)
 
 cur.close()

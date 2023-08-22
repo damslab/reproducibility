@@ -38,7 +38,7 @@ for benchmark in benchmarks:
         polar_untuned_timings.append(float(row["timing"]))
 
     # POLAR-8 untuned
-    path = os.getcwd() + f"/experiment-results/4_1_endtoend/{benchmark}/polar/polar-generic-8.csv.csv"
+    path = os.getcwd() + f"/experiment-results/4_1_endtoend/{benchmark}/polar/polar-generic-8.csv"
     df = pd.read_csv(path, names=["name", "run", "timing"])
     df = df.groupby("name", as_index=False).median()
     polar8_untuned_timings = []
