@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 declare -a packages=(
-  "cgroup-tools" "git" "libssl-dev" "postgresql-12" "python3-pip" "unzip"
+  "cgroup-tools" "git" "libssl-dev" "openjdk-8-jre-headless" "postgresql-12" "python3-pip" "unzip"
 )
 
 for package in "${packages[@]}"
