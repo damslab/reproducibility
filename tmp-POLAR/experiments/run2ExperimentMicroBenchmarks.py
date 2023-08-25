@@ -87,7 +87,6 @@ def gather_pipeline_durations(s, b, q, path):
         with open(f"{os.getcwd()}/experiment-results/3_1_pipeline/{b}/{s}/{q}-{pipeline_id}", "w") as f:
             f.write(result_str)
 
-
 def execute_benchmark_2():
     nruns = 20
     cwd = os.getcwd()
@@ -144,7 +143,7 @@ def execute_benchmark_2():
                                  "--threads=1",
                                  f"--nruns={nruns}"
                                  ])
-                        gather_pipeline_durations(s, b, q, path)
+                        gather_pipeline_durations(f"{s}/{r}", b, q, path)
 
 
 def execute_benchmark_3():
