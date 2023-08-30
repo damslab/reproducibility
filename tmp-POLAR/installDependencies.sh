@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
+sudo apt update
+
 declare -a packages=(
-  "cgroup-tools" "git" "libssl-dev" "openjdk-8-jre-headless" "postgresql-12" "python3-pip" "unzip"
+  "cgroup-tools" "git" "libssl-dev" "openjdk-8-jre-headless" "openjdk-16-jre-headless" "postgresql-12" "python3-pip" "software-properties-common" "unzip"
 )
 
 for package in "${packages[@]}"
@@ -12,6 +14,8 @@ do
     sudo apt install "${package}"
   fi
 done
+
+sudo add-apt-repository ppa:deadsnakes/ppa
 
 sudo pip install gdown
 
@@ -91,7 +95,48 @@ if [[ ! -d "$PWD/skinnerdb" ]]; then
   echo -e "exec experiments/util/schema-ssb-skew.sql\nexec experiments/util/skinnerdb/load-ssb-skew.sql\nquit" | java -jar -Xmx32G -XX:+UseConcMarkSweepGC skinnerdb/jars/Skinner.jar data/skinnerssb-skew
 fi
 
-if [[ ! -d "$PWD/skinnerdb" ]]; then
+if [[ ! -d "$PWD/skinnermt" ]]; then
+  echo "Downloading SkinnerMT"
+  gdown "1CU0sJlR-GvSBKzzfJO-CyaFlM_PmN4Tb&confirm=t"
+  gdown "1zr9pKMfK33IOlZ26YrvLpO1STi7Rzueu&confirm=t"
+  unzip skinnermt.zip
+  unzip databases.zip
+  mkdir -p data
+  mv imdb data/skinnermtimdb
+  rm -rf tpch-sf-10 jcch-sf-10
+  mkdir build
+  cd build
+  git clone https://github.com/efficient/libcuckoo
+  cd libcuckoo
+  cmake -DCMAKE_INSTALL_PREFIX=../install -DBUILD_EXAMPLES=1 -DBUILD_TESTS=1 .
+  make all
+  make install
+  cd "$PWD/skinnermt/Filter"
+  g++ -std=c++11 -lpthread -shared -fPIC -O3 jniFilter.cpp -o jniFilter.so -I"$PWD"/build/install/include/
+  cd "$PWD"
+  mkdir -p data/skinnermtssb
+  java -jar -Xmx32G -XX:+UseConcMarkSweepGC skinnerdb/jars/CreateDB.jar skinnerssb data/skinnermtssb
+  cd skinnermt/scripts
+  echo -e "exec $PWD/experiments/util/schema-ssb.sql\nexec $PWD/experiments/util/skinnerdb/load-ssb.sql\ncompress;\nquit" | /usr/lib/jvm/java-1.16.0-openjdk-amd64/bin/java -jar Skinner.jar "$PWD"/data/skinnermtssb
+  cd "$PWD"
+  mkdir -p data/skinnermtssbskew
+  java -jar -Xmx32G -XX:+UseConcMarkSweepGC skinnerdb/jars/CreateDB.jar skinnerssbskew data/skinnermtssbskew
+  cd skinnermt/scripts
+  echo -e "exec $PWD/experiments/util/schema-ssb-skew.sql\nexec $PWD/experiments/util/skinnerdb/load-ssb-skew.sql\ncompress;\nquit" | /usr/lib/jvm/java-1.16.0-openjdk-amd64/bin/java -jar Skinner.jar "$PWD"/data/skinnermtssbskew
+  cd "$PWD"
+  cat <<EOT >> data/skinnermtssb/config.sdb
+PARALLEL_ALGO=DP
+NR_WARMUP=1
+NR_EXECUTORS=1
+NR_BATCHES=120
+WRITE_RESULTS=false
+THREADS=8
+JNI_PATH="$PWD"/skinnermt/Filter/jniFilter.so
+EOT
+  cp data/skinnermtssb/config.sdb data/skinnermtssbskew/config.sdb
+fi
+
+if [[ ! -d "$PWD/venv" ]]; then
   echo "Creating Python Virtual Environment"
   python3 -m venv venv
   source "venv/bin/activate"
