@@ -103,7 +103,12 @@ pg_con.close()
 
 # SkinnerDB
 for benchmark in benchmarks:
-    sp.call(["mkdir", "-p", f"{cwd}/experiment-results/4_1_endtoend/{benchmark}/skinnerdb"])
+    sp.call(["mkdir", "-p", f"{cwd}/experiment-results/4_1_engdtoend/{benchmark}/skinnerdb"])
     for nthreads in threads:
         sp.call([f"{cwd}/experiments/util/runSkinnerDB.sh", benchmark, nthreads])
 
+# SkinnerMT
+for benchmark in benchmarks:
+    sp.call(["mkdir", "-p", f"{cwd}/experiment-results/4_1_endtoend/{benchmark}/skinnermt"])
+    for nthreads in threads:
+        sp.call([f"{cwd}/experiments/util/runSkinnerMT.sh", benchmark, nthreads])
