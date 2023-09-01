@@ -6,7 +6,7 @@ import multiprocessing as mp
 import subprocess as sp
 import os
 
-routing_strategies = {"static": ["init_once", "opportunistic", "backpressure"],
+routing_strategies = {"static": ["init_once", "opportunistic", "exponential_backoff"],
                       "dynamic": ["adaptive_reinit", "dynamic"],
                       "debug": ["alternate", "default_path"]}
 
@@ -95,7 +95,8 @@ def execute_benchmark_2():
         for s in routing_strategies["static"]:
             sp.call(["mkdir", "-p", f"{cwd}/experiment-results/3_1_pipeline/{b}/{s}"])
         for s in routing_strategies["dynamic"]:
-            sp.call(["mkdir", "-p", f"{cwd}/experiment-results/3_1_pipeline/{b}/{s}"])
+            for r in regret_budgets:
+                sp.call(["mkdir", "-p", f"{cwd}/experiment-results/3_1_pipeline/{b}/{s}/{r}"])
         sp.call(["mkdir", "-p", f"{cwd}/experiment-results/3_1_pipeline/{b}/default"])
 
         for q in benchmarks[b]:

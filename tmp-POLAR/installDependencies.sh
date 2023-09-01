@@ -102,9 +102,12 @@ if [[ ! -d "${INSTALL_DIR}/skinnermt" ]]; then
   gdown "1CU0sJlR-GvSBKzzfJO-CyaFlM_PmN4Tb&confirm=t"
   gdown "1zr9pKMfK33IOlZ26YrvLpO1STi7Rzueu&confirm=t"
   unzip skinnermt.zip
+  rm skinnermt.zip
   unzip databases.zip
+  rm databases.zip
   mkdir -p data
   mv imdb data/skinnermtimdb
+  rm data/skinnermtimdb/config.sdb
   rm -rf tpch-sf-10 jcch-sf-10
   mkdir build
   cd build
@@ -122,15 +125,15 @@ if [[ ! -d "${INSTALL_DIR}/skinnermt" ]]; then
   java -jar -Xmx32G -XX:+UseConcMarkSweepGC skinnerdb/jars/CreateDB.jar skinnerssb-skew data/skinnermtssb-skew
   cat <<EOT >> data/skinnermtssb/config.sdb
 PARALLEL_ALGO=DP
-NR_WARMUP=1
+NR_WARMUP=5
 NR_EXECUTORS=1
 NR_BATCHES=120
 WRITE_RESULTS=false
 THREADS=8
 JNI_PATH=$INSTALL_DIR/skinnermt/Filter/jniFilter.so
 EOT
-  cp data/skinnermtssb/config.sdb data/skinnermtssbskew/config.sdb
-
+  cp data/skinnermtssb/config.sdb data/skinnermtssb-skew/config.sdb
+  cp data/skinnermtssb/config.sdb data/skinnermtimdb/config.sdb
   cd skinnermt/scripts
   echo -e "exec ${INSTALL_DIR}experiments/util/schema-ssb.sql\nexec ${INSTALL_DIR}/experiments/util/skinnerdb/load-ssb.sql\ncompress;\nquit" | /usr/lib/jvm/java-1.16.0-openjdk-amd64/bin/java -jar Skinner.jar "${INSTALL_DIR}"/data/skinnermtssb
   echo -e "exec ${INSTALL_DIR}/experiments/util/schema-ssb-skew.sql\nexec ${INSTALL_DIR}/experiments/util/skinnerdb/load-ssb-skew.sql\ncompress;\nquit" | /usr/lib/jvm/java-1.16.0-openjdk-amd64/bin/java -jar Skinner.jar "${INSTALL_DIR}"/data/skinnermtssb-skew
