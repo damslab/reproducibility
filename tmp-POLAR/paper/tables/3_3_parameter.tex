@@ -1,0 +1,19 @@
+\begin{table}[!t]
+	\centering
+	 \caption{Parameter Robustness -- Total pipeline execution time with generic vs. tuned exploration budgets [seconds].}
+	 \vspace{-0.3cm}  \setlength\tabcolsep{8.7pt}
+   \begin{tabular}{lrrr}
+	  \toprule
+		\textbf{Routing strategy} & \textbf{JOB} & \textbf{SSB} & \textbf{SSB-skew}\\
+		\midrule
+		DuckDB &      49.42 &       5.56 &      11.94\\
+		\midrule
+        \textsc{AdaptTupleCount} (0.01\%) &    32.73 &       7.60 &      6.84\\
+		\textsc{AdaptTupleCount}-tuned &      31.44 &       7.46 &      6.50\\
+        \midrule
+		\textsc{AdaptWindowSize} (10\%) &      31.02 &       6.66 &       5.38\\
+		\textsc{AdaptWindowSize}-tuned &      31.02 &       5.21 &       5.36\\
+  		\bottomrule
+	\end{tabular}
+	\label{tab:3_3_parameter}
+\end{table}

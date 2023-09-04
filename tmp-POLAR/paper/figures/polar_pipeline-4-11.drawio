@@ -1,0 +1,229 @@
+<mxfile host="app.diagrams.net" modified="2023-07-25T08:22:06.052Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.4 Safari/605.1.15" etag="rvdnDlFPFTk0Cj-5cJoB" version="21.5.2" type="device">
+  <diagram name="Page-1" id="LXRPs-zV0VbaVcG-KG40">
+    <mxGraphModel dx="1261" dy="707" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="1" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="wsM4QXUNcmivgw5BL6QR-3" value="" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Libertine;fillColor=#FFFFFF;fontColor=#333333;strokeColor=#A0B1BA;dashed=1;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" vertex="1" parent="1">
+          <mxGeometry x="634" y="30" width="100" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="_s60WVQ72Pz1lMN8e_Ou-14" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;dashed=1;fontColor=#333333;strokeColor=#A0B1BA;fontFamily=Libertine;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" vertex="1">
+          <mxGeometry x="321" y="66" width="20" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="_s60WVQ72Pz1lMN8e_Ou-6" value="" style="rounded=0;whiteSpace=wrap;html=1;rotation=30;fillColor=#FFFFFF;fontColor=#333333;strokeColor=#A0B1BA;dashed=1;fontFamily=Libertine;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" vertex="1">
+          <mxGeometry x="330.33000000000004" y="149.5" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="_s60WVQ72Pz1lMN8e_Ou-4" value="" style="rounded=0;whiteSpace=wrap;html=1;rotation=30;fillColor=#FFFFFF;fontColor=#333333;strokeColor=#A0B1BA;dashed=1;fontFamily=Libertine;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" vertex="1">
+          <mxGeometry x="331" y="180" width="50" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="HmGuiAE0j5cc_U5DVJ-S-67" value="" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Libertine;fillColor=#FFFFFF;fontColor=#333333;strokeColor=#A0B1BA;dashed=1;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" vertex="1">
+          <mxGeometry x="463" y="44" width="30" height="152" as="geometry" />
+        </mxCell>
+        <mxCell id="HmGuiAE0j5cc_U5DVJ-S-40" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;dashed=1;fontColor=#333333;strokeColor=#A0B1BA;fontFamily=Libertine;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" vertex="1">
+          <mxGeometry x="321" y="100" width="20" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="_s60WVQ72Pz1lMN8e_Ou-7" value="" style="rounded=0;whiteSpace=wrap;html=1;rotation=-225;fillColor=#FFFFFF;fontColor=#333333;strokeColor=#A0B1BA;dashed=1;fontFamily=Libertine;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" vertex="1">
+          <mxGeometry x="272.73" y="74.77" width="75.02" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="HmGuiAE0j5cc_U5DVJ-S-30" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0;entryDx=0;entryDy=0;exitX=1;exitY=1;exitDx=0;exitDy=0;fontFamily=Libertine;endArrow=none;endFill=0;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" source="HmGuiAE0j5cc_U5DVJ-S-20" target="HmGuiAE0j5cc_U5DVJ-S-28" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HmGuiAE0j5cc_U5DVJ-S-2" value="\(⋈&lt;br&gt;_1\)" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Libertine;fillColor=none;strokeColor=none;spacingBottom=5;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" vertex="1">
+          <mxGeometry x="321" y="160" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="HmGuiAE0j5cc_U5DVJ-S-15" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontFamily=Libertine;endArrow=none;endFill=0;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" source="HmGuiAE0j5cc_U5DVJ-S-2" target="HmGuiAE0j5cc_U5DVJ-S-7" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="363.78999999999996" y="176" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HmGuiAE0j5cc_U5DVJ-S-6" value="\(S\)" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Libertine;fillColor=none;strokeColor=none;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" vertex="1">
+          <mxGeometry x="361" y="190" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="HmGuiAE0j5cc_U5DVJ-S-16" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Libertine;endArrow=none;endFill=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" source="HmGuiAE0j5cc_U5DVJ-S-7" target="HmGuiAE0j5cc_U5DVJ-S-10" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="261" y="210" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HmGuiAE0j5cc_U5DVJ-S-7" value="\(σ\)&lt;br&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Libertine;fillColor=none;strokeColor=none;verticalAlign=middle;spacing=2;spacingBottom=5;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" vertex="1">
+          <mxGeometry x="321" y="190" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="HmGuiAE0j5cc_U5DVJ-S-10" value="\(R\)" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Libertine;fillColor=none;strokeColor=none;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" vertex="1">
+          <mxGeometry x="321" y="220" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="HmGuiAE0j5cc_U5DVJ-S-17" value="" style="endArrow=none;html=1;rounded=0;exitX=1;exitY=1;exitDx=0;exitDy=0;fontFamily=Libertine;endFill=0;entryX=0;entryY=0;entryDx=0;entryDy=0;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" source="HmGuiAE0j5cc_U5DVJ-S-2" target="HmGuiAE0j5cc_U5DVJ-S-6" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="374" y="187" as="sourcePoint" />
+            <mxPoint x="371" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HmGuiAE0j5cc_U5DVJ-S-21" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Libertine;endArrow=none;endFill=0;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" source="HmGuiAE0j5cc_U5DVJ-S-20" target="HmGuiAE0j5cc_U5DVJ-S-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HmGuiAE0j5cc_U5DVJ-S-20" value="\(⋈&lt;br&gt;_2\)" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Libertine;fillColor=none;strokeColor=none;spacingBottom=5;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" vertex="1">
+          <mxGeometry x="321" y="127" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="HmGuiAE0j5cc_U5DVJ-S-28" value="\(T\)" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Libertine;fillColor=none;strokeColor=none;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" vertex="1">
+          <mxGeometry x="367" y="160" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="HmGuiAE0j5cc_U5DVJ-S-33" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Libertine;endArrow=none;endFill=0;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" source="HmGuiAE0j5cc_U5DVJ-S-31" target="HmGuiAE0j5cc_U5DVJ-S-20" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HmGuiAE0j5cc_U5DVJ-S-31" value="\(γ\)" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Libertine;fillColor=none;strokeColor=none;spacingBottom=5;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" vertex="1">
+          <mxGeometry x="321" y="98" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="HmGuiAE0j5cc_U5DVJ-S-34" value="\(U\)" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Libertine;fillColor=none;strokeColor=none;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" vertex="1">
+          <mxGeometry x="281" y="95" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="HmGuiAE0j5cc_U5DVJ-S-38" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Libertine;endArrow=none;endFill=0;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" source="HmGuiAE0j5cc_U5DVJ-S-37" target="HmGuiAE0j5cc_U5DVJ-S-31" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HmGuiAE0j5cc_U5DVJ-S-39" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0;entryDx=0;entryDy=0;fontFamily=Libertine;endArrow=none;endFill=0;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" source="HmGuiAE0j5cc_U5DVJ-S-37" target="HmGuiAE0j5cc_U5DVJ-S-34" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HmGuiAE0j5cc_U5DVJ-S-37" value="\(⋈\)" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Libertine;fillColor=none;strokeColor=none;spacingBottom=5;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" vertex="1">
+          <mxGeometry x="321" y="56" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="HmGuiAE0j5cc_U5DVJ-S-46" value="\(R\)" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Libertine;fillColor=none;strokeColor=none;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" vertex="1">
+          <mxGeometry x="468" y="171" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="_s60WVQ72Pz1lMN8e_Ou-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;fontFamily=Libertine;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" source="HmGuiAE0j5cc_U5DVJ-S-52" target="HmGuiAE0j5cc_U5DVJ-S-46" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HmGuiAE0j5cc_U5DVJ-S-52" value="\(σ\)" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Libertine;fillColor=none;strokeColor=none;spacingBottom=5;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" vertex="1">
+          <mxGeometry x="468" y="141" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="_s60WVQ72Pz1lMN8e_Ou-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;fontFamily=Libertine;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" source="HmGuiAE0j5cc_U5DVJ-S-54" target="HmGuiAE0j5cc_U5DVJ-S-52" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HmGuiAE0j5cc_U5DVJ-S-54" value="\(⋈&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;_1\)" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Libertine;fillColor=none;strokeColor=none;spacingBottom=5;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" vertex="1">
+          <mxGeometry x="468" y="111" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="HmGuiAE0j5cc_U5DVJ-S-65" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;fontFamily=Libertine;endArrow=none;endFill=0;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" source="HmGuiAE0j5cc_U5DVJ-S-55" target="HmGuiAE0j5cc_U5DVJ-S-56" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_s60WVQ72Pz1lMN8e_Ou-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;fontFamily=Libertine;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" source="HmGuiAE0j5cc_U5DVJ-S-55" target="HmGuiAE0j5cc_U5DVJ-S-54" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HmGuiAE0j5cc_U5DVJ-S-55" value="\(⋈&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;_2\)" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Libertine;fillColor=none;strokeColor=none;spacingBottom=5;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" vertex="1">
+          <mxGeometry x="468" y="76" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="HmGuiAE0j5cc_U5DVJ-S-56" value="\(γ\)" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Libertine;fillColor=none;strokeColor=none;spacingBottom=5;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" vertex="1">
+          <mxGeometry x="468" y="46" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="HmGuiAE0j5cc_U5DVJ-S-68" value="\(P_3\)" style="text;html=1;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Libertine;fontSize=10;fontColor=#A0B1BA;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" vertex="1">
+          <mxGeometry x="468" y="199" width="20" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="HmGuiAE0j5cc_U5DVJ-S-70" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fontFamily=Libertine;strokeColor=none;fillColor=#A0B1BA;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="546" y="144.52" as="sourcePoint" />
+            <mxPoint x="596" y="144.52" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="546" y="144.52" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HmGuiAE0j5cc_U5DVJ-S-71" value="&lt;p style=&quot;line-height: 100%;&quot;&gt;&lt;b&gt;POLAR&amp;nbsp;&lt;/b&gt;&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Libertine;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" vertex="1">
+          <mxGeometry x="541" y="100" width="60" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="HmGuiAE0j5cc_U5DVJ-S-73" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;Source&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Libertine;fontSize=10;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" vertex="1">
+          <mxGeometry x="503" y="176" width="20" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="HmGuiAE0j5cc_U5DVJ-S-74" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;Sink&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Libertine;fontSize=10;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" vertex="1">
+          <mxGeometry x="493" y="51" width="30" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="_s60WVQ72Pz1lMN8e_Ou-10" value="\(P_1\)" style="text;html=1;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Libertine;fontSize=10;fontColor=#A0B1BA;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" vertex="1">
+          <mxGeometry x="379" y="201" width="20" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="_s60WVQ72Pz1lMN8e_Ou-11" value="\(P_2\)" style="text;html=1;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Libertine;fontSize=10;fontColor=#A0B1BA;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" vertex="1">
+          <mxGeometry x="387" y="172" width="20" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="_s60WVQ72Pz1lMN8e_Ou-12" value="\(P_3\)" style="text;html=1;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Libertine;fontSize=10;fontColor=#A0B1BA;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" vertex="1">
+          <mxGeometry x="321" y="244" width="20" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="_s60WVQ72Pz1lMN8e_Ou-13" value="\(P_5\)" style="text;html=1;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Libertine;fontSize=10;fontColor=#A0B1BA;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" vertex="1">
+          <mxGeometry x="261" y="115" width="20" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="_s60WVQ72Pz1lMN8e_Ou-15" value="\(P_4\)" style="text;html=1;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Libertine;fontSize=10;fontColor=#A0B1BA;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" vertex="1">
+          <mxGeometry x="341" y="76" width="20" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="_s60WVQ72Pz1lMN8e_Ou-32" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fontFamily=Libertine;fillColor=#A0B1BA;strokeColor=none;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="181" y="146.52" as="sourcePoint" />
+            <mxPoint x="231" y="146.52" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="181" y="146.52" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_s60WVQ72Pz1lMN8e_Ou-33" value="&lt;p style=&quot;line-height: 100%;&quot;&gt;Optimizer&lt;br&gt;&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Libertine;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" parent="1" vertex="1">
+          <mxGeometry x="173" y="100" width="60" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="wsM4QXUNcmivgw5BL6QR-2" value="" style="shape=trapezoid;perimeter=trapezoidPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rotation=-90;size=64.5;fillColor=#E1F2E3;strokeColor=none;fontFamily=Libertine;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" vertex="1" parent="1">
+          <mxGeometry x="326.5" y="65.25" width="147.75" height="110.5" as="geometry" />
+        </mxCell>
+        <mxCell id="wsM4QXUNcmivgw5BL6QR-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=none;endFill=0;fontFamily=Libertine;strokeColor=default;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" edge="1" parent="1" source="wsM4QXUNcmivgw5BL6QR-15" target="wsM4QXUNcmivgw5BL6QR-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wsM4QXUNcmivgw5BL6QR-15" value="\(R\)" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Libertine;fillColor=none;strokeColor=none;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" vertex="1" parent="1">
+          <mxGeometry x="674.5" y="215.5" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="wsM4QXUNcmivgw5BL6QR-16" value="\(γ\)" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Libertine;fillColor=none;strokeColor=none;spacingBottom=5;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" vertex="1" parent="1">
+          <mxGeometry x="674.5" y="34.5" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="wsM4QXUNcmivgw5BL6QR-17" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=none;endFill=0;fontFamily=Libertine;strokeColor=default;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" edge="1" parent="1" source="wsM4QXUNcmivgw5BL6QR-18" target="wsM4QXUNcmivgw5BL6QR-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wsM4QXUNcmivgw5BL6QR-18" value="\(∪&lt;br&gt;\)" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Libertine;fillColor=none;strokeColor=none;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" vertex="1" parent="1">
+          <mxGeometry x="674.5" y="62.5" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="wsM4QXUNcmivgw5BL6QR-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=none;endFill=0;fontFamily=Libertine;strokeColor=default;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" edge="1" parent="1" source="wsM4QXUNcmivgw5BL6QR-20" target="wsM4QXUNcmivgw5BL6QR-31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wsM4QXUNcmivgw5BL6QR-20" value="\(σ\)" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Libertine;fillColor=none;strokeColor=none;spacingBottom=5;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" vertex="1" parent="1">
+          <mxGeometry x="674.5" y="185.5" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="wsM4QXUNcmivgw5BL6QR-21" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;fontFamily=Libertine;endArrow=none;endFill=0;strokeColor=default;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" edge="1" parent="1" source="wsM4QXUNcmivgw5BL6QR-22" target="wsM4QXUNcmivgw5BL6QR-27">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wsM4QXUNcmivgw5BL6QR-22" value="\(⋈&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;_1\)" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Libertine;fillColor=none;strokeColor=none;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" vertex="1" parent="1">
+          <mxGeometry x="644.5" y="126" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="wsM4QXUNcmivgw5BL6QR-23" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;fontFamily=Libertine;endArrow=none;endFill=0;strokeColor=default;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" edge="1" parent="1" source="wsM4QXUNcmivgw5BL6QR-25" target="wsM4QXUNcmivgw5BL6QR-29">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wsM4QXUNcmivgw5BL6QR-24" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;fontFamily=Libertine;strokeColor=default;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" edge="1" parent="1" source="wsM4QXUNcmivgw5BL6QR-25" target="wsM4QXUNcmivgw5BL6QR-31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wsM4QXUNcmivgw5BL6QR-25" value="\(⋈&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;_2\)" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Libertine;fillColor=none;strokeColor=none;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" vertex="1" parent="1">
+          <mxGeometry x="703.5" y="126" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="wsM4QXUNcmivgw5BL6QR-26" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=1;entryDx=0;entryDy=0;fontFamily=Libertine;endArrow=none;endFill=0;strokeColor=default;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" edge="1" parent="1" source="wsM4QXUNcmivgw5BL6QR-27" target="wsM4QXUNcmivgw5BL6QR-18">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="669.5" y="72.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wsM4QXUNcmivgw5BL6QR-27" value="\(⋈&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;_2\)" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Libertine;fillColor=none;strokeColor=none;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" vertex="1" parent="1">
+          <mxGeometry x="644.5" y="86.5" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="wsM4QXUNcmivgw5BL6QR-28" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=1;entryDx=0;entryDy=0;fontFamily=Libertine;endArrow=none;endFill=0;strokeColor=default;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" edge="1" parent="1" source="wsM4QXUNcmivgw5BL6QR-29" target="wsM4QXUNcmivgw5BL6QR-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wsM4QXUNcmivgw5BL6QR-29" value="\(⋈&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;_1\)" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontFamily=Libertine;fillColor=none;strokeColor=none;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" vertex="1" parent="1">
+          <mxGeometry x="703.5" y="85.5" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="wsM4QXUNcmivgw5BL6QR-30" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=none;endFill=0;fontFamily=Libertine;strokeColor=default;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" edge="1" parent="1" source="wsM4QXUNcmivgw5BL6QR-31" target="wsM4QXUNcmivgw5BL6QR-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wsM4QXUNcmivgw5BL6QR-31" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;Multiplexer&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;strokeColor=none;fontFamily=Libertine;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" vertex="1" parent="1">
+          <mxGeometry x="659.5" y="157.5" width="50" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="wsM4QXUNcmivgw5BL6QR-32" value="&lt;pre style=&quot;line-height: 100%;&quot;&gt;&lt;font style=&quot;font-size: 12px;&quot; face=&quot;Courier New&quot;&gt;&lt;b&gt;SELECT &lt;/b&gt;&lt;/font&gt;&lt;font style=&quot;font-size: 12px;&quot; face=&quot;Courier New&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;...&lt;br&gt;&lt;/span&gt;&lt;/font&gt;&lt;font style=&quot;font-size: 12px;&quot; face=&quot;Courier New&quot;&gt;&lt;b&gt;&lt;font&gt;  FROM &lt;/font&gt;&lt;/b&gt;&lt;/font&gt;&lt;font style=&quot;font-size: 12px;&quot; face=&quot;Courier New&quot;&gt;R, S, T, U&lt;br&gt;&lt;/font&gt;&lt;font style=&quot;font-size: 12px;&quot; face=&quot;Courier New&quot;&gt;&lt;b&gt;  WHERE&lt;/b&gt;&lt;/font&gt;&lt;font style=&quot;font-size: 12px;&quot; face=&quot;Courier New&quot;&gt; ...&lt;br&gt;&lt;/font&gt;&lt;font style=&quot;font-size: 12px;&quot; face=&quot;Courier New&quot;&gt;&lt;b&gt;  GROUP BY &lt;/b&gt;&lt;/font&gt;&lt;font style=&quot;font-size: 12px;&quot; face=&quot;Courier New&quot;&gt;...&lt;/font&gt;&lt;/pre&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Libertine;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="20" y="106.5" width="130" height="74" as="geometry" />
+        </mxCell>
+        <mxCell id="wsM4QXUNcmivgw5BL6QR-33" value="\(P_3\)" style="text;html=1;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Libertine;fontSize=10;fontColor=#A0B1BA;fontSource=https%3A%2F%2Ffonts.cdnfonts.com%2Fcss%2Flinux-libertine;" vertex="1" parent="1">
+          <mxGeometry x="674.5" y="244" width="20" height="10" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

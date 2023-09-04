@@ -1,0 +1,19 @@
+\begin{table}[!t]
+	\centering
+	 \caption{Execution Time -- Total pipeline execution time per routing strategy [seconds].}
+	 \vspace{-0.3cm}  \setlength\tabcolsep{11.4pt}
+   \begin{tabular}{lrrr}
+	  \toprule
+		\textbf{Routing strategy} & \textbf{JOB} & \textbf{SSB} & \textbf{SSB-skew}\\
+		\midrule
+		DuckDB &      49.42 &       5.56 &      11.94\\
+		\midrule
+		\textsc{InitOnce} &      32.38 &       5.12 &      10.44\\
+		\textsc{Opportunistic} &      31.44 &       6.78 &       9.40\\
+		\textsc{AdaptTupleCount} &      31.44 &       7.46 &       6.50\\
+		\textsc{AdaptWindowSize} &      31.02 &       5.21 &       5.36\\
+		\textsc{Backpressure} &      68.35 &      14.26 &      20.65\\
+		\bottomrule
+	\end{tabular}
+	\label{tab:3_1_pipeline}
+\end{table}

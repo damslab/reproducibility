@@ -1,0 +1,20 @@
+\begin{table}[!t]
+	\centering
+	\caption{Join Order Selection -- Total number of intermediates for POLAR pipelines with different selection strategies.}.
+	\vspace{-0.3cm}  \setlength\tabcolsep{3.5pt}
+	\begin{tabular}{lrrrr}
+	  \toprule
+		\textbf{Enumeration} & \textbf{JOB} & \textbf{SSB} & \textbf{SSB-skew} & \textbf{JOB-ldt} \\
+		\midrule
+    DuckDB* &     107.49 M &     86.65 M &    277.75 M & 29,376.50 M\\
+		Optimal &      16.92 M &      55.06 M &      25.15 M & N/A\\
+        \midrule
+		\textsc{GetRandom} &      16.92 M &      55.06 M &      25.15 M & 175.81 M\\
+		\textsc{GetMinCard} &      16.92 M &      55.06 M &      25.15 M & 227.94 M\\
+		\textsc{GetMinCardUc} &      16.92 M &      55.06 M &      25.15 M & 234.62 M\\
+		\textsc{PushDown} &      17.04 M &      59.78 M &      41.46 M & 208.83 M\\
+		\textsc{PullUp} &      17.22 M &      59.88 M &      53.08 M & 210.73 M\\
+		\bottomrule
+	\end{tabular}
+	\label{tab:1_1_sel_intms}
+\end{table}
