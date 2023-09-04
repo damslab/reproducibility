@@ -1,7 +1,7 @@
 source venv/bin/activate
-python3 experiments/run1ExperimentPotentialBenefit.sh
-python3 experiments/run2ExperimentMicroBenchmarks.sh
-python3 experiments/run3ExperimentEndToEnd.sh
+python3 experiments/run1ExperimentPotentialBenefit.py
+python3 experiments/run2ExperimentMicroBenchmarks.py
+python3 experiments/run3ExperimentEndToEnd.py
 
 python3 experiments/plot/plot_1_1_potential_impact.py
 python3 experiments/plot/plot_1_2_potential_savings.py
