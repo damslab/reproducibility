@@ -62,67 +62,67 @@ for benchmark in benchmarks:
 
 print(sweet_spots)
 
-for key in results:
-    df = pandas.DataFrame()
-    for strategy in results[key]:
-        df[strategy] = results[key][strategy]
+formatted_results = {}
+for benchmark in benchmarks:
+    formatted_results[benchmark] = {}
+    for strategy in routing_strategies:
+        if strategy == "adaptive_reinit" or strategy == "dynamic":
+            formatted_results[benchmark][strategy] = "{:10.2f}".format(
+                sum(results[benchmark][strategy][sweet_spots[benchmark][strategy]]) / 1000)
+        else:
+            formatted_results[benchmark][strategy] = "{:10.2f}".format(sum(results[benchmark][strategy]) / 1000)
 
-    for strategy in results[key]:
-        df[f"{strategy}-rel"] = 1 + ((df["default"] - df[strategy]) / df[strategy])
-    df.to_csv(f"experiment-results/3_1_pipeline_{key}.csv", sep="\t")
+latex_table = f"""
+\\begin{{table}}[!t]
+  \\centering
+  \\caption{{Execution Time -- Total pipeline execution time per routing strategy [seconds].}}
+  \\vspace{{-0.3cm}}  \\setlength\\tabcolsep{{11.4pt}}
+  \\begin{{tabular}}{{lrrr}}
+    \\toprule
+    \\textbf{{Routing strategy}} & \\textbf{{JOB}} & \\textbf{{SSB}} & \\textbf{{SSB-skew}}\\
+    \\midrule
+    DuckDB & {formatted_results["imdb"]["default"]} & {formatted_results["ssb"]["default"]} & {formatted_results["ssb-skew"]["default"]}\\\\
+    \\midrule
+    \\textsc{{InitOnce}} & {formatted_results["imdb"]["init_once"]} & {formatted_results["ssb"]["init_once"]} & {formatted_results["ssb-skew"]["init_once"]}\\\\
+    \\textsc{{Opportunistic}} & {formatted_results["imdb"]["opportunistic"]} & {formatted_results["ssb"]["opportunistic"]} & {formatted_results["ssb-skew"]["opportunistic"]}\\\\
+    \\textsc{{AdaptTupleCount}} & {formatted_results["imdb"]["dynamic"]} & {formatted_results["ssb"]["dynamic"]} & {formatted_results["ssb-skew"]["dynamic"]}\\\\
+    \\textsc{{AdaptWindowSize}} & {formatted_results["imdb"]["adaptive_reinit"]} & {formatted_results["ssb"]["adaptive_reinit"]} & {formatted_results["ssb-skew"]["adaptive_reinit"]}\\\\
+    \\textsc{{Backpressure}} & {formatted_results["imdb"]["backpressure"]} & {formatted_results["ssb"]["backpressure"]} & {formatted_results["ssb-skew"]["backpressure"]}\\\\
+    \\bottomrule
+  \\end{{tabular}}
+  \\label{{tab:3_1_pipeline}}
+\\end{{table}}
+"""
 
-    print(key)
-    print(df[df["adaptive_reinit-rel"] < 1].sort_values(by=["default"]))
+with open("paper/tables/3_1_pipeline.tex", "w") as file:
+    file.write(latex_table)
 
-result_str = "\\begin{table}\n\t\\centering\n\t\\begin{tabular}{l"
+formatted_results_untuned = {}
+for benchmark in benchmarks:
+    formatted_results_untuned[benchmark] = {}
+    formatted_results_untuned[benchmark]["dynamic"] = "{:10.2f}".format(sum(results[benchmark]["dynamic"]["0.0001"]) / 1000)
+    formatted_results_untuned[benchmark]["adaptive_reinit"] = "{:10.2f}".format(sum(results[benchmark]["adaptive_reinit"]["0.1"]) / 1000)
 
-for i in range(len(results)):
-    result_str += "r"
+latex_table = f"""\\begin{{table}}[!t]
+  \\centering
+  \\caption{{Parameter Robustness -- Total pipeline execution time with generic vs. tuned exploration budgets [seconds].}}
+  \\vspace{{-0.3cm}}  \\setlength\\tabcolsep{{8.7pt}}
+  \\begin{{tabular}}{{lrrr}}
+    \\toprule
+    \\textbf{{Routing strategy}} & \\textbf{{JOB}} & \\textbf{{SSB}} & \\textbf{{SSB-skew}}\\\\
+    \\midrule
+    DuckDB & {formatted_results["imdb"]["default"]} & {formatted_results["ssb"]["default"]} & {formatted_results["ssb-skew"]["default"]}\\\\
+    \\midrule
+    \\textsc{{AdaptTupleCount}} (0.01\\%) & {formatted_results_untuned["imdb"]["dynamic"]} & {formatted_results_untuned["ssb"]["dynamic"]} & {formatted_results_untuned["ssb-skew"]["dynamic"]}\\\\
+    \\textsc{{AdaptTupleCount}}-tuned & {formatted_results["imdb"]["dynamic"]} & {formatted_results["ssb"]["dynamic"]} & {formatted_results["ssb-skew"]["dynamic"]}\\\\
+    \\midrule
+    \\textsc{{AdaptWindowSize}} (10\\%) & {formatted_results_untuned["imdb"]["adaptive_reinit"]} & {formatted_results_untuned["ssb"]["adaptive_reinit"]} & {formatted_results_untuned["ssb-skew"]["adaptive_reinit"]}\\\\
+    \\textsc{{AdaptWindowSize}}-tuned & {formatted_results["imdb"]["adaptive_reinit"]} & {formatted_results["ssb"]["adaptive_reinit"]} & {formatted_results["ssb-skew"]["adaptive_reinit"]}\\\\
+    \\bottomrule
+  \\end{{tabular}}
+\\label{{tab:3_3_parameter}}
+\\end{{table}}
+"""
 
-result_str += "}\n\t\t"
-result_str += "\\textbf{Routing strategy}"
-
-for result_key in results:
-    if "default" in results[result_key]:
-        result_str += " & " + result_key
-
-result_str += "\\\\\n\t\t"
-result_str += "\\hline\n\t\t"
-
-for routing_strategy in routing_strategies:
-    result_str += routing_strategy.replace("_", " ")
-
-    if routing_strategy == "adaptive_reinit" or routing_strategy == "dynamic":
-        for result_key in results:
-            if "default" in results[result_key] and len(results[result_key]["default"]) > 0:
-                total_pipeline_duration = sum(results[result_key][routing_strategy][sweet_spots[routing_strategy][result_key]])
-                result_str += " & " + "{:10.2f}".format(total_pipeline_duration / 1000) + " s"
-        result_str += "\\\\\n\t\t"
-    else:
-        for result_key in results:
-            if "default" in results[result_key] and len(results[result_key]["default"]) > 0:
-                total_pipeline_duration = sum(results[result_key][routing_strategy])
-                result_str += " & " + "{:10.2f}".format(total_pipeline_duration / 1000) + " s"
-        result_str += "\\\\\n\t\t"
-
-result_str += "\\hline\n\t\\end{tabular}\n\t\\caption{"
-result_str += "Total duration for POLAR-applicable pipelines"
-result_str += "}\n\t\\label{"
-result_str += "tab:3_1_pipeline"
-result_str += "}\n\\end{table}\n"
-
-with open("experiment-results/3_1_pipeline.txt", "w") as file:
-    file.write(result_str)
-
-#for result_key in results:
-#    fig = plt.figure()
-#    ax = fig.add_axes([0, 0, 1, 1])
-#    i = 0
-#    for strategy in results[result_key]:
-#        X = np.arange(len(results[result_key][strategy]))
-#        ax.bar(X + i, results[result_key][strategy], width=0.18)
-#        i = i + 0.18
-#    fig.legend(routing_strategies)
-#    plt.savefig(f"experiment-results/3_1_pipeline_per_query_{result_key}.pdf")
-#    plt.clf()
-
+with open("paper/tables/3_3_parameter.tex", "w") as file:
+    file.write(latex_table)

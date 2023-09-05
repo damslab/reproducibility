@@ -6,96 +6,89 @@ import glob
 import matplotlib.pyplot as plt
 import numpy as np
 
-optimizer_modes = ["dphyp-equisets"]
 benchmarks = ["imdb", "ssb", "ssb-skew"]
 
 results = {}
 
 for benchmark in benchmarks:
-    for optimizer_mode in optimizer_modes:
-        print(benchmark + "-" + optimizer_mode[:2])
-        # Calculate baselines from exhaustive
-        path = f"{os.getcwd()}/experiment-results/1_2_potential_savings/{optimizer_mode}/{benchmark}"
-        csv_files = glob.glob(os.path.join(path, "*.csv"))
-        csv_files.sort()
+    # Get pipeline names
+    pipeline_names = []
+    path = f"{os.getcwd()}/experiment-results/1_1_potential_impact/{benchmark}/pipelines"
+    files = glob.glob(os.path.join(path, "*.csv"))
+    files.sort()
 
-        default = {}
-        exhaustive = {}
-        best_in_class = {}
-        worst_in_class = {}
+    for file in files:
+        pipeline_names.append(file.split("/")[-1].split(".")[0])
+    print(pipeline_names)
 
-        for csv_file in csv_files:
-            # TODO: Does not work for ssb
-            query_name = "-".join(csv_file.split("/")[-1].split("-")[0:-1])
-            df = pd.read_csv(csv_file)
-            df.pop(df.columns[-1])
+    # Calculate baseline intermediates
+    path = f"{os.getcwd()}/experiment-results/2_1_enumeration_intms/dphyp-equisets/{benchmark}/bfs_min_card"
+    files = glob.glob(os.path.join(path, "*.csv"))
+    files.sort()
+    print(len(files))
+    print(len(pipeline_names))
+    assert(len(files) == len(pipeline_names))
 
-            if query_name in default:
-                default[query_name] += (df["path_0"].sum())
-                exhaustive[query_name] += (df.min(axis=1).sum())
-                best_in_class[query_name] += (df.sum().min())
-                worst_in_class[query_name] += (df.sum().max())
-            else:
-                default[query_name] = (df["path_0"].sum())
-                exhaustive[query_name] = (df.min(axis=1).sum())
-                best_in_class[query_name] = (df.sum().min())
-                worst_in_class[query_name] = (df.sum().max())
+    duckdb_pipeline_intms = {}
+    optimal_pipeline_intms = {}
+    for i in range(len(files)):
+        file = files[i]
+        df = pd.read_csv(file)
+        duckdb_pipeline_intms[pipeline_names[i]] = df["path_0"].sum()
+        optimal_pipeline_intms[pipeline_names[i]] = df.min(axis=1).sum()
 
-        print(exhaustive)
+    # Flatten
+    duckdb_query_intms = {}
+    optimal_query_intms = {}
+    for pipeline_name in pipeline_names:
+        query_name = "-".join(pipeline_name.split("-")[:-1])
+        if query_name in duckdb_query_intms:
+            duckdb_query_intms[query_name] += duckdb_pipeline_intms[pipeline_name]
+            optimal_query_intms[query_name] += optimal_pipeline_intms[pipeline_name]
+        else:
+            duckdb_query_intms[query_name] = duckdb_pipeline_intms[pipeline_name]
+            optimal_query_intms[query_name] = optimal_pipeline_intms[pipeline_name]
 
-        path = os.getcwd() + f"/experiment-results/1_1_potential_impact/{optimizer_mode}/{benchmark}/pipelines"
-        csv_files = glob.glob(os.path.join(path, "*.csv"))
-        csv_files.sort()
-        if len(csv_files) == 0:
-            print(f"Warning: no results for {path}")
+    path = f"{os.getcwd()}/experiment-results/1_1_potential_impact/{benchmark}/pipelines"
+    files = glob.glob(os.path.join(path, "*.csv"))
+    files.sort()
 
-        polar_pp_durations = {}
-        for csv_file in csv_files:
-            # TODO
-            query_name = "-".join(csv_file.split("/")[-1].split("-")[0:-1])
-            df = pd.read_csv(csv_file, names=["timing"])
-            median_timing = float(df["timing"].median())
-            if query_name in polar_pp_durations:
-                polar_pp_durations[query_name] += median_timing / 1000
-            else:
-                polar_pp_durations[query_name] = median_timing / 1000
+    polar_pp_durations = {}
+    for csv_file in files:
+        query_name = "-".join(csv_file.split("/")[-1].split("-")[0:-1])
+        df = pd.read_csv(csv_file, names=["timing"])
+        median_timing = float(df["timing"].median())
+        if query_name in polar_pp_durations:
+            polar_pp_durations[query_name] += median_timing / 1000
+        else:
+            polar_pp_durations[query_name] = median_timing / 1000
 
-        path = os.getcwd() + f"/experiment-results/1_1_potential_impact/{optimizer_mode}/{benchmark}/queries"
-        csv_files = glob.glob(os.path.join(path, "*.csv"))
-        if len(csv_files) != 1:
-            print(f"Warning: no results for {path}")
+    path = os.getcwd() + f"/experiment-results/1_1_potential_impact/{benchmark}/queries"
+    csv_files = glob.glob(os.path.join(path, "*.csv"))
 
-        query_durations = {}
-        df = pd.read_csv(csv_files[0], names=["name", "run", "timing"])
-        df = df.groupby("name", as_index=False).median()
+    query_durations = {}
+    df = pd.read_csv(csv_files[0], names=["name", "run", "timing"])
+    df = df.groupby("name", as_index=False).median()
 
-        for index, row in df.iterrows():
-            query = str(row["name"]).split("/")[-1].split(".")[0]
-            query_durations[query] = float(row["timing"])
+    for index, row in df.iterrows():
+        query = str(row["name"]).split("/")[-1].split(".")[0]
+        query_durations[query] = float(row["timing"])
 
-        impacts = []
-        for query in polar_pp_durations:
-            if query not in exhaustive:
-                print(f"Warning: query {query} missing.")
-                continue
-            non_polar = query_durations[query] - polar_pp_durations[query] # TODO: Subtract scan time
-            if polar_pp_durations[query] > query_durations[query]:
-                print(f"Warning: join pipeline took longer than query {query}: {query_durations[query]} vs {polar_pp_durations[query]}")
-                non_polar = query_durations[query] * 0.1
-            if exhaustive[query] == 0:
-                impacts.append(query_durations[query] / non_polar)
-                continue
+    impacts = []
+    for query in polar_pp_durations:
+        non_polar = query_durations[query] - polar_pp_durations[query]
+        if polar_pp_durations[query] > query_durations[query]:
+            print(f"Warning: join pipeline took longer than query {query}: {query_durations[query]} vs {polar_pp_durations[query]}")
+            non_polar = query_durations[query] * 0.1
+        if optimal_query_intms[query] == 0:
+            impacts.append(query_durations[query] / non_polar)
+            continue
+        reduction_factor = duckdb_query_intms[query] / optimal_query_intms[query]
+        reduced_duration = non_polar + polar_pp_durations[query] / reduction_factor
+        impacts.append(query_durations[query] / reduced_duration)
+    results[benchmark] = {"default": duckdb_query_intms, "optimal": optimal_query_intms, "impacts": impacts}
 
-            reduction_factor = default[query] / exhaustive[query]
-            reduced_duration = non_polar + polar_pp_durations[query] / reduction_factor
-
-            impacts.append(query_durations[query] / reduced_duration)
-
-        results[benchmark + "-" + optimizer_mode[:2]] = {"default": default, "optimal": exhaustive,
-                                                         "best_in_class": best_in_class,
-                                                         "worst_in_class": worst_in_class,
-                                                         "impacts": impacts}
-
+print(results)
 columns = ["default", "optimal", "best_in_class"]
 result_str = "\\begin{table}\n\t\\centering\n\t\\begin{tabular}{l"
 
