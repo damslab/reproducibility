@@ -6,7 +6,7 @@ THREADS=$2
 install_dir=$PWD
 bench_dir="${install_dir}/duckdb-polr/benchmark/${BENCHMARK}"
 if [[ "$BENCHMARK" = "imdb" ]]; then
-  bench_dir="${install_dir}/data/skinnermtimdb/queries"
+  bench_dir="${install_dir}/data/skinnermtimdb"
 fi
 
 sed -i"" -e "s|.*THREADS.*|THREADS=${THREADS}|" "${install_dir}/data/skinnermt${BENCHMARK}/config.sdb"

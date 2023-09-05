@@ -6,7 +6,7 @@ import multiprocessing as mp
 import subprocess as sp
 import os
 
-routing_strategies = {"static": ["init_once", "opportunistic", "exponential_backoff"],
+routing_strategies = {"static": ["init_once", "opportunistic", "backpressure"],
                       "dynamic": ["adaptive_reinit", "dynamic"],
                       "debug": ["alternate", "default_path"]}
 

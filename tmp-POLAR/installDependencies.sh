@@ -82,6 +82,10 @@ mv data/imdb/cast_info.tbl data/imdb/cast_info.tbl.dirty
 sed -i"" -e "s|\x0| |g" ./data/imdb/cast_info.tbl.dirty
 iconv -f utf-8 -t utf-8 -c ./data/imdb/cast_info.tbl.dirty > ./data/imdb/cast_info.tbl
 rm data/imdb/cast_info.tbl.dirty
+mv data/imdb/movie_info.tbl data/imdb/movie_info.tbl.dirty
+sed -i"" -e "s|\x0| |g" ./data/imdb/movie_info.tbl
+iconv -f utf-8 -t utf-8 -c ./data/imdb/movie_info.tbl.dirty > ./data/imdb/movie_info.tbl
+rm data/imdb/movie_info.tbl.dirty
 
 if [[ ! -d "${INSTALL_DIR}/skinnerdb" ]]; then
   echo "Downloading SkinnerDB..."
@@ -135,7 +139,7 @@ EOT
   cp data/skinnermtssb/config.sdb data/skinnermtssb-skew/config.sdb
   cp data/skinnermtssb/config.sdb data/skinnermtimdb/config.sdb
   cd skinnermt/scripts
-  echo -e "exec ${INSTALL_DIR}experiments/util/schema-ssb.sql\nexec ${INSTALL_DIR}/experiments/util/skinnerdb/load-ssb.sql\ncompress;\nquit" | /usr/lib/jvm/java-1.16.0-openjdk-amd64/bin/java -jar Skinner.jar "${INSTALL_DIR}"/data/skinnermtssb
+  echo -e "exec ${INSTALL_DIR}/experiments/util/schema-ssb.sql\nexec ${INSTALL_DIR}/experiments/util/skinnerdb/load-ssb.sql\ncompress;\nquit" | /usr/lib/jvm/java-1.16.0-openjdk-amd64/bin/java -jar Skinner.jar "${INSTALL_DIR}"/data/skinnermtssb
   echo -e "exec ${INSTALL_DIR}/experiments/util/schema-ssb-skew.sql\nexec ${INSTALL_DIR}/experiments/util/skinnerdb/load-ssb-skew.sql\ncompress;\nquit" | /usr/lib/jvm/java-1.16.0-openjdk-amd64/bin/java -jar Skinner.jar "${INSTALL_DIR}"/data/skinnermtssb-skew
   cd "${INSTALL_DIR}"
 fi
