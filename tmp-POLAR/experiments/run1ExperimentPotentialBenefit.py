@@ -37,6 +37,12 @@ def move_files(source, match, target):
             os.rename(file, f"{target}/{filename}")
 
 
+def move_and_rename(source, match, target):
+    files = glob.glob(os.path.join(source, match))
+    files.sort()
+    for i in range(len(files)):
+        os.rename(files[i], f"{target}-{i}.csv")
+
 def execute_benchmark_1(i, b):
     nruns = 5
 
@@ -105,25 +111,30 @@ def execute_benchmark_1(i, b):
 def execute_benchmark_2(i, m, s, b):
     cwd = os.getcwd()
     sp.call(["mkdir", "-p", f"{cwd}/duckdb-polr/tmp/{i}"])
-    sp.call([f"{cwd}/duckdb-polr/build/release/benchmark/benchmark_runner",
-             f"benchmark/{b}/.*",
-             "--polr_mode=bushy",
-             "--multiplexer_routing=alternate",
-             "--max_join_orders=24",
-             "--threads=1",
-             "--nruns=1",
-             "--log_tuples_routed",
-             "--disable_caching",
-             f"--dir_prefix={i}",
-             f"--optimizer_mode={m}",
-             f"--enumerator={s}"
-             ])
     sp.call(["mkdir", "-p", f"{cwd}/experiment-results/2_2_enumeration_timings/{m}/{b}/{s}"])
-    move_files(f"{cwd}/duckdb-polr/tmp/{i}", "*-enumeration.csv",
-               f"{cwd}/experiment-results/2_2_enumeration_timings/{m}/{b}/{s}")
     sp.call(["mkdir", "-p", f"{cwd}/experiment-results/2_1_enumeration_intms/{m}/{b}/{s}"])
-    move_files(f"{cwd}/duckdb-polr/tmp/{i}", "*",
-               f"{cwd}/experiment-results/2_1_enumeration_intms/{m}/{b}/{s}")
+    for query in benchmarks[b]:
+        sp.call([f"{cwd}/duckdb-polr/build/release/benchmark/benchmark_runner",
+                 f"benchmark/{b}/{query}.benchmark",
+                 "--polr_mode=bushy",
+                 "--multiplexer_routing=alternate",
+                 "--max_join_orders=24",
+                 "--threads=1",
+                 "--nruns=1",
+                 "--log_tuples_routed",
+                 "--disable_caching",
+                 f"--dir_prefix={i}",
+                 f"--optimizer_mode={m}",
+                 f"--enumerator={s}"
+                 ])
+
+        move_files(f"{cwd}/duckdb-polr/tmp/{i}", "*-enumeration.csv",
+                   f"{cwd}/experiment-results/2_2_enumeration_timings/{m}/{b}/{s}")
+        move_files(f"{cwd}/duckdb-polr/tmp/{i}", "*.txt", "")
+        files = glob.glob(os.path.join(f"{cwd}/duckdb-polr/tmp/{i}", "*.csv"))
+        files.sort()
+        for j in range(len(files)):
+            os.rename(files[j], f"{cwd}/experiment-results/2_1_enumeration_intms/{m}/{b}/{s}/{query}-{j}.csv")
 
 
 if __name__ == "__main__":

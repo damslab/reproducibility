@@ -178,5 +178,5 @@ for i in range(len(benchmarks)):
 fig.supxlabel('Threads')
 fig.supylabel('Total execution time (s)')
 
-plt.savefig(f"experiment-results/4_1_total.pdf")
+plt.savefig("paper/figures/4_1_total.pdf")
 plt.clf()

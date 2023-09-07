@@ -119,4 +119,4 @@ for i in range(len(benchmarks)):
 
 fig.supxlabel('Exploration budget')
 fig.supylabel('Intermediates')
-plt.savefig("experiment-results/2_3_routing_adaptive.pdf")
+plt.savefig("paper/figures/2_3_routing_adaptive.pdf")

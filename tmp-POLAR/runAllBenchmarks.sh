@@ -4,7 +4,6 @@ python3 experiments/run1ExperimentPotentialBenefit.py
 python3 experiments/run2ExperimentMicroBenchmarks.py
 python3 experiments/run3ExperimentEndToEnd.py
 
-python3 experiments/plot/plot_1_1_potential_impact.py
 python3 experiments/plot/plot_1_2_potential_savings.py
 python3 experiments/plot/plot_2_1_enumeration_intms.py
 python3 experiments/plot/plot_2_2_enumeration_timings.py
