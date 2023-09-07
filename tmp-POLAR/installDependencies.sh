@@ -5,7 +5,7 @@ INSTALL_DIR="${PWD}"
 sudo apt update
 
 declare -a packages=(
-  "cgroup-tools" "git" "libssl-dev" "openjdk-8-jre-headless" "openjdk-16-jre-headless" "postgresql-12" "python3-pip" "software-properties-common" "unzip"
+  "cgroup-tools" "git" "libssl-dev" "openjdk-8-jre-headless" "openjdk-16-jre-headless" "postgresql-12" "python3-pip" "software-properties-common" "texlive-full" "unzip"
 )
 
 for package in "${packages[@]}"
@@ -83,7 +83,7 @@ sed -i"" -e "s|\x0| |g" ./data/imdb/cast_info.tbl.dirty
 iconv -f utf-8 -t utf-8 -c ./data/imdb/cast_info.tbl.dirty > ./data/imdb/cast_info.tbl
 rm data/imdb/cast_info.tbl.dirty
 mv data/imdb/movie_info.tbl data/imdb/movie_info.tbl.dirty
-sed -i"" -e "s|\x0| |g" ./data/imdb/movie_info.tbl
+sed -i"" -e "s|\x0| |g" ./data/imdb/movie_info.tbl.dirty
 iconv -f utf-8 -t utf-8 -c ./data/imdb/movie_info.tbl.dirty > ./data/imdb/movie_info.tbl
 rm data/imdb/movie_info.tbl.dirty
 

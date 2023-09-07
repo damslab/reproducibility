@@ -13,6 +13,11 @@ python3 experiments/plot/plot_2_4_routing_all.py
 python3 experiments/plot/plot_3_1_pipeline.py
 python3 experiments/plot/plot_3_2_query.py
 python3 experiments/plot/plot_4_1_endtoend.py
+
+pdflatex -interaction=nonstopmode main.tex
+bibtex main
+pdflatex -interaction=nonstopmode main.tex
+pdflatex -interaction=nonstopmode main.tex
 end=`date +%s`
 
 runtime=$((end-start))
