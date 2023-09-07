@@ -6,6 +6,7 @@ import psycopg2
 import subprocess as sp
 import time
 
+nruns = 5
 threads = ["1", "8"]
 benchmarks = ["imdb", "ssb", "ssb-skew"]
 
@@ -15,7 +16,6 @@ sp.call(["rm", "-rf", f"{os.getcwd()}/duckdb-polr/tmp"])
 sp.call(["mkdir", "-p", f"{os.getcwd()}/duckdb-polr/tmp"])
 
 # Run POLAR
-nruns = 20
 budgets = {"tuned": {"imdb": "0.01", "ssb": "0.001", "ssb-skew": "0.2"},
            "generic": {"imdb": "0.1", "ssb": "0.1", "ssb-skew": "0.1"}}
 
