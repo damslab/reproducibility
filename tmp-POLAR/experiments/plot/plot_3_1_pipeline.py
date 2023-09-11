@@ -68,7 +68,7 @@ for benchmark in benchmarks:
     for strategy in routing_strategies:
         if strategy == "adaptive_reinit" or strategy == "dynamic":
             formatted_results[benchmark][strategy] = "{:10.2f}".format(
-                sum(results[benchmark][strategy][sweet_spots[benchmark][strategy]]) / 1000)
+                sum(results[benchmark][strategy][sweet_spots[strategy][benchmark]]) / 1000)
         else:
             formatted_results[benchmark][strategy] = "{:10.2f}".format(sum(results[benchmark][strategy]) / 1000)
 
@@ -79,7 +79,7 @@ latex_table = f"""
   \\vspace{{-0.3cm}}  \\setlength\\tabcolsep{{11.4pt}}
   \\begin{{tabular}}{{lrrr}}
     \\toprule
-    \\textbf{{Routing strategy}} & \\textbf{{JOB}} & \\textbf{{SSB}} & \\textbf{{SSB-skew}}\\
+    \\textbf{{Routing strategy}} & \\textbf{{JOB}} & \\textbf{{SSB}} & \\textbf{{SSB-skew}}\\\\
     \\midrule
     DuckDB & {formatted_results["imdb"]["default"]} & {formatted_results["ssb"]["default"]} & {formatted_results["ssb-skew"]["default"]}\\\\
     \\midrule

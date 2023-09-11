@@ -168,7 +168,7 @@ for benchmark in benchmarks:
 tuned_results = {}
 for benchmark in benchmarks:
     tet = sum(results[benchmark]["polar"]["0.1"])
-    maximum = sum(results[benchmark]["polar"]["0.1"])
+    maximum = max(results[benchmark]["polar"]["0.1"])
     for budget in regret_budgets:
         if tet > sum(results[benchmark]["polar"][budget]):
             tet = sum(results[benchmark]["polar"][budget])
@@ -177,7 +177,7 @@ for benchmark in benchmarks:
 
 formatted_results = {}
 for benchmark in benchmarks:
-    formatted_results[benchmark] = {"tet": [], "max": []}
+    formatted_results[benchmark] = {"duckdb": {}, "generic": {}, "tuned": {}, "speedup": {}}
     formatted_results[benchmark]["duckdb"]["tet"] = "{:5.1f}".format(sum(results[benchmark]["duckdb"]))
     formatted_results[benchmark]["duckdb"]["max"] = "{:5.1f}".format(max(results[benchmark]["duckdb"]))
     formatted_results[benchmark]["generic"]["tet"] = "{:5.1f}".format(sum(results[benchmark]["polar"]["0.1"]))
@@ -193,9 +193,9 @@ latex_table = f"""\\begin{{table}}
   \\vspace{{-0.3cm}} \\setlength\\tabcolsep{{3.7pt}}
   \\begin{{tabular}}{{lcccccc}}
     \\toprule
-    & \\multicolumn{{3}}{{c}}{{\\textbf{{Total Execution Time}}}} & \\multicolumn{{3}}{{c}}{{\\textbf{{Max. Query Time}}}}\\
+    & \\multicolumn{{3}}{{c}}{{\\textbf{{Total Execution Time}}}} & \\multicolumn{{3}}{{c}}{{\\textbf{{Max. Query Time}}}}\\\\
     & JOB & SSB & SSB-skew & JOB & SSB & SSB-skew\\\\
-    \\\\midrule
+    \\midrule
     DuckDB & {formatted_results["imdb"]["duckdb"]["tet"]} & {formatted_results["ssb"]["duckdb"]["tet"]} & {formatted_results["ssb-skew"]["duckdb"]["tet"]} & {formatted_results["imdb"]["duckdb"]["max"]} & {formatted_results["ssb"]["duckdb"]["max"]} & {formatted_results["ssb-skew"]["duckdb"]["max"]}\\\\
     POLAR-G & {formatted_results["imdb"]["generic"]["tet"]} & {formatted_results["ssb"]["generic"]["tet"]} & {formatted_results["ssb-skew"]["generic"]["tet"]} & {formatted_results["imdb"]["generic"]["max"]} & {formatted_results["ssb"]["generic"]["max"]} & {formatted_results["ssb-skew"]["generic"]["max"]}\\\\
     POLAR-T & \\textbf{{{formatted_results["imdb"]["tuned"]["tet"]}}} & \\textbf{{{formatted_results["ssb"]["tuned"]["tet"]}}} & \\textbf{{{formatted_results["ssb-skew"]["tuned"]["tet"]}}} & \\textbf{{{formatted_results["imdb"]["tuned"]["max"]}}} & \\textbf{{{formatted_results["ssb"]["tuned"]["max"]}}} & \\textbf{{{formatted_results["ssb-skew"]["tuned"]["max"]}}}\\\\
