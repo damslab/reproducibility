@@ -26,7 +26,7 @@ CREATE TABLE aka_name (
                           name text NOT NULL,
                           imdb_index character varying(12),
                           name_pcode_cf character varying(5),
-                          name_pcode_nf character varying(6),
+                          name_pcode_nf character varying(10),
                           surname_pcode character varying(5),
                           md5sum character varying(32)
 );
