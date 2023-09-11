@@ -118,7 +118,7 @@ for benchmark in benchmarks:
 
 formatted_coverage = {}
 for benchmark in benchmarks:
-    formatted_coverage[benchmark] = "{:10.0f}".format(max(1, sum(results[benchmark]["pipelines"]) / results[benchmark]["queries"]) * 100) + " \\%"
+    formatted_coverage[benchmark] = "{:10.0f}".format(min(1, sum(results[benchmark]["pipelines"]) / results[benchmark]["queries"]) * 100) + " \\%"
 
 latex_table = f"""\\begin{{table}}[!t]
   \\centering 
