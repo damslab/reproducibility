@@ -136,3 +136,6 @@ latex_table = f"""\\begin{{table}}[!t]
 \\label{{tab:1_2_potential_savings}}
 \\end{{table}}
 """
+
+with open("paper/tables/1_2_potential_savings.tex", "w") as file:
+    file.write(latex_table)

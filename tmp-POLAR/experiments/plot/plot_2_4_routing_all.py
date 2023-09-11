@@ -103,14 +103,14 @@ latex_table = f"""\\begin{{table}}[!t]
     \\toprule
     \\textbf{{Routing Strategy}} & \\textbf{{JOB}} & \\textbf{{SSB}} & \\textbf{{SSB-skew}}\\\\
     \\midrule
-    DuckDB & {results["imdb"]["default_path"]} & {results["ssb"]["default_path"]} & {results["ssb-skew"]["default_path"]}\\\\
-    Optimal & {results["imdb"]["alternate"]} & {results["ssb"]["alternate"]} & {results["ssb-skew"]["alternate"]}\\\\
+    DuckDB & {formatted_results["imdb"]["default_path"]} & {formatted_results["ssb"]["default_path"]} & {formatted_results["ssb-skew"]["default_path"]}\\\\
+    Optimal & {formatted_results["imdb"]["alternate"]} & {formatted_results["ssb"]["alternate"]} & {formatted_results["ssb-skew"]["alternate"]}\\\\
     \\midrule
-    \\textsc{{InitOnce}} & {results["imdb"]["init_once"]} & {results["ssb"]["init_once"]} & {results["ssb-skew"]["init_once"]}\\\\
-    \\textsc{{Opportunistic}} & {results["imdb"]["opportunistic"]} & {results["ssb"]["opportunistic"]} & {results["ssb-skew"]["opportunistic"]}\\\\
-    \\textsc{{AdaptTupleCount}} & {results["imdb"]["dynamic"]} & \\textbf{{{results["ssb"]["dynamic"]}}} & \\textbf{{{results["ssb-skew"]["dynamic"]}}}\\\\
-    \\textsc{{AdaptWindowSize}} & \\textbf{{{results["imdb"]["adaptive_reinit"]}}} & {results["ssb"]["adaptive_reinit"]} & {results["ssb-skew"]["adaptive_reinit"]}\\\\
-    \\textsc{{Backpressure}} & {results["imdb"]["backpressure"]} & {results["ssb"]["backpressure"]} & {results["ssb-skew"]["backpressure"]}\\\\
+    \\textsc{{InitOnce}} & {formatted_results["imdb"]["init_once"]} & {formatted_results["ssb"]["init_once"]} & {formatted_results["ssb-skew"]["init_once"]}\\\\
+    \\textsc{{Opportunistic}} & {formatted_results["imdb"]["opportunistic"]} & {formatted_results["ssb"]["opportunistic"]} & {formatted_results["ssb-skew"]["opportunistic"]}\\\\
+    \\textsc{{AdaptTupleCount}} & {formatted_results["imdb"]["dynamic"]} & \\textbf{{{formatted_results["ssb"]["dynamic"]}}} & \\textbf{{{formatted_results["ssb-skew"]["dynamic"]}}}\\\\
+    \\textsc{{AdaptWindowSize}} & \\textbf{{{formatted_results["imdb"]["adaptive_reinit"]}}} & {formatted_results["ssb"]["adaptive_reinit"]} & {formatted_results["ssb-skew"]["adaptive_reinit"]}\\\\
+    \\textsc{{Backpressure}} & {formatted_results["imdb"]["backpressure"]} & {formatted_results["ssb"]["backpressure"]} & {formatted_results["ssb-skew"]["backpressure"]}\\\\
     \\bottomrule
     \\end{{tabular}}
   \\label{{tab:2_4_routing_all}}
