@@ -126,7 +126,7 @@ latex_table = f"""\\begin{{table}}[!t]
   \\vspace{{-0.3cm}} \\setlength\\tabcolsep{{5pt}}
   \\begin{{tabular}}{{lrrrr}}
     \\toprule
-    \\textbf{{Benchmark}} & \\textbf{{DuckDB}} & \\textbf{{Routing}} & \\textbf{{Static}} & \\textbf{{Coverage}}\\
+    \\textbf{{Benchmark}} & \\textbf{{DuckDB}} & \\textbf{{Routing}} & \\textbf{{Static}} & \\textbf{{Coverage}}\\\\
     \\midrule
     JOB & {formatted_results["imdb-dp"]["default"]} & {formatted_results["imdb-dp"]["optimal"]} & {formatted_results["imdb-dp"]["static"]} & {formatted_coverage["imdb"]}\\\\
     SSB & {formatted_results["ssb-dp"]["default"]} & {formatted_results["ssb-dp"]["optimal"]} & {formatted_results["ssb-dp"]["static"]} & {formatted_coverage["ssb"]}\\\\
