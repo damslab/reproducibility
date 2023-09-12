@@ -6,7 +6,7 @@ import glob
 import numpy as np
 import matplotlib.pyplot as plt
 
-enumerators = ["each_last_once", "each_first_once", "bfs_random", "bfs_min_card", "bfs_uncertain"]
+enumerators = ["bfs_random", "bfs_min_card", "bfs_uncertain", "each_last_once", "each_first_once"]
 
 results = {}
 
@@ -67,7 +67,8 @@ for enumerator in enumerators:
 
 plt.xlabel("Number of joins in pipeline")
 plt.ylabel("Compilation time (ms)")
-plt.ylim(bottom=0)
+#plt.ylim(bottom=0)
+plt.yscale("log")
 plt.legend(frameon=False)
 plt.xticks(ticks=x_values, labels=x_values)
 plt.tight_layout()
