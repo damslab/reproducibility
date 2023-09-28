@@ -63,7 +63,8 @@ for benchmark in benchmarks:
     for worker_count in threads:
         print(f"Run {benchmark} with {worker_count} workers...")
         # TODO: Should worker count for ST be 1 or 0?
-        cur.execute(f"set max_parallel_workers_per_gather = {worker_count}")
+        w = 0 if worker_count == 1 else worker_count
+        cur.execute(f"set max_parallel_workers_per_gather = {w}")
         cur.execute("SET enable_nestloop TO off")
         cur.execute("commit;")
 
