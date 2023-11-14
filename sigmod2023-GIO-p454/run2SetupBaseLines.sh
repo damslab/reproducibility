@@ -1,6 +1,7 @@
 #!/bin/bash
 
 #cleanup
+mkdir -p setup
 root_path="$(pwd)"
 path="$(pwd)/setup"
 rm -rf "$path/RapidJSON"
@@ -35,7 +36,7 @@ git clone git@github.com:apache/systemds.git
 
 # checkout commit hash as of camera-ready version
 cd systemds
-#git checkout -b reproducibility 82d9d130861be8e36d37a08c22cdd8d3231de6c2
+git checkout -b reproducibility 82d9d130861be8e36d37a08c22cdd8d3231de6c2
 
 #build systemds and prepare all dependencies
 mvn clean package -P distribution

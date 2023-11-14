@@ -1,6 +1,8 @@
 #!/bin/bash
 
 sudo apt update
+
+# Install Java 
 sudo apt-get install -y openjdk-11-jdk-headless
 
 # Install C++ dependencies
