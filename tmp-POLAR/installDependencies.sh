@@ -46,7 +46,7 @@ if [[ ! -d "${INSTALL_DIR}/ssb-dbgen" ]]; then
   cmake .
   cmake --build .
   echo "Generating SSB data..."
-  ./dbgen -v -s 10
+  ./dbgen -v -s 100
   cd ..
   mkdir -p data/ssb
   mv ssb-dbgen/*.tbl data/ssb
