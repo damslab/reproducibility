@@ -95,10 +95,10 @@ if [[ ! -d "${INSTALL_DIR}/skinnerdb" ]]; then
   rm imdbskinner.zip
   mkdir -p data/skinnerssb
   java -jar -Xmx32G -XX:+UseConcMarkSweepGC skinnerdb/jars/CreateDB.jar skinnerssb data/skinnerssb
-  echo -e "exec experiments/util/schema-ssb.sql\nexec experiments/util/skinnerdb/load-ssb.sql\nquit" | java -jar -Xmx32G -XX:+UseConcMarkSweepGC skinnerdb/jars/Skinner.jar data/skinnerssb
+  echo -e "exec experiments/util/schema-ssb.sql\nexec experiments/util/skinnerdb/load-ssb.sql\nquit" | java -jar -Xmx200G -XX:+UseConcMarkSweepGC skinnerdb/jars/Skinner.jar data/skinnerssb
   mkdir -p data/skinnerssb-skew
   java -jar -Xmx32G -XX:+UseConcMarkSweepGC skinnerdb/jars/CreateDB.jar skinnerssb-skew data/skinnerssb-skew
-  echo -e "exec experiments/util/schema-ssb-skew.sql\nexec experiments/util/skinnerdb/load-ssb-skew.sql\nquit" | java -jar -Xmx32G -XX:+UseConcMarkSweepGC skinnerdb/jars/Skinner.jar data/skinnerssb-skew
+  echo -e "exec experiments/util/schema-ssb-skew.sql\nexec experiments/util/skinnerdb/load-ssb-skew.sql\nquit" | java -jar -Xmx200G -XX:+UseConcMarkSweepGC skinnerdb/jars/Skinner.jar data/skinnerssb-skew
 fi
 
 if [[ ! -d "${INSTALL_DIR}/skinnermt" ]]; then
@@ -139,8 +139,8 @@ EOT
   cp data/skinnermtssb/config.sdb data/skinnermtssb-skew/config.sdb
   cp data/skinnermtssb/config.sdb data/skinnermtimdb/config.sdb
   cd skinnermt/scripts
-  echo -e "exec ${INSTALL_DIR}/experiments/util/schema-ssb.sql\nexec ${INSTALL_DIR}/experiments/util/skinnerdb/load-ssb.sql\ncompress;\nquit" | /usr/lib/jvm/java-1.16.0-openjdk-amd64/bin/java -jar Skinner.jar "${INSTALL_DIR}"/data/skinnermtssb
-  echo -e "exec ${INSTALL_DIR}/experiments/util/schema-ssb-skew.sql\nexec ${INSTALL_DIR}/experiments/util/skinnerdb/load-ssb-skew.sql\ncompress;\nquit" | /usr/lib/jvm/java-1.16.0-openjdk-amd64/bin/java -jar Skinner.jar "${INSTALL_DIR}"/data/skinnermtssb-skew
+  echo -e "exec ${INSTALL_DIR}/experiments/util/schema-ssb.sql\nexec ${INSTALL_DIR}/experiments/util/skinnerdb/load-ssb.sql\ncompress;\nquit" | /usr/lib/jvm/java-1.16.0-openjdk-amd64/bin/java -jar -Xmx200G -Xms200G Skinner.jar "${INSTALL_DIR}"/data/skinnermtssb
+  echo -e "exec ${INSTALL_DIR}/experiments/util/schema-ssb-skew.sql\nexec ${INSTALL_DIR}/experiments/util/skinnerdb/load-ssb-skew.sql\ncompress;\nquit" | /usr/lib/jvm/java-1.16.0-openjdk-amd64/bin/java -jar -Xmx200G -Xms200G Skinner.jar "${INSTALL_DIR}"/data/skinnermtssb-skew
   cd "${INSTALL_DIR}"
 fi
 
