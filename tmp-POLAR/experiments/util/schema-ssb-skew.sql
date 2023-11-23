@@ -79,12 +79,3 @@ CREATE TABLE date (
                       D_WEEKDAYFL integer
 );
 
-CREATE TABLE locust (
-                        LC_LOCUSTKEY integer,
-                        LC_CUSTKEY integer
-);
-
-CREATE TABLE lopart (
-                        LP_LOPARTKEY integer,
-                        LP_PARTKEY integer
-);

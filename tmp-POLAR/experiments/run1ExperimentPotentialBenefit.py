@@ -6,8 +6,8 @@ import multiprocessing as mp
 import subprocess as sp
 import os
 
-enumeration_strategies = ["each_last_once", "each_first_once", "bfs_random", "bfs_min_card", "bfs_uncertain"]
-optimizer_modes = ["dphyp-equisets", "greedy-equisets-ldt"]
+enumeration_strategies = ["each_last_once", "each_first_once", "bfs_min_card", "sample"]
+optimizer_modes = ["dphyp-equisets"]
 benchmarks = {
     "imdb": ["01a", "01b", "01c", "01d", "02a", "02b", "02c", "02d", "03a", "03b", "03c",
              "04a", "04b", "04c", "05a", "05b", "05c", "06a", "06b", "06c", "06d", "06e",
@@ -42,6 +42,32 @@ def move_and_rename(source, match, target):
     files.sort()
     for i in range(len(files)):
         os.rename(files[i], f"{target}-{i}.csv")
+
+
+def execute_benchmark_0(i, s, b):
+    cwd = os.getcwd()
+    sp.call(["mkdir", "-p", f"{cwd}/duckdb-polr/tmp/{i}"])
+    sp.call(["mkdir", "-p", f"{cwd}/experiment-results/2_0_sample_size/{b}/{s}/timings"])
+
+    sp.call([f"{cwd}/duckdb-polr/build/release/benchmark/benchmark_runner",
+             f"benchmark/{b}/.*",
+             "--polr_mode=bushy",
+             "--multiplexer_routing=alternate",
+             f"--max_join_orders={s}",
+             "--threads=1",
+             "--nruns=1",
+             "--log_tuples_routed",
+             "--disable_caching",
+             f"--dir_prefix={i}",
+             "--enumerator=sample"
+             ])
+
+    move_files(f"{cwd}/duckdb-polr/tmp/{i}", "*-enumeration.csv",
+               f"{cwd}/experiment-results/2_0_sample_size/{b}/{s}/timings")
+    move_files(f"{cwd}/duckdb-polr/tmp/{i}", "*.txt", "")
+    move_files(f"{cwd}/duckdb-polr/tmp/{i}", "*.csv",
+               f"{cwd}/experiment-results/2_0_sample_size/{b}/{s}")
+
 
 def execute_benchmark_1(i, b):
     nruns = 5
@@ -146,6 +172,14 @@ if __name__ == "__main__":
     pool = mp.Pool(mp.cpu_count())
 
     idx = 0
+    for benchmark in benchmarks.keys():
+        pool.apply_async(execute_benchmark_0, args=(idx, 1, benchmark))
+        idx += 1
+
+        for sample in range(2, 33, 2):
+            pool.apply_async(execute_benchmark_0, args=(idx, sample, benchmark))
+            idx += 1
+
     for benchmark in benchmarks.keys():
         pool.apply_async(execute_benchmark_1, args=(idx, benchmark))
         idx += 1

@@ -129,7 +129,7 @@ if [[ ! -d "${INSTALL_DIR}/skinnermt" ]]; then
   java -jar -Xmx32G -XX:+UseConcMarkSweepGC skinnerdb/jars/CreateDB.jar skinnerssb-skew data/skinnermtssb-skew
   cat <<EOT >> data/skinnermtssb/config.sdb
 PARALLEL_ALGO=DP
-NR_WARMUP=5
+NR_WARMUP=1
 NR_EXECUTORS=1
 NR_BATCHES=120
 WRITE_RESULTS=false
