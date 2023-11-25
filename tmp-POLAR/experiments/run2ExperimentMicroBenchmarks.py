@@ -41,6 +41,30 @@ def move_files(source, match, target):
             os.rename(file, f"{target}/{filename}")
 
 
+def execute_benchmark_0(i, s, r, b):
+    nthreads = 1
+    cwd = os.getcwd()
+    sp.call(["mkdir", "-p", f"{cwd}/duckdb-polr/tmp/{i}"])
+
+    target_path = f"{cwd}/experiment-results/2_5_init_tuple/{b}/{s}"
+    if s in routing_strategies["dynamic"]:
+        target_path += f"/{r}"
+
+    sp.call(["mkdir", "-p", target_path])
+
+    sp.call([f"{cwd}/duckdb-polr/build/release/benchmark/benchmark_runner",
+             f"benchmark/{b}/.*",
+             "--polr_mode=bushy",
+             f"--multiplexer_routing={s}",
+             "--log_tuples_routed",
+             "--nruns=1",
+             f"--threads={nthreads}",
+             f"--dir_prefix={i}",
+             f"--regret_budget={r}"
+             ])
+    move_files(f"{cwd}/duckdb-polr/tmp/{i}", "*-enumeration.csv", "")
+    move_files(f"{cwd}/duckdb-polr/tmp/{i}", "*", target_path)
+
 def execute_benchmark_1(i, s, r, b):
     nthreads = 1 if s != "backpressure" else 24
     cwd = os.getcwd()
@@ -183,7 +207,7 @@ if __name__ == "__main__":
     sp.call(["rm", "-rf", f"{os.getcwd()}/experiment-results/3_2_query"])
     sp.call(["rm", "-rf", f"{os.getcwd()}/duckdb-polr/tmp"])
     sp.call(["mkdir", "-p", f"{os.getcwd()}/duckdb-polr/tmp"])
-    pool = mp.Pool(mp.cpu_count())
+    pool = mp.Pool(max(mp.cpu_count(), 16))
 
     idx = 0
     for benchmark in benchmarks.keys():

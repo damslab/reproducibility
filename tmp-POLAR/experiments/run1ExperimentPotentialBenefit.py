@@ -169,7 +169,7 @@ if __name__ == "__main__":
     sp.call(["rm", "-rf", f"{os.getcwd()}/experiment-results/2_2_enumeration_timings"])
     sp.call(["rm", "-rf", f"{os.getcwd()}/duckdb-polr/tmp"])
     sp.call(["mkdir", "-p", f"{os.getcwd()}/duckdb-polr/tmp"])
-    pool = mp.Pool(mp.cpu_count())
+    pool = mp.Pool(max(mp.cpu_count(), 16))
 
     idx = 0
     for benchmark in benchmarks.keys():

@@ -35,6 +35,20 @@ for benchmark in benchmarks:
             sp.call(["mv", f"{cwd}/duckdb-polr/tmp/polar-{mode}-{nthreads}.csv",
                      f"{cwd}/experiment-results/4_1_endtoend/{benchmark}/polar"])
 
+# Run LIP
+for benchmark in benchmarks:
+    for nthreads in threads:
+        sp.call(["mkdir", "-p", f"{cwd}/experiment-results/4_1_endtoend/{benchmark}/lip"])
+        sp.call([f"{cwd}/experiments/util/runDuckDBRestrict{nthreads}.sh",
+                 f"benchmark/{benchmark}/.*",
+                 f"--out=tmp/lip-{mode}-{nthreads}.csv",
+                 f"--nruns={nruns}",
+                 f"--threads={nthreads}",
+                 "--enable_lip"
+                 ])
+        sp.call(["mv", f"{cwd}/duckdb-polr/tmp/lip-{mode}-{nthreads}.csv",
+                 f"{cwd}/experiment-results/4_1_endtoend/{benchmark}/lip"])
+
 # Run DuckDB
 for benchmark in benchmarks:
     for nthreads in threads:
