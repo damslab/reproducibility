@@ -26,7 +26,7 @@ benchmarks = {
              "33a", "33b", "33c"],
     "ssb": ["q1-1", "q1-2", "q1-3", "q2-1", "q2-2", "q2-3", "q3-1", "q3-2", "q3-3", "q4-1",
             "q4-2", "q4-3"],
-    "ssb-skew": ["q1-1", "q1-2", "q1-3", "q1-4", "q2-1", "q2-2", "q2-3", "q2-4"]
+    "ssb-skew": ["q2-1", "q2-2", "q2-3", "q3-1", "q3-2", "q3-3", "q4-1", "q4-2", "q4-3"]
 }
 
 
@@ -46,7 +46,7 @@ def execute_benchmark_0(i, s, r, b):
     cwd = os.getcwd()
     sp.call(["mkdir", "-p", f"{cwd}/duckdb-polr/tmp/{i}"])
 
-    target_path = f"{cwd}/experiment-results/2_5_init_tuple/{b}/{s}"
+    target_path = f"{cwd}/experiment-results/2_5_init_tuple/{b}/{s}" # TODO make dir
     if s in routing_strategies["dynamic"]:
         target_path += f"/{r}"
 
