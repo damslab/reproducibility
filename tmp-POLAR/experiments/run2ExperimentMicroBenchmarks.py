@@ -6,7 +6,7 @@ import multiprocessing as mp
 import subprocess as sp
 import os
 
-routing_strategies = {"static": ["init_once", "opportunistic", "backpressure"],
+routing_strategies = {"static": ["init_once", "opportunistic"],
                       "dynamic": ["adaptive_reinit", "dynamic"],
                       "debug": ["alternate", "default_path"]}
 
@@ -41,29 +41,27 @@ def move_files(source, match, target):
             os.rename(file, f"{target}/{filename}")
 
 
-def execute_benchmark_0(i, s, r, b):
+def execute_benchmark_0(i, b, t):
     nthreads = 1
     cwd = os.getcwd()
     sp.call(["mkdir", "-p", f"{cwd}/duckdb-polr/tmp/{i}"])
 
-    target_path = f"{cwd}/experiment-results/2_5_init_tuple/{b}/{s}" # TODO make dir
-    if s in routing_strategies["dynamic"]:
-        target_path += f"/{r}"
-
+    target_path = f"{cwd}/experiment-results/2_5_init_tuple/{b}/{t}"
     sp.call(["mkdir", "-p", target_path])
 
     sp.call([f"{cwd}/duckdb-polr/build/release/benchmark/benchmark_runner",
              f"benchmark/{b}/.*",
              "--polr_mode=bushy",
-             f"--multiplexer_routing={s}",
+             f"--multiplexer_routing=init_once",
              "--log_tuples_routed",
              "--nruns=1",
              f"--threads={nthreads}",
              f"--dir_prefix={i}",
-             f"--regret_budget={r}"
+             f"--init_tuple_count={t}"
              ])
     move_files(f"{cwd}/duckdb-polr/tmp/{i}", "*-enumeration.csv", "")
     move_files(f"{cwd}/duckdb-polr/tmp/{i}", "*", target_path)
+
 
 def execute_benchmark_1(i, s, r, b):
     nthreads = 1 if s != "backpressure" else 24
@@ -111,6 +109,7 @@ def gather_pipeline_durations(s, b, q, path):
         with open(f"{os.getcwd()}/experiment-results/3_1_pipeline/{b}/{s}/{q}-{pipeline_id}", "w") as f:
             f.write(result_str)
 
+
 def execute_benchmark_2():
     nruns = 20
     cwd = os.getcwd()
@@ -121,6 +120,7 @@ def execute_benchmark_2():
         for s in routing_strategies["dynamic"]:
             for r in regret_budgets:
                 sp.call(["mkdir", "-p", f"{cwd}/experiment-results/3_1_pipeline/{b}/{s}/{r}"])
+                sp.call(["mkdir", "-p", f"{cwd}/experiment-results/3_1_pipeline/{b}/{s}-exhaustive/{r}"])
         sp.call(["mkdir", "-p", f"{cwd}/experiment-results/3_1_pipeline/{b}/default"])
 
         for q in benchmarks[b]:
@@ -170,6 +170,20 @@ def execute_benchmark_2():
                                  ])
                         gather_pipeline_durations(f"{s}/{r}", b, q, path)
 
+                        move_files(f"{cwd}/duckdb-polr/tmp", "*", "")
+                        sp.call([f"{cwd}/experiments/util/runDuckDBRestrict1.sh",
+                                 f"benchmark/{b}/{q}.benchmark",
+                                 "--polr_mode=bushy",
+                                 f"--multiplexer_routing={s}",
+                                 f"--regret_budget={r}",
+                                 "--measure_pipeline",
+                                 "--threads=1",
+                                 "--enumerator=bfs_min_card",
+                                 "--max_join_orders=24",
+                                 f"--nruns={nruns}"
+                                 ])
+                        gather_pipeline_durations(f"{s}-exhaustive/{r}", b, q, path)
+
 
 def execute_benchmark_3():
     nruns = 20
@@ -189,7 +203,8 @@ def execute_benchmark_3():
                      "--out=tmp/results.csv"
                      ])
             sp.call(["mkdir", "-p", f"{cwd}/experiment-results/3_2_query/{b}/{r}"])
-            sp.call(["mv", f"{cwd}/duckdb-polr/tmp/results.csv", f"{cwd}/experiment-results/3_2_query/{b}/{r}/polar.csv"])
+            sp.call(
+                ["mv", f"{cwd}/duckdb-polr/tmp/results.csv", f"{cwd}/experiment-results/3_2_query/{b}/{r}/polar.csv"])
 
         move_files(f"{cwd}/duckdb-polr/tmp", "*", "")
         sp.call([f"{cwd}/duckdb-polr/build/release/benchmark/benchmark_runner",
@@ -210,6 +225,11 @@ if __name__ == "__main__":
     pool = mp.Pool(min(mp.cpu_count(), 16))
 
     idx = 0
+    for benchmark in ["imdb", "ssb"]:
+        for init_tuple_count in [2, 4, 8, 16, 32, 64, 128, 256, 512]:
+            pool.apply_async(execute_benchmark_0(idx, benchmark, init_tuple_count))
+            idx += 1
+
     for benchmark in benchmarks.keys():
         for static_strategy in routing_strategies["static"]:
             pool.apply_async(execute_benchmark_1, args=(idx, static_strategy, 0, benchmark))
@@ -224,6 +244,11 @@ if __name__ == "__main__":
 
     pool.close()
     pool.join()
+
+    for benchmark in benchmarks.keys():
+        execute_benchmark_1(idx, "backpressure", 0, benchmark)
+        idx += 1
+
     sp.call(["rm", "-rf", f"{os.getcwd()}/duckdb-polr/tmp"])
     sp.call(["mkdir", "-p", f"{os.getcwd()}/duckdb-polr/tmp"])
     execute_benchmark_2()

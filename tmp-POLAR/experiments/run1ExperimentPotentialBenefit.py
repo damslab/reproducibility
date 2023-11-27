@@ -97,6 +97,7 @@ def execute_benchmark_1(i, b):
                  "--threads=1",
                  "--nruns=1",
                  "--log_tuples_routed",
+                 "--enumerator=bfs_min_card"
                  f"--dir_prefix={i}"
                  ])
 

@@ -16,24 +16,18 @@ sp.call(["rm", "-rf", f"{os.getcwd()}/duckdb-polr/tmp"])
 sp.call(["mkdir", "-p", f"{os.getcwd()}/duckdb-polr/tmp"])
 
 # Run POLAR
-budgets = {"tuned": {"imdb": "0.01", "ssb": "0.001", "ssb-skew": "0.2"},
-           "generic": {"imdb": "0.1", "ssb": "0.1", "ssb-skew": "0.1"}}
-
 for benchmark in benchmarks:
     for nthreads in threads:
-        for mode in ["tuned", "generic"]:
-            sp.call(["mkdir", "-p", f"{cwd}/experiment-results/4_1_endtoend/{benchmark}/polar"])
-            sp.call([f"{cwd}/experiments/util/runDuckDBRestrict{nthreads}.sh",
-                     f"benchmark/{benchmark}/.*",
-                     "--polr_mode=bushy",
-                     "--multiplexer_routing=adaptive_reinit",
-                     f"--out=tmp/polar-{mode}-{nthreads}.csv",
-                     f"--nruns={nruns}",
-                     f"--threads={nthreads}",
-                     f"--regret_budget={budgets[mode][benchmark]}"
-                     ])
-            sp.call(["mv", f"{cwd}/duckdb-polr/tmp/polar-{mode}-{nthreads}.csv",
-                     f"{cwd}/experiment-results/4_1_endtoend/{benchmark}/polar"])
+        sp.call(["mkdir", "-p", f"{cwd}/experiment-results/4_1_endtoend/{benchmark}/polar"])
+        sp.call([f"{cwd}/experiments/util/runDuckDBRestrict{nthreads}.sh",
+                 f"benchmark/{benchmark}/.*",
+                 "--polr_mode=bushy",
+                 f"--out=tmp/polar-{nthreads}.csv",
+                 f"--nruns={nruns}",
+                 f"--threads={nthreads}"
+                 ])
+        sp.call(["mv", f"{cwd}/duckdb-polr/tmp/polar-{nthreads}.csv",
+                 f"{cwd}/experiment-results/4_1_endtoend/{benchmark}/polar"])
 
 # Run LIP
 for benchmark in benchmarks:
@@ -41,12 +35,12 @@ for benchmark in benchmarks:
         sp.call(["mkdir", "-p", f"{cwd}/experiment-results/4_1_endtoend/{benchmark}/lip"])
         sp.call([f"{cwd}/experiments/util/runDuckDBRestrict{nthreads}.sh",
                  f"benchmark/{benchmark}/.*",
-                 f"--out=tmp/lip-{mode}-{nthreads}.csv",
+                 f"--out=tmp/lip-{nthreads}.csv",
                  f"--nruns={nruns}",
                  f"--threads={nthreads}",
                  "--enable_lip"
                  ])
-        sp.call(["mv", f"{cwd}/duckdb-polr/tmp/lip-{mode}-{nthreads}.csv",
+        sp.call(["mv", f"{cwd}/duckdb-polr/tmp/lip-{nthreads}.csv",
                  f"{cwd}/experiment-results/4_1_endtoend/{benchmark}/lip"])
 
 # Run DuckDB
@@ -71,15 +65,15 @@ for benchmark in benchmarks:
     print(f"Loading {benchmark} data...")
     cur.execute(open(f"{os.getcwd()}/experiments/util/schema-{benchmark}.sql", "r").read())
     cur.execute(open(f"{os.getcwd()}/experiments/util/load-{benchmark}.sql", "r").read())
+    cur.execute(open(f"{os.getcwd()}/experiments/util/fkidx-{benchmark}.sql", "r").read())
     cur.execute("commit;")
     print("Done.")
 
     for worker_count in threads:
         print(f"Run {benchmark} with {worker_count} workers...")
-        # TODO: Should worker count for ST be 1 or 0?
         w = 0 if worker_count == 1 else worker_count
         cur.execute(f"set max_parallel_workers_per_gather = {w}")
-        cur.execute("SET enable_nestloop TO off")
+        # cur.execute("SET enable_nestloop TO off")
         cur.execute("commit;")
 
         path = ""
@@ -110,7 +104,8 @@ for benchmark in benchmarks:
             for timing in timings:
                 output += f"{query_name},{duration:.4f}\n"
 
-        with open(f"{cwd}/experiment-results/4_1_endtoend/{benchmark}/postgres/postgres-{worker_count}.csv", "w") as file:
+        with open(f"{cwd}/experiment-results/4_1_endtoend/{benchmark}/postgres/postgres-{worker_count}.csv",
+                  "w") as file:
             file.write(output)
 
 cur.close()

@@ -90,7 +90,7 @@ for row, subfig in enumerate(subfigs):
         if row == 0:
             polar_timings = results[benchmark]["polar"][budget_mapping[benchmark]]
         else:
-            polar_timings = results[benchmark]["polar"]["0.1"]
+            polar_timings = results[benchmark]["polar"]["0.01"]
         duckdb_timings = results[benchmark]["duckdb"]
 
         rel = []

@@ -112,7 +112,7 @@ for i in range(len(benchmarks)):
             dyn_sweet_spot_idx = j
 
     ax[i].axvline(x=x_values[adre_sweet_spot_idx], color=line_colors["adaptive_reinit"], linestyle='dotted')
-    ax[i].axvline(x=x_values[dyn_sweet_spot_idx], color=line_colors["dynamic"], linestyle='dotted')
+    ax[i].axvline(x=x_values[dyn_sweet_spot_idx], color=line_colors["dynamic"], linestyle='dashed')
     if i == 2:
         handles, labels = ax[i].get_legend_handles_labels()
         fig.legend(handles, labels, loc='outside right center', frameon=False)
