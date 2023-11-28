@@ -111,7 +111,7 @@ def gather_pipeline_durations(s, b, q, path):
 
 
 def execute_benchmark_2():
-    nruns = 20
+    nruns = 10
     cwd = os.getcwd()
 
     for b in benchmarks:
@@ -157,7 +157,7 @@ def execute_benchmark_2():
                              ])
                     gather_pipeline_durations(s, b, q, path)
                 for s in routing_strategies["dynamic"]:
-                    for r in regret_budgets:
+                    for r in ["0.001", "0.01", "0.1"]:
                         move_files(f"{cwd}/duckdb-polr/tmp", "*", "")
                         sp.call([f"{cwd}/experiments/util/runDuckDBRestrict1.sh",
                                  f"benchmark/{b}/{q}.benchmark",

@@ -8,7 +8,7 @@ import numpy as np
 
 routing_strategies = ["default", "init_once", "opportunistic", "adaptive_reinit", "dynamic", "backpressure"]
 benchmarks = ["imdb", "ssb", "ssb-skew"]
-exploration_budgets = ["0.00001", "0.0001", "0.001", "0.01", "0.1", "0.2", "0.4", "0.8", "1.6", "2.4", "3.2"]
+exploration_budgets = ["0.001", "0.01", "0.1"]
 sweet_spots = {"adaptive_reinit": {}, "dynamic": {}}
 results = {}
 
