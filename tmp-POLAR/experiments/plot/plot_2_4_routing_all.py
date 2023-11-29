@@ -12,8 +12,8 @@ benchmarks = ["imdb", "ssb", "ssb-skew"]
 routing_strategies = ["default_path", "alternate", "init_once", "opportunistic",
                       "adaptive_reinit", "dynamic", "backpressure"]
 
-sweet_spots = {"adaptive_reinit": {"imdb": "0.1", "ssb": "0.01", "ssb-skew": "0.8"},
-               "dynamic": {"imdb": "0.001", "ssb": "0.00001", "ssb-skew": "0.01"}}
+sweet_spots = {"adaptive_reinit": {"imdb": "0.01", "ssb": "0.01", "ssb-skew": "0.01"},
+               "dynamic": {"imdb": "0.001", "ssb": "0.001", "ssb-skew": "0.001"}}
 
 results = {}
 
@@ -108,8 +108,8 @@ latex_table = f"""\\begin{{table}}[!t]
     \\midrule
     \\textsc{{InitOnce}} & {formatted_results["imdb"]["init_once"]} & {formatted_results["ssb"]["init_once"]} & {formatted_results["ssb-skew"]["init_once"]}\\\\
     \\textsc{{Opportunistic}} & {formatted_results["imdb"]["opportunistic"]} & {formatted_results["ssb"]["opportunistic"]} & {formatted_results["ssb-skew"]["opportunistic"]}\\\\
-    \\textsc{{AdaptTupleCount}} & {formatted_results["imdb"]["dynamic"]} & \\textbf{{{formatted_results["ssb"]["dynamic"]}}} & \\textbf{{{formatted_results["ssb-skew"]["dynamic"]}}}\\\\
-    \\textsc{{AdaptWindowSize}} & \\textbf{{{formatted_results["imdb"]["adaptive_reinit"]}}} & {formatted_results["ssb"]["adaptive_reinit"]} & {formatted_results["ssb-skew"]["adaptive_reinit"]}\\\\
+    \\textsc{{AdaptTupleCount}} & {formatted_results["imdb"]["dynamic"]} & {formatted_results["ssb"]["dynamic"]} & {formatted_results["ssb-skew"]["dynamic"]}\\\\
+    \\textsc{{AdaptWindowSize}} & {formatted_results["imdb"]["adaptive_reinit"]} & {formatted_results["ssb"]["adaptive_reinit"]} & {formatted_results["ssb-skew"]["adaptive_reinit"]}\\\\
     \\textsc{{Backpressure}} & {formatted_results["imdb"]["backpressure"]} & {formatted_results["ssb"]["backpressure"]} & {formatted_results["ssb-skew"]["backpressure"]}\\\\
     \\bottomrule
     \\end{{tabular}}

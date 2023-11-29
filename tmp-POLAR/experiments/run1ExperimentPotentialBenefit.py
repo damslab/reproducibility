@@ -136,6 +136,8 @@ def execute_benchmark_1(i, b):
 
 
 def execute_benchmark_2(i, m, s, b):
+    max_join_orders = 8 if s == "sample" else 24
+
     cwd = os.getcwd()
     sp.call(["mkdir", "-p", f"{cwd}/duckdb-polr/tmp/{i}"])
     sp.call(["mkdir", "-p", f"{cwd}/experiment-results/2_2_enumeration_timings/{m}/{b}/{s}"])
@@ -145,7 +147,7 @@ def execute_benchmark_2(i, m, s, b):
                  f"benchmark/{b}/{query}.benchmark",
                  "--polr_mode=bushy",
                  "--multiplexer_routing=alternate",
-                 "--max_join_orders=24",
+                 f"--max_join_orders={max_join_orders}",
                  "--threads=1",
                  "--nruns=1",
                  "--log_tuples_routed",

@@ -4,9 +4,9 @@ import pandas as pd
 import os
 import glob
 
-optimizer_modes = ["dphyp-equisets", "greedy-equisets-ldt"]
+optimizer_modes = ["dphyp-equisets"]
 benchmarks = ["imdb", "ssb", "ssb-skew"]
-enumerators = ["each_last_once", "each_first_once", "bfs_random", "bfs_min_card", "bfs_uncertain"]
+enumerators = ["each_last_once", "each_first_once", "bfs_min_card", "sample"]
 
 results = {}
 for benchmark in benchmarks:
@@ -64,18 +64,16 @@ latex_table = f"""\\begin{{table}}[!t]
   \\centering
   \\caption{{Join Order Selection -- Total number of intermediates for POLAR pipelines with different selection strategies.}}
   \\vspace{{-0.3cm}}  \\setlength\\tabcolsep{{3.5pt}}
-  \\begin{{tabular}}{{lrrrr}}
+  \\begin{{tabular}}{{lrrr}}
     \\toprule
-    \\textbf{{Enumeration}} & \\textbf{{JOB}} & \\textbf{{SSB}} & \\textbf{{SSB-skew}} & \\textbf{{JOB-ldt}}\\\\
+    \\textbf{{Enumeration}} & \\textbf{{JOB}} & \\textbf{{SSB}} & \\textbf{{SSB-skew}}\\\\
     \\midrule
-    DuckDB* & {formatted_results["imdb-dp"]["default"]} & {formatted_results["ssb-dp"]["default"]} & {formatted_results["ssb-skew-dp"]["default"]} & {formatted_results["imdb-gr"]["default"]}\\\\
-    Optimal & {formatted_results["imdb-dp"]["optimal"]} & {formatted_results["ssb-dp"]["optimal"]} & {formatted_results["ssb-skew-dp"]["optimal"]} & N/A\\\\
+    DuckDB* & {formatted_results["imdb-dp"]["default"]} & {formatted_results["ssb-dp"]["default"]} & {formatted_results["ssb-skew-dp"]["default"]}\\\\
+    Optimal & {formatted_results["imdb-dp"]["optimal"]} & {formatted_results["ssb-dp"]["optimal"]} & {formatted_results["ssb-skew-dp"]["optimal"]}\\\\
     \\midrule
-    \\textsc{{GetRandom}} & {formatted_results["imdb-dp"]["bfs_random"]} & {formatted_results["ssb-dp"]["bfs_random"]} & {formatted_results["ssb-skew-dp"]["bfs_random"]} & {formatted_results["imdb-gr"]["bfs_random"]}\\\\
-    \\textsc{{GetMinCard}} & {formatted_results["imdb-dp"]["bfs_min_card"]} & {formatted_results["ssb-dp"]["bfs_min_card"]} & {formatted_results["ssb-skew-dp"]["bfs_min_card"]} & {formatted_results["imdb-gr"]["bfs_min_card"]}\\\\
-    \\textsc{{GetMinCardUc}} & {formatted_results["imdb-dp"]["bfs_uncertain"]} & {formatted_results["ssb-dp"]["bfs_uncertain"]} & {formatted_results["ssb-skew-dp"]["bfs_uncertain"]} & {formatted_results["imdb-gr"]["bfs_uncertain"]}\\\\
-    \\textsc{{PushDown}} & {formatted_results["imdb-dp"]["each_first_once"]} & {formatted_results["ssb-dp"]["each_first_once"]} & {formatted_results["ssb-skew-dp"]["each_first_once"]} & {formatted_results["imdb-gr"]["each_first_once"]}\\\\
-    \\textsc{{PullUp}} & {formatted_results["imdb-dp"]["each_last_once"]} & {formatted_results["ssb-dp"]["each_last_once"]} & {formatted_results["ssb-skew-dp"]["each_last_once"]} & {formatted_results["imdb-gr"]["each_last_once"]}\\\\
+    \\textsc{{SelSampling}} & {formatted_results["imdb-dp"]["sample"]} & {formatted_results["ssb-dp"]["sample"]} & {formatted_results["ssb-skew-dp"]["sample"]}\\\\
+    \\textsc{{PushDown}} & {formatted_results["imdb-dp"]["each_first_once"]} & {formatted_results["ssb-dp"]["each_first_once"]} & {formatted_results["ssb-skew-dp"]["each_first_once"]}\\\\
+    \\textsc{{PullUp}} & {formatted_results["imdb-dp"]["each_last_once"]} & {formatted_results["ssb-dp"]["each_last_once"]} & {formatted_results["ssb-skew-dp"]["each_last_once"]}\\\\
     \\bottomrule
   \\end{{tabular}}
   \\label{{tab:1_1_sel_intms}}
