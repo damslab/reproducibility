@@ -8,7 +8,7 @@ import matplotlib.ticker as plticker
 import numpy as np
 
 benchmarks = ["imdb", "ssb", "ssb-skew"]
-regret_budgets = ["0.001", "0.01", "0.1", "0.2", "0.4", "0.8"]
+regret_budgets = ["0.001", "0.01", "0.1"]
 # Exclude as no containing POLAR pipelines
 excluded = {"imdb": ["02a", "02b", "02c", "02d",
                      "04a", "04b", "04c",
@@ -64,7 +64,7 @@ for benchmark in benchmarks:
 
     results[benchmark] = {"polar": all_polar_timings, "duckdb": duckdb_timings}
 
-budget_mapping = {"imdb": "0.1", "ssb": "0.001", "ssb-skew": "0.2"}
+budget_mapping = {"imdb": "0.1", "ssb": "0.001", "ssb-skew": "0.01"}
 titles = {"imdb": "JOB", "ssb": "SSB", "ssb-skew": "SSB-skew"}
 
 loc = plticker.MultipleLocator(base=1.0)

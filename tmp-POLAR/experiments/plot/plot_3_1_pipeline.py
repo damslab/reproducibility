@@ -100,8 +100,8 @@ with open("paper/tables/3_1_pipeline.tex", "w") as file:
 formatted_results_untuned = {}
 for benchmark in benchmarks:
     formatted_results_untuned[benchmark] = {}
-    formatted_results_untuned[benchmark]["dynamic"] = "{:10.2f}".format(sum(results[benchmark]["dynamic"]["0.0001"]) / 1000)
-    formatted_results_untuned[benchmark]["adaptive_reinit"] = "{:10.2f}".format(sum(results[benchmark]["adaptive_reinit"]["0.1"]) / 1000)
+    formatted_results_untuned[benchmark]["dynamic"] = "{:10.2f}".format(sum(results[benchmark]["dynamic"]["0.001"]) / 1000)
+    formatted_results_untuned[benchmark]["adaptive_reinit"] = "{:10.2f}".format(sum(results[benchmark]["adaptive_reinit"]["0.001"]) / 1000)
 
 latex_table = f"""\\begin{{table}}[!t]
   \\centering
@@ -113,10 +113,10 @@ latex_table = f"""\\begin{{table}}[!t]
     \\midrule
     DuckDB & {formatted_results["imdb"]["default"]} & {formatted_results["ssb"]["default"]} & {formatted_results["ssb-skew"]["default"]}\\\\
     \\midrule
-    \\textsc{{AdaptTupleCount}} (0.01\\%) & {formatted_results_untuned["imdb"]["dynamic"]} & {formatted_results_untuned["ssb"]["dynamic"]} & {formatted_results_untuned["ssb-skew"]["dynamic"]}\\\\
+    \\textsc{{AdaptTupleCount}} (0.1\\,\\%) & {formatted_results_untuned["imdb"]["dynamic"]} & {formatted_results_untuned["ssb"]["dynamic"]} & {formatted_results_untuned["ssb-skew"]["dynamic"]}\\\\
     \\textsc{{AdaptTupleCount}}-tuned & {formatted_results["imdb"]["dynamic"]} & {formatted_results["ssb"]["dynamic"]} & {formatted_results["ssb-skew"]["dynamic"]}\\\\
     \\midrule
-    \\textsc{{AdaptWindowSize}} (10\\%) & {formatted_results_untuned["imdb"]["adaptive_reinit"]} & {formatted_results_untuned["ssb"]["adaptive_reinit"]} & {formatted_results_untuned["ssb-skew"]["adaptive_reinit"]}\\\\
+    \\textsc{{AdaptWindowSize}} (1\\,\\%) & {formatted_results_untuned["imdb"]["adaptive_reinit"]} & {formatted_results_untuned["ssb"]["adaptive_reinit"]} & {formatted_results_untuned["ssb-skew"]["adaptive_reinit"]}\\\\
     \\textsc{{AdaptWindowSize}}-tuned & {formatted_results["imdb"]["adaptive_reinit"]} & {formatted_results["ssb"]["adaptive_reinit"]} & {formatted_results["ssb-skew"]["adaptive_reinit"]}\\\\
     \\bottomrule
   \\end{{tabular}}

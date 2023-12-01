@@ -6,7 +6,7 @@ import multiprocessing as mp
 import subprocess as sp
 import os
 
-routing_strategies = {"static": ["init_once", "opportunistic"],
+routing_strategies = {"static": ["init_once", "opportunistic", "backpressure"],
                       "dynamic": ["adaptive_reinit", "dynamic"],
                       "debug": ["alternate", "default_path"]}
 
@@ -118,7 +118,7 @@ def execute_benchmark_2():
         for s in routing_strategies["static"]:
             sp.call(["mkdir", "-p", f"{cwd}/experiment-results/3_1_pipeline/{b}/{s}"])
         for s in routing_strategies["dynamic"]:
-            for r in regret_budgets:
+            for r in ["0.0001", "0.001", "0.01", "0.1"]:
                 sp.call(["mkdir", "-p", f"{cwd}/experiment-results/3_1_pipeline/{b}/{s}/{r}"])
                 sp.call(["mkdir", "-p", f"{cwd}/experiment-results/3_1_pipeline/{b}/{s}-exhaustive/{r}"])
         sp.call(["mkdir", "-p", f"{cwd}/experiment-results/3_1_pipeline/{b}/default"])
@@ -157,7 +157,7 @@ def execute_benchmark_2():
                              ])
                     gather_pipeline_durations(s, b, q, path)
                 for s in routing_strategies["dynamic"]:
-                    for r in ["0.001", "0.01", "0.1"]:
+                    for r in ["0.0001", "0.001", "0.01", "0.1"]:
                         move_files(f"{cwd}/duckdb-polr/tmp", "*", "")
                         sp.call([f"{cwd}/experiments/util/runDuckDBRestrict1.sh",
                                  f"benchmark/{b}/{q}.benchmark",
@@ -191,7 +191,7 @@ def execute_benchmark_3():
     cwd = os.getcwd()
 
     for b in benchmarks:
-        for r in regret_budgets:
+        for r in ["0.0001", "0.001", "0.01", "0.1"]:
             move_files(f"{cwd}/duckdb-polr/tmp", "*", "")
             sp.call([f"{cwd}/duckdb-polr/build/release/benchmark/benchmark_runner",
                      f"benchmark/{b}/.*",
@@ -226,7 +226,7 @@ if __name__ == "__main__":
 
     idx = 0
     for benchmark in ["imdb", "ssb"]:
-        for init_tuple_count in [2, 4, 8, 16, 32, 64, 128, 256, 512]:
+        for init_tuple_count in [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024]:
             pool.apply_async(execute_benchmark_0(idx, benchmark, init_tuple_count))
             idx += 1
 

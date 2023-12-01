@@ -116,7 +116,7 @@ for benchmark in benchmarks:
 
 formatted_coverage = {}
 for benchmark in benchmarks:
-    formatted_coverage[benchmark] = "{:10.0f}".format(min(1, sum(results[benchmark]["pipelines"]) / results[benchmark]["queries"]) * 100) + " \\%"
+    formatted_coverage[benchmark] = "{:10.0f}".format(min(1, sum(results[benchmark]["pipelines"]) / results[benchmark]["queries"]) * 100)
 
 latex_table = f"""\\begin{{table}}[!t]
   \\centering 
@@ -126,9 +126,9 @@ latex_table = f"""\\begin{{table}}[!t]
     \\toprule
     \\textbf{{Benchmark}} & \\textbf{{DuckDB}} & \\textbf{{Routing}} & \\textbf{{Static}} & \\textbf{{Coverage}}\\\\
     \\midrule
-    JOB & {formatted_results["imdb-dp"]["default"]} & {formatted_results["imdb-dp"]["optimal"]} & {formatted_results["imdb-dp"]["static"]} & {formatted_coverage["imdb"]}\\\\
-    SSB & {formatted_results["ssb-dp"]["default"]} & {formatted_results["ssb-dp"]["optimal"]} & {formatted_results["ssb-dp"]["static"]} & {formatted_coverage["ssb"]}\\\\
-    SSB-skew & {formatted_results["ssb-skew-dp"]["default"]} & {formatted_results["ssb-skew-dp"]["optimal"]} & {formatted_results["ssb-skew-dp"]["static"]} & {formatted_coverage["ssb-skew"]}\\\\
+    JOB & {formatted_results["imdb-dp"]["default"]} & {formatted_results["imdb-dp"]["optimal"]} & {formatted_results["imdb-dp"]["static"]} & {formatted_coverage["imdb"]} \\%\\\\
+    SSB & {formatted_results["ssb-dp"]["default"]} & {formatted_results["ssb-dp"]["optimal"]} & {formatted_results["ssb-dp"]["static"]} & {formatted_coverage["ssb"]} \\%\\\\
+    SSB-skew & {formatted_results["ssb-skew-dp"]["default"]} & {formatted_results["ssb-skew-dp"]["optimal"]} & {formatted_results["ssb-skew-dp"]["static"]} & {formatted_coverage["ssb-skew"]} \\%\\\\
     \\bottomrule
   \\end{{tabular}}
 \\label{{tab:1_2_potential_savings}}
