@@ -178,9 +178,12 @@ for i in range(len(benchmarks)):
     else:
         ax[i].set_xticks(x + 1.5 * width, threads)
     ax[i].set_title(titles[benchmarks[i]])
-    # max_skinner = max(list(results[i]["SkinnerMT"]))
+
     max_postgres = max(list(results[i]["Postgres"]))
-    ylimt = max(0, max_postgres) * 1.1
+    max_skinner = 0
+    if benchmarks[i] == "imdb":
+        max_skinner = max(list(results[i]["SkinnerDB"]))
+    ylimt = max(max_skinner, max_postgres) * 1.1
     ax[i].set_ylim(bottom=0, top=ylimt)
 
     if i == 0:
