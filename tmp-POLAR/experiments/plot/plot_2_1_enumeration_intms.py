@@ -6,13 +6,13 @@ import glob
 
 optimizer_modes = ["dphyp-equisets"]
 benchmarks = ["imdb", "ssb", "ssb-skew"]
-enumerators = ["each_last_once", "each_first_once", "bfs_min_card", "sample"]
+enumerators = ["each_last_once", "each_first_once", "bfs_min_card", "bfs_random", "sample"]
 
 results = {}
 for benchmark in benchmarks:
     for optimizer_mode in optimizer_modes:
         # Calculate baselines from exhaustive
-        path = f"{os.getcwd()}/experiment-results/2_1_enumeration_intms/{optimizer_mode}/{benchmark}/bfs_min_card"
+        path = f"{os.getcwd()}/experiment-results/2_1_enumeration_intms/{optimizer_mode}/{benchmark}/optimal"
         csv_files = glob.glob(os.path.join(path, "*.csv"))
         csv_files.sort()
 
@@ -72,6 +72,8 @@ latex_table = f"""\\begin{{table}}[!t]
     Optimal & {formatted_results["imdb-dp"]["optimal"]} & {formatted_results["ssb-dp"]["optimal"]} & {formatted_results["ssb-skew-dp"]["optimal"]}\\\\
     \\midrule
     \\textsc{{SelSampling}} & {formatted_results["imdb-dp"]["sample"]} & {formatted_results["ssb-dp"]["sample"]} & {formatted_results["ssb-skew-dp"]["sample"]}\\\\
+    \\textsc{{GetMinCard}} & {formatted_results["imdb-dp"]["bfs_min_card"]} & {formatted_results["ssb-dp"]["bfs_min_card"]} & {formatted_results["ssb-skew-dp"]["bfs_min_card"]}\\\\
+    \\textsc{{GetRandom}} & {formatted_results["imdb-dp"]["bfs_random"]} & {formatted_results["ssb-dp"]["bfs_random"]} & {formatted_results["ssb-skew-dp"]["bfs_random"]}\\\\
     \\textsc{{PushDown}} & {formatted_results["imdb-dp"]["each_first_once"]} & {formatted_results["ssb-dp"]["each_first_once"]} & {formatted_results["ssb-skew-dp"]["each_first_once"]}\\\\
     \\textsc{{PullUp}} & {formatted_results["imdb-dp"]["each_last_once"]} & {formatted_results["ssb-dp"]["each_last_once"]} & {formatted_results["ssb-skew-dp"]["each_last_once"]}\\\\
     \\bottomrule
@@ -86,7 +88,7 @@ with open("paper/tables/1_1_sel_intms.tex", "w") as file:
 results = {}
 for benchmark in benchmarks:
     results[benchmark] = {}
-    path = os.getcwd() + f"/experiment-results/1_1_potential_impact/{benchmark}/pipelines"
+    path = os.getcwd() + f"/experiment-results/3_1_pipeline/{benchmark}/default"
     csv_files = glob.glob(os.path.join(path, "*.csv"))
 
     if len(csv_files) == 0:

@@ -6,7 +6,7 @@ import multiprocessing as mp
 import subprocess as sp
 import os
 
-enumeration_strategies = ["each_last_once", "each_first_once", "bfs_min_card", "sample"]
+enumeration_strategies = ["each_last_once", "each_first_once", "optimal", "bfs_min_card", "bfs_random", "sample"]
 optimizer_modes = ["dphyp-equisets"]
 benchmarks = {
     "imdb": ["01a", "01b", "01c", "01d", "02a", "02b", "02c", "02d", "03a", "03b", "03c",
@@ -73,7 +73,6 @@ def execute_benchmark_1(i, b):
     nruns = 5
 
     cwd = os.getcwd()
-    sp.call(["mkdir", "-p", f"{cwd}/experiment-results/1_1_potential_impact/{b}/pipelines"])
     sp.call(["mkdir", "-p", f"{cwd}/experiment-results/1_1_potential_impact/{b}/queries"])
     sp.call(["mkdir", "-p", f"{cwd}/duckdb-polr/tmp/{i}"])
 
@@ -90,72 +89,28 @@ def execute_benchmark_1(i, b):
              f"{cwd}/experiment-results/1_1_potential_impact/{b}/queries"])
     move_files(f"{cwd}/duckdb-polr/tmp/{i}", "*", "")
 
-    for query in benchmarks[b]:
-        sp.call([f"{cwd}/duckdb-polr/build/release/benchmark/benchmark_runner",
-                 f"benchmark/{b}/{query}.benchmark",
-                 "--polr_mode=bushy",
-                 "--threads=1",
-                 "--nruns=1",
-                 "--log_tuples_routed",
-                 "--enumerator=bfs_min_card"
-                 f"--dir_prefix={i}"
-                 ])
-
-        path = f"{cwd}/duckdb-polr/tmp/{i}"
-        csv_files = glob.glob(os.path.join(path, "*.csv"))
-
-        if len(csv_files) > 0:
-            move_files(f"{cwd}/duckdb-polr/tmp/{i}", "*", "")
-            sp.call([f"{cwd}/duckdb-polr/build/release/benchmark/benchmark_runner",
-                     f"benchmark/{b}/{query}.benchmark",
-                     "--measure_pipeline",
-                     "--threads=1",
-                     f"--nruns={nruns}",
-                     f"--dir_prefix={i}"
-                     ])
-            csv_files = glob.glob(os.path.join(path, "*.csv"))
-            assert len(csv_files) > 0
-
-            pipeline_ids = {}
-            for file in csv_files:
-                pipeline_id = file.split("-")[-1]
-                if pipeline_id not in pipeline_ids:
-                    pipeline_ids[pipeline_id] = []
-                with open(file) as f:
-                    line = f.readline()
-                    pipeline_ids[pipeline_id].append(float(line))
-
-            for pipeline_id in pipeline_ids:
-                tmp = pipeline_ids[pipeline_id]
-                result_str = ""
-                for j in tmp:
-                    result_str += f"{j}\n"
-                with open(f"{cwd}/experiment-results/1_1_potential_impact/{b}/pipelines/{query}-{pipeline_id}", "w") as f:
-                    f.write(result_str)
-        move_files(f"{cwd}/duckdb-polr/tmp/{i}", "*", "")
-
 
 def execute_benchmark_2(i, m, s, b):
-    max_join_orders = 8 if s == "sample" else 24
-
     cwd = os.getcwd()
     sp.call(["mkdir", "-p", f"{cwd}/duckdb-polr/tmp/{i}"])
     sp.call(["mkdir", "-p", f"{cwd}/experiment-results/2_2_enumeration_timings/{m}/{b}/{s}"])
     sp.call(["mkdir", "-p", f"{cwd}/experiment-results/2_1_enumeration_intms/{m}/{b}/{s}"])
     for query in benchmarks[b]:
-        sp.call([f"{cwd}/duckdb-polr/build/release/benchmark/benchmark_runner",
-                 f"benchmark/{b}/{query}.benchmark",
-                 "--polr_mode=bushy",
-                 "--multiplexer_routing=alternate",
-                 f"--max_join_orders={max_join_orders}",
-                 "--threads=1",
-                 "--nruns=1",
-                 "--log_tuples_routed",
-                 "--disable_caching",
-                 f"--dir_prefix={i}",
-                 f"--optimizer_mode={m}",
-                 f"--enumerator={s}"
-                 ])
+        arr = [f"{cwd}/duckdb-polr/build/release/benchmark/benchmark_runner",
+               f"benchmark/{b}/{query}.benchmark",
+               "--polr_mode=bushy",
+               "--multiplexer_routing=alternate",
+               "--threads=1",
+               "--nruns=1",
+               "--log_tuples_routed",
+               "--disable_caching",
+               f"--dir_prefix={i}",
+               f"--optimizer_mode={m}",
+               f"--enumerator={s if s != 'optimal' else 'bfs_min_card'}"
+               ]
+        if s == "optimal":
+            arr.append("--max_join_orders=24")
+        sp.call(arr)
 
         move_files(f"{cwd}/duckdb-polr/tmp/{i}", "*-enumeration.csv",
                    f"{cwd}/experiment-results/2_2_enumeration_timings/{m}/{b}/{s}")
@@ -168,6 +123,7 @@ def execute_benchmark_2(i, m, s, b):
 
 if __name__ == "__main__":
     sp.call(["rm", "-rf", f"{os.getcwd()}/experiment-results/1_1_potential_impact"])
+    sp.call(["rm", "-rf", f"{os.getcwd()}/experiment-results/2_0_sample_size"])
     sp.call(["rm", "-rf", f"{os.getcwd()}/experiment-results/2_1_enumeration_intms"])
     sp.call(["rm", "-rf", f"{os.getcwd()}/experiment-results/2_2_enumeration_timings"])
     sp.call(["rm", "-rf", f"{os.getcwd()}/duckdb-polr/tmp"])
@@ -179,7 +135,7 @@ if __name__ == "__main__":
         pool.apply_async(execute_benchmark_0, args=(idx, 1, benchmark))
         idx += 1
 
-        for sample in range(2, 33, 2):
+        for sample in range(2, 17, 2):
             pool.apply_async(execute_benchmark_0, args=(idx, sample, benchmark))
             idx += 1
 

@@ -102,7 +102,7 @@ for benchmark in benchmarks:
                 print(f"{query_name} ({run}): {duration:.4f}")
 
             for timing in timings:
-                output += f"{query_name},{duration:.4f}\n"
+                output += f"{query_name},{timing:.4f}\n"
 
         with open(f"{cwd}/experiment-results/4_1_endtoend/{benchmark}/postgres/postgres-{worker_count}.csv",
                   "w") as file:

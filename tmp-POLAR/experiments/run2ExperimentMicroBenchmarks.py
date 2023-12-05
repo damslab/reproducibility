@@ -218,6 +218,7 @@ def execute_benchmark_3():
 
 if __name__ == "__main__":
     sp.call(["rm", "-rf", f"{os.getcwd()}/experiment-results/2_3_routing"])
+    sp.call(["rm", "-rf", f"{os.getcwd()}/experiment-results/2_5_init_tuple"])
     sp.call(["rm", "-rf", f"{os.getcwd()}/experiment-results/3_1_pipeline"])
     sp.call(["rm", "-rf", f"{os.getcwd()}/experiment-results/3_2_query"])
     sp.call(["rm", "-rf", f"{os.getcwd()}/duckdb-polr/tmp"])

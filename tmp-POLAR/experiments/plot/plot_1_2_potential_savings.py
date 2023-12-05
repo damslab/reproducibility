@@ -37,7 +37,7 @@ for benchmark in benchmarks:
             duckdb_query_intms[query_name] = df["path_0"].sum()
             optimal_query_intms[query_name] = df.min(axis=1).sum()
 
-    path = f"{os.getcwd()}/experiment-results/1_1_potential_impact/{benchmark}/pipelines"
+    path = f"{os.getcwd()}/experiment-results/3_1_pipeline/{benchmark}/default"
     files = glob.glob(os.path.join(path, "*.csv"))
     files.sort()
 
@@ -99,6 +99,6 @@ for result_key in results:
 plt.xlabel("Potential improvement")
 plt.ylabel("Fraction of queries")
 plt.xscale("log")
-plt.xticks(ticks=[1, 10, 100], labels=["1x", "10x", "100x"])
+plt.xticks(ticks=[1, 10], labels=["1x", "10x"])
 plt.legend(frameon=False)
 plt.savefig("paper/figures/1_3_potential_query_improvements.pdf")
