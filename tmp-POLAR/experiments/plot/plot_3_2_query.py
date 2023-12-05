@@ -64,7 +64,7 @@ for benchmark in benchmarks:
 
     results[benchmark] = {"polar": all_polar_timings, "duckdb": duckdb_timings}
 
-budget_mapping = {"imdb": "0.01", "ssb": "0.001", "ssb-skew": "0.01"}
+budget_mapping = {"imdb": "0.001", "ssb": "0.001", "ssb-skew": "0.001"}
 titles = {"imdb": "JOB", "ssb": "SSB", "ssb-skew": "SSB-skew"}
 
 loc = plticker.MultipleLocator(base=1.0)
