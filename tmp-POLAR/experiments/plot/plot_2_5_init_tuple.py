@@ -9,8 +9,23 @@ benchmarks = ["imdb", "ssb"]
 init_counts = [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024]
 
 results = {}
+baselines = {}
 for benchmark in benchmarks:
     results[benchmark] = []
+    path = f"{os.getcwd()}/experiment-results/2_3_routing/{benchmark}/default_path"
+    txt_files = glob.glob(os.path.join(path, "*.txt"))
+    txt_files.sort()
+
+    intms = []
+    for txt_file in txt_files:
+        with open(txt_file) as f:
+            line = f.readline()
+            if line == "":
+                print("Warning: " + txt_file + " empty.")
+                continue
+            intms.append(int(line))
+    baselines[benchmark] = sum(intms)
+
     for init_count in init_counts:
         path = f"{os.getcwd()}/experiment-results/2_5_init_tuple/{benchmark}/{init_count}"
         txt_files = glob.glob(os.path.join(path, "*.txt"))
@@ -31,9 +46,8 @@ print(results)
 normalized_results = {}
 for benchmark in benchmarks:
     normalized_results[benchmark] = []
-    max_intms = max(results[benchmark])
     for result in results[benchmark]:
-        normalized_results[benchmark].append(result / max_intms)
+        normalized_results[benchmark].append(result / baselines[benchmark])
 
 line_colors = {
     "imdb": "#00cd6c",
@@ -48,8 +62,9 @@ labels = {
 plt.figure(figsize=(4.25, 2.5))
 for benchmark in benchmarks:
     plt.plot(init_counts, normalized_results[benchmark], label=labels[benchmark], color=line_colors[benchmark])
+plt.plot(init_counts, [1] * len(init_counts), label="DuckDB", color="black", linestyle="dotted")
 
-plt.xlabel("Init Tuples")
+plt.xlabel("Init Tuple Count")
 plt.ylabel("Relative Intermediate Count")
 plt.ylim(bottom=0)
 plt.xscale("log", base=2)

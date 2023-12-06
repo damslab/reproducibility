@@ -57,7 +57,7 @@ for benchmark in benchmarks:
         df = pd.read_csv(csv_file)
         df.pop(df.columns[-1])
         if "path_0" not in df.columns:
-            print("Warning: " + csv_file + " corrupted.")
+            print("Warning: No additional paths found in " + csv_file + ".")
             continue
         intms_opt.append(df.min(axis=1).sum())
         intms_default.append(df["path_0"].sum())
@@ -111,7 +111,7 @@ for i in range(len(benchmarks)):
             dyn_min_intms = results[benchmark]["dynamic"][j]
             dyn_sweet_spot_idx = j
 
-    ax[i].axvline(x=x_values[adre_sweet_spot_idx], color=line_colors["adaptive_reinit"], linestyle='dashed')
+    ax[i].axvline(x=x_values[adre_sweet_spot_idx], color=line_colors["adaptive_reinit"], linestyle='dotted')
     ax[i].axvline(x=x_values[dyn_sweet_spot_idx], color=line_colors["dynamic"], linestyle='dotted')
     if i == 2:
         handles, labels = ax[i].get_legend_handles_labels()

@@ -7,8 +7,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 benchmarks = ["ssb"]
-enumerators = ["sample", "each_last_once", "each_first_once"]
-sample_sizes = list(range(2, 33, 2))
+enumerators = ["sample", "bfs_min_card", "bfs_random", "each_last_once", "each_first_once"]
+sample_sizes = list(range(2, 17, 2))
 
 results = {}
 
@@ -44,18 +44,24 @@ print(results)
 
 line_colors = {
     "sample": "#00cd6c",
+    "bfs_min_card": "#ff1f5b",
+    "bfs_random": "#ffc61e",
     "each_first_once": "#009ade",
     "each_last_once": "#af58ba"
 }
 
 labels = {
     "sample": "SelSampling",
+    "bfs_min_card": "GetMinCard",
+    "bfs_random": "GetRandom",
     "each_first_once": "PushDown",
     "each_last_once": "PullUp"
 }
 
 linestyles = {
     "sample": "-",
+    "bfs_min_card": "--",
+    "bfs_random": "-.",
     "each_first_once": "--",
     "each_last_once": "-."
 }
