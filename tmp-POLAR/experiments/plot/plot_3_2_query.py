@@ -69,75 +69,130 @@ titles = {"imdb": "JOB", "ssb": "SSB", "ssb-skew": "SSB-skew"}
 
 loc = plticker.MultipleLocator(base=1.0)
 
-fig = plt.figure(figsize=(12, 4), constrained_layout=True)
-subfigs = fig.subfigures(nrows=2, ncols=1)
+fig = plt.figure(figsize=(12, 2), constrained_layout=True)
+ax = fig.subplots(nrows=1, ncols=len(benchmarks))
+for i in range(len(benchmarks)):
+    benchmark = benchmarks[i]
+    polar_timings = []
 
-for row, subfig in enumerate(subfigs):
-    title = ""
+    polar_timings = results[benchmark]["polar"]["0.001"]
+    duckdb_timings = results[benchmark]["duckdb"]
 
-    if row == 0:
-        title = "Tuned"
+    rel = []
+    for j in range(len(polar_timings)):
+        pt = polar_timings[j]
+        dt = duckdb_timings[j]
+        if (pt - dt) / dt < -0.5:
+            print(f"{j} | DuckDB: {dt}, POLAR: {pt}, {(dt / pt) - 1}")
+
+        if pt <= dt:
+            rel.append((dt / pt) - 1)
+        else:
+            if (dt - pt) / dt < -0.1:
+                print(f"{j} | DuckDB: {dt}, POLAR: {pt}")
+            rel.append((dt - pt) / dt)
+
+    df = pd.DataFrame({"rel": sorted(rel)})
+    mask1 = df["rel"] < 0
+    mask2 = df["rel"] >= 0
+
+    if i == 2:
+        ax[i].bar(df.index[mask2], df["rel"][mask2], color="#00b000", label="Speedup")
+        ax[i].bar(df.index[mask1], df["rel"][mask1], color="#e9002d", label="Slowdown")
+        handles, labels = ax[i].get_legend_handles_labels()
+        leg = fig.legend(handles, labels, loc='outside right center', frameon=False)
+        leg.legend_handles[1].set_color('#e9002d')
     else:
-        title = "Generic"
+        ax[i].bar(df.index[mask2], df["rel"][mask2], color="#00b000")
+        ax[i].bar(df.index[mask1], df["rel"][mask1], color="#e9002d")
 
-    subfig.suptitle(title, fontweight="bold")
-    ax = subfig.subplots(nrows=1, ncols=len(benchmarks))
+    if benchmark == "ssb-skew":
+        ax[i].set_ylim(bottom=-0.1)
+    elif benchmark == "imdb":
+        ax[i].yaxis.set_ticks([0,2,4,6,8])
+    #elif benchmark == "ssb" and row == 1:
+    #    ax[i].set_ylim(bottom=-0.35, top=0.1)
 
-    for i in range(len(benchmarks)):
-        benchmark = benchmarks[i]
-        polar_timings = []
+    ax[i].grid(axis="y", alpha=0.5)
+    ax[i].set_xticks(np.arange(len(df)), labels=[])
+    ax[i].axhline(0, color="black", lw=1)
 
-        if row == 0:
-            polar_timings = results[benchmark]["polar"][budget_mapping[benchmark]]
-        else:
-            polar_timings = results[benchmark]["polar"]["0.001"]
-        duckdb_timings = results[benchmark]["duckdb"]
-
-        rel = []
-        for j in range(len(polar_timings)):
-            pt = polar_timings[j]
-            dt = duckdb_timings[j]
-            if (pt - dt) / dt < -0.5:
-                print(f"{j} | DuckDB: {dt}, POLAR: {pt}, {(dt / pt) - 1}")
-
-            if pt <= dt:
-                rel.append((dt / pt) - 1)
-            else:
-                if (dt - pt) / dt < -0.1:
-                    print(f"{j} | DuckDB: {dt}, POLAR: {pt}")
-                rel.append((dt - pt) / dt)
-
-        df = pd.DataFrame({"rel": sorted(rel)})
-        mask1 = df["rel"] < 0
-        mask2 = df["rel"] >= 0
-
-        if row == 0 and i == 2:
-            ax[i].bar(df.index[mask2], df["rel"][mask2], color="#00b000", label="Speedup")
-            ax[i].bar(df.index[mask1], df["rel"][mask1], color="#e9002d", label="Slowdown")
-            handles, labels = ax[i].get_legend_handles_labels()
-            leg = fig.legend(handles, labels, loc='outside right center', frameon=False)
-            leg.legend_handles[1].set_color('#e9002d')
-        else:
-            ax[i].bar(df.index[mask2], df["rel"][mask2], color="#00b000")
-            ax[i].bar(df.index[mask1], df["rel"][mask1], color="#e9002d")
-
-        if benchmark == "ssb-skew":
-            ax[i].set_ylim(bottom=-0.1)
-        elif benchmark == "imdb":
-            ax[i].yaxis.set_ticks([0,2,4,6,8])
-        #elif benchmark == "ssb" and row == 1:
-        #    ax[i].set_ylim(bottom=-0.35, top=0.1)
-
-        ax[i].grid(axis="y", alpha=0.5)
-        ax[i].set_xticks(np.arange(len(df)), labels=[])
-        ax[i].axhline(0, color="black", lw=1)
-
-        if row == 0:
-            ax[i].set_title(titles[benchmark])
+    ax[i].set_title(titles[benchmark])
 
 fig.supxlabel('Queries')
-fig.supylabel('Speedup/Slowdown Factor')
+fig.supylabel('Performance Impact')
 plt.savefig("paper/figures/3_2_rel_gains.pdf")
+
+
+#fig = plt.figure(figsize=(12, 4), constrained_layout=True)
+#subfigs = fig.subfigures(nrows=2, ncols=1)
+#
+#for row, subfig in enumerate(subfigs):
+#    title = ""
+#
+#    if row == 0:
+#        title = "Tuned"
+#    else:
+#        title = "Generic"
+#
+#    subfig.suptitle(title, fontweight="bold")
+#    ax = subfig.subplots(nrows=1, ncols=len(benchmarks))
+#
+#    for i in range(len(benchmarks)):
+#        benchmark = benchmarks[i]
+#        polar_timings = []
+#
+#        if row == 0:
+#            polar_timings = results[benchmark]["polar"][budget_mapping[benchmark]]
+#        else:
+#            polar_timings = results[benchmark]["polar"]["0.001"]
+#        duckdb_timings = results[benchmark]["duckdb"]
+#
+#        rel = []
+#        for j in range(len(polar_timings)):
+#            pt = polar_timings[j]
+#            dt = duckdb_timings[j]
+#            if (pt - dt) / dt < -0.5:
+#                print(f"{j} | DuckDB: {dt}, POLAR: {pt}, {(dt / pt) - 1}")
+#
+#            if pt <= dt:
+#                rel.append((dt / pt) - 1)
+#            else:
+#                if (dt - pt) / dt < -0.1:
+#                    print(f"{j} | DuckDB: {dt}, POLAR: {pt}")
+#                rel.append((dt - pt) / dt)
+#
+#        df = pd.DataFrame({"rel": sorted(rel)})
+#        mask1 = df["rel"] < 0
+#        mask2 = df["rel"] >= 0
+#
+#        if row == 0 and i == 2:
+#            ax[i].bar(df.index[mask2], df["rel"][mask2], color="#00b000", label="Speedup")
+#            ax[i].bar(df.index[mask1], df["rel"][mask1], color="#e9002d", label="Slowdown")
+#            handles, labels = ax[i].get_legend_handles_labels()
+#            leg = fig.legend(handles, labels, loc='outside right center', frameon=False)
+#            leg.legend_handles[1].set_color('#e9002d')
+#        else:
+#            ax[i].bar(df.index[mask2], df["rel"][mask2], color="#00b000")
+#            ax[i].bar(df.index[mask1], df["rel"][mask1], color="#e9002d")
+#
+#        if benchmark == "ssb-skew":
+#            ax[i].set_ylim(bottom=-0.1)
+#        elif benchmark == "imdb":
+#            ax[i].yaxis.set_ticks([0,2,4,6,8])
+#        #elif benchmark == "ssb" and row == 1:
+#        #    ax[i].set_ylim(bottom=-0.35, top=0.1)
+#
+#        ax[i].grid(axis="y", alpha=0.5)
+#        ax[i].set_xticks(np.arange(len(df)), labels=[])
+#        ax[i].axhline(0, color="black", lw=1)
+#
+#        if row == 0:
+#            ax[i].set_title(titles[benchmark])
+#
+#fig.supxlabel('Queries')
+#fig.supylabel('Speedup/Slowdown Factor')
+#plt.savefig("paper/figures/3_2_rel_gains.pdf")
 
 results = {}
 

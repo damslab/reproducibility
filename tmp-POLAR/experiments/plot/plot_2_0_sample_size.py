@@ -79,7 +79,7 @@ labels = {
     "ssb-skew": "SSB-skew"
 }
 
-plt.figure(figsize=(4.25, 2.5))
+plt.figure(figsize=(3.1, 2.8))
 for benchmark in benchmarks:
     plt.plot(formatted_results["x_values"], formatted_results[benchmark], label=labels[benchmark], color=line_colors[benchmark], marker="x")
 plt.plot(formatted_results["x_values"], formatted_results["optimal"], label="Exhaustive", color="black", linestyle='dotted')

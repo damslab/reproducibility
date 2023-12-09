@@ -66,13 +66,13 @@ linestyles = {
     "each_last_once": "-."
 }
 
-plt.figure(figsize=(4.25, 2.5))
+plt.figure(figsize=(3.1, 2.8))
 for enumerator in enumerators:
     plt.plot(sample_sizes, results["ssb"][enumerator], label=labels[enumerator], color=line_colors[enumerator], linestyle=linestyles[enumerator])
 
 plt.xlabel("Sample Count")
 plt.ylabel("Average compile time (ms)")
-#plt.ylim(bottom=0)
+plt.ylim(bottom=0)
 #plt.yscale("log")
 plt.legend(frameon=False)
 #plt.xticks(ticks=x_values, labels=x_values)
