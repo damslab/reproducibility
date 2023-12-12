@@ -11,7 +11,7 @@ sample_sizes = [1] + list(range(2, 17, 2))
 results = {}
 for benchmark in benchmarks:
     # Calculate baselines from exhaustive
-    path = f"{os.getcwd()}/experiment-results/2_1_enumeration_intms/dphyp-equisets/{benchmark}/bfs_min_card"
+    path = f"{os.getcwd()}/experiment-results/2_1_enumeration_intms/dphyp-equisets/{benchmark}/optimal"
     csv_files = glob.glob(os.path.join(path, "*.csv"))
     csv_files.sort()
 

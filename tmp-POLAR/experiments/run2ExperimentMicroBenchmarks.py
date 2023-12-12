@@ -186,7 +186,7 @@ def execute_benchmark_2():
 
 
 def execute_benchmark_3():
-    nruns = 20
+    nruns = 10
     routing_strategy = "adaptive_reinit"
     cwd = os.getcwd()
 

@@ -42,6 +42,11 @@ for benchmark in benchmarks:
                 df.pop(df.columns[-1])
                 if "path_0" not in df.columns:
                     print("Warning: " + csv_file)
+                    txt_path = csv_file.split(".")[-2] + "-intms.txt"
+                    print(f"  -> {txt_path}")
+                    with open(txt_path) as f:
+                        line = f.readline()
+                        intms.append(int(line))
                     continue
                 intms.append(df.min(axis=1).sum())
         else:

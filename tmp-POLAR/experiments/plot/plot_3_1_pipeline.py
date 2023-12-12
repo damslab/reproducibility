@@ -8,7 +8,7 @@ import numpy as np
 
 routing_strategies = ["default", "init_once", "opportunistic", "adaptive_reinit", "dynamic", "backpressure"]
 benchmarks = ["imdb", "ssb", "ssb-skew"]
-exploration_budgets = ["0.001", "0.01", "0.1"]
+exploration_budgets = ["0.001", "0.01"]
 sweet_spots = {"adaptive_reinit": {}, "dynamic": {}}
 results = {}
 
@@ -101,7 +101,7 @@ formatted_results_untuned = {}
 for benchmark in benchmarks:
     formatted_results_untuned[benchmark] = {}
     formatted_results_untuned[benchmark]["dynamic"] = "{:10.2f}".format(sum(results[benchmark]["dynamic"]["0.001"]) / 1000)
-    formatted_results_untuned[benchmark]["adaptive_reinit"] = "{:10.2f}".format(sum(results[benchmark]["adaptive_reinit"]["0.001"]) / 1000)
+    formatted_results_untuned[benchmark]["adaptive_reinit"] = "{:10.2f}".format(sum(results[benchmark]["adaptive_reinit"]["0.01"]) / 1000)
 
 latex_table = f"""\\begin{{table}}[!t]
   \\centering

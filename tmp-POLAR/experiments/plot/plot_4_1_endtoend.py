@@ -166,10 +166,10 @@ for i in range(len(benchmarks)):
         offset = width * multiplier
         print(attribute + " " + str(measurement) + " " + str(offset))
         rects = ax[i].bar(x + offset, measurement, width, label=attribute, color=bar_colors[attribute])
-        if measurement[0] >= 100:
-            ax[i].bar_label(rects, padding=0, fmt="{:3.0f}", fontsize=7)
-        else:
-            ax[i].bar_label(rects, padding=0, fmt="{:3.1f}", fontsize=7)
+        # if measurement[0] >= 100:
+        ax[i].bar_label(rects, padding=0, fmt="{:3.0f}", fontsize=7)
+        # else:
+        #    ax[i].bar_label(rects, padding=0, fmt="{:3.1f}", fontsize=7)
         multiplier += 1
 
     # Add some text for labels, title and custom x-axis tick labels, etc.
@@ -190,7 +190,7 @@ for i in range(len(benchmarks)):
         handles, labels = ax[i].get_legend_handles_labels()
         fig.legend(handles, labels, loc='outside right center', frameon=False)
 
-fig.supxlabel('Threads')
+fig.supxlabel('Number of Threads')
 fig.supylabel('Total execution time (s)')
 
 plt.savefig("paper/figures/4_1_total.pdf")

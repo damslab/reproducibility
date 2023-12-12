@@ -8,7 +8,7 @@ import matplotlib.ticker as plticker
 import numpy as np
 
 benchmarks = ["imdb", "ssb", "ssb-skew"]
-regret_budgets = ["0.0001", "0.001", "0.01", "0.1"]
+regret_budgets = ["0.001", "0.01"]
 # Exclude as no containing POLAR pipelines
 excluded = {"imdb": ["02a", "02b", "02c", "02d",
                      "04a", "04b", "04c",
@@ -222,8 +222,8 @@ for benchmark in benchmarks:
 
 tuned_results = {}
 for benchmark in benchmarks:
-    tet = sum(results[benchmark]["polar"]["0.0001"])
-    maximum = max(results[benchmark]["polar"]["0.0001"])
+    tet = sum(results[benchmark]["polar"]["0.001"])
+    maximum = max(results[benchmark]["polar"]["0.001"])
     for budget in regret_budgets:
         if tet > sum(results[benchmark]["polar"][budget]):
             tet = sum(results[benchmark]["polar"][budget])
@@ -235,12 +235,12 @@ for benchmark in benchmarks:
     formatted_results[benchmark] = {"duckdb": {}, "generic": {}, "tuned": {}, "speedup": {}}
     formatted_results[benchmark]["duckdb"]["tet"] = "{:5.1f}".format(sum(results[benchmark]["duckdb"]))
     formatted_results[benchmark]["duckdb"]["max"] = "{:5.1f}".format(max(results[benchmark]["duckdb"]))
-    formatted_results[benchmark]["generic"]["tet"] = "{:5.1f}".format(sum(results[benchmark]["polar"]["0.001"]))
-    formatted_results[benchmark]["generic"]["max"] = "{:5.1f}".format(max(results[benchmark]["polar"]["0.001"]))
+    formatted_results[benchmark]["generic"]["tet"] = "{:5.1f}".format(sum(results[benchmark]["polar"]["0.01"]))
+    formatted_results[benchmark]["generic"]["max"] = "{:5.1f}".format(max(results[benchmark]["polar"]["0.01"]))
     formatted_results[benchmark]["tuned"]["tet"] = "{:5.1f}".format(tuned_results[benchmark]["tet"])
     formatted_results[benchmark]["tuned"]["max"] = "{:5.1f}".format(tuned_results[benchmark]["max"])
-    formatted_results[benchmark]["speedup"]["tet"] = "{:5.2f}".format(sum(results[benchmark]["duckdb"]) / tuned_results[benchmark]["tet"]) + "x"
-    formatted_results[benchmark]["speedup"]["max"] = "{:5.2f}".format(max(results[benchmark]["duckdb"]) / tuned_results[benchmark]["max"]) + "x"
+    formatted_results[benchmark]["speedup"]["tet"] = "{:5.2f}".format(sum(results[benchmark]["duckdb"]) / sum(results[benchmark]["polar"]["0.01"])) + "x"
+    formatted_results[benchmark]["speedup"]["max"] = "{:5.2f}".format(max(results[benchmark]["duckdb"]) / max(results[benchmark]["polar"]["0.01"])) + "x"
 
 latex_table = f"""\\begin{{table}}
   \\centering
