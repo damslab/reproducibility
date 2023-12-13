@@ -157,13 +157,13 @@ def execute_benchmark_2():
                              ])
                     gather_pipeline_durations(s, b, q, path)
                 for s in routing_strategies["dynamic"]:
-                    for r in ["0.0001", "0.001", "0.01", "0.1"]:
+                    for r in ["0.01"]:
                         move_files(f"{cwd}/duckdb-polr/tmp", "*", "")
                         sp.call([f"{cwd}/experiments/util/runDuckDBRestrict1.sh",
                                  f"benchmark/{b}/{q}.benchmark",
                                  "--polr_mode=bushy",
                                  f"--multiplexer_routing={s}",
-                                 f"--regret_budget={r}",
+                                 f"--regret_budget={r if s == 'adaptive_reinit' else '0.001'}",
                                  "--measure_pipeline",
                                  "--threads=1",
                                  f"--nruns={nruns}"
@@ -175,7 +175,7 @@ def execute_benchmark_2():
                                  f"benchmark/{b}/{q}.benchmark",
                                  "--polr_mode=bushy",
                                  f"--multiplexer_routing={s}",
-                                 f"--regret_budget={r}",
+                                 f"--regret_budget={r if s == 'adaptive_reinit' else '0.001'}",
                                  "--measure_pipeline",
                                  "--threads=1",
                                  "--enumerator=bfs_min_card",
@@ -186,12 +186,12 @@ def execute_benchmark_2():
 
 
 def execute_benchmark_3():
-    nruns = 10
+    nruns = 20
     routing_strategy = "adaptive_reinit"
     cwd = os.getcwd()
 
     for b in benchmarks:
-        for r in ["0.0001", "0.001", "0.01", "0.1"]:
+        for r in ["0.01"]:
             move_files(f"{cwd}/duckdb-polr/tmp", "*", "")
             sp.call([f"{cwd}/duckdb-polr/build/release/benchmark/benchmark_runner",
                      f"benchmark/{b}/.*",

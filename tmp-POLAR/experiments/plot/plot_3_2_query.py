@@ -8,7 +8,7 @@ import matplotlib.ticker as plticker
 import numpy as np
 
 benchmarks = ["imdb", "ssb", "ssb-skew"]
-regret_budgets = ["0.001", "0.01"]
+regret_budgets = ["0.01"]
 # Exclude as no containing POLAR pipelines
 excluded = {"imdb": ["02a", "02b", "02c", "02d",
                      "04a", "04b", "04c",
@@ -64,7 +64,7 @@ for benchmark in benchmarks:
 
     results[benchmark] = {"polar": all_polar_timings, "duckdb": duckdb_timings}
 
-budget_mapping = {"imdb": "0.001", "ssb": "0.001", "ssb-skew": "0.001"}
+budget_mapping = {"imdb": "0.01", "ssb": "0.01", "ssb-skew": "0.01"}
 titles = {"imdb": "JOB", "ssb": "SSB", "ssb-skew": "SSB-skew"}
 
 loc = plticker.MultipleLocator(base=1.0)
@@ -75,7 +75,7 @@ for i in range(len(benchmarks)):
     benchmark = benchmarks[i]
     polar_timings = []
 
-    polar_timings = results[benchmark]["polar"]["0.001"]
+    polar_timings = results[benchmark]["polar"]["0.01"]
     duckdb_timings = results[benchmark]["duckdb"]
 
     rel = []
@@ -88,8 +88,8 @@ for i in range(len(benchmarks)):
         if pt <= dt:
             rel.append((dt / pt) - 1)
         else:
-            if (dt - pt) / dt < -0.1:
-                print(f"{j} | DuckDB: {dt}, POLAR: {pt}")
+            if (dt - pt) / dt < -0.05:
+                print(f"{j} | DuckDB: {dt}, POLAR: {pt}, {(dt / pt) - 1}")
             rel.append((dt - pt) / dt)
 
     df = pd.DataFrame({"rel": sorted(rel)})
@@ -222,8 +222,8 @@ for benchmark in benchmarks:
 
 tuned_results = {}
 for benchmark in benchmarks:
-    tet = sum(results[benchmark]["polar"]["0.001"])
-    maximum = max(results[benchmark]["polar"]["0.001"])
+    tet = sum(results[benchmark]["polar"]["0.01"])
+    maximum = max(results[benchmark]["polar"]["0.01"])
     for budget in regret_budgets:
         if tet > sum(results[benchmark]["polar"][budget]):
             tet = sum(results[benchmark]["polar"][budget])
