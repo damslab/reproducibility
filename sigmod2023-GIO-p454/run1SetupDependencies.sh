@@ -1,6 +1,8 @@
 #!/bin/bash
 
 sudo apt update
+
+# Install Java 
 sudo apt-get install -y openjdk-11-jdk-headless
 
 # Install C++ dependencies
@@ -22,6 +24,6 @@ sudo apt-get install -y texlive-science
 
 # Python Environment 
 rm -rf envGIO # clean up
-apt install -y python3-pip virtualenv
+sudo apt install -y python3-pip virtualenv
 virtualenv -p python3 envGIO #Create an environment: envGIO
 source envGIO/bin/activate #Active environment: envGIO
