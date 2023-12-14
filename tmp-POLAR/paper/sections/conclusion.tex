@@ -1,7 +1,0 @@
-\section{Conclusions}
-% summary
-We introduced the new concept of plans of least resistance for leveraging adaptive query processing in a non-invasive manner. POLAR pipelines replace, where applicable, standard join pipelines and internally multiplex tuple batches among alternative join paths. This design allows periodically sampling join paths, collecting telemetry, and adapting the routing to the best path accordingly. 
-% conclusions
-We draw three key conclusions. First, the simple design without optimizer changes greatly simplified the integration into systems such as DuckDB. Second, POLAR shows robust performance but only on workloads yielding a large fraction of applicable pipelines. Third, there are examples of substantial performance improvements for individual pipelines, queries, and workloads, especially for skewed data (fix for bad cardinality estimates) and clustered data (exploit different plans for different data partitions).
-% future work
-Interesting directions of future work include more advanced strategies for selecting alternative pipelines (e.g., considering the uncertainty of cardinality estimates), and broader support for different plan structures (e.g., DAGs, bushy plans, additional operators like groupjoin \cite{MoerkotteN11}). 

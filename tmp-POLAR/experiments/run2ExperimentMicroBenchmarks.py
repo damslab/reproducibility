@@ -118,7 +118,7 @@ def execute_benchmark_2():
         for s in routing_strategies["static"]:
             sp.call(["mkdir", "-p", f"{cwd}/experiment-results/3_1_pipeline/{b}/{s}"])
         for s in routing_strategies["dynamic"]:
-            for r in ["0.0001", "0.001", "0.01", "0.1"]:
+            for r in ["0.001", "0.01"]:
                 sp.call(["mkdir", "-p", f"{cwd}/experiment-results/3_1_pipeline/{b}/{s}/{r}"])
                 sp.call(["mkdir", "-p", f"{cwd}/experiment-results/3_1_pipeline/{b}/{s}-exhaustive/{r}"])
         sp.call(["mkdir", "-p", f"{cwd}/experiment-results/3_1_pipeline/{b}/default"])
@@ -157,54 +157,54 @@ def execute_benchmark_2():
                              ])
                     gather_pipeline_durations(s, b, q, path)
                 for s in routing_strategies["dynamic"]:
-                    for r in ["0.01"]:
-                        move_files(f"{cwd}/duckdb-polr/tmp", "*", "")
-                        sp.call([f"{cwd}/experiments/util/runDuckDBRestrict1.sh",
-                                 f"benchmark/{b}/{q}.benchmark",
-                                 "--polr_mode=bushy",
-                                 f"--multiplexer_routing={s}",
-                                 f"--regret_budget={r if s == 'adaptive_reinit' else '0.001'}",
-                                 "--measure_pipeline",
-                                 "--threads=1",
-                                 f"--nruns={nruns}"
-                                 ])
-                        gather_pipeline_durations(f"{s}/{r}", b, q, path)
+                    r = "0.01" if s == "adaptive_reinit" else "0.001"
+                    move_files(f"{cwd}/duckdb-polr/tmp", "*", "")
+                    sp.call([f"{cwd}/experiments/util/runDuckDBRestrict1.sh",
+                             f"benchmark/{b}/{q}.benchmark",
+                             "--polr_mode=bushy",
+                             f"--multiplexer_routing={s}",
+                             f"--regret_budget={r}",
+                             "--measure_pipeline",
+                             "--threads=1",
+                             f"--nruns={nruns}"
+                             ])
+                    gather_pipeline_durations(f"{s}/{r}", b, q, path)
 
-                        move_files(f"{cwd}/duckdb-polr/tmp", "*", "")
-                        sp.call([f"{cwd}/experiments/util/runDuckDBRestrict1.sh",
-                                 f"benchmark/{b}/{q}.benchmark",
-                                 "--polr_mode=bushy",
-                                 f"--multiplexer_routing={s}",
-                                 f"--regret_budget={r if s == 'adaptive_reinit' else '0.001'}",
-                                 "--measure_pipeline",
-                                 "--threads=1",
-                                 "--enumerator=bfs_min_card",
-                                 "--max_join_orders=24",
-                                 f"--nruns={nruns}"
-                                 ])
-                        gather_pipeline_durations(f"{s}-exhaustive/{r}", b, q, path)
+                    move_files(f"{cwd}/duckdb-polr/tmp", "*", "")
+                    sp.call([f"{cwd}/experiments/util/runDuckDBRestrict1.sh",
+                             f"benchmark/{b}/{q}.benchmark",
+                             "--polr_mode=bushy",
+                             f"--multiplexer_routing={s}",
+                             f"--regret_budget={r}",
+                             "--measure_pipeline",
+                             "--threads=1",
+                             "--enumerator=bfs_min_card",
+                             "--max_join_orders=24",
+                             f"--nruns={nruns}"
+                             ])
+                    gather_pipeline_durations(f"{s}-exhaustive/{r}", b, q, path)
 
 
 def execute_benchmark_3():
     nruns = 20
-    routing_strategy = "adaptive_reinit"
     cwd = os.getcwd()
+    r = "0.01"
 
     for b in benchmarks:
-        for r in ["0.01"]:
-            move_files(f"{cwd}/duckdb-polr/tmp", "*", "")
-            sp.call([f"{cwd}/duckdb-polr/build/release/benchmark/benchmark_runner",
-                     f"benchmark/{b}/.*",
-                     "--polr_mode=bushy",
-                     f"--multiplexer_routing={routing_strategy}",
-                     f"--regret_budget={r}",
-                     "--threads=1",
-                     f"--nruns={nruns}",
-                     "--out=tmp/results.csv"
-                     ])
-            sp.call(["mkdir", "-p", f"{cwd}/experiment-results/3_2_query/{b}/{r}"])
-            sp.call(
-                ["mv", f"{cwd}/duckdb-polr/tmp/results.csv", f"{cwd}/experiment-results/3_2_query/{b}/{r}/polar.csv"])
+        move_files(f"{cwd}/duckdb-polr/tmp", "*", "")
+        sp.call([f"{cwd}/duckdb-polr/build/release/benchmark/benchmark_runner",
+                 f"benchmark/{b}/.*",
+                 "--polr_mode=bushy",
+                 "--threads=1",
+                 f"--nruns={nruns}",
+                 "--out=tmp/results.csv"
+                 ])
+        sp.call(["mkdir", "-p", f"{cwd}/experiment-results/3_2_query/{b}/{r}"])
+        sp.call(
+            ["mv", f"{cwd}/duckdb-polr/tmp/results.csv", f"{cwd}/experiment-results/3_2_query/{b}/{r}/polar.csv"])
+        sp.call(["mkdir", "-p", f"{cwd}/experiment-results/4_1_endtoend/{b}/polar"])
+        sp.call(["cp", f"{cwd}/experiment-results/3_2_query/{b}/polar.csv",
+                 f"{cwd}/experiment-results/4_1_endtoend/{b}/polar/polar-1.csv"])
 
         move_files(f"{cwd}/duckdb-polr/tmp", "*", "")
         sp.call([f"{cwd}/duckdb-polr/build/release/benchmark/benchmark_runner",
@@ -214,6 +214,9 @@ def execute_benchmark_3():
                  "--out=tmp/results.csv"
                  ])
         sp.call(["mv", f"{cwd}/duckdb-polr/tmp/results.csv", f"{cwd}/experiment-results/3_2_query/{b}/duckdb.csv"])
+        sp.call(["mkdir", "-p", f"{cwd}/experiment-results/4_1_endtoend/{b}/duckdb"])
+        sp.call(["cp", f"{cwd}/experiment-results/3_2_query/{b}/duckdb.csv",
+                f"{cwd}/experiment-results/4_1_endtoend/{b}/duckdb/duckdb-1.csv"])
 
 
 if __name__ == "__main__":
@@ -221,6 +224,7 @@ if __name__ == "__main__":
     sp.call(["rm", "-rf", f"{os.getcwd()}/experiment-results/2_5_init_tuple"])
     sp.call(["rm", "-rf", f"{os.getcwd()}/experiment-results/3_1_pipeline"])
     sp.call(["rm", "-rf", f"{os.getcwd()}/experiment-results/3_2_query"])
+    sp.call(["rm", "-rf", f"{os.getcwd()}/experiment-results/4_1_endtoend"])
     sp.call(["rm", "-rf", f"{os.getcwd()}/duckdb-polr/tmp"])
     sp.call(["mkdir", "-p", f"{os.getcwd()}/duckdb-polr/tmp"])
     pool = mp.Pool(min(mp.cpu_count(), 16))

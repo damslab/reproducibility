@@ -7,7 +7,7 @@ import subprocess as sp
 import os
 
 enumeration_strategies = ["each_last_once", "each_first_once", "optimal", "bfs_min_card", "bfs_random", "sample"]
-optimizer_modes = ["dphyp-equisets"]
+optimizer_modes = ["greedy-equisets-ldt"]
 benchmarks = {
     "imdb": ["01a", "01b", "01c", "01d", "02a", "02b", "02c", "02d", "03a", "03b", "03c",
              "04a", "04b", "04c", "05a", "05b", "05c", "06a", "06b", "06c", "06d", "06e",
@@ -110,6 +110,7 @@ def execute_benchmark_2(i, m, s, b):
                ]
         if s == "optimal":
             arr.append("--max_join_orders=24")
+            print(arr)
         sp.call(arr)
 
         move_files(f"{cwd}/duckdb-polr/tmp/{i}", "*-enumeration.csv",
@@ -128,7 +129,7 @@ if __name__ == "__main__":
     sp.call(["rm", "-rf", f"{os.getcwd()}/experiment-results/2_2_enumeration_timings"])
     sp.call(["rm", "-rf", f"{os.getcwd()}/duckdb-polr/tmp"])
     sp.call(["mkdir", "-p", f"{os.getcwd()}/duckdb-polr/tmp"])
-    pool = mp.Pool(min(mp.cpu_count(), 16))
+    pool = mp.Pool(min(mp.cpu_count() - 2, 16))
 
     idx = 0
     for benchmark in benchmarks.keys():

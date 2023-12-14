@@ -5,7 +5,7 @@ INSTALL_DIR="${PWD}"
 sudo apt update
 
 declare -a packages=(
-  "cgroup-tools" "git" "libssl-dev" "python3-pip" "software-properties-common" "texlive-full" "unzip"
+  "cgroup-tools" "git" "libssl-dev" "python3-pip" # "texlive-full"
 )
 
 for package in "${packages[@]}"
@@ -17,13 +17,6 @@ do
   fi
 done
 
-sudo add-apt-repository ppa:deadsnakes/ppa
-
-sudo pip install gdown
-
-echo "Starting Postgres..."
-sudo systemctl start postgresql.service
-
 echo "Creating cgroups..."
 sudo cgcreate -a "$USER" -t "$USER" -g cpu:/limitcpu1
 sudo cgset -r cpu.cfs_quota_us=100000 limitcpu1
@@ -34,7 +27,6 @@ if [[ ! -d "${INSTALL_DIR}/duckdb-polr" ]]; then
   echo "Downloading POLAR..."
   git clone https://github.com/d-justen/duckdb-polr.git
   cd duckdb-polr
-  git checkout new
   BUILD_BENCHMARK=1 BUILD_TPCH=1 BUILD_HTTPFS=1 make -j
   cd ..
 fi

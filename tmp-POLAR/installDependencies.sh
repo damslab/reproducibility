@@ -34,7 +34,6 @@ if [[ ! -d "${INSTALL_DIR}/duckdb-polr" ]]; then
   echo "Downloading POLAR..."
   git clone https://github.com/d-justen/duckdb-polr.git
   cd duckdb-polr
-  git checkout new
   BUILD_BENCHMARK=1 BUILD_TPCH=1 BUILD_HTTPFS=1 make -j
   cd ..
 fi

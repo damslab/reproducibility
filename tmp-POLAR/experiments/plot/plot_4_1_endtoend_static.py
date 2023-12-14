@@ -66,14 +66,14 @@ for benchmark in benchmarks:
 
     if benchmark == "imdb":
         # SkinnerDB-1
-        path = os.getcwd() + f"/experiment-results/4_1_endtoend/{benchmark}/skinnerdb/skinnerdb-1.csv"
+        path = os.getcwd() + f"/static/4_1_endtoend/{benchmark}/skinnerdb/skinnerdb-1.csv"
         df = pd.read_csv(path)
         skinnerdb_timings = []
         for index, row in df.iterrows():
             skinnerdb_timings.append(float(row["Millis"]) / 1000)
 
         # SkinnerDB-8
-        path = os.getcwd() + f"/experiment-results/4_1_endtoend/{benchmark}/skinnerdb/skinnerdb-8.csv"
+        path = os.getcwd() + f"/static/4_1_endtoend/{benchmark}/skinnerdb/skinnerdb-8.csv"
         df = pd.read_csv(path)
         skinnerdb8_timings = []
         for index, row in df.iterrows():
@@ -81,7 +81,7 @@ for benchmark in benchmarks:
 
         # SkinnerMT-1
         skinnermt_timings = []
-        path = os.getcwd() + f"/experiment-results/4_1_endtoend/{benchmark}/skinnermt/skinnermt-1.csv"
+        path = os.getcwd() + f"/static/4_1_endtoend/{benchmark}/skinnermt/skinnermt-1.csv"
         df = pd.read_csv(path)
         df = df.groupby("Query", as_index=False).median()
         for index, row in df.iterrows():
@@ -89,14 +89,14 @@ for benchmark in benchmarks:
 
         # SkinnerMT-8
         skinnermt8_timings = []
-        path = os.getcwd() + f"/experiment-results/4_1_endtoend/{benchmark}/skinnermt/skinnermt-8.csv"
+        path = os.getcwd() + f"/static/4_1_endtoend/{benchmark}/skinnermt/skinnermt-8.csv"
         df = pd.read_csv(path)
         df = df.groupby("Query", as_index=False).median()
         for index, row in df.iterrows():
             skinnermt8_timings.append(float(row["Millis"]) / 1000)
 
     # Postgres-1
-    path = os.getcwd() + f"/experiment-results/4_1_endtoend/{benchmark}/postgres/postgres-1.csv"
+    path = os.getcwd() + f"/static/4_1_endtoend/{benchmark}/postgres/postgres-1.csv"
     df = pd.read_csv(path)
     df = df.groupby("query", as_index=False).median()
     postgres_timings = []
@@ -104,7 +104,7 @@ for benchmark in benchmarks:
         postgres_timings.append(float(row["duration"]))
 
     # Postgres-8
-    path = os.getcwd() + f"/experiment-results/4_1_endtoend/{benchmark}/postgres/postgres-8.csv"
+    path = os.getcwd() + f"/static/4_1_endtoend/{benchmark}/postgres/postgres-8.csv"
     df = pd.read_csv(path)
     df = df.groupby("query", as_index=False).median()
     postgres8_timings = []

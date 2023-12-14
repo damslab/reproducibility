@@ -9,8 +9,8 @@ Hardware Info to Reproduce Experiment Results
 
 - Processor: AMD EPYC 7443P CPU @ 2.85 GHz
 - Cores: 24 physical cores (48 vCores)
-- Memory: 256GB
-- Disk: SSD, at least 20GB.
+- Memory: 256 GB
+- Disk: SSD, at least 300 GB.
 
 Experimentation Info
 
@@ -18,13 +18,16 @@ Experimentation Info
 
 **Usage**
 
-Run `./installDependencies.sh` to install the dependencies and generate the benchmark data.
+Run `./installDependenciesDuckDB.sh` to install the dependencies and generate the benchmark data.
 The following packages are required:
+- *cgroup-tools*: For thread limiting
 - *git*: For checking out the POLAR and DBGen repositories 
 - *libssl-dev*: For building DuckDB
-- *pigz*: For compressing the benchmark data
+- *python3-pip*: For python requirements
 
-Execute benchmarks with `./runBenchmark.sh`. You can specify the benchmark, routing strategy, regret budget, and
+Execute all automated benchmarks with `./runAllBenchmarks.sh`. The resulting figures and tables are saved in `paper/{figures,tables}`.
+
+Execute specific benchmarks with `./runBenchmark.sh`. You can specify the benchmark, routing strategy, regret budget, and
 number of threads.
 
 ```
