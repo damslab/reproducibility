@@ -123,77 +123,6 @@ fig.supxlabel('Queries')
 fig.supylabel('Performance Impact')
 plt.savefig("paper/figures/3_2_rel_gains.pdf")
 
-
-#fig = plt.figure(figsize=(12, 4), constrained_layout=True)
-#subfigs = fig.subfigures(nrows=2, ncols=1)
-#
-#for row, subfig in enumerate(subfigs):
-#    title = ""
-#
-#    if row == 0:
-#        title = "Tuned"
-#    else:
-#        title = "Generic"
-#
-#    subfig.suptitle(title, fontweight="bold")
-#    ax = subfig.subplots(nrows=1, ncols=len(benchmarks))
-#
-#    for i in range(len(benchmarks)):
-#        benchmark = benchmarks[i]
-#        polar_timings = []
-#
-#        if row == 0:
-#            polar_timings = results[benchmark]["polar"][budget_mapping[benchmark]]
-#        else:
-#            polar_timings = results[benchmark]["polar"]["0.001"]
-#        duckdb_timings = results[benchmark]["duckdb"]
-#
-#        rel = []
-#        for j in range(len(polar_timings)):
-#            pt = polar_timings[j]
-#            dt = duckdb_timings[j]
-#            if (pt - dt) / dt < -0.5:
-#                print(f"{j} | DuckDB: {dt}, POLAR: {pt}, {(dt / pt) - 1}")
-#
-#            if pt <= dt:
-#                rel.append((dt / pt) - 1)
-#            else:
-#                if (dt - pt) / dt < -0.1:
-#                    print(f"{j} | DuckDB: {dt}, POLAR: {pt}")
-#                rel.append((dt - pt) / dt)
-#
-#        df = pd.DataFrame({"rel": sorted(rel)})
-#        mask1 = df["rel"] < 0
-#        mask2 = df["rel"] >= 0
-#
-#        if row == 0 and i == 2:
-#            ax[i].bar(df.index[mask2], df["rel"][mask2], color="#00b000", label="Speedup")
-#            ax[i].bar(df.index[mask1], df["rel"][mask1], color="#e9002d", label="Slowdown")
-#            handles, labels = ax[i].get_legend_handles_labels()
-#            leg = fig.legend(handles, labels, loc='outside right center', frameon=False)
-#            leg.legend_handles[1].set_color('#e9002d')
-#        else:
-#            ax[i].bar(df.index[mask2], df["rel"][mask2], color="#00b000")
-#            ax[i].bar(df.index[mask1], df["rel"][mask1], color="#e9002d")
-#
-#        if benchmark == "ssb-skew":
-#            ax[i].set_ylim(bottom=-0.1)
-#        elif benchmark == "imdb":
-#            ax[i].yaxis.set_ticks([0,2,4,6,8])
-#        #elif benchmark == "ssb" and row == 1:
-#        #    ax[i].set_ylim(bottom=-0.35, top=0.1)
-#
-#        ax[i].grid(axis="y", alpha=0.5)
-#        ax[i].set_xticks(np.arange(len(df)), labels=[])
-#        ax[i].axhline(0, color="black", lw=1)
-#
-#        if row == 0:
-#            ax[i].set_title(titles[benchmark])
-#
-#fig.supxlabel('Queries')
-#fig.supylabel('Speedup/Slowdown Factor')
-#plt.savefig("paper/figures/3_2_rel_gains.pdf")
-
 results = {}
 
 for benchmark in benchmarks:
@@ -242,22 +171,24 @@ for benchmark in benchmarks:
     formatted_results[benchmark]["speedup"]["tet"] = "{:5.2f}".format(sum(results[benchmark]["duckdb"]) / sum(results[benchmark]["polar"]["0.01"])) + "x"
     formatted_results[benchmark]["speedup"]["max"] = "{:5.2f}".format(max(results[benchmark]["duckdb"]) / max(results[benchmark]["polar"]["0.01"])) + "x"
 
-latex_table = f"""\\begin{{table}}
+latex_table = f"""\\definecolor{{dollarbill}}{{RGB}}{{0, 176, 0}}
+\\begin{{table}}
   \\centering
-  \\caption{{Overall Performance Impact -- Single-threaded total execution time, and max execution time per query [seconds].}}
-  \\vspace{{-0.3cm}} \\setlength\\tabcolsep{{3.7pt}}
+  \\caption{{Overall Performance Impact -- Single-threaded Total Execution Time, and Max Execution Time per Query [seconds].}}
+  \\vspace{{-0.3cm}} \\setlength\\tabcolsep{{3.9pt}}
   \\begin{{tabular}}{{lcccccc}}
     \\toprule
     & \\multicolumn{{3}}{{c}}{{\\textbf{{Total Execution Time}}}} & \\multicolumn{{3}}{{c}}{{\\textbf{{Max. Query Time}}}}\\\\
     & JOB & SSB & SSB-skew & JOB & SSB & SSB-skew\\\\
     \\midrule
     DuckDB & {formatted_results["imdb"]["duckdb"]["tet"]} & {formatted_results["ssb"]["duckdb"]["tet"]} & {formatted_results["ssb-skew"]["duckdb"]["tet"]} & {formatted_results["imdb"]["duckdb"]["max"]} & {formatted_results["ssb"]["duckdb"]["max"]} & {formatted_results["ssb-skew"]["duckdb"]["max"]}\\\\
-    POLAR-G & {formatted_results["imdb"]["generic"]["tet"]} & {formatted_results["ssb"]["generic"]["tet"]} & {formatted_results["ssb-skew"]["generic"]["tet"]} & {formatted_results["imdb"]["generic"]["max"]} & {formatted_results["ssb"]["generic"]["max"]} & {formatted_results["ssb-skew"]["generic"]["max"]}\\\\
-    POLAR-T & \\textbf{{{formatted_results["imdb"]["tuned"]["tet"]}}} & \\textbf{{{formatted_results["ssb"]["tuned"]["tet"]}}} & \\textbf{{{formatted_results["ssb-skew"]["tuned"]["tet"]}}} & \\textbf{{{formatted_results["imdb"]["tuned"]["max"]}}} & \\textbf{{{formatted_results["ssb"]["tuned"]["max"]}}} & \\textbf{{{formatted_results["ssb-skew"]["tuned"]["max"]}}}\\\\
-    Speedup & {formatted_results["imdb"]["speedup"]["tet"]} & {formatted_results["ssb"]["speedup"]["tet"]} & \\textbf{{\\color{{red}}{formatted_results["ssb-skew"]["speedup"]["tet"]}}} & \\textbf{{\\color{{red}}{formatted_results["imdb"]["speedup"]["max"]}}} & {formatted_results["ssb"]["speedup"]["max"]} & \\textbf{{\\color{{red}}{formatted_results["ssb-skew"]["speedup"]["max"]}}}\\\\
+    POLAR & \\textbf{{{formatted_results["imdb"]["generic"]["tet"]}}} & \\textbf{{{formatted_results["ssb"]["generic"]["tet"]}}} & \\textbf{{{formatted_results["ssb-skew"]["generic"]["tet"]}}} & \\textbf{{{formatted_results["imdb"]["generic"]["max"]}}} & \\textbf{{{formatted_results["ssb"]["generic"]["max"]}}} & \\textbf{{{formatted_results["ssb-skew"]["generic"]["max"]}}}\\\\
+    \\midrule
+    Speedup & \\textbf{{\\color{{dollarbill}}{formatted_results["imdb"]["speedup"]["tet"]}}} & {formatted_results["ssb"]["speedup"]["tet"]} & \\textbf{{\\color{{dollarbill}}{formatted_results["ssb-skew"]["speedup"]["tet"]}}} & \\textbf{{\\color{{dollarbill}}{formatted_results["imdb"]["speedup"]["max"]}}} & {formatted_results["ssb"]["speedup"]["max"]} & \\textbf{{\\color{{dollarbill}}{formatted_results["ssb-skew"]["speedup"]["max"]}}}\\\\
     \\bottomrule
   \\end{{tabular}}
   \\label{{tab:3_4_endtoend}}
+  \\vspace{{-0.3cm}}
 \\end{{table}}
 """
 

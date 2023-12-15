@@ -58,12 +58,12 @@ formatted_results = {}
 for result_key in results:
     formatted_results[result_key] = {}
     for enumerator in results[result_key]:
-        formatted_results[result_key][enumerator] = "{:10.2f}".format(sum(results[result_key][enumerator]) / 1000000) + " M"
+        formatted_results[result_key][enumerator] = "{:10.2f}".format(sum(results[result_key][enumerator]) / 1000000) + "\\,M"
 
 latex_table = f"""\\begin{{table}}[!t]
   \\centering
-  \\caption{{Join Order Selection -- Total number of intermediates for POLAR pipelines with different selection strategies.}}
-  \\vspace{{-0.3cm}}  \\setlength\\tabcolsep{{3.5pt}}
+  \\caption{{Join Order Selection -- Total Number of Intermediates for POLAR Pipelines with Different Selection Strategies.}}
+  \\vspace{{-0.3cm}}  \\setlength\\tabcolsep{{10.4pt}}
   \\begin{{tabular}}{{lrrr}}
     \\toprule
     \\textbf{{Enumeration}} & \\textbf{{JOB}} & \\textbf{{SSB}} & \\textbf{{SSB-skew}}\\\\
@@ -79,6 +79,7 @@ latex_table = f"""\\begin{{table}}[!t]
     \\bottomrule
   \\end{{tabular}}
   \\label{{tab:1_1_sel_intms}}
+  \\vspace{{-0.2cm}}
 \\end{{table}}
 """
 
@@ -104,15 +105,9 @@ for benchmark in benchmarks:
         timings.append(0)
 
     results[benchmark]["pipelines"] = timings
-    path = os.getcwd() + f"/experiment-results/1_1_potential_impact/{benchmark}/queries"
-    csv_files = glob.glob(os.path.join(path, "*.csv"))
+    path = os.getcwd() + f"/experiment-results/3_2_query/{benchmark}/duckdb.csv"
 
-    if len(csv_files) != 1:
-        print(f"Warning: no results for {path}")
-        results[benchmark]["queries"] = 0
-        continue
-
-    df = pd.read_csv(csv_files[0], names=["name", "run", "timing"])
+    df = pd.read_csv(path, names=["name", "run", "timing"])
     total_time = float(df.groupby("name").median()["timing"].sum())
     results[benchmark]["queries"] = total_time
 
@@ -122,8 +117,8 @@ for benchmark in benchmarks:
 
 latex_table = f"""\\begin{{table}}[!t]
   \\centering 
-  \\caption{{Intermediate Tuple Reduction and Coverage of Amenable Piplines -- Total number of intermediate tuples and fraction of total execution time spent in amenable pipelines.}}
-  \\vspace{{-0.3cm}} \\setlength\\tabcolsep{{5pt}}
+  \\caption{{Total Number of Intermediates and Fraction of Total Execution Time Spent in Amenable Pipelines (Coverage).}}
+  \\vspace{{-0.3cm}} \\setlength\\tabcolsep{{5.2pt}}
   \\begin{{tabular}}{{lrrrr}}
     \\toprule
     \\textbf{{Benchmark}} & \\textbf{{DuckDB}} & \\textbf{{Routing}} & \\textbf{{Static}} & \\textbf{{Coverage}}\\\\

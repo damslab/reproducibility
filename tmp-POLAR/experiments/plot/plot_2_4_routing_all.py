@@ -99,12 +99,12 @@ formatted_results = {}
 for benchmark in benchmarks:
     formatted_results[benchmark] = {}
     for strategy in routing_strategies:
-        formatted_results[benchmark][strategy] = "{:10.2f}".format(sum(results[benchmark][strategy]) / 1000000) + " M"
+        formatted_results[benchmark][strategy] = "{:10.2f}".format(sum(results[benchmark][strategy]) / 1000000) + "\\,M"
 
 latex_table = f"""\\begin{{table}}[!t]
   \\centering
-  \\caption{{Intermediate Results -- Total number of intermediates per routing strategy using tuned exploration budgets.}}
-  \\vspace{{-0.3cm}} \\setlength\\tabcolsep{{7.9pt}}
+  \\caption{{Intermediate Results -- Number of Intermediates of Different Routing Strategies (Tuned Exploration Budgets).}}
+  \\vspace{{-0.3cm}} \\setlength\\tabcolsep{{7.5pt}}
   \\begin{{tabular}}{{lrrr}}
     \\toprule
     \\textbf{{Routing Strategy}} & \\textbf{{JOB}} & \\textbf{{SSB}} & \\textbf{{SSB-skew}}\\\\
@@ -113,9 +113,9 @@ latex_table = f"""\\begin{{table}}[!t]
     Optimal & {formatted_results["imdb"]["alternate"]} & {formatted_results["ssb"]["alternate"]} & {formatted_results["ssb-skew"]["alternate"]}\\\\
     \\midrule
     \\textsc{{InitOnce}} & {formatted_results["imdb"]["init_once"]} & {formatted_results["ssb"]["init_once"]} & {formatted_results["ssb-skew"]["init_once"]}\\\\
-    \\textsc{{Opportunistic}} & {formatted_results["imdb"]["opportunistic"]} & {formatted_results["ssb"]["opportunistic"]} & {formatted_results["ssb-skew"]["opportunistic"]}\\\\
-    \\textsc{{AdaptTupleCount}} & {formatted_results["imdb"]["dynamic"]} & {formatted_results["ssb"]["dynamic"]} & {formatted_results["ssb-skew"]["dynamic"]}\\\\
-    \\textsc{{AdaptWindowSize}} & {formatted_results["imdb"]["adaptive_reinit"]} & {formatted_results["ssb"]["adaptive_reinit"]} & {formatted_results["ssb-skew"]["adaptive_reinit"]}\\\\
+    \\textsc{{Opportunistic}} & {formatted_results["imdb"]["opportunistic"]} & \\textbf{{{formatted_results["ssb"]["opportunistic"]}}} & {formatted_results["ssb-skew"]["opportunistic"]}\\\\
+    \\textsc{{AdaptTupleCount}} & \\textbf{{{formatted_results["imdb"]["dynamic"]}}} & {formatted_results["ssb"]["dynamic"]} & {formatted_results["ssb-skew"]["dynamic"]}\\\\
+    \\textsc{{AdaptWindowSize}} & {formatted_results["imdb"]["adaptive_reinit"]} & {formatted_results["ssb"]["adaptive_reinit"]} & \\textbf{{{formatted_results["ssb-skew"]["adaptive_reinit"]}}}\\\\
     \\textsc{{Backpressure}} & {formatted_results["imdb"]["backpressure"]} & {formatted_results["ssb"]["backpressure"]} & {formatted_results["ssb-skew"]["backpressure"]}\\\\
     \\bottomrule
     \\end{{tabular}}

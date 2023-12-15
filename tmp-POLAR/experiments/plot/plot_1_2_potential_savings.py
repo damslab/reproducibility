@@ -51,11 +51,10 @@ for benchmark in benchmarks:
         else:
             polar_pp_durations[query_name] = median_timing / 1000
 
-    path = os.getcwd() + f"/experiment-results/1_1_potential_impact/{benchmark}/queries"
-    csv_files = glob.glob(os.path.join(path, "*.csv"))
+    path = os.getcwd() + f"/experiment-results/3_2_query/{benchmark}/duckdb.csv"
 
     query_durations = {}
-    df = pd.read_csv(csv_files[0], names=["name", "run", "timing"])
+    df = pd.read_csv(path, names=["name", "run", "timing"])
     df = df.groupby("name", as_index=False).median()
 
     for index, row in df.iterrows():
@@ -67,7 +66,7 @@ for benchmark in benchmarks:
         non_polar = query_durations[query] - polar_pp_durations[query]
         if polar_pp_durations[query] > query_durations[query]:
             print(f"Warning: join pipeline took longer than query {query}: {query_durations[query]} vs {polar_pp_durations[query]}")
-            non_polar = 0.1 * polar_pp_durations[query]
+            non_polar = 0.01 * polar_pp_durations[query]
         if optimal_query_intms[query] == 0:
             if duckdb_query_intms[query] == 0:
                 impacts.append(1)
