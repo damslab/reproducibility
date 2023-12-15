@@ -7,7 +7,7 @@ import subprocess as sp
 import os
 
 enumeration_strategies = ["each_last_once", "each_first_once", "optimal", "bfs_min_card", "bfs_random", "sample"]
-optimizer_modes = ["greedy-equisets-ldt"]
+optimizer_modes = ["dphyp-equisets"]
 benchmarks = {
     "imdb": ["01a", "01b", "01c", "01d", "02a", "02b", "02c", "02d", "03a", "03b", "03c",
              "04a", "04b", "04c", "05a", "05b", "05c", "06a", "06b", "06c", "06d", "06e",

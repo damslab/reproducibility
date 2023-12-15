@@ -174,7 +174,7 @@ for benchmark in benchmarks:
 latex_table = f"""\\definecolor{{dollarbill}}{{RGB}}{{0, 176, 0}}
 \\begin{{table}}
   \\centering
-  \\caption{{Overall Performance Impact -- Single-threaded Total Execution Time, and Max Execution Time per Query [seconds].}}
+  \\caption{{Overall Performance Impact -- Single-threaded Total Execution Time, and Max Query Execution Time [seconds].}}
   \\vspace{{-0.3cm}} \\setlength\\tabcolsep{{3.9pt}}
   \\begin{{tabular}}{{lcccccc}}
     \\toprule
