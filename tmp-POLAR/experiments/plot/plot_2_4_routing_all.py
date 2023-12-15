@@ -48,7 +48,8 @@ for benchmark in benchmarks:
                         line = f.readline()
                         intms.append(int(line))
                     continue
-                intms.append(df.min(axis=1).sum())
+                else:
+                    intms.append(df.min(axis=1).sum())
         else:
             txt_files = glob.glob(os.path.join(path, "*.txt"))
             txt_files.sort()
