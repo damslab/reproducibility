@@ -19,7 +19,7 @@ for benchmark in benchmarks:
         path = ""
         if enumerator == "sample":
             for sample_size in sample_sizes:
-                path = f"{os.getcwd()}/experiment-results/2_0_sample_size/{benchmark}/{sample_size}/timings"
+                path = f"{os.getcwd()}/experiment-results 2/2_0_sample_size/{benchmark}/{sample_size}/timings"
                 csv_files = glob.glob(os.path.join(path, "*.csv"))
                 csv_files.sort()
 
@@ -29,7 +29,7 @@ for benchmark in benchmarks:
                     total_compile_time += df["enumeration_time_ms"].min()
                 compile_times.append(total_compile_time / len(csv_files))
         else:
-            path = f"{os.getcwd()}/experiment-results/2_2_enumeration_timings/dphyp-equisets/{benchmark}/{enumerator}"
+            path = f"{os.getcwd()}/experiment-results 2/2_2_enumeration_timings/dphyp-equisets/{benchmark}/{enumerator}"
             csv_files = glob.glob(os.path.join(path, "*.csv"))
             csv_files.sort()
 
@@ -71,7 +71,7 @@ for enumerator in enumerators:
     plt.plot(sample_sizes, results["ssb"][enumerator], label=labels[enumerator], color=line_colors[enumerator], linestyle=linestyles[enumerator])
 
 plt.xlabel("Sample Count")
-plt.ylabel("Average compile time (ms)")
+plt.ylabel("Average Compile Time (ms)")
 plt.ylim(bottom=0)
 #plt.yscale("log")
 plt.legend(frameon=False)

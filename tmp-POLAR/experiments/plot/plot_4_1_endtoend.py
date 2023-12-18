@@ -173,7 +173,7 @@ for i in range(len(benchmarks)):
         fig.legend(handles, labels, loc='outside right center', frameon=False)
 
 fig.supxlabel('Number of Threads')
-fig.supylabel('Total execution time (s)')
+fig.supylabel('Total Execution Time (s)')
 
 plt.savefig("paper/figures/4_1_total.pdf")
 plt.clf()

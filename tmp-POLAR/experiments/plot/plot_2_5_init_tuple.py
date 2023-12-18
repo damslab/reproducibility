@@ -59,13 +59,13 @@ labels = {
     "ssb": "SSB"
 }
 
-plt.figure(figsize=(4.25, 2.5))
+plt.figure(figsize=(4.4, 2.25))
 for benchmark in benchmarks:
     plt.plot(init_counts, normalized_results[benchmark], label=labels[benchmark], color=line_colors[benchmark])
 plt.plot(init_counts, [1] * len(init_counts), label="DuckDB", color="black", linestyle="dotted")
 
 plt.xlabel("Init Tuple Count")
-plt.ylabel("Relative Intermediate Count")
+plt.ylabel("Rel. Intermediate Count")
 plt.ylim(bottom=0)
 plt.xscale("log", base=2)
 plt.legend(frameon=False)

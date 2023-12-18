@@ -120,6 +120,7 @@ latex_table = f"""\\begin{{table}}[!t]
     \\bottomrule
     \\end{{tabular}}
   \\label{{tab:2_4_routing_all}}
+  \\vspace{{-0.1cm}}
 \\end{{table}}
 """
 

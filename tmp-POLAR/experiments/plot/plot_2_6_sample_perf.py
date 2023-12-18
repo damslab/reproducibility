@@ -67,7 +67,7 @@ for benchmark in benchmarks:
     for routing_strategy in ["adaptive_reinit", "dynamic"]:
         plt.plot(exploration_budgets, normalized_results[routing_strategy], color=line_colors[routing_strategy], label=labels[routing_strategy])
 
-plt.xlabel("Regret budget")
+plt.xlabel("Regret Budget")
 plt.ylabel("Exec. Time Overhead (%)")
 #plt.ylim(bottom=0)
 #plt.xscale("log", base=2)

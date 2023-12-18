@@ -110,7 +110,6 @@ def execute_benchmark_2(i, m, s, b):
                ]
         if s == "optimal":
             arr.append("--max_join_orders=24")
-            print(arr)
         sp.call(arr)
 
         move_files(f"{cwd}/duckdb-polr/tmp/{i}", "*-enumeration.csv",
@@ -142,6 +141,10 @@ if __name__ == "__main__":
 
     for benchmark in benchmarks.keys():
         pool.apply_async(execute_benchmark_1, args=(idx, benchmark))
+        idx += 1
+
+    for strategy in ["bfs_min_card", "bfs_random", "each_last_once", "each_first_once", "sample"]:
+        pool.apply_async(execute_benchmark_2, args=(idx, "greedy-equisets-ldt", strategy, "imdb"))
         idx += 1
 
     for mode in optimizer_modes:

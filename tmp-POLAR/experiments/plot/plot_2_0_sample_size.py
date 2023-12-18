@@ -84,8 +84,8 @@ for benchmark in benchmarks:
     plt.plot(formatted_results["x_values"], formatted_results[benchmark], label=labels[benchmark], color=line_colors[benchmark], marker="x")
 plt.plot(formatted_results["x_values"], formatted_results["optimal"], label="Exhaustive", color="black", linestyle='dotted')
 
-plt.xlabel("Selectivity space samples")
-plt.ylabel("Min. intermediates")
+plt.xlabel("Selectivity Space Samples")
+plt.ylabel("Min. Intermediates")
 plt.gca().yaxis.set_major_formatter(mtick.PercentFormatter(xmax=1.0))
 plt.yscale("log", base=2)
 #plt.ylim(bottom=0)

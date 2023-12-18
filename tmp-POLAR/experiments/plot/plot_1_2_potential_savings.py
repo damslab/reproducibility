@@ -95,8 +95,8 @@ for result_key in results:
     y = np.arange(N) / float(N-1)
     plt.plot(x, y, label=label_mapping[result_key], color=color_mapping[result_key], marker="^", ms=4)
 
-plt.xlabel("Potential improvement")
-plt.ylabel("Fraction of queries")
+plt.xlabel("Potential Improvement")
+plt.ylabel("Fraction of Queries")
 plt.xscale("log")
 plt.xticks(ticks=[1, 10], labels=["1x", "10x"])
 plt.legend(frameon=False)

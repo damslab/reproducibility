@@ -117,6 +117,6 @@ for i in range(len(benchmarks)):
         handles, labels = ax[i].get_legend_handles_labels()
         fig.legend(handles, labels, loc='outside right center', frameon=False)
 
-fig.supxlabel('Exploration budget')
+fig.supxlabel('Exploration Budget')
 fig.supylabel('Intermediates')
 plt.savefig("paper/figures/2_3_routing_adaptive.pdf")
