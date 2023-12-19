@@ -203,7 +203,7 @@ def execute_benchmark_3():
         sp.call(
             ["mv", f"{cwd}/duckdb-polr/tmp/results.csv", f"{cwd}/experiment-results/3_2_query/{b}/{r}/polar.csv"])
         sp.call(["mkdir", "-p", f"{cwd}/experiment-results/4_1_endtoend/{b}/polar"])
-        sp.call(["cp", f"{cwd}/experiment-results/3_2_query/{b}/polar.csv",
+        sp.call(["cp", f"{cwd}/experiment-results/3_2_query/{b}/{r}/polar.csv",
                  f"{cwd}/experiment-results/4_1_endtoend/{b}/polar/polar-1.csv"])
 
         move_files(f"{cwd}/duckdb-polr/tmp", "*", "")

@@ -10,10 +10,12 @@ mkdir -p paper/figures
 mkdir -p paper/tables
 
 python3 experiments/plot/plot_1_2_potential_savings.py
+python3 experiments/plot/plot_2_0_sample_size.py
 python3 experiments/plot/plot_2_1_enumeration_intms.py
 python3 experiments/plot/plot_2_2_enumeration_timings.py
 python3 experiments/plot/plot_2_3_routing_adaptive.py
 python3 experiments/plot/plot_2_4_routing_all.py
+python3 experiments/plot_2_5_init_tuple.py
 python3 experiments/plot/plot_3_1_pipeline.py
 python3 experiments/plot/plot_3_2_query.py
 python3 experiments/plot/plot_4_1_endtoend_static.py
