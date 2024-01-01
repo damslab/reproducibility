@@ -1,0 +1,256 @@
+scale_l = function(Matrix[Double] X, Matrix[Double] cmeans, Matrix[Double] csum)
+  return (Matrix[Double] Y) {
+  # This function centers scales and performs z-score on the input matrix X
+  center = TRUE;
+  scale = TRUE;
+  if( center )
+    X = X - cmeans;
+
+  if (scale) {
+    N = nrow(X);
+    if( center )
+      cvars = (csum - N*(cmeans^2))/(N-1);
+    else
+      cvars = csum/(N-1);
+
+    #scale by std-dev and replace NaNs with 0's
+    X = replace(target=X/sqrt(cvars),
+      pattern=NaN, replacement=0);
+  }
+  Y = X;
+}
+
+dropout_forward = function(matrix[double] X, double p, int seed)
+    return (matrix[double] out, matrix[double] mask) {
+  mask = ifelse(seed == -1,
+    rand(rows=nrow(X), cols=ncol(X), min=1, max=1, sparsity=p),
+    rand(rows=nrow(X), cols=ncol(X), min=1, max=1, sparsity=p, seed=seed));
+  out = X * mask / p
+}
+
+dropout_backward = function(matrix[double] dout, double p, matrix[double] mask)
+    return (matrix[double] dX) {
+  dX = mask / p * dout
+}
+
+dropout = function(Matrix[Double] Yhat, Matrix[Double] Yhat_prime,
+    Matrix[Double] Y, double rate) return(Matrix[Double] Yhat_prime, Matrix[Double] E) {
+    p = 1.0 - rate; 
+    #dropout layer forward pass. Keep p% of the neurons.
+    [Yhat, dmask] = dropout_forward(Yhat, p, 42);
+    #Compute error
+    E = Yhat - Y; 
+    #dropout layer backward pass.
+    Yhat_prime = dropout_backward(Yhat_prime, 0.8, dmask);
+}
+
+func = function(Matrix[Double] X) return(Matrix[Double] Y, Matrix[Double] Y_prime){
+     Y = (exp(2*X) - 1)/(exp(2*X) + 1)
+     Y_prime = 1 - Y^2
+}
+
+feedForward = function(Matrix[Double] X, 
+	               Matrix[Double] W1, Matrix[Double] b1, 
+	               Matrix[Double] W2, Matrix[Double] b2, 
+	               Matrix[Double] W3, Matrix[Double] b3, 
+	               Matrix[Double] W4, Matrix[Double] b4, 
+		             Matrix[Double] Y)
+      	      return(Matrix[Double] H1, Matrix[Double] H1_prime,
+	     	     Matrix[Double] H2, Matrix[Double] H2_prime,
+	     	     Matrix[Double] H3, Matrix[Double] H3_prime,
+	     	     Matrix[Double] Yhat, Matrix[Double] Yhat_prime,
+	     	     Matrix[Double] E){
+      H1_in = t(W1 %*% t(X) + b1)
+      [H1, H1_prime] = func(H1_in)
+
+      H2_in = t(W2 %*% t(H1) + b2)
+      [H2, H2_prime] = func(H2_in)
+
+      H3_in = t(W3 %*% t(H2) + b3)
+      [H3, H3_prime] = func(H3_in)
+
+      Yhat_in = t(W4 %*% t(H3) + b4)
+      [Yhat, Yhat_prime] = func(Yhat_in)
+
+      #Compute error
+      E = Yhat - Y
+}
+
+grad = function(Matrix[Double] X, 
+       		Matrix[Double] H1, Matrix[Double] H1_prime,
+       		Matrix[Double] H2, Matrix[Double] H2_prime,
+       		Matrix[Double] H3, Matrix[Double] H3_prime,
+		Matrix[Double] Yhat_prime,
+		Matrix[Double] E,
+		Matrix[Double] W1, Matrix[Double] W2, Matrix[Double] W3, Matrix[Double] W4)
+       return(Matrix[Double] W1_grad, Matrix[Double] b1_grad,
+              Matrix[Double] W2_grad, Matrix[Double] b2_grad,
+	      Matrix[Double] W3_grad, Matrix[Double] b3_grad,
+	      Matrix[Double] W4_grad, Matrix[Double] b4_grad){
+    #backprop
+    delta4 = E * Yhat_prime
+    delta3 = H3_prime * (delta4 %*% W4)
+    delta2 = H2_prime * (delta3 %*% W3)
+    delta1 = H1_prime * (delta2 %*% W2)
+
+    #compute gradients
+    b4_grad = t(colSums(delta4))
+    b3_grad = t(colSums(delta3))
+    b2_grad = t(colSums(delta2))
+    b1_grad = t(colSums(delta1))
+
+    W4_grad = t(delta4) %*% H3
+    W3_grad = t(delta3) %*% H2
+    W2_grad = t(delta2) %*% H1
+    W1_grad = t(delta1) %*% X
+}
+
+obj = function(Matrix[Double] E) return(Double val){
+    val = 0.5 * sum(E^2)
+}
+
+run_autoencoder = function(Frame[Unknown] X_frame, 
+                 Matrix[Double] X_en, Frame[Unknown] Meta,
+	               Matrix[Double] W1, Matrix[Double] b1, 
+	               Matrix[Double] W2, Matrix[Double] b2, 
+	               Matrix[Double] W3, Matrix[Double] b3, 
+	               Matrix[Double] W4, Matrix[Double] b4, 
+		             Matrix[Double] y, double dropout_rate)
+                 return(Matrix[Double] W1, Matrix[Double] b1,
+                        Matrix[Double] W2, Matrix[Double] b2,
+                        Matrix[Double] W3, Matrix[Double] b3,
+                        Matrix[Double] W4, Matrix[Double] b4)
+{
+  # Set the hyper-parameters
+  mu = 0.9;
+  step = 1e-5;
+  decay = 0.95;
+  max_epochs = 10; #10
+  batch_size = 256; #256
+
+  jspec = read("../datasets/kdd_spec2.json", data_type="scalar", value_type="string");
+  n = nrow(X_frame);
+  m = ncol(X_en);
+  cmean = colMeans(X_en);
+  csum = colSums(X_en^2);
+
+  upd_W1 = matrix(0, rows=nrow(W1), cols=ncol(W1))
+  upd_b1 = matrix(0, rows=nrow(b1), cols=ncol(b1))
+  upd_W2 = matrix(0, rows=nrow(W2), cols=ncol(W2))
+  upd_b2 = matrix(0, rows=nrow(b2), cols=ncol(b2))
+  upd_W3 = matrix(0, rows=nrow(W3), cols=ncol(W3))
+  upd_b3 = matrix(0, rows=nrow(b3), cols=ncol(b3))
+  upd_W4 = matrix(0, rows=nrow(W4), cols=ncol(W4))
+  upd_b4 = matrix(0, rows=nrow(b4), cols=ncol(b4))
+
+  # Mini-batch processing
+  iter = 0
+  num_iters_per_epoch = ceil(n / batch_size)
+  max_iterations = max_epochs * num_iters_per_epoch
+  beg = 1
+  while( iter < max_iterations ){
+        end = beg + batch_size - 1
+        if(end > n) end = n
+        batch = X_frame[beg:end,]
+        X_batch = transformapply(target=batch, spec=jspec, meta=Meta);
+        X_batch = replace(target=X_batch, pattern=NaN, replacement=0);
+        X_batch = scale_l(X_batch, cmean, csum);
+
+        [H1, H1_prime, H2, H2_prime, H3, H3_prime, Yhat, Yhat_prime, E] = 
+          feedForward(X_batch, W1, b1, W2, b2, W3, b3, W4, b4, X_batch);
+
+        #Apply dropout layer forward and backward passes
+        [Yhat_prime, E] = dropout(Yhat, Yhat_prime, X_batch, dropout_rate);
+
+        [W1_grad, b1_grad, W2_grad, b2_grad, W3_grad, b3_grad, 
+          W4_grad, b4_grad] = grad(X_batch, H1, H1_prime, H2, H2_prime, 
+              H3, H3_prime, Yhat_prime, E, W1, W2, W3, W4);
+
+        o = obj(E)
+
+        #update
+        local_step = step / nrow(X_batch)
+        upd_W1 = mu * upd_W1 - local_step * W1_grad
+        upd_b1 = mu * upd_b1 - local_step * b1
+        upd_W2 = mu * upd_W2 - local_step * W2_grad
+        upd_b2 = mu * upd_b2 - local_step * b2
+        upd_W3 = mu * upd_W3 - local_step * W3_grad
+        upd_b3 = mu * upd_b3 - local_step * b3
+        upd_W4 = mu * upd_W4 - local_step * W4_grad
+        upd_b4 = mu * upd_b4 - local_step * b4
+        W1 = W1 + upd_W1
+        b1 = b1 + upd_b1
+        W2 = W2 + upd_W2
+        b2 = b2 + upd_b2
+        W3 = W3 + upd_W3
+        b3 = b3 + upd_b3
+        W4 = W4 + upd_W4
+        b4 = b4 + upd_b4
+
+        iter = iter + 1
+        if(end == n) 
+          beg = 1;
+        else 
+          beg = end + 1;
+
+        if( iter %% num_iters_per_epoch == 0 ) 
+          step = step * decay;
+  }
+}
+
+###############################################################3
+
+t1 = time();
+# Read and prepare the dataset
+Forig = read("../datasets/KDD98.csv", data_type="frame", format="csv", header=TRUE);
+F = Forig[,1:469];
+y = as.matrix(Forig[,472]);
+# data preparation
+jspec = read("../datasets/kdd_spec2.json", data_type="scalar", value_type="string");
+[X_en, Meta] = transformencode(target=F, spec=jspec);
+print("number of rows "+nrow(X_en) + "\nnumber of cols " + ncol(X_en));
+
+X_frame = F;
+num_hidden1 = 500;
+num_hidden2 = 2;
+
+# Initialize weights and biases
+n = nrow(X_frame);
+m = ncol(X_en);
+W1 = sqrt(6)/sqrt(m + num_hidden1) * 
+  Rand(rows=num_hidden1, cols=m, min=-1, max=1, pdf="uniform", seed=1);
+b1 = matrix(0, rows=num_hidden1, cols=1)
+W2 = sqrt(6)/sqrt(num_hidden1 + num_hidden2) * 
+  Rand(rows=num_hidden2, cols=num_hidden1, min=-1, max=1, pdf="uniform", seed=2);
+b2 = matrix(0, rows=num_hidden2, cols=1)
+W3 = sqrt(6)/sqrt(num_hidden2 + num_hidden1) * 
+  Rand(rows=num_hidden1, cols=num_hidden2, min=-1, max=1, pdf="uniform", seed=3);
+b3 = matrix(0, rows=num_hidden1, cols=1)
+W4 = sqrt(6)/sqrt(num_hidden2 + m) * 
+  Rand(rows=m, cols=num_hidden1, min=-1, max=1, pdf="uniform", seed=4);
+b4 = matrix(0, rows=m, cols=1)
+
+# Tune dropout rate (5% to 50%)
+dropout_rate = 0.05;
+count = 10; #10 
+iter = 1;
+while (iter <= count) {
+  [W1,b1,W2,b2,W3,b3,W4,b4] = run_autoencoder(X_frame, X_en, Meta, W1, b1, 
+      W2, b2, W3, b3, W4, b4, y, dropout_rate);
+  iter = iter + 1;
+  dropout_rate = dropout_rate + 0.05;
+}
+
+# Write out the model
+write(W1, "W1_out", format="binary")
+write(b1, "b1_out", format="binary")
+write(W2, "W2_out", format="binary")
+write(b2, "b2_out", format="binary")
+write(W3, "W3_out", format="binary")
+write(b3, "b3_out", format="binary")
+write(W4, "W4_out", format="binary")
+write(b4, "b4_out", format="binary")
+
+t2 = time();
+print("Elapsed time = "+floor((t2-t1)/1000000)+" millsec");
+

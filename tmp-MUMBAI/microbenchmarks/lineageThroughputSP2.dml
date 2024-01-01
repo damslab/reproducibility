@@ -1,0 +1,91 @@
+func = function(Matrix[Double] X, Matrix[Double] Y, Double reg = 1) return(Matrix[Double] model) {
+  epsilon = 0.001;
+
+  w = matrix(0, rows=ncol(X), cols=1)
+  Xw = matrix(0, rows=nrow(X), cols=1)
+  g_old = t(X) %*% Y
+  s = g_old
+  w_store = w
+  Xw_store = Xw;
+  g_old_store = g_old;
+  scale_lambda = matrix (1, rows = ncol(X), cols = 1);
+
+  # Too high maxIterations lead to BC memory overhead due to 
+  # many mapmm inputs. 1 iter => 2 mapmm 
+  maxIterations = 200; 
+  iter = 0;
+
+  while(iter < maxIterations)  
+  {
+    step_sz = 0
+    Xd = X %*% s
+    #Xd = rowSums(X) + sum(s);
+    wd = reg * sum(w * s)
+    dd = reg * sum(s * s)
+
+    tmp_Xw = Xw + step_sz*Xd
+    out = 1 - Y * (tmp_Xw)
+    sv = (out > 0)
+    out = out * sv
+    g = wd + step_sz*dd - sum(out * Y * Xd)
+    #h = dd + sum(Xd * sv * Xd)
+    h = dd + sum(Xd * sv)
+    step_sz = step_sz - g/h
+    tmp_Xw = Xw + step_sz*Xd
+    out = 1 - Y * (tmp_Xw)
+    #out = 1 - Y
+    sv = (out > 0)
+    out = out * sv
+    g = wd + step_sz*dd - sum(out * Y * Xd)
+    h = dd + sum(Xd * sv * Xd)
+    step_sz = step_sz - g/h
+
+    w = w + step_sz*s
+    Xw = Xw + step_sz*Xd
+
+    out = 1 - Y * Xw
+    sv = (out > 0)
+    out = sv * out
+    obj = 0.5 * sum(out * out) + reg/2 * sum(w * w)
+    g_new = t(X) %*% (out * Y) - reg * w
+    tmp = sum(s * g_old)
+
+    be = sum(g_new * g_new)/sum(g_old * g_old)
+    s = be * s + g_new
+    g_old = g_new
+
+    iter = iter + 1
+  }
+  model = w;
+}
+
+# Create the dataset
+X = rand(rows=$1, cols=2000, seed=42);
+y = rand(rows=$1, cols=1, seed=42);
+
+# func has 8.8K instructions
+tot = 110; #1M instructions
+n = tot - 11;
+reC = ceil(tot * 0.4) - 10; #reused iterations count - 10
+mask = matrix(0, rows=n, cols=1);
+random = rand(rows=n, cols=1, min=0, max=1, seed=42);
+# mask is a vector with random placement of 1s. 1 => reuse
+mask = mask + (random < reC/n);
+print(sum(mask)+10);
+
+# Reuse first few calls
+for (i in 1:11) {
+  model1 = func(X, y, 0.1);
+}
+# Randomly spread the rest of the reuse
+for (i in 12:tot) {
+  if (as.scalar(mask[i-11,1]) == 1)
+    model1 = func(X, y, 0.1); #reuse
+  else 
+    model1 = func(X=X, Y=y, reg=i/100); #no reuse
+}
+
+
+print(sum(model1));
+
+# sum(X1 * X2 * X3) => tak+*

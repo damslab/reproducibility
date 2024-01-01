@@ -1,0 +1,39 @@
+data = read("file:/home/arnab/datasets/aps_failure_training_set.csv",
+          data_type="frame", format="csv", header=TRUE,
+          naStrings=["NA", "na", "null", "NaN", "nan", "", "?"]);
+#print(toString(data[1,1]));
+jspec = "{ids:true, recode:["+1+"]}";
+[X_enc, M] = transformencode(target=data, spec=jspec);
+y = X_enc[,1];
+print("("+nrow(X_enc)+", "+ncol(X_enc)+")");
+
+# size(data) = ~37mb
+# Scale by replication
+sfactor = $1;
+data = X_enc;
+targetCount = nrow(X_enc) * sfactor;
+currCount = nrow(X_enc);
+if (sfactor > 1) {
+  while (currCount < targetCount) {
+    if (targetCount >= 2*currCount)
+      data = rbind(data, data);
+    else
+      data = rbind(data, X_enc);
+    currCount = nrow(data);
+  }
+}
+
+# Get a subset if scaling factor < 1
+if (sfactor < 1) { 
+  nrows = nrow(X_enc) * sfactor;
+  data = X_enc[1:nrows,];
+}
+
+# Test if cleaning works
+print("Sum before clean: "+sum(data));
+mask = matrix(0, rows=1, cols=ncol(data));
+[X_clean, ivec] = imputeByMean(data, mask); 
+print("Sum after clean: "+sum(X_clean));
+
+print("("+nrow(data)+", "+ncol(data)+")");
+write(data, "Mumbai/aps_scaled", format="binary");

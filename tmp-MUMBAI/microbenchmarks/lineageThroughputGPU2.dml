@@ -1,0 +1,171 @@
+conv2d_forward = function(matrix[double] X, matrix[double] W, matrix[double] b,
+  int C, int Hin, int Win, int Hf, int Wf, int strideh, int stridew,
+  int padh, int padw) return (matrix[double] out, int Hout, int Wout)
+{
+  N = nrow(X)
+  F = nrow(W)
+  Hout = as.integer(floor((Hin + 2*padh - Hf)/strideh + 1))
+  Wout = as.integer(floor((Win + 2*padw - Wf)/stridew + 1))
+  # Convolution - built-in implementation
+  out = conv2d(X, W, input_shape=[N,C,Hin,Win], filter_shape=[F,C,Hf,Wf],
+               stride=[strideh,stridew], padding=[padh,padw])
+  # Add bias term to each output filter
+  out = bias_add(out, b)
+}
+
+conv2d_init = function(int F, int C, int Hf, int Wf, int seed = -1)
+  return (matrix[double] W, matrix[double] b) {
+  W = rand(rows=F, cols=C*Hf*Wf, pdf="normal", seed=seed) * sqrt(2.0/(C*Hf*Wf))
+  b = matrix(0, rows=F, cols=1)
+}
+
+affine_forward = function(matrix[double] X, matrix[double] W, matrix[double] b) return (matrix[double] out) {
+  out = X %*% W + b;
+}
+
+affine_init = function(int D, int M, int seed = -1 ) return (matrix[double] W, matrix[double] b) {
+  W = rand(rows=D, cols=M, pdf="normal", seed=seed) * sqrt(2.0/D);
+  b = matrix(0, rows=1, cols=M);
+}
+
+relu_forward = function(matrix[double] X) return (matrix[double] out) {
+  out = max(0, X);
+}
+
+softmax_forward = function(matrix[double] scores) return (matrix[double] probs) {
+  scores = scores - rowMaxs(scores);  # numerical stability
+  unnorm_probs = exp(scores);  # unnormalized probabilities
+  probs = unnorm_probs / rowSums(unnorm_probs);  # normalized probabilities
+}
+
+rwRowIndexMax = function(matrix[double] X, matrix[double] oneVec, matrix[double] idxSeq)
+    return (matrix[double] index) {
+  rm = rowMaxs(X) %*% oneVec;
+  I = X == rm;
+  index = rowMaxs(I * idxSeq);
+}
+
+#######################################################################
+
+N = 200000;  #num of images in the target dataset
+C = 3;       #num of color channels
+Hin = 32;    #input image height
+Win = 32;    #input image width
+K = 10;      #num of classes
+C = 3;
+Hin = 32;
+Win = 32;
+batch_size = $1;
+
+# Create the dataset of linearized images
+X = rand(rows=N, cols=C*Hin*Win, pdf="normal", seed=45);
+
+# Initialize weights and biases
+# Model1
+[W11, b11] = conv2d_init(64, C, Hf=3, Wf=3, 43);
+[W21, b21] = conv2d_init(128, 64, Hf=3, Wf=3, 43);
+[W31, b31] = affine_init(131072, 4096, 44);
+[W41, b41] = affine_init(4096, K, 45);
+
+# Model2
+[W12, b12] = conv2d_init(64, C, Hf=11, Wf=11, 43);
+[W22, b22] = conv2d_init(192, 64, Hf=5, Wf=5, 43);
+[W32, b32] = conv2d_init(256, 192, Hf=3, Wf=3, 43);
+[W42, b42] = affine_init(12544, 4096, 44);
+[W52, b52] = affine_init(4096, K, 45);
+
+iters = ceil (N / batch_size);
+per25 = ceil(iters / 4);
+rePer = $2;
+reC1 = ceil(iters * rePer);
+reC2 = ceil(reC1/5);
+print(reC2);
+mask = matrix(0, rows=iters, cols=1);
+random = rand(rows=iters, cols=1, min=0, max=1, seed=42);
+# mask is a vector with random placement of 1s. 1 => reuse
+mask = mask + (random < reC1/iters);
+print(toString(max(mask)));
+print(sum(mask != 0)/iters);
+
+# Compute prediction over mini-batches
+# GPU instrunction count/mini-batch = ~28
+N = nrow(X);
+Y_pred = matrix(0, rows=iters, cols=1);
+oneVec = matrix(1, rows=1, cols=K);
+idxSeq = matrix(1, rows=batch_size, cols=1) %*% t(seq(1, K));
+X = X[1:batch_size,];
+
+# Predict using model1
+j = 1;
+for (i in 1:iters) {
+  # Get next batch
+  beg = ((i-1) * batch_size) %% N + 1;
+  end = min(N, beg+batch_size-1);
+  if (as.scalar(mask[i,1]) != 0 & rePer != 0) {
+    #lamda = j/100;
+    if (j == 1) lamda = 1/100;
+    if (j == 2) lamda = 2/100;
+    if (j == 3) lamda = 3/100;
+    if (j == 4) lamda = 4/100;
+    j = (j %% 4) + 1;
+  }
+  else
+    lamda = i/100;
+  X_batch = X + lamda;
+  # 1st hidden layer (conv2d + ReLU)
+  [outc1, Houtc1, Woutc1] = conv2d_forward(X_batch,W11,b11,C,Hin,Win,3,3,1,1,1,1);
+  outr1 = relu_forward(outc1);
+  # 2nd hidden layer (conv2d + ReLU)
+  [outc2, Houtc2, Woutc2] = conv2d_forward(outr1,W21,b21,64,Houtc1,Woutc1,3,3,1,1,1,1);
+  outr2 = relu_forward(outc2);
+  # 3rd hidden layer (affine + ReLU)
+  out3 = affine_forward(outr2, W31, b31);
+  outr3 = relu_forward(out3);
+  # Output layer (affine + softmax)
+  out4 = affine_forward(outr3, W41, b41);
+  probs_batch = softmax_forward(out4);
+  # Store the predictions
+  #Y_pred[beg:end,] = rwRowIndexMax(probs_batch, oneVec, idxSeq);
+  Y_pred[i,] = sum(probs_batch);
+}
+print(sum(Y_pred));
+
+# Predict using model2
+j = 1;
+for (i in 1:iters) {
+  # Get next batch
+  beg = ((i-1) * batch_size) %% N + 1;
+  end = min(N, beg+batch_size-1);
+  if (as.scalar(mask[i,1]) != 0 & rePer != 0) {
+    #lamda = j/100;
+    if (j == 1) lamda = 1/100;
+    if (j == 2) lamda = 2/100;
+    if (j == 3) lamda = 3/100;
+    if (j == 4) lamda = 4/100;
+    j = (j %% 4) + 1;
+  }
+  else
+    lamda = i/100;
+  X_batch = X + lamda;
+  # 1st hidden layer (conv2d + ReLU)
+  [outc1, Houtc1, Woutc1] = conv2d_forward(X_batch,W12,b12,C,Hin,Win,11,11,4,4,2,2);
+  outr1 = relu_forward(outc1);
+  # 2nd hidden layer (conv2d + ReLU)
+  [outc2, Houtc2, Woutc2] = conv2d_forward(outr1,W22,b22,64,Houtc1,Woutc1,5,5,1,1,2,2);
+  outr2 = relu_forward(outc2);
+  # 3rd hidden layer (conv2d + ReLU)
+  [outc3, Houtc3, Woutc3] = conv2d_forward(outr2,W32,b32,192,Houtc2,Woutc2,3,3,1,1,1,1);
+  outr3 = relu_forward(outc3);
+  # 4th hidden layer (affine + ReLU)
+  out4 = affine_forward(outr3, W42, b42);
+  outr4 = relu_forward(out4);
+  # Output layer (affine + softmax)
+  out5 = affine_forward(outr4, W52, b52);
+  probs_batch = softmax_forward(out5);
+  # Store the predictions
+  #Y_pred[beg:end,] = rwRowIndexMax(probs_batch, oneVec, idxSeq);
+  Y_pred[i,] = sum(probs_batch);
+}
+
+print(sum(Y_pred));
+

@@ -1,0 +1,122 @@
+#hyperparameter(lambda, intercept) grid search for l2svm 
+
+randRegSample = function(Matrix[Double] lamdas, Double ratio)
+return (Matrix[Double] samples) {
+  temp = rand(rows=nrow(lamdas), cols=1, min=0, max=1, seed=42) < ratio;
+  samples = removeEmpty(target=lamdas, margin="rows", select=temp);
+}
+
+l2norm = function(Matrix[Double] X, Matrix[Double] y, Matrix[Double] B) 
+return (Double accuracy) {
+  #loss = as.matrix(sum((y - X%*%B)^2));
+  [yRaw, yPred] = l2svmPredict(X=X, W=B, verbose=FALSE);
+  accuracy = sum((yPred - y) == 0) / nrow(y) * 100;
+}
+
+wrapSvmPredict = function(Matrix[Double] X, Matrix[Double] W)
+  return(Matrix[Double] yRaw) {
+  while(FALSE){}
+  [yRaw, yPred] = l2svmPredict(X=X, W=W, verbose=FALSE);
+}
+
+wrapMulLRPredict = function(Matrix[Double] X, Matrix[Double] B, Matrix[Double] Y)
+  return(Matrix[Double] prob_mlr) {
+  while(FALSE){}
+  [prob_mlr, Y_mlr, acc] = multiLogRegPredict(X=X, B=B, Y=Y, verbose=FALSE);
+}
+
+M = $1; 
+N = 1500;
+sp = 1.0; #1.0
+no_bracket = 5; #5
+nweights = 1000; #1000
+
+X = rand(rows=M, cols=N, sparsity=sp, seed=42);
+y = rand(rows=M, cols=1, min=0, max=2, seed=42);
+y = ceil(y);
+print(nrow(X));
+print(ncol(X));
+
+no_lamda = 25; #starting combintaions = 25 * 4 = 100 HPs
+stp = (0.1 - 0.0001)/no_lamda;
+HPlamdas = seq(0.0001, 0.1, stp);
+maxIter = 10; #starting interation count = 100 * 10 = 1k
+
+for (r in 1:no_bracket) {
+  i = 1;
+  svmModels = matrix(0, rows=no_lamda, cols=ncol(X)+2); #first col is accuracy
+  mlrModels = matrix(0, rows=no_lamda, cols=ncol(X)+2); #first col is accuracy
+  # Optimize for regularization parameters
+  print("#lamda = "+no_lamda+", maxIterations = "+maxIter);
+  for (l in 1:no_lamda)
+  {
+    #print("lamda = "+as.scalar(HPlamdas[i,1])+", maxIterations = "+maxIter);
+    #Run L2svm with intercept true
+    beta = l2svm(X=X, Y=y, intercept=TRUE, epsilon=1e-12, 
+      reg = as.scalar(HPlamdas[i,1]), maxIterations=maxIter, verbose=FALSE);
+    svmModels[i,1] = l2norm(X, y, beta); #1st column
+    svmModels[i,2:nrow(beta)+1] = t(beta);
+
+    #Run L2svm with intercept false 
+    beta = l2svm(X=X, Y=y, intercept=FALSE, epsilon=1e-12, 
+      reg = as.scalar(HPlamdas[i,1]), maxIterations=maxIter, verbose=FALSE);
+    svmModels[i,1] = l2norm(X, y, beta); #1st column
+    svmModels[i,2:nrow(beta)+1] = t(beta);
+
+    #Run multilogreg with intercept true
+    beta = multiLogReg(X=X, Y=y, icpt=2, tol=1e-6, reg=as.scalar(HPlamdas[i,1]), 
+      maxi=maxIter, maxii=20, verbose=FALSE);
+    [prob_mlr, Y_mlr, acc] = multiLogRegPredict(X=X, B=beta, Y=y, verbose=FALSE);
+    mlrModels[i,1] = acc; #1st column
+    mlrModels[i,2:nrow(beta)+1] = t(beta);
+
+    #Run multilogreg with intercept false 
+    beta = multiLogReg(X=X, Y=y, icpt=1, tol=1e-6, reg=as.scalar(HPlamdas[i,1]), 
+      maxi=maxIter, maxii=20, verbose=FALSE);
+    [prob_mlr, Y_mlr, acc] = multiLogRegPredict(X=X, B=beta, Y=y, verbose=FALSE);
+    mlrModels[i,1] = acc; #1st column
+    mlrModels[i,2:nrow(beta)+1] = t(beta);
+
+    i = i + 1;
+  }
+  #Sort the models based on accuracy
+  svm_order = order(target=svmModels, by=1);
+  bestAccSvm = svm_order[1,1];
+  print(toString(bestAccSvm));
+  mlr_order = order(target=mlrModels, by=1);
+  bestAccMlr = mlr_order[1,1];
+  print(toString(bestAccMlr));
+
+  #double the iteration count and half the HPs
+  maxIter = maxIter * 2;
+  HPlamdas = randRegSample(HPlamdas, 0.5);
+  #TODO: select the models with highest accruacies
+  no_lamda = nrow(HPlamdas);
+}
+
+
+# Assign random weights and grid search top-k models
+bestAcc = 0;
+weights = rand(rows=2, cols=nweights, min=0, max=1, seed=42);
+nclass = 2;
+k = 2;
+for (wi in 1:nweights) {
+  weightedClassProb = matrix(0, M, nclass);
+  for (i in 1:k) {
+    model_svm = t(svm_order[i,2:ncol(svm_order)]);
+    model_mlr = t(mlr_order[i,2:ncol(mlr_order)]);
+    yRaw = wrapSvmPredict(X=X, W=model_svm);
+    probs_svm = yRaw / rowSums(yRaw);
+    prob_mlr = wrapMulLRPredict(X=X, B=model_mlr, Y=y);
+    weightedClassProb = weightedClassProb + as.scalar(weights[1,wi])*probs_svm + as.scalar(weights[2,wi])*prob_mlr;
+    y_voted = rowIndexMax(weightedClassProb);
+    acc = sum(y_voted == y) / M * 100;
+    if (acc > bestAcc) {
+      bestWeights = weights;
+      bestAcc = acc;
+    }
+  }
+}
+
+print(toString(bestAcc));
+write(bestWeights, "outdml", format="binary");

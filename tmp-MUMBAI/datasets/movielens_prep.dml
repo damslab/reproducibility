@@ -1,0 +1,35 @@
+prepRating = function() return(Matrix[Double] X) {
+  ratings = read("file:/home/arnab/datasets/movies_rating.csv", data_type="frame", format="csv",header=TRUE);
+  data = ratings[,1:3];
+  print(toString(data[1,1]));
+  jspec1 = "{ ids:true, recode:[1,2]}";
+  [X_enc, M] = transformencode(target=data, spec=jspec1);
+  print(max(X_enc[,1])); #users
+  print(max(X_enc[,2])); #movies
+  X = table(X_enc[,1], X_enc[,2], X_enc[,3]);
+}
+
+X = prepRating();
+
+# Scale by replication
+sfactor = $1; #50
+data = X;
+targetCount = nrow(X) * sfactor;
+currCount = nrow(X);
+if (sfactor > 1) {
+  while (currCount < targetCount) {
+    if (targetCount >= 2*currCount)
+      data = rbind(data, data);
+    else
+      data = rbind(data, X);
+    currCount = nrow(data);
+  }
+}
+
+if (sfactor < 1) {
+  nrows = nrow(X) * sfactor;
+  data = X[1:nrows,];
+}
+
+print("("+nrow(data)+", "+ncol(data)+")");
+write(data, "Mumbai/movies_ratings", format="binary");

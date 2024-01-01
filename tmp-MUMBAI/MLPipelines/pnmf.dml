@@ -1,0 +1,6 @@
+X = read("Mumbai/movies_ratings", data_type="matrix");
+print("("+nrow(X)+", "+ncol(X)+")");
+[W, H] = pnmf(X=X, rnk=100, maxi=$1, verbose=FALSE);
+
+print(sum(W));
+print(sum(H));

@@ -1,0 +1,210 @@
+# Basline with parfor
+
+fix_outliers_iqr = function(Matrix[Double] X, Matrix[Double] outlierFilter, Integer repairMethod = 1)
+  return(Matrix[Double] fixed_X)
+{
+  rows = nrow(X)
+  cols = ncol(X)
+  if(repairMethod == 0) {
+    sel = rowMaxs(outlierFilter) == 0
+    X = removeEmpty(target = X, margin = "rows", select = sel)
+  }
+  else if(repairMethod == 1)
+    X = (outlierFilter == 0) * X
+  else if(repairMethod == 2)
+  {
+    outlierFilter = replace(target = (outlierFilter == 0), pattern = 0, replacement = NaN)
+    X = outlierFilter * X
+  }
+  else
+    stop("outlierByIQR: invalid argument - repair required 0-2 found: "+repairMethod)
+
+  fixed_X = X
+}
+
+rwImputeByMean = function(Matrix[Double] X, Matrix[Double] mask)
+return(Matrix[Double] X)
+{
+  #  mean imputation
+  colMean = matrix(0, rows=1, cols=ncol(X))
+  for(i in 1:ncol(X))
+  {
+    if(as.scalar(mask[1, i]) == 0)
+    {
+      nX = removeEmpty(target=X[, i], margin="rows", select = (is.na(X[, i]) == 0))
+      colMean[1, i] = mean(nX)
+    }
+  }
+
+  if(sum(mask) > 0)
+  {
+    # mode imputation
+    cX = X*mask
+    [X_c, colMode] = imputeByMode(cX)
+    imputedVec = colMean + colMode
+  }
+  else
+    imputedVec = colMean
+  X = imputeByMeanApply(X, imputedVec)
+}
+
+wrapImputeByMode = function(Matrix[Double] X) return(Matrix[Double] X_out)
+{
+  [X_out, ivec] = imputeByMode(X=X);
+}
+
+l2norm = function(Matrix[Double] X, Matrix[Double] y, Matrix[Double] B, Integer icpt=0)
+return (Matrix[Double] loss) {
+  intercept = ifelse(icpt>0 | ncol(X)+1==nrow(B), as.scalar(B[nrow(B),]), 0);
+  yhat = X %*% B[1:ncol(X),] + intercept;
+  loss = as.matrix(sum((y - yhat)^2));
+}
+
+wrapOutlierIQR = function(Matrix[double] X) return (Matrix[double] out) {
+  [X,q1,q3,iqr,k,r] = outlierByIQR(X=X, max_iterations=1, verbose=FALSE); #qsorts
+  while(FALSE){}
+  out = X;
+}
+
+getAccuracy = function(Matrix[double] X, Matrix[double] y) return (Double accuracy) {
+  #R = crossV(X, y, 0.01, 0, 4);
+  beta = l2svm(X=X, Y=y, maxIterations=5, maxii=5);
+  [yRaw, yPred] = l2svmPredict(X=X, W=beta, verbose=FALSE);
+  accuracy = sum((yPred - y) == 0) / nrow(y) * 100;
+}
+
+
+############################################################
+
+data = read("Mumbai/aps_scaled", data_type="matrix");
+datay = data[,1];
+dataX = data[,2:ncol(data)];
+
+R = matrix(0, rows=12, cols=1);
+print("("+nrow(dataX)+", "+ncol(dataX)+")");
+mask = matrix(0, rows=1, cols=ncol(dataX));
+
+# Pipeline2: imputeByMean
+X = dataX;
+y = datay;
+[X, ivec] = imputeByMean(X=X, mask=mask);
+acc = getAccuracy(X, y);
+print(acc);
+R[1,1] = acc;
+
+# Pipeline2: imputeByMean, outlierByIQR
+X = dataX;
+y = datay;
+[X, ivec] = imputeByMean(X=X, mask=mask);
+X = wrapOutlierIQR(X);
+acc = getAccuracy(X, y);
+print(acc);
+R[2,1] = acc;
+
+# Pipeline2: imputeByMean, outlierByIQR, scale
+X = dataX;
+y = datay;
+[X, ivec] = imputeByMean(X=X, mask=mask);
+X = wrapOutlierIQR(X);
+[X, cn, sf]= scale(X=X, center=TRUE, scale=TRUE);
+acc = getAccuracy(X, y);
+print(acc);
+R[3,1] = acc;
+
+# Pipeline3: imputeByMean, outlierByIQR, scale, underSampling
+X = dataX;
+y = datay;
+[X, ivec] = imputeByMean(X=X, mask=mask);
+X = wrapOutlierIQR(X);
+[X, cn, sf]= scale(X=X, center=TRUE, scale=TRUE);
+[X,y] = underSampling(X=X, Y=y, ratio=0.1);
+acc = getAccuracy(X, y);
+print(acc);
+R[4,1] = acc;
+
+# Pipeline2: imputeByMean, outlierByIQR, normalize
+X = dataX;
+y = datay;
+[X, ivec] = imputeByMean(X=X, mask=mask);
+X = wrapOutlierIQR(X);
+X = normalize(X=X);
+acc = getAccuracy(X, y);
+print(acc);
+R[5,1] = acc;
+
+# Pipeline3: imputeByMean, outlierByIQR, normalize, underSampling
+X = dataX;
+y = datay;
+[X, ivec] = imputeByMean(X=X, mask=mask);
+X = wrapOutlierIQR(X);
+X = normalize(X=X);
+[X,y] = underSampling(X=X, Y=y, ratio=0.1);
+acc = getAccuracy(X, y);
+print(acc);
+R[6,1] = acc;
+
+# Pipeline5: imputeByMode
+X = dataX;
+y = datay;
+X = wrapImputeByMode(X=X);
+acc = getAccuracy(X, y);
+print(acc);
+R[7,1] = acc;
+
+# Pipeline5: imputeByMode, scale
+X = dataX;
+y = datay;
+X = wrapImputeByMode(X=X);
+[X, cn, sf] = scale(X=X, center=TRUE, scale=TRUE);
+acc = getAccuracy(X, y);
+print(acc);
+R[8,1] = acc;
+
+# Pipeline7: imputeByMode, scale, underSampling
+X = dataX;
+y = datay;
+X = wrapImputeByMode(X=X);
+[X, cn, sf] = scale(X=X, center=TRUE, scale=TRUE);
+[X,y] = underSampling(X=X, Y=y, ratio=0.1);
+print(nrow(X));
+acc = getAccuracy(X, y);
+print(acc);
+R[9,1] = acc;
+
+# Pipeline: imputeByMode, PCA
+X = dataX;
+y = datay;
+X = wrapImputeByMode(X=X);
+k = ceil(0.4*ncol(X));
+[X, com] = pca(X=X, K=k);
+acc = getAccuracy(X, y);
+print(acc);
+R[10,1] = acc;
+
+# Pipeline2: imputeByMean, PCA
+X = dataX;
+y = datay;
+X = rwImputeByMean(X=X, mask=mask);
+k = ceil(0.4*ncol(X));
+[X, com] = pca(X=X, K=k);
+print(ncol(X));
+[X, cn, sf] = scale(X=X, center=TRUE, scale=TRUE);
+acc = getAccuracy(X, y);
+print(acc);
+R[11,1] = acc;
+
+# Pipeline2: imputeByMean, PCA, scale
+X = dataX;
+y = datay;
+X = rwImputeByMean(X=X, mask=mask);
+k = ceil(0.4*ncol(X));
+[X, com] = pca(X=X, K=k);
+acc = getAccuracy(X, y);
+print(acc);
+R[12,1] = acc;
+
+R = order(target=R, by=1);
+topK = R[1:3,];
+print("Top 3 pipelines");
+print(toString(topK));
+
