@@ -8,15 +8,14 @@
 
 This is the guide to reproduce the paper.
 To make the execution work there is a few setup requirements.
-But first it is sincerely recommended to follow the latest guide at:
-\url{https://github.com/damslab/reproducibility.git}
+It is sincerely recommended to follow the latest guide at:
+\url{https://github.com/damslab/reproducibility/blob/master/sigmod2023-AWARE-p5/readme/README.pdf}
 
-To produce a full reproduction of the paper it is expected that one have access to a Spark (v 3.2.0) cluster with Hadoop (v 3.3.1) running Java 11. But any single machine should be able to run small scale experiments covering most of the experiments shown. For baseline experiments
+To produce a full reproduction of the paper it is expected that one have access to a Spark (v 3.2.0) cluster with Hadoop (v 3.3.1) running Java 11, but any single machine should be able to run small scale experiments covering most of the experiments.
 
-The specifics of the resources used in the paper is: 6 Cluster nodes and a main node with 32 virtual cores and 128 GB RAM each. Local storage requirements is at least 100GB, and distributed HDFS is ~2.0 TB.
-
-The machines have similar specifications as m5a.8xlarge in AWS. In there it should be simple to start a spark cluster, but setting such up is not covered in this guide.
-Note that if one wants to, it has to be able to switch hadoop and spark versions, to run all baseline experiments.
+The compute resources used in the paper is: 6 Cluster nodes and a main node with 32 virtual cores and 128 GB RAM each. Local storage requirements is at least 100GB, and distributed HDFS is 2.0 TB.
+The machines have similar specifications as m5a.8xlarge instances in AWS. In AWS it should be simple to start a Spark cluster, but setting such up is not covered in this guide.
+Note that if one wants to, it should be possible to use newer Hadoop and Spark versions.
 
 Further dependencies are:
 
@@ -32,7 +31,7 @@ Further dependencies are:
 
 \section{Verification}
 
-First we verify the setup is correct.
+First we verify the setup is correct, run the following in a terminal:
 
 \begin{lstlisting}
 java -version
@@ -41,6 +40,7 @@ git --version
 python3 --version
 \end{lstlisting}
 
+\noindent
 The output should look something like:
 
 \begin{lstlisting}
@@ -60,16 +60,17 @@ Me:~/github/reproducibility/sigmod2023-AWARE-p5$ python3 --version
 Python 3.8.10
 \end{lstlisting}
 
-For the distributed parts of the experiments further installs are needed:
-Verify the install of :
+\noindent
+For the distributed parts of the experiments further installs are needed,
+therefore verify the spark and hadoop install with:
 
 \begin{lstlisting}
 spark-submit --version
 hdfs version
 \end{lstlisting}
 
-
-Output should look like:
+\noindent
+The output should look like:
 
 \begin{lstlisting}
 $ spark-submit --version
@@ -102,8 +103,8 @@ This command was run using /home/hadoop/hadoop-3.3.1/share/hadoop/common/hadoop-
 \end{lstlisting}
 
 If any of the parts are missing or returns errors then please install the missing components.
-For our setup it is a further advantage if you are able to switch the spark and hadoop version to
-be able to run CLA baselines. If it is not possible to switch then all the experiments will not work.
+For our setup it is a further advantage if you are able to switch the Spark and Hadoop version to
+be able to run CLA baselines, since older versions are needed. If it is not possible to switch then all SystemML experiments will not work.
 
 \vspace{1cm}
 \noindent
@@ -111,9 +112,11 @@ be able to run CLA baselines. If it is not possible to switch then all the exper
 \vspace{1cm}
 
 \newpage
+
+
 \section{Install}
 
-Next we install SystemDS, SystemML, and a python virtual environment to run python.
+Next we install SystemDS, SystemML, and a python virtual environment to run python baselines and plotting.
 
 \begin{lstlisting}
 ./install-all.sh
@@ -125,7 +128,7 @@ To verify the install we run a few simple scripts.
 ./verify-install.sh 
 \end{lstlisting}
 
-Output should be like:
+The output should be like:
 
 \begin{lstlisting}
 SYSTEMDS
@@ -164,11 +167,13 @@ While it is possible to run everything out of the box, in one go,
 we suggest to go through some setting first in: \\
 \textbf{experiments/parameters.sh}
 
-Here it is possible to change what version of systemDS to install.
-What directory to run the experiments in.
-Settings for remote synchronization of results.
-Change parameters for JVM.
-And much more.
+Note that you have to set the name of the machine you are using and memory settings.
+It is further possible to change:
+What version of SystemDS to install,
+what directory to run the experiments in,
+settings for remote synchronization of results,  
+change base parameters for the JVM, 
+and much more.
 
 
 \section{Data Preparation}
@@ -237,33 +242,53 @@ Airlines Setup Done
 \section{Run All}
 
 If you want to run all experiments (with few exceptions)
-then simply execute the run script:
-
-The script is modified per default to allow you to select individual experiments to run.
-
-
+then simply execute the run script. The script can be modified
+to allow you to select individual experiments to run.
 
 \begin{lstlisting}
 ./run.sh
 \end{lstlisting}
 
-Note that this will take significant time, and you might want to
-control better what experiment is run at which time.
+Note that this will take significant time, and you might want
+better control of what experiment is run at which time.
+To select specific experiments you comment in and out parts of
+run.sh, for instance to make table 5 in the paper comment in:
 
-The following sections specify how to do this.
+\begin{lstlisting}
+# ./code/compression/tab5.sh
+\end{lstlisting}
 
-\section{Micro benchmarks}
+Some of the experiments are per default commented out in the run.sh script.
+The last is commented out because it takes 35 hours (before it crashes).
+This is one of the baseline implementations.
 
+If there are errors or other problems in th execution it is not reported
+to the user. Instead all logging is saved into the result files from the
+ran experiments. Sometimes if there are issues with the setup some
+experiments fail, The errors are handled in the plotting and plots does
+not allow the failed tests to plot correctly. Therefore if a result is
+missing in the plots, it is most likely because one of the experiments
+failed to properly execute.
 
-
-
-\section{local execution}
-
-\section{distributed execution}
 
 \section{plotting}
 
+to plot simply use:
+
+\begin{lstlisting}
+./plot.sh
+\end{lstlisting}
+
+This generate summary tables and plots of the results from the experiments.
+
 \section{compilation of paper}
+
+The source code of the paper is located in the report folder. To
+remake the paper simply use pdflatex.
+
+The paper is in most of the results cases automatically inputting
+the results from the experiments. In the few exceptions the results can
+be found in csv table files to be included in the final paper.
 
 \end{document}
 \endinput
