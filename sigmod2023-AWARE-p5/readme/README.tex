@@ -6,15 +6,15 @@
 
 \maketitle
 
-This is the guide to reproduce the paper.
-To make the execution work there is a few setup requirements.
-It is sincerely recommended to follow the latest guide at:
-\url{https://github.com/damslab/reproducibility/blob/master/sigmod2023-AWARE-p5/readme/README.pdf}
+This report provides a guide to reproduce the SIGMOD AWARE paper.
+There are a few setup requirements to make the implementation run.
+It is recommended to follow the latest guide at:
+\url{https://github.com/damslab/reproducibility}
 
-To produce a full reproduction of the paper it is expected that one have access to a Spark (v 3.2.0) cluster with Hadoop (v 3.3.1) running Java 11, but any single machine should be able to run small scale experiments covering most of the experiments.
+To produce a full reproduction, a Spark (v 3.2.0) cluster with Hadoop (v 3.3.1) running Java 11 is required, but any single machine should be able to run small-scale experiments covering most of the experiments.
 
-The compute resources used in the paper is: 6 Cluster nodes and a main node with 32 virtual cores and 128 GB RAM each. Local storage requirements is at least 100GB, and distributed HDFS is 2.0 TB.
-The machines have similar specifications as m5a.8xlarge instances in AWS. In AWS it should be simple to start a Spark cluster, but setting such up is not covered in this guide.
+The compute resources used in the paper are 6 Cluster nodes and a main node with 32 virtual cores and 128 GB RAM each. Local storage requirements are at least 100GB and distributed HDFS is 2.0 TB.
+The machines have similar specifications as m5a.8xlarge instances in AWS. In AWS, it should be simple to start a Spark cluster, but setting such up is not covered in this guide.
 Note that if one wants to, it should be possible to use newer Hadoop and Spark versions.
 
 Further dependencies are:
@@ -31,7 +31,7 @@ Further dependencies are:
 
 \section{Verification}
 
-First we verify the setup is correct, run the following in a terminal:
+We verify the setup is correct, and run the following in a terminal:
 
 \begin{lstlisting}
 java -version
@@ -116,7 +116,7 @@ be able to run CLA baselines, since older versions are needed. If it is not poss
 
 \section{Install}
 
-Next we install SystemDS, SystemML, and a python virtual environment to run python baselines and plotting.
+Next we install SystemDS, SystemML, and a Python virtual environment to run baselines, experiments and plotting.
 
 \begin{lstlisting}
 ./install-all.sh
@@ -156,12 +156,11 @@ Number of executed MR Jobs:	0.
 22/09/09 16:51:50 INFO api.DMLScript: END DML run 09/09/2022 16:51:50    
 \end{lstlisting}
 
-\newpage
 
 \section{Parameters}
 
 Before starting the experiments or downloading datasets,
-we suggest to go through the settings to configure the execution of the experiments.
+we suggest going through the settings to configure the execution of the experiments.
 
 While it is possible to run everything out of the box, in one go,
 we suggest to go through some setting first in: \\
@@ -175,6 +174,8 @@ settings for remote synchronization of results,
 change base parameters for the JVM, 
 and much more.
 
+
+\newpage
 
 \section{Data Preparation}
 
@@ -239,9 +240,12 @@ Airlines alreay preprocessed to CSV
 Airlines Setup Done
 \end{lstlisting}
 
+
+\newpage
+
 \section{Run All}
 
-If you want to run all experiments (with few exceptions)
+If you want to run all experiments (with few exceptions that can be re-enabled)
 then simply execute the run script. The script can be modified
 to allow you to select individual experiments to run.
 
@@ -251,29 +255,29 @@ to allow you to select individual experiments to run.
 
 Note that this will take significant time, and you might want
 better control of what experiment is run at which time.
-To select specific experiments you comment in and out parts of
-run.sh, for instance to make table 5 in the paper comment in:
+To select specific experiments comment in and out parts of
+run.sh, for instance, to make table 5 in the paper comment in:
 
 \begin{lstlisting}
 # ./code/compression/tab5.sh
 \end{lstlisting}
 
-Some of the experiments are per default commented out in the run.sh script.
-The last is commented out because it takes 35 hours (before it crashes).
-This is one of the baseline implementations.
+Some of the experiments are, by default, commented out in the run.sh script.
+The last experiment is commented out because it takes 35 hours (before it crashes intentionally).
 
-If there are errors or other problems in th execution it is not reported
-to the user. Instead all logging is saved into the result files from the
-ran experiments. Sometimes if there are issues with the setup some
-experiments fail, The errors are handled in the plotting and plots does
-not allow the failed tests to plot correctly. Therefore if a result is
+If there are errors or other problems in the execution it is not reported
+to the user. Instead, all logging is saved into the result files from the
+run experiments. Sometimes if there are issues with the setup some
+experiments fail. Errors in experiments are handled in the plotting, and plots do not allow the failed tests to plot correctly. Therefore, if a result is
 missing in the plots, it is most likely because one of the experiments
-failed to properly execute.
+failed.
 
 
-\section{plotting}
+\newpage
 
-to plot simply use:
+\section{Plotting}
+
+To plot simply use:
 
 \begin{lstlisting}
 ./plot.sh
@@ -281,14 +285,12 @@ to plot simply use:
 
 This generate summary tables and plots of the results from the experiments.
 
-\section{compilation of paper}
+\section{Paper}
 
 The source code of the paper is located in the report folder. To
-remake the paper simply use pdflatex.
+remake the paper using PDFLatex.
 
-The paper is in most of the results cases automatically inputting
-the results from the experiments. In the few exceptions the results can
-be found in csv table files to be included in the final paper.
+The code inserts the results from the experiments automatically. In a few exceptions, the results can be found in CSV files. In these cases, the results have to manually be copied into the paper.
 
 \end{document}
 \endinput
