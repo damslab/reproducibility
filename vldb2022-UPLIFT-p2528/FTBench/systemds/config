@@ -1,0 +1,122 @@
+#!/bin/bash
+
+if  [[ $1 = "mkl" ]] 
+then
+  nomkl="<sysds.native.blas>none</sysds.native.blas>"
+  automkl="<sysds.native.blas>mkl</sysds.native.blas>"
+  if  [[ $2 = "start" ]] 
+  then
+    source /opt/intel/bin/compilervars.sh intel64
+    # Use '+' as delimiter as '/' is part of the strings
+    sed -i "s+$nomkl+$automkl+" ../../libraries/SystemDS-config.xml
+  elif  [[ $2 = "stop" ]]
+  then
+    sed -i "s+$automkl+$nomkl+" ../../libraries/SystemDS-config.xml
+  else
+    echo "Pass 'start' or 'stop"
+  fi
+elif [[ $1 = "codegen" ]]
+then
+  nocodegen="<sysds.codegen.enabled>false</sysds.codegen.enabled>"
+  codegen="<sysds.codegen.enabled>true</sysds.codegen.enabled>"
+  if  [[ $2 = "start" ]] 
+  then
+    # Use '+' as delimiter as '/' is part of the strings
+    sed -i "s+$nocodegen+$codegen+" ../../libraries/SystemDS-config.xml
+  elif  [[ $2 = "stop" ]]
+  then
+    sed -i "s+$codegen+$nocodegen+" ../../libraries/SystemDS-config.xml
+  else
+    echo "Pass 'start' or 'stop"
+  fi
+elif [[ $1 = "lineagespill" ]]
+then
+  nospill="<sysds.lineage.cachespill>false</sysds.lineage.cachespill>"
+  spill="<sysds.lineage.cachespill>true</sysds.lineage.cachespill>"
+  if  [[ $2 = "start" ]] 
+  then
+    # Use '+' as delimiter as '/' is part of the strings
+    sed -i "s+$nospill+$spill+" ../../libraries/SystemDS-config.xml
+  elif  [[ $2 = "stop" ]]
+  then
+    sed -i "s+$spill+$nospill+" ../../libraries/SystemDS-config.xml
+  else
+    echo "Pass 'start' or 'stop"
+  fi
+elif [[ $1 = "compassisted" ]]
+then
+  nocomp="<sysds.lineage.compilerassisted>false</sysds.lineage.compilerassisted>"
+  comp="<sysds.lineage.compilerassisted>true</sysds.lineage.compilerassisted>"
+  if  [[ $2 = "start" ]] 
+  then
+    # Use '+' as delimiter as '/' is part of the strings
+    sed -i "s+$nocomp+$comp+" ../../libraries/SystemDS-config.xml
+  elif  [[ $2 = "stop" ]]
+  then
+    sed -i "s+$comp+$nocomp+" ../../libraries/SystemDS-config.xml
+  else
+    echo "Pass 'start' or 'stop"
+  fi
+elif [[ $1 = "partransform" ]]
+then
+  single="<sysds.parallel.encode>false</sysds.parallel.encode>"
+  multi="<sysds.parallel.encode>true</sysds.parallel.encode>"
+  if  [[ $2 = "start" ]] 
+  then
+    # Use '+' as delimiter as '/' is part of the strings
+    sed -i "s+$single+$multi+" ../../libraries/SystemDS-config.xml
+  elif  [[ $2 = "stop" ]]
+  then
+    sed -i "s+$multi+$single+" ../../libraries/SystemDS-config.xml
+  else
+    echo "Pass 'start' or 'stop"
+  fi
+elif [[ $1 = "buildblocks" ]]
+then
+  def="<sysds.parallel.encode.buildBlocks>[0-9-]*</sysds.parallel.encode.buildBlocks>"
+  thread="<sysds.parallel.encode.buildBlocks>$2</sysds.parallel.encode.buildBlocks>"
+  # Use '+' as delimiter as '/' is part of the strings
+  sed -i "s+$def+$thread+" ../../libraries/SystemDS-config.xml
+elif [[ $1 = "applyblocks" ]]
+then
+  def="<sysds.parallel.encode.applyBlocks>[0-9-]*</sysds.parallel.encode.applyBlocks>"
+  thread="<sysds.parallel.encode.applyBlocks>$2</sysds.parallel.encode.applyBlocks>"
+  # Use '+' as delimiter as '/' is part of the strings
+  sed -i "s+$def+$thread+" ../../libraries/SystemDS-config.xml
+elif [[ $1 = "transformthreads" ]]
+then
+  def="<sysds.parallel.encode.numThreads>[0-9-]*</sysds.parallel.encode.numThreads>"
+  thread="<sysds.parallel.encode.numThreads>$2</sysds.parallel.encode.numThreads>"
+  # Use '+' as delimiter as '/' is part of the strings
+  sed -i "s+$def+$thread+" ../../libraries/SystemDS-config.xml
+elif [[ $1 = "stagedtransform" ]]
+then
+  nostage="<sysds.parallel.encode.staged>false</sysds.parallel.encode.staged>"
+  stage="<sysds.parallel.encode.staged>true</sysds.parallel.encode.staged>"
+  if  [[ $2 = "start" ]] 
+  then
+    # Use '+' as delimiter as '/' is part of the strings
+    sed -i "s+$nostage+$stage+" ../../libraries/SystemDS-config.xml
+  elif  [[ $2 = "stop" ]]
+  then
+    sed -i "s+$stage+$nostage+" ../../libraries/SystemDS-config.xml
+  else
+    echo "Pass 'start' or 'stop"
+  fi
+elif [[ $1 = "parop" ]]
+then
+  single="<sysds.cp.parallel.ops>false</sysds.cp.parallel.ops>"
+  multi="<sysds.cp.parallel.ops>true</sysds.cp.parallel.ops>"
+  if  [[ $2 = "start" ]] 
+  then
+    # Use '+' as delimiter as '/' is part of the strings
+    sed -i "s+$single+$multi+" ../../libraries/SystemDS-config.xml
+  elif  [[ $2 = "stop" ]]
+  then
+    sed -i "s+$multi+$single+" ../../libraries/SystemDS-config.xml
+  else
+    echo "Pass 'start' or 'stop"
+  fi
+else
+  echo "Supported options: mkl, codegen, lineagespill, compassisted, partransform"
+fi

@@ -1,4 +1,4 @@
-Forig = read("../datasets/KDD98.csv", data_type="frame", format="csv", header=TRUE);
+Forig = read("../../datasets/KDD98.csv", data_type="frame", format="csv", header=TRUE);
 # Num: Binning+DC, Cat: DC, All: Scale 
 jspec1 = read("./specs/kdd_spec1.json", data_type="scalar", value_type="string");
 #jspec1 = read("./specs/kdd_norm.json", data_type="scalar", value_type="string");
@@ -21,7 +21,10 @@ for (i in 1:lim) {
 
 R = order(target=R, by=1);
 res = R[1:5,];
-write(res, "file:/home/aphani/vldb_22/results/kdd_dml.dat", format="csv", sep="\t");
+write(res, "kdd_dml.dat", format="csv", sep="\t");
 print("("+nrow(X_scaled)+", "+ncol(X_scaled)+")");
 #print("("+nrow(X_en)+", "+ncol(X_en)+")");
 
+avg = matrix(0, rows=1, cols=1);
+avg[1,1] = floor((sum(res)/5) / 1000);
+write(avg, "4e_T2_Base.dat", format="csv", sep="\t");

@@ -1,6 +1,46 @@
+batchProcessing = function(Frame[Unknown] data, Double tEncode, String jspec1, Frame[Unknown] M) 
+return(Double totTime)
+{
+  bs = 1024; #batch size
+  ep = 10;   #epocs
+  iter_ep = ceil(nrow(data)/bs);
+  maxiter = ep * iter_ep;
+  print("Total number of iterations: "+maxiter);
+  totTime = tEncode;
+  beg = 1;
+  iter = 0;
+  i = 1;
+  V = rand(rows=ncol(data), cols=1, seed=42);
+
+  # Mini-batch processing
+  while (iter < maxiter) {
+    end = beg + bs - 1;
+    if (end>nrow(data))
+      end = nrow(data);
+
+    X_batch = data[beg:end,];
+    t1 = time();
+    X_batch_en = transformapply(target=X_batch, spec=jspec1, meta=M);
+    # Execute an inexpensive operation
+    mx = max(X_batch_en %*% V);
+    t2 = time();
+    totTime = totTime + floor((t2-t1)/1000000);
+
+    iter = iter + 1;
+    if (end == nrow(data)) {
+      beg = 1;
+      print("Starting next epoch");
+    }
+    else
+      beg = end + 1;
+    i = i + 1;
+  }
+  print(mx);
+  print("("+nrow(X_batch_en)+", "+ncol(X_batch_en)+")");
+}
 # Read the datasets
-data1 = read("../datasets/data1.csv", data_type="frame", format="csv", header=FALSE);
-data2 = read("../datasets/data2.csv", data_type="frame", format="csv", header=FALSE);
+data1 = read("../../datasets/data1.csv", data_type="frame", format="csv", header=FALSE);
+data2 = read("../../datasets/data2.csv", data_type="frame", format="csv", header=FALSE);
 data = cbind(data1, data2);
 
 print("("+nrow(data)+", "+ncol(data)+")");
@@ -13,48 +53,17 @@ for (i in 52:100)
   recode = recode+","+i;
 jspec1 = "{ ids:true, recode:["+recode+"], bin:["+binning+"]}"; #Binning+RC
 
-lim = 1;
+lim = 3;
 res = matrix(0, rows=lim, cols=1);
 t1 = time();
 [X_en, M] = transformencode(target=data, spec=jspec1);
 t2 = time();
-res[1,1] = floor((t2-t1)/1000000);
-
-bs = 1024; #batch size
-ep = 10;   #epocs
-iter_ep = ceil(nrow(data)/bs);
-maxiter = ep * iter_ep;
-print("Total number of iterations: "+maxiter);
-beg = 1;
-iter = 0;
-i = 1;
-V = rand(rows=ncol(data), cols=1, seed=42);
-
-# Mini-batch processing
-while (iter < maxiter) {
-  end = beg + bs - 1;
-  if (end>nrow(data))
-    end = nrow(data);
-
-  X_batch = data[beg:end,];
-  t1 = time();
-  X_batch_en = transformapply(target=X_batch, spec=jspec1, meta=M);
-  # Execute an inexpensive operation
-  mx = max(X_batch_en %*% V);
-  t2 = time();
-  res[1,1] = res[1,1] + floor((t2-t1)/1000000);
-
-  iter = iter + 1;
-  if (end == nrow(data)) {
-    beg = 1;
-    print("Starting next epoch");
-  }
-  else
-    beg = end + 1;
-  i = i + 1;
+tEncode = floor((t2-t1)/1000000);
+for (i in 1:lim) {
+  tot = batchProcessing(data, tEncode, jspec1, M);
+  res[i,1] = tot;
 }
-print(mx);
-print("("+nrow(X_batch_en)+", "+ncol(X_batch_en)+")");
+
 print("Elapsed time for transformations using SystemDS");
 print(toString(res));
-
+write(res, "batch_dml.dat", format="csv", sep="\t");

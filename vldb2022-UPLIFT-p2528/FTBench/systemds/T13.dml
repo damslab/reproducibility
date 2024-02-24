@@ -1,4 +1,4 @@
-# Default size = 10M * 10 w/ 100K #distincts per col
+# Default size = 10M * 10 w/  #distincts per col
 # Vary string length from 25 to 500
 
 data = read("data.csv", data_type="frame", format="csv", header=FALSE);
@@ -25,6 +25,6 @@ for (i in 1:lim) {
 
 R = order(target=R, by=1);
 res = R[1:3,];
-write(res, "file:/home/aphani/submission_22/results/stringlen_dml.dat", format="csv", sep="\t");
+write(res, "stringlen_dml.dat", format="csv", sep="\t");
 print("("+nrow(X)+", "+ncol(X)+")");
 

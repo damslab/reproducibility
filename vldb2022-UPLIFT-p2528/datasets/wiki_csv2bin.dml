@@ -1,0 +1,5 @@
+W = read("wiki_embeddings_csv", data_type="matrix", value_type="double", format="csv");
+print("("+nrow(W)+", "+ncol(W)+")");
+chunk = W[1:5,1:5];
+print(toString(chunk));
+write(W, "wiki_embeddings", data_type="matrix", value_type="double", format="binary");

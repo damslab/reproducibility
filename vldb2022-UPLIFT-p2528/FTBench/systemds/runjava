@@ -1,0 +1,11 @@
+#!/bin/bash
+# This wrapper uses 110GB heap
+
+java -Xmx110g -Xms110g -Xmn11g \
+    -cp ../../libraries/SystemDS.jar:../../libraries/lib/* \
+    -Dlog4j.configuration=file:../../libraries/log4j-silent.properties \
+    org.apache.sysds.api.DMLScript \
+    -exec singlenode \
+    -debug \
+    -config ../../libraries/SystemDS-config.xml \
+    "$@"

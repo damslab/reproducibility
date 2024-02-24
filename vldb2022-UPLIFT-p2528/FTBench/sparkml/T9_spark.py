@@ -18,7 +18,7 @@ warnings.filterwarnings('ignore') #cleaner, but not recommended
 
 def readNprep(scaleFactor=1):
     # Read,isolate target and combine training and test data
-    train = pd.read_csv("~/datasets/catindattrain.csv", delimiter=",", header=None)
+    train = pd.read_csv("../../datasets/catindattrain.csv", delimiter=",", header=None)
     train = train.iloc[1:,:] #remove header
     train.drop(24, axis=1, inplace=True); #remove target
     train = train.replace(r'\s+',np.nan,regex=True).replace('',np.nan)
@@ -48,10 +48,11 @@ def featureHashingSp(X, ncol):
     return encoded
 
 
-
+nthreads_arg = sys.argv[1] #num of threads or "all"
+nthreads = "*" if nthreads_arg.lower() == "all" else nthreads_arg
 spark = SparkSession\
     .builder\
-    .master("local[*]")\
+    .master(f"local[{nthreads}]")\
     .config("spark.driver.memory", "110g")\
     .config("spark.kryoserializer.buffer.max", "1024m")\
     .config("spark.sql.execution.arrow.pyspark.enabled", "true")\
@@ -59,7 +60,21 @@ spark = SparkSession\
     .getOrCreate()
 
 X = readNprep(scaleFactor=10)
+totTime = 0
+t1 = time.time()
 X_enc1 = featureHashingSp(X, 24000)
+totTime = totTime + ((time.time() - t1) * 1000) #millisec
+t1 = time.time()
 X_enc2 = featureHashingSp(X, 24000)
+totTime = totTime + ((time.time() - t1) * 1000) #millisec
+t1 = time.time()
 X_enc3 = featureHashingSp(X, 24000)
-X_enc3 = featureHashingSp(X, 24000)
+totTime = totTime + ((time.time() - t1) * 1000) #millisec
+
+avgTime = round((totTime/3)/1000, 1) #sec
+if nthreads_arg.lower() == "all":
+    filename = "Tab3_T9_spark.dat"
+else:
+    filename = "Tab3_T9_spark1T.dat"
+with open(filename, "w") as file:
+    file.write(str(avgTime))

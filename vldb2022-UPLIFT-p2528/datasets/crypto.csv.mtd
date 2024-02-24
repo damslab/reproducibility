@@ -1,0 +1,11 @@
+{
+    "data_type": "frame",
+    "schema": "FP64,FP64,FP64,FP64,FP64,FP64,FP64,FP64,FP64,FP64,",
+    "rows": 24236806,
+    "cols": 10,
+    "format": "csv",
+    "author": "aphani",
+    "header": true,
+    "sep": ",",
+    "created": "2022-02-02 16:11:32 CET"
+}

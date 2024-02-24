@@ -22,8 +22,8 @@ import warnings
 
 def readNprep():
     # Read the dataset
-    criteo = spark.read.options(inferSchema='True', delimiter=',') \
-             .csv("file:/home/aphani/datasets/criteo_day21_5M_cleaned")
+    path = sys.argv[1]
+    criteo = spark.read.options(inferSchema='True', delimiter=',').csv(f"file:{path}")
     #print(criteo.printSchema())
     print("#partitions: ", criteo.rdd.getNumPartitions())
     criteo.persist(StorageLevel.MEMORY_ONLY)

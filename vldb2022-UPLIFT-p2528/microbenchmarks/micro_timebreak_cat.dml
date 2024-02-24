@@ -1,0 +1,26 @@
+data = read("data.csv", data_type="frame", format="csv", header=FALSE);
+
+recode = "1";
+for (i in 2:100)
+  recode = recode+","+i;
+dummy = recode;
+
+jspec1 = "{ ids:true, recode:["+recode+"], dummycode:["+dummy+"]}"; #RC-DC
+jspec2 = "{ ids:true, recode:["+recode+"]}"; #RC
+
+if ($1 == 1)
+  jspec = jspec1
+if ($1 == 2)
+  jspec = jspec2
+
+lim = 5;
+res = matrix(0, rows=lim, cols=1);
+for (i in 1:lim) {
+  print("INFO: starting transformencode");
+  t1 = time();
+  [X, M] = transformencode(target=data, spec=jspec);
+  t2 = time();
+  print("Elapsed time for transformations using SystemDS = "+floor((t2-t1)/1000000)+" millsec");
+  res[i,1] = floor((t2-t1)/1000000);  
+}
+print("("+nrow(X)+", "+ncol(X)+")");

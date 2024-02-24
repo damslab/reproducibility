@@ -1,6 +1,6 @@
 # Read and combine the train and test datasets
-train = read("../datasets/homeCreditTrain.csv", data_type="frame", format="csv", header=TRUE);
-test = read("../datasets/homeCreditTest.csv", data_type="frame", format="csv", header=TRUE);
+train = read("../../datasets/homeCreditTrain.csv", data_type="frame", format="csv", header=TRUE);
+test = read("../../datasets/homeCreditTest.csv", data_type="frame", format="csv", header=TRUE);
 # Index out the target column (2nd col)
 tmp1 = train[,1];
 tmp2 = train[,3:ncol(train)]; 
@@ -9,7 +9,7 @@ train = cbind(tmp1, tmp2);
 data = rbind(train, test); #356255 * 121
 
 # DC for categorical columns
-jspec1 = read("../specs/homecredit_spec1.json", data_type="scalar", value_type="string");
+jspec1 = read("./specs/homecredit_spec1.json", data_type="scalar", value_type="string");
 
 print("("+nrow(data)+", "+ncol(data)+")");
 lim = 10;
@@ -25,7 +25,7 @@ for (i in 1:lim) {
 
 R = order(target=R, by=1);
 res = R[1:5,];
-write(res, "file:/home/aphani/submission_22/results/homecredit_dml.dat", format="csv", sep="\t");
+write(res, "homecredit_dml.dat", format="csv", sep="\t");
 print("("+nrow(X_en)+", "+ncol(X_en)+")");
 
 

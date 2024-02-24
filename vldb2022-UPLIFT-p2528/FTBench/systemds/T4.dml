@@ -15,7 +15,8 @@ return (Matrix[Double] X_scaled)
 
 # Read the input file with dimensions 10M x 40 
 # NOTE: UMM reduces 10sec for each transformencode call
-data = read("../datasets/criteo_day21_10M_cleaned", data_type="frame", format="csv", header=FALSE);
+data = read("../../datasets/criteo_day21_10M_cleaned", data_type="frame", format="csv", header=FALSE);
+#data = read("../../datasets/criteo_day21_10M", data_type="frame", format="csv", header=FALSE);
 jspec = read("./specs/criteo_spec2.json", data_type="scalar", value_type="string");
 #jspec = read("file:/home/aphani/datasets/criteo_norm2.json", data_type="scalar", value_type="string");
 
@@ -35,7 +36,10 @@ for (i in 1:lim) {
 R = order(target=R, by=1);
 res = R[1:5,];
 print(toString(res));
-
-
+write(res, "criteo10M_s2_dml.dat", format="csv", sep="\t");
 #print("("+nrow(X_norm)+", "+ncol(X_norm)+")");
 print("("+nrow(X_enc)+", "+ncol(X_enc)+")");
+
+avg = matrix(0, rows=1, cols=1);
+avg[1,1] = floor((sum(res)/5) / 1000);
+write(avg, "4e_T4_Base.dat", format="csv", sep="\t");

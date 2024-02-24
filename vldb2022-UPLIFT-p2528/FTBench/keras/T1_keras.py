@@ -16,7 +16,7 @@ warnings.filterwarnings('ignore') #cleaner, but not recommended
 
 def readNprep():
     # Read and isolate target and training data
-    adult = pd.read_csv("~/datasets/adult.data", delimiter=",", header=None)
+    adult = pd.read_csv("../../datasets/adult.data", delimiter=",", header=None)
     print(adult.head())
 
     # Pandas infer the type of a few columns as int64.
@@ -123,6 +123,6 @@ print("Elapsed time for transformations using tf-keras")
 print(timeres)
 print(timeres_np)
 
-np.savetxt("./results/adult_keras.dat", timeres, delimiter="\t", fmt='%f')
-np.savetxt("./results/adult_keras_np.dat", timeres_np, delimiter="\t", fmt='%f')
+np.savetxt("adult_keras.dat", timeres, delimiter="\t", fmt='%f')
+np.savetxt("adult_keras_np.dat", timeres_np, delimiter="\t", fmt='%f')
 

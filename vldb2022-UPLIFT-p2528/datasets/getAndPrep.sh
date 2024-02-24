@@ -2,12 +2,16 @@
 
 # Usage: ./getAndPrep.sh <ID>
 # e.g. ./getAndPrep.sh T2
-# Note: Setup Kaggle API credentials to download the Kaggle datasets
+# Note: Setup Kaggle API credentials to download the Kaggle datasets (https://github.com/Kaggle/kaggle-api)
+# pip install kaggle
+# Add ~/.local/bin to PATH
+# Update KAGGLE_USERNAME and KAGGLE_KEY fields in .bash_profile or .bashrc
 
 # Adult dataset
 if [ "$1" = "T1" ]; then
   rm adult.data
   wget https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data
+  sed -i '$ d' adult.data #remove empty line
 fi
 
 # KDD 98 dataset
@@ -21,14 +25,17 @@ fi
 
 # Criteo dataset for day 21
 if [ "$1" = "T3" -o "$1" = "T4" -o "$1" = "T15" ]; then
-  curl https://storage.googleapis.com/criteo-cail-datasets/day_21.gz -o criteo_day21.gz
+  # https://criteo.wetransfer.com/downloads/4bbea9b4a54baddea549d71271a38e2c20230428071257/d4f0d2/grid
+  mv day_21.gz criteo_day21.gz
   gzip -d criteo_day21.gz;
   if [ "$1" = "T3" -o "$1" = "T4" ]; then
     rm criteo_day21_10M
+    rm criteo_day21_10M_cleaned
     # Copy first 10M rows
     head -10000000 criteo_day21 >> criteo_day21_10M
     # Replace tab with comma
     sed -i 's/\t/,/g' criteo_day21_10M
+    python3 criteo_prep.py 10
   fi
   if [ "$1" = "T15" ]; then
     rm criteo_day21_5M
@@ -36,6 +43,7 @@ if [ "$1" = "T3" -o "$1" = "T4" -o "$1" = "T15" ]; then
     head -5000000 criteo_day21 >> criteo_day21_5M
     # Replace tab with comma
     sed -i 's/\t/,/g' criteo_day21_5M
+    python3 criteo_prep.py 5
   fi
   rm *.gz
 fi
@@ -81,11 +89,16 @@ if [ "$1" = "T10" -o "$1" = "T11" ]; then
   unzip -p citation-network1.zip > AminerCitation_small.txt
   if [ "$1" = "T10" ]; then
     rm AminerAbstract.csv
-    python aminerPL.py
+    python3 aminerPL.py
   fi
   if [ "$1" = "T11" ]; then
-    rm AminerAbstractSequence.csv
-    python aminerseq.py
+    rm AminerAbstractSequence.csv 
+    rm -rf wiki.en.vec wiki_metaframe wiki_embeddings_csv wiki_embeddings wiki_embeddings_csv.mtd wiki_words
+    python3 aminerseq.py
+    wget https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.en.vec
+    python3 wiki_prep.py
+    sed -i 's/['\''\"]//g' wiki_metaframe
+    ./runjava -f wiki_csv2bin.dml
   fi
   rm *.zip
 fi
@@ -93,8 +106,8 @@ fi
 # Synthetic dataset
 if [ "$1" = "T12" ]; then
   rm data1.csv data2.csv
-  python dataGenFloat.py 100000 100000
-  python dataGenString.py 100000 10000 5
+  python3 dataGenFloat.py 100000 100000
+  python3 dataGenString.py 100000 10000 5
 fi
 
 # Synthetic datasets

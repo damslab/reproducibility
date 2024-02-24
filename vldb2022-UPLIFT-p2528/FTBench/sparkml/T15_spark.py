@@ -21,15 +21,15 @@ import warnings
 
 def readNprep():
     # Read the dataset
-    criteo = spark.read.options(inferSchema='True', delimiter=',') \
-             .csv("file:/home/aphani/datasets/criteo_day21_5M_cleaned")
+    path = sys.argv[1]
+    criteo = spark.read.options(inferSchema='True', delimiter=',').csv(f"file:{path}")
     #print(criteo.printSchema())
     print("#partitions: ", criteo.rdd.getNumPartitions())
     criteo.persist(StorageLevel.MEMORY_ONLY)
     #print((criteo.count(), len(criteo.columns)))
     return criteo
 
-def applyFTset1(criteo, nBins):
+def applyFTset1(criteo, nBins, nb_time):
     # Bin the numerical columns
     outCols = ['{0}_bin'.format(out) for out in criteo.columns[1:14]]
     newCols = outCols
@@ -58,9 +58,11 @@ def applyFTset1(criteo, nBins):
             metricName="accuracy")
     accuracy = evaluator.evaluate(predictions)
     print("Test set accuracy = " + str(accuracy))
+    nb_time = nb_time + ((time.time() - t1) * 1000) #millisec
     print("Elapsed time for NB prediction = %s sec" % (time.time() - t1))
+    return nb_time
 
-def applyFTset2(criteo, nBins):
+def applyFTset2(criteo, nBins, nb_time):
     # Bin the numerical columns
     outCols = ['{0}_bin'.format(out) for out in criteo.columns[1:14]]
     newCols = outCols
@@ -92,9 +94,11 @@ def applyFTset2(criteo, nBins):
             metricName="accuracy")
     accuracy = evaluator.evaluate(predictions)
     print("Test set accuracy = " + str(accuracy))
+    nb_time = nb_time + ((time.time() - t1) * 1000) #millisec
     print("Elapsed time for NB prediction = %s sec" % (time.time() - t1))
+    return nb_time
 
-def applyFTset3(criteo, nBins):
+def applyFTset3(criteo, nBins, nb_time):
     # Bin the numerical columns
     outCols = ['{0}_bin'.format(out) for out in criteo.columns[1:14]]
     newCols = outCols
@@ -122,9 +126,11 @@ def applyFTset3(criteo, nBins):
             metricName="accuracy")
     accuracy = evaluator.evaluate(predictions)
     print("Test set accuracy = " + str(accuracy))
+    nb_time = nb_time + ((time.time() - t1) * 1000) #millisec
     print("Elapsed time for NB prediction = %s sec" % (time.time() - t1))
+    return nb_time
 
-def applyFTset4(criteo, nBins):
+def applyFTset4(criteo, nBins, nb_time):
     # Bin the numerical columns
     outCols = ['{0}_bin'.format(out) for out in criteo.columns[1:14]]
     newCols = outCols
@@ -157,9 +163,11 @@ def applyFTset4(criteo, nBins):
             metricName="accuracy")
     accuracy = evaluator.evaluate(predictions)
     print("Test set accuracy = " + str(accuracy))
+    nb_time = nb_time + ((time.time() - t1) * 1000) #millisec
     print("Elapsed time for NB prediction = %s sec" % (time.time() - t1))
+    return nb_time
 
-def applyFTset5(criteo, nBins):
+def applyFTset5(criteo, nBins, nb_time):
     # Bin the numerical columns
     outCols = ['{0}_bin'.format(out) for out in criteo.columns[1:14]]
     newCols = outCols
@@ -190,14 +198,16 @@ def applyFTset5(criteo, nBins):
             metricName="accuracy")
     accuracy = evaluator.evaluate(predictions)
     print("Test set accuracy = " + str(accuracy))
+    nb_time = nb_time + ((time.time() - t1) * 1000) #millisec
     print("Elapsed time for NB prediction = %s sec" % (time.time() - t1))
+    return nb_time
 
 
 # NOTE: single-threaded execution takes 3.7x more time
 spark = SparkSession\
     .builder\
     .master("local[*]")\
-    .config("spark.driver.memory", "110g")\
+    .config("spark.driver.memory", "130g")\
     .config("spark.kryoserializer.buffer.max", "1024m")\
     .config("spark.sql.execution.arrow.pyspark.enabled", "true")\
     .appName("KddByMLlib")\
@@ -206,33 +216,49 @@ spark.sparkContext.setLogLevel('ERROR')
 
 criteo = readNprep()
 
+timers = np.zeros(6)
+ft_time = 0
+nb_time = 0
+
 # Bin(13) w/ 10 bins, RC(26) --> Total: 92.3s, NB: 62s
 t1 = time.time()
-applyFTset1(criteo, 10)
+nb_time = applyFTset1(criteo, 10, nb_time)
+ft_time = ft_time + ((time.time() - t1) * 1000) #millisec
 print("Elapsed time for fe1 = %s sec" % (time.time() - t1))
 
 # Bin(13) w/ 5 bins, RC(26) --> Total: 81.5s, NB: 66s
 t1 = time.time()
-applyFTset1(criteo, 5)
+nb_time = applyFTset1(criteo, 5, nb_time)
+ft_time = ft_time + ((time.time() - t1) * 1000) #millisec
 print("Elapsed time for fe2 = %s sec" % (time.time() - t1))
 
 # Bin(13) w/ 5 bins, DC(26) --> Total: 348.5s, NB: 320s
 t1 = time.time()
-applyFTset2(criteo, 5)
+nb_time = applyFTset2(criteo, 5, nb_time)
+ft_time = ft_time + ((time.time() - t1) * 1000) #millisec
 print("Elapsed time for fe4 = %s sec" % (time.time() - t1))
 
 # Bin(13) w/ 10 bins, FH(26) --> Total: 27.5s, NB: 22s
 t1 = time.time()
-applyFTset3(criteo, 10)
+nb_time = applyFTset3(criteo, 10, nb_time)
+ft_time = ft_time + ((time.time() - t1) * 1000) #millisec
 print("Elapsed time for fe3 = %s sec" % (time.time() - t1))
 
 # Bin(13) w/ 5 bins, DC(39) --> Total: 333s, NB: 301.3s
 t1 = time.time()
-applyFTset4(criteo, 5)
+nb_time = applyFTset4(criteo, 5, nb_time)
+ft_time = ft_time + ((time.time() - t1) * 1000) #millisec
 print("Elapsed time for fe6 = %s sec" % (time.time() - t1))
 
 # Bin(13) w/ 5 bins, RC(12), FH(14) --> Total: 51.2s, NB: 40.6s
 t1 = time.time()
-applyFTset5(criteo, 5)
+nb_time = applyFTset5(criteo, 5, nb_time)
+ft_time = ft_time + ((time.time() - t1) * 1000) #millisec
 print("Elapsed time for fe5 = %s sec" % (time.time() - t1))
+
+timers[:3] = ft_time - nb_time
+timers[3:] = nb_time
+resfile = "featureeng_spark.dat"
+np.savetxt(resfile, timers, delimiter="\t", fmt='%f')
+print(timers)
 

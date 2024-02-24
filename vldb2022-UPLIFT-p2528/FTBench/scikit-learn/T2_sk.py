@@ -19,7 +19,7 @@ warnings.filterwarnings('ignore') #cleaner, but not recommended
 
 def readNprep():
     # Read and isolate target and training data
-    kdd = pd.read_csv("../datasets/KDD98.csv", delimiter=",", header=None)
+    kdd = pd.read_csv("../../datasets/KDD98.csv", delimiter=",", header=None)
     print(kdd.head())
     kddX = kdd.iloc[:,0:469]
     kddX = kddX.drop([0], axis=0)
@@ -46,3 +46,9 @@ def readNprep():
 X = readNprep()
 X_prep = transformFUnion(X, "kdd_spec1.json", "kdd_sk.dat", scale=True)
 
+res = pd.read_csv("kdd_sk.dat", header=None)
+avg = res.mean().squeeze()
+avgTime = round(avg/1000, 1) #sec
+filename = "Tab3_T2_sk.dat"
+with open(filename, "w") as file:
+    file.write(str(avgTime))

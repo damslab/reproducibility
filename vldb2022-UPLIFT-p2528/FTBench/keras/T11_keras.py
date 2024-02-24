@@ -23,7 +23,7 @@ warnings.filterwarnings('ignore') #cleaner, but not recommended
 # Read and tokenize K abstracts 
 def readNprep(count):
     # For each enatry, separate the abstract, clean and tokenize
-    with open(os.path.join('/home/aphani/datasets/', 'AminerCitation_small.txt'), 'r') as f:
+    with open(os.path.join('../../datasets/', 'AminerCitation_small.txt'), 'r') as f:
         abstract_list = []
         c_dict = {}
         sentence = 1;
@@ -51,7 +51,7 @@ def getLayers(abstract_list, wikidata):
     maxAbstractLen = 1000
     # Transform each abstract to an int array padded to max length
     text_dataset = tf.data.Dataset.from_tensor_slices(abstract_list)
-    vocabPath = "/home/aphani/datasets/wiki_embeddings/wiki.en.vec.dict"
+    vocabPath = "../../datasets/wiki_words"
     vectorize_layer = tf.keras.layers.TextVectorization(
             standardize='lower_and_strip_punctuation', 
             split='whitespace',
@@ -113,11 +113,15 @@ toProcess = 100000; #number of abstracts to embedd
 abstracts = readNprep(toProcess)
 print("Number of abstracts to process: ",len(abstracts))
 # Read the pre-trained word embeddings
-wikidata = pd.read_csv("~/datasets/wiki_embeddings/wiki_csv", delimiter=",", header=None)
-t1 = time.time()
-model = getLayers(abstracts, wikidata)
-batchEmbedding(abstracts, model)
-print("total time: %s sec" % ((time.time() - t1) * 1000)) #millisec
+wikidata = pd.read_csv("../../datasets/wiki_embeddings_csv", delimiter=",", header=None)
 
-#np.savetxt("./results/embedding_keras.dat", timeres, delimiter="\t", fmt='%f')
+timeres = np.zeros(3)
+for i in range(3):
+    t1 = time.time()
+    model = getLayers(abstracts, wikidata)
+    batchEmbedding(abstracts, model)
+    timeres[i] = timeres[i] + ((time.time() - t1) * 1000) #millisec
+
+print(timeres)
+np.savetxt("embedding_keras.dat", timeres, delimiter="\t", fmt='%f')
 

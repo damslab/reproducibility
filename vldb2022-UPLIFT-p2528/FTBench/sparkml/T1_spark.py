@@ -16,9 +16,10 @@ from pyspark.ml import Pipeline
 
 def readNprep(spark):
     # Read and isolate target and training data
-    adult = spark.read.options(inferSchema='True', delimiter=',') \
-               .csv("file:/home/aphani/datasets/adult.data")
+    path = sys.argv[1]
+    adult = spark.read.options(inferSchema='True', delimiter=',').csv(f"file:{path}")
     adult.persist(StorageLevel.MEMORY_ONLY)
+    #print(adult.rdd.getNumPartitions())
     print(adult.printSchema())
     print(adult.show(5))
     return adult 
@@ -58,22 +59,23 @@ X_prep1 = transform(X)
 print("Elapsed time for transformations via sparkml = %s sec" % (time.time() - t1))
 
 # Average of three calls
-totTime = 0
+timers = np.zeros(3)
 t1 = time.time()
 X_prep2 = transform(X)
-totTime = totTime + ((time.time() - t1) * 1000) #millisec
+timers[0] = timers[0] + ((time.time() - t1) * 1000) #millisec
 print("Elapsed time for transformations via sparkml = %s sec" % (time.time() - t1))
 
 t1 = time.time()
 X_prep3 = transform(X)
-totTime = totTime + ((time.time() - t1) * 1000) #millisec
+timers[1] = timers[1] + ((time.time() - t1) * 1000) #millisec
 print("Elapsed time for transformations via sparkml = %s sec" % (time.time() - t1))
 
 t1 = time.time()
 X_prep4 = transform(X)
-totTime = totTime + ((time.time() - t1) * 1000) #millisec
+timers[2] = timers[2] + ((time.time() - t1) * 1000) #millisec
 print("Elapsed time for transformations via sparkml = %s sec" % (time.time() - t1))
 
-print("Average elapsed time = %s millisec" % (totTime/3))
+print(timers)
+np.savetxt("adult_spark.dat", timers, delimiter="\t", fmt='%f')
 
 

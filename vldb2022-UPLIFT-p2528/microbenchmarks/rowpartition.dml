@@ -1,35 +1,51 @@
 # Default size = 100M * 4 w/ 1M #distincts per col. 5 char strings.
 
-data = read("file:/home/aphani/submission_22/data.csv", data_type="frame", format="csv", header=FALSE);
+if ($1 == 1 | $1 == 4)
+  data = read("data.csv", data_type="frame", format="csv", header=FALSE);
+if ($1 == 2 | $1 == 3)
+  data = read("data2.csv", data_type="frame", format="csv", header=FALSE);
 
 print("("+nrow(data)+", "+ncol(data)+")");
 allCols = "1";
 for (i in 2:ncol(data))
   allCols = allCols+","+i;
 
-binning = "{id:1, method:equi-height, numbins:10}"
+binningH = "{id:1, method:equi-height, numbins:10}"
 for (i in 2:ncol(data))
-  binning = binning+",\n{id:"+i+", method:equi-height, numbins:10}";
+  binningH = binningH+",\n{id:"+i+", method:equi-height, numbins:10}";
+
+binningW = "{id:1, method:equi-width, numbins:10}"
+for (i in 2:ncol(data))
+  binningW = binningW+",\n{id:"+i+", method:equi-width, numbins:10}";
 
 recode = allCols;
 dummy = allCols;
 hash = allCols;
 jspec1 = "{ ids:true, recode:["+recode+"]}"; #RC
-#jspec1 = "{ ids:true, dummycode:["+dummy+"]}"; #DC
-jspec2 = "{ ids:true, bin:["+binning+"]}"; #Binning
-jspec3 = "{ ids:true, hash:["+hash+"], K:"+1000+"}"; #FH
+jspec2 = "{ ids:true, bin:["+binningH+"]}"; #Binning equi-height
+jspec3 = "{ ids:true, bin:["+binningW+"]}"; #Binning equi-width
+jspec4 = "{ ids:true, hash:["+hash+"], K:"+1000+"}"; #FH
+
+if ($1 == 1) #RC
+  jspec = jspec1;
+if ($1 == 2) #Bin_eh
+  jspec = jspec2;
+if ($1 == 3) #Bin_ew
+  jspec = jspec3;
+if ($1 == 4) #FH
+  jspec = jspec4;
 
 lim = 10;
 R = matrix(0, rows=lim, cols=1);
 for (i in 1:lim) {
   print("INFO: starting transformencode");
   t1 = time();
-  [X, M] = transformencode(target=data, spec=jspec3);
+  [X, M] = transformencode(target=data, spec=jspec);
   t2 = time();
   R[i,1] = floor((t2-t1)/1000000);  
   print("Elapsed time for transformations using SystemDS = "+floor((t2-t1)/1000000)+" millsec");
 }
 R = order(target=R, by=1);
 res = R[1:3,];
-write(res, "file:/home/aphani/submission_22/results/rowpart_dml.dat", format="csv", sep="\t");
+write(res, "rowpart_dml.dat", format="csv", sep="\t");
 print("("+nrow(X)+", "+ncol(X)+")");

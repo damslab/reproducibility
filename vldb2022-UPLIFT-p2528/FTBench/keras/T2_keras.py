@@ -15,7 +15,7 @@ np.set_printoptions(precision=3, suppress=True)
 #@tf.function - Fails due to use of numpy in one-hot vocabs
 def readNprep():
     # Read and isolate target and training data
-    kdd = pd.read_csv("~/datasets/KDD98.csv", delimiter=",", header=None)
+    kdd = pd.read_csv("../../datasets/KDD98.csv", delimiter=",", header=None)
     print(kdd.head())
     kddX = kdd.iloc[:,0:469]
     kdd = kdd.drop([0], axis=0)
@@ -70,7 +70,7 @@ def readNprep():
     x = layers.Concatenate()(list(numeric.values()))
     #binning = preprocessing.Discretization(bins=[.1,.2,.3,.4,.5,.6,.7,.8,.9]) #bin boundaries are unknown
     binning = preprocessing.Discretization(bins=[-.4,-.3,-.2,-.1,0,.1,.2,.3,.4]) #bin boundaries are unknown
-    one_hot = preprocessing.CategoryEncoding(max_tokens=10) # #buckets are unknown
+    one_hot = preprocessing.CategoryEncoding(num_tokens=10) # #buckets are unknown
     all_bin = binning(x)
     all_bin_inputs = one_hot(all_bin)
     prepro.append(all_bin_inputs)
@@ -81,7 +81,7 @@ def readNprep():
         continue
       lookup = preprocessing.StringLookup(vocabulary=np.unique(kdd_str[name]))
       #print("name = ", name, np.unique(kdd_str[name]).shape[0])
-      one_hot = preprocessing.CategoryEncoding(max_tokens=lookup.vocab_size())
+      one_hot = preprocessing.CategoryEncoding(num_tokens=lookup.vocabulary_size())
       x = lookup(input)
       x = one_hot(x)
       # Append to the same list

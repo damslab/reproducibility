@@ -2,7 +2,7 @@ lim = 10;
 R = matrix(0, rows=lim, cols=1);
 t1 = time();
 # Read the tokenized dataframe
-data = read("../datasets/AminerAbstract.csv", data_type="frame", format="csv",header=FALSE);
+data = read("../../datasets/AminerAbstract.csv", data_type="frame", format="csv",header=FALSE);
 abstracts = data[,1];
 jspec1 = "{ ids:true, recode:[1]}"; #RC 1st column
 print(toString(data[1,1])); #initiate read
@@ -27,6 +27,6 @@ for (i in 1:lim) {
 R = order(target=R, by=1);
 res = R[1:3,];
 print(toString(res));
-
+write(res, "bagfwords_dml.dat", format="csv", sep="\t");
 print("("+nrow(X)+", "+ncol(X)+")");
 

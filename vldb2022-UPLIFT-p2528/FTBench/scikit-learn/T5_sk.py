@@ -12,7 +12,7 @@ warnings.filterwarnings('ignore') #cleaner, but not recommended
 
 def readNprep():
     # Read and isolate target and training data
-    train = pd.read_csv("../datasets/santander.csv", delimiter=",", header=None)
+    train = pd.read_csv("../../datasets/santander.csv", delimiter=",", header=None)
     santander = train.iloc[1:,2:]
     santander.columns = [*range(0,200)] #rename header from 0 to 199
     print(santander.head())

@@ -19,7 +19,7 @@ warnings.filterwarnings('ignore') #cleaner, but not recommended
 
 def readNprep():
     # For each enatry, separate the abstract, clean and tokenize
-    with open(os.path.join('/home/aphani/datasets/', 'AminerCitation_small.txt'), 'r') as f:
+    with open(os.path.join('../../datasets/', 'AminerCitation_small.txt'), 'r') as f:
         abstract_list = []
         c_dict = {}
         sentence = 1;
@@ -68,7 +68,7 @@ def transform(model, abstract_list):
 
 
 timeres = np.zeros(3)
-for i in range(1):
+for i in range(3):
     t1 = time.time()
     abstracts = readNprep()
     model = getLayers(abstracts)
@@ -77,5 +77,5 @@ for i in range(1):
 
 print("Elapsed time for transformations using tf-keras")
 print(timeres)
-#np.savetxt("./results/bagfwords_keras.dat", timeres, delimiter="\t", fmt='%f')
+np.savetxt("bagfwords_keras.dat", timeres, delimiter="\t", fmt='%f')
 

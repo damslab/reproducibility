@@ -19,8 +19,8 @@ np.set_printoptions(precision=3, suppress=True)
 warnings.filterwarnings('ignore') #cleaner, but not recommended
 
 def readNprep():
-    data1 = pd.read_csv("~/submission_22/data1.csv", delimiter=",", header=None)
-    data2 = pd.read_csv("~/submission_22/data2.csv", delimiter=",", header=None)
+    data1 = pd.read_csv("../../datasets/data1.csv", delimiter=",", header=None)
+    data2 = pd.read_csv("../../datasets/data2.csv", delimiter=",", header=None)
     X = pd.concat([data1, data2], axis=1, ignore_index=True)
     num = [*range(0,50)]
     X[num] = X[num].astype(float)
@@ -193,22 +193,19 @@ def transform(X_dict, model_prep):
 
 
 X = readNprep()
-timers = np.zeros(1)
-t1 = time.time()
-model, etime = getLayers(X)
-timers = timers + etime
+timers = np.zeros(3)
+for i in range(3):
+    t1 = time.time()
+    model, etime = getLayers(X)
 
-# Lazy transform triggers all models togther -- 5x slower than partial lazy mode
-#res, etime = lazyGraphTransform(X, model, X.shape[0]) 
-#timers = timers + etime
+    # Lazy transform triggers all models togther -- 5x slower than partial lazy mode
+    #res, etime = lazyGraphTransform(X, model, X.shape[0]) 
 
-# Partially lazy mode keeps the minibatch construction outside of tf.function
-out, etime = batchGraphTransform(X, model, X.shape[0])
-print("Elapsed time for batch-wise apply = %s ms" % etime)
-timers = timers + etime
+    # Partially lazy mode keeps the minibatch construction outside of tf.function
+    out, etime = batchGraphTransform(X, model, X.shape[0])
+    timers[i] = timers[i] + ((time.time() - t1) * 1000) #millisec
 
-print("Elapsed time for transformations using tf-keras = %s sec" % (time.time() - t1))
-print("Elapsed time for build and batch-wise apply in millsec")
 print(timers)
+np.savetxt("batch_keras.dat", timers, delimiter="\t", fmt='%f')
 
 

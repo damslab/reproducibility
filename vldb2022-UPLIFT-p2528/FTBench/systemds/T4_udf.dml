@@ -1,0 +1,43 @@
+# Scale a subset of columns
+columnsScale = function(Matrix[Double] X)
+return (Matrix[Double] X_scaled)
+{
+  mask = matrix(0, 1, ncol(X));
+  mask[,15:40] = matrix(1, 1, 26); #columns to scale
+  # Separate and scale columns in mask
+  X2 = removeEmpty(target=X, margin="cols", select=t(mask));
+  scaled = scale(X=X2);
+  #scaled = scaleMinMax(X2);
+  # Merge back the scaled columns in right positions
+  notMask = mask != 1;
+  X_scaled = X*notMask + scaled %*% removeEmpty(target=diag(t(mask)), margin="rows");
+}
+
+# Read the input file with dimensions 10M x 40 
+data = read("../../datasets/criteo_day21_10M_cleaned", data_type="frame", format="csv", header=FALSE);
+#jspec = read("./specs/criteo_spec2.json", data_type="scalar", value_type="string");
+jspec = read("./specs/criteo_norm2.json", data_type="scalar", value_type="string");
+
+print(sum(as.matrix(data[,1]))); #initiate read
+lim = 10; #10
+R = matrix(0, rows=lim, cols=1);
+for (i in 1:lim) {
+  print("INFO: starting transformencode");
+  t1 = time();
+  [X_enc, M] = transformencode(target=data, spec=jspec);
+#  X_enc = columnsScale(X_enc);
+  t2 = time();
+  R[i,1] = floor((t2-t1)/1000000);  
+  print("Elapsed time for transformations using SystemDS = "+floor((t2-t1)/1000000)+" millsec");
+}
+
+R = order(target=R, by=1);
+res = R[1:5,];
+print(toString(res));
+write(res, "criteo10M_s2_dml.dat", format="csv", sep="\t");
+#print("("+nrow(X_norm)+", "+ncol(X_norm)+")");
+print("("+nrow(X_enc)+", "+ncol(X_enc)+")");
+
+avg = matrix(0, rows=1, cols=1);
+avg[1,1] = floor((sum(res)/5) / 1000);
+write(avg, "4e_T4_udf.dat", format="csv", sep="\t");

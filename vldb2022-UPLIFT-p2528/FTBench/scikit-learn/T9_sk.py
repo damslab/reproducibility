@@ -14,7 +14,7 @@ warnings.filterwarnings('ignore') #cleaner, but not recommended
 
 def readNprep(scaleFactor=1):
     # Read,isolate target and combine training and test data
-    train = pd.read_csv("../datasets/catindattrain.csv", delimiter=",", header=None)
+    train = pd.read_csv("../../datasets/catindattrain.csv", delimiter=",", header=None)
     train = train.iloc[1:,:] #remove header
     train.drop(24, axis=1, inplace=True); #remove target
     # Augment by repeating
@@ -39,10 +39,16 @@ def featureHashing(X, ncol, resultfile):
     print(np.shape(transformed))
     print("Elapsed time for transformations using FeatureUnion in millsec")
     print(timeres)
-    resfile = "./results/" + resultfile
+    resfile = resultfile
     np.savetxt(resfile, timeres, delimiter="\t", fmt='%f')
     return transformed
 
 X = readNprep(scaleFactor=10)
 X_prep = featureHashing(X, 24000, "catindat_sk.dat") #spec3
 
+res = pd.read_csv("catindat_sk.dat", header=None)
+avg = res.mean().squeeze()
+avgTime = round(avg/1000, 1) #sec
+filename = "Tab3_T9_sk.dat"
+with open(filename, "w") as file:
+    file.write(str(avgTime))

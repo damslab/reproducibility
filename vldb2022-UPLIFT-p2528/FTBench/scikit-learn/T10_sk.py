@@ -16,7 +16,7 @@ warnings.filterwarnings('ignore') #cleaner, but not recommended
 
 def readNprep():
     # For each enatry, separate the abstract, clean and tokenize
-    with open(os.path.join('/home/aphani/datasets/', 'AminerCitation_small.txt'), 'r') as f:
+    with open(os.path.join('../../datasets/', 'AminerCitation_small.txt'), 'r') as f:
         abstract_list = []
         c_dict = {}
         sentence = 1;
@@ -44,7 +44,16 @@ def getBagOfWords(abstract_list):
 
 t1 = time.time()
 abstract_list = readNprep()
-bfw = getBagOfWords(abstract_list)
-print("Elapsed time for bag-of-words using sklearn = %s sec" % (time.time() - t1))
+prep_time = time.time() - t1
+print("Elapsed time for preparation = %s sec" % prep_time)
+timeres = np.zeros(3)
+for i in range(3):
+    t2 = time.time()
+    bfw = getBagOfWords(abstract_list)
+    timeres[i] = timeres[i] + ((time.time() - t2) * 1000) #millisec
+print("Elapsed time for transformations using FeatureUnion in millsec")
+print(timeres)
 print(bfw.shape)
+resfile = "bagfwords_sk.dat"
+np.savetxt(resfile, timeres, delimiter="\t", fmt='%f')
 

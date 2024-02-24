@@ -1,4 +1,4 @@
-train = read("../datasets/catindattrain.csv", data_type="frame", format="csv",header=TRUE);
+train = read("../../datasets/catindattrain.csv", data_type="frame", format="csv",header=TRUE);
 # Index out the target column (last col)
 train = train[,1:ncol(train)-1];
 data = train; #300K * 24
@@ -26,7 +26,10 @@ for (i in 1:lim) {
 
 R = order(target=R, by=1);
 res = R[1:5,];
-write(res, "file:/home/aphani/submission_22/results/catindat_dml.dat", format="csv", sep="\t");
+write(res, "catindat_dml.dat", format="csv", sep="\t");
 print("("+nrow(X_en)+", "+ncol(X_en)+")");
 
+avg = matrix(0, rows=1, cols=1);
+avg[1,1] = floor((sum(res)/5) / 1000);
+write(avg, "Tab3_T9_dml.dat", format="csv", sep="\t");
 

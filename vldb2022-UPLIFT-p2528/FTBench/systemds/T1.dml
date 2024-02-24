@@ -1,5 +1,5 @@
 # Read the dataset and the spec file
-data = read("../datasets/adult.data", data_type="frame", format="csv",header=FALSE);
+data = read("../../datasets/adult.data", data_type="frame", format="csv",header=FALSE);
 # Bin+DC numeric and DC categorical cols
 jspec2 = read("./specs/adult_spec2.json", data_type="scalar", value_type="string");
 print("("+nrow(data)+", "+ncol(data)+")");
@@ -17,6 +17,6 @@ for (i in 1:lim) {
 
 R = order(target=R, by=1);
 res = R[1:5,];
-write(res, "file:/home/aphani/submission_22/results/adult_dml.dat", format="csv", sep="\t");
+write(res, "adult_dml.dat", format="csv", sep="\t");
 
 print("("+nrow(X)+", "+ncol(X)+")");

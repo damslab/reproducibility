@@ -12,8 +12,8 @@ warnings.filterwarnings('ignore') #cleaner, but not recommended
 
 def readNprep():
     # Read,isolate target and combine training and test data
-    train = pd.read_csv("../datasets/homeCreditTrain.csv", delimiter=",", header=None)
-    test = pd.read_csv("../datasets/homeCreditTest.csv", delimiter=",", header=None)
+    train = pd.read_csv("../../datasets/homeCreditTrain.csv", delimiter=",", header=None)
+    test = pd.read_csv("../../datasets/homeCreditTest.csv", delimiter=",", header=None)
     train = train.iloc[1:,:] #remove header
     train.drop(1, axis=1, inplace=True); #remove target
     train.columns = [*range(0,121)] #rename header from 0 to 120

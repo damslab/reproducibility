@@ -1,5 +1,5 @@
 # Read the dataset
-data = read("../datasets/criteo_day21_10M", data_type="frame", format="csv", header=FALSE);
+data = read("../../datasets/criteo_day21_10M", data_type="frame", format="csv", header=FALSE);
 # Read the spec: PT, DC
 jspec = read("./specs/criteo_spec1.json", data_type="scalar", value_type="string");
 
@@ -18,7 +18,10 @@ for (i in 1:lim) {
 
 R = order(target=R, by=1);
 res = R[1:5,];
-write(res, "file:/home/aphani/submission_22/results/criteo10M_s1_dml.dat", format="csv", sep="\t");
+write(res, "criteo10M_s1_dml.dat", format="csv", sep="\t");
 
 print("("+nrow(X)+", "+ncol(X)+")");
 
+avg = matrix(0, rows=1, cols=1);
+avg[1,1] = floor((sum(res)/5) / 1000);
+write(avg, "Tab3_T3_dml.dat", format="csv", sep="\t");

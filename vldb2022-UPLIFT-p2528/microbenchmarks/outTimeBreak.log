@@ -1,0 +1,334 @@
+24/02/16 11:43:49 DEBUG util.Shell: setsid exited with exit code 0
+24/02/16 11:43:49 DEBUG api.DMLScript: ****** args to DML Script ******
+UUID: 3681010_192.168.0.14
+SCRIPT PATH: micro_timebreak_num.dml
+RUNTIME: SINGLE_NODE
+BUILTIN CONFIG: ./SystemDS-config.xml
+OPTIONAL CONFIG: /home/arnab/systemds/SystemDS-config.xml
+
+24/02/16 11:43:49 INFO api.DMLScript: BEGIN DML run 02/16/2024 11:43:49
+24/02/16 11:43:49 DEBUG api.DMLScript: DML script: 
+dataNum = read("data1.csv", data_type="frame", format="csv", header=FALSE);
+dataCat = read("data2.csv", data_type="frame", format="csv", header=FALSE);
+data = cbind(dataNum, dataCat);
+
+binning = "{id:1, method:equi-width, numbins:10}"
+for (i in 2:ncol(dataNum))
+  binning = binning+",\n{id:"+i+", method:equi-width, numbins:10}";
+
+recode = "51";
+for (i in 52:100)
+  recode = recode+","+i;
+
+jspec1 = "{ ids:true, recode:["+recode+"], bin:["+binning+"]}"; #Binning+RC
+
+lim = 5;
+res = matrix(0, rows=lim, cols=1);
+for (i in 1:lim) {
+  print("INFO: starting transformencode");
+  t1 = time();
+  [X, M] = transformencode(target=data, spec=jspec1);
+  t2 = time();
+  print("Elapsed time for transformations using SystemDS = "+floor((t2-t1)/1000000)+" millsec");
+  res[i,1] = floor((t2-t1)/1000000);  
+}
+print("("+nrow(X)+", "+ncol(X)+")");
+#write(res, "file:/home/aphani/vldb_22/res_2thread.dat", format="csv", sep="\t");
+
+24/02/16 11:43:50 DEBUG api.DMLScript: 
+DML config: 
+INFO: sysds.localtmpdir: /tmp/systemds
+INFO: sysds.scratch: scratch_space
+INFO: sysds.optlevel: 2
+INFO: sysds.defaultblocksize: 1000
+INFO: sysds.cp.parallel.ops: true
+INFO: sysds.cp.parallel.io: true
+INFO: sysds.parallel.encode: false
+INFO: sysds.native.blas: none
+INFO: sysds.native.blas.directory: none
+INFO: sysds.compressed.linalg: false
+INFO: sysds.compressed.lossy: false
+INFO: sysds.compressed.valid.compressions: SDC,DDC
+INFO: sysds.compressed.overlapping: true
+INFO: sysds.compressed.sampling.ratio: 0.01
+INFO: sysds.compressed.cocode: AUTO
+INFO: sysds.compressed.transpose: auto
+INFO: sysds.compile.linearization: depth_first
+INFO: sysds.codegen.enabled: false
+INFO: sysds.codegen.api: JAVA
+INFO: sysds.codegen.compiler: auto
+INFO: sysds.codegen.optimizer: FUSE_COST_BASED_V2
+INFO: sysds.codegen.plancache: true
+INFO: sysds.codegen.literals: 1
+INFO: sysds.stats.maxWrapLength: 30
+INFO: sysds.lineage.cachespill: false
+INFO: sysds.lineage.compilerassisted: true
+INFO: sysds.caching.bufferpoollimit: 15
+INFO: sysds.caching.memorymanager: static
+INFO: sysds.gpu.print.memoryInfo: false
+INFO: sysds.gpu.availableGPUs: -1
+INFO: sysds.gpu.sync.postProcess: false
+INFO: sysds.gpu.eager.cudaFree: false
+INFO: sysds.floating.point.precision: double
+INFO: sysds.gpu.eviction.policy: min_evict
+INFO: sysds.local.spark.number.threads: *
+INFO: sysds.gpu.eviction.shadow.bufferSize: 0.0
+INFO: sysds.gpu.memory.allocator: cuda
+INFO: sysds.gpu.memory.util.factor: 0.9
+INFO: sysds.federated.ssl: false
+INFO: sysds.federated.initialization.timeout: 10
+INFO: sysds.federated.timeout: -1
+
+24/02/16 11:43:50 DEBUG parser.DataExpression: getDataExpression: read [null=data1.csv, data_type=frame, format=csv, header=false] org.apache.sysds.parser.ParseInfo$1@1c33c17b org.apache.sysds.parser.dml.CustomErrorListener@5bf0fe62
+24/02/16 11:43:50 DEBUG parser.DataExpression: getDataExpression: read [null=data2.csv, data_type=frame, format=csv, header=false] org.apache.sysds.parser.ParseInfo$1@2c07545f org.apache.sysds.parser.dml.CustomErrorListener@5bf0fe62
+24/02/16 11:43:50 DEBUG parser.DataExpression: getDataExpression: matrix [null=0, rows=lim, cols=1] org.apache.sysds.parser.ParseInfo$1@3a4621bd org.apache.sysds.parser.dml.CustomErrorListener@5bf0fe62
+24/02/16 11:43:50 WARN parser.StatementBlock: WARNING: micro_timebreak_num.dml [line 20:3] -> X -- Initialization of X depends on for execution
+24/02/16 11:43:50 DEBUG security.SecurityUtil: Setting hadoop.security.token.service.use_ip to true
+24/02/16 11:43:50 DEBUG security.Groups:  Creating new Groups object
+24/02/16 11:43:50 DEBUG util.NativeCodeLoader: Trying to load the custom-built native-hadoop library...
+24/02/16 11:43:50 DEBUG util.NativeCodeLoader: Loaded the native-hadoop library
+24/02/16 11:43:50 DEBUG security.JniBasedUnixGroupsMapping: Using JniBasedUnixGroupsMapping for Group resolution
+24/02/16 11:43:50 DEBUG security.JniBasedUnixGroupsMappingWithFallback: Group mapping impl=org.apache.hadoop.security.JniBasedUnixGroupsMapping
+24/02/16 11:43:50 DEBUG security.Groups: Group mapping impl=org.apache.hadoop.security.JniBasedUnixGroupsMappingWithFallback; cacheTimeout=300000; warningDeltaMs=5000
+24/02/16 11:43:50 DEBUG security.UserGroupInformation: Hadoop login
+24/02/16 11:43:50 DEBUG security.UserGroupInformation: hadoop login commit
+24/02/16 11:43:50 DEBUG security.UserGroupInformation: Using user: "hadoop" with name: hadoop
+24/02/16 11:43:50 DEBUG security.UserGroupInformation: User entry: "hadoop"
+24/02/16 11:43:50 DEBUG security.UserGroupInformation: UGI loginUser: hadoop (auth:SIMPLE)
+24/02/16 11:43:50 DEBUG fs.FileSystem: Starting: Acquiring creator semaphore for file:///
+24/02/16 11:43:50 DEBUG fs.FileSystem: Acquiring creator semaphore for file:///: duration 0:00.001s
+24/02/16 11:43:50 DEBUG fs.FileSystem: Starting: Creating FS file:///
+24/02/16 11:43:50 DEBUG fs.FileSystem: Loading filesystems
+24/02/16 11:43:50 DEBUG fs.FileSystem: hdfs:// = class org.apache.hadoop.hdfs.DistributedFileSystem from /home/arnab/systemds/target/lib/hadoop-hdfs-client-3.3.4.jar
+24/02/16 11:43:50 DEBUG fs.FileSystem: webhdfs:// = class org.apache.hadoop.hdfs.web.WebHdfsFileSystem from /home/arnab/systemds/target/lib/hadoop-hdfs-client-3.3.4.jar
+24/02/16 11:43:50 DEBUG fs.FileSystem: swebhdfs:// = class org.apache.hadoop.hdfs.web.SWebHdfsFileSystem from /home/arnab/systemds/target/lib/hadoop-hdfs-client-3.3.4.jar
+24/02/16 11:43:50 DEBUG fs.FileSystem: file:// = class org.apache.hadoop.fs.LocalFileSystem from /home/arnab/systemds/target/lib/hadoop-common-3.3.4.jar
+24/02/16 11:43:50 DEBUG fs.FileSystem: viewfs:// = class org.apache.hadoop.fs.viewfs.ViewFileSystem from /home/arnab/systemds/target/lib/hadoop-common-3.3.4.jar
+24/02/16 11:43:50 DEBUG fs.FileSystem: har:// = class org.apache.hadoop.fs.HarFileSystem from /home/arnab/systemds/target/lib/hadoop-common-3.3.4.jar
+24/02/16 11:43:50 DEBUG fs.FileSystem: http:// = class org.apache.hadoop.fs.http.HttpFileSystem from /home/arnab/systemds/target/lib/hadoop-common-3.3.4.jar
+24/02/16 11:43:50 DEBUG fs.FileSystem: https:// = class org.apache.hadoop.fs.http.HttpsFileSystem from /home/arnab/systemds/target/lib/hadoop-common-3.3.4.jar
+24/02/16 11:43:50 DEBUG fs.FileSystem: Looking for FS supporting file
+24/02/16 11:43:50 DEBUG fs.FileSystem: looking for configuration option fs.file.impl
+24/02/16 11:43:50 DEBUG fs.FileSystem: Looking in service filesystems for implementation class
+24/02/16 11:43:50 DEBUG fs.FileSystem: FS for file is class org.apache.hadoop.fs.LocalFileSystem
+24/02/16 11:43:50 DEBUG fs.FileSystem: Creating FS file:///: duration 0:00.071s
+24/02/16 11:43:50 DEBUG hops.DataOp:      iofilename - LiteralOp data1.csv
+24/02/16 11:43:50 DEBUG hops.DataOp:         default - LiteralOp 0.0
+24/02/16 11:43:50 DEBUG hops.DataOp:       naStrings - LiteralOp 
+24/02/16 11:43:50 DEBUG hops.DataOp:       data_type - LiteralOp frame
+24/02/16 11:43:50 DEBUG hops.DataOp:          format - LiteralOp csv
+24/02/16 11:43:50 DEBUG hops.DataOp:          header - LiteralOp false
+24/02/16 11:43:50 DEBUG hops.DataOp:            fill - LiteralOp true
+24/02/16 11:43:50 DEBUG hops.DataOp:             sep - LiteralOp ,
+24/02/16 11:43:50 DEBUG hops.DataOp:      iofilename - LiteralOp data2.csv
+24/02/16 11:43:50 DEBUG hops.DataOp:         default - LiteralOp 0.0
+24/02/16 11:43:50 DEBUG hops.DataOp:       naStrings - LiteralOp 
+24/02/16 11:43:50 DEBUG hops.DataOp:       data_type - LiteralOp frame
+24/02/16 11:43:50 DEBUG hops.DataOp:          format - LiteralOp csv
+24/02/16 11:43:50 DEBUG hops.DataOp:          header - LiteralOp false
+24/02/16 11:43:50 DEBUG hops.DataOp:            fill - LiteralOp true
+24/02/16 11:43:50 DEBUG hops.DataOp:             sep - LiteralOp ,
+24/02/16 11:43:50 DEBUG rewrite.HopRewriteRule: Common Subexpression Elimination - removed 7 operators.
+24/02/16 11:43:50 DEBUG rewrite.HopRewriteRule: Common Subexpression Elimination - removed 3 operators.
+24/02/16 11:43:50 DEBUG rewrite.HopRewriteRule: Common Subexpression Elimination - removed 5 operators.
+24/02/16 11:43:50 DEBUG ipa.InterProceduralAnalysis: IPA: Initial FunctionCallGraph: 
+--MAIN PROGRAM
+
+24/02/16 11:43:50 DEBUG ipa.InterProceduralAnalysis: IPA: start IPA iteration 1/5.
+24/02/16 11:43:50 DEBUG ipa.InterProceduralAnalysis: IPA: Initial FunctionCallSummary: 
+Valid functions for propagation: 
+Valid scalars for propagation: 
+Valid #non-zeros for propagation: 
+
+24/02/16 11:43:50 DEBUG ipa.InterProceduralAnalysis: IPA: Extended FunctionCallSummary: 
+Valid functions for propagation: 
+Valid scalars for propagation: 
+Valid #non-zeros for propagation: 
+
+24/02/16 11:43:50 DEBUG ipa.InterProceduralAnalysis: IPA: Early abort after 1/5 repetitions due to reached fixpoint.
+24/02/16 11:43:50 DEBUG hops.Hop:   * 9     TWrite dataNum (112640,225280)  null
+24/02/16 11:43:50 DEBUG hops.Hop:   * 8     PRead dataNum (112640,112640)  null
+24/02/16 11:43:50 DEBUG hops.Hop:   * 20    TWrite data (112640,225280)  null
+24/02/16 11:43:50 DEBUG hops.Hop:   * 18    PRead dataCat (112640,112640)  null
+24/02/16 11:43:50 DEBUG hops.Hop:     22    TWrite binning (0,0)  CP
+24/02/16 11:43:50 DEBUG hops.Hop:     35    TWrite binning (0,0)  CP
+24/02/16 11:43:50 DEBUG hops.Hop:     29    TRead binning (0,0)  CP
+24/02/16 11:43:50 DEBUG hops.Hop:     28    TRead i  (0,0)  CP
+24/02/16 11:43:50 DEBUG hops.Hop:     24    TWrite __pred (0,0)  CP
+24/02/16 11:43:50 DEBUG hops.Hop:     27    TWrite __pred (0,0)  CP
+24/02/16 11:43:50 DEBUG hops.Hop:   * 25    TRead dataNum (112640,112640)  null
+24/02/16 11:43:50 DEBUG hops.Hop:     37    TWrite recode (0,0)  CP
+24/02/16 11:43:50 DEBUG hops.Hop:     49    TWrite recode (0,0)  CP
+24/02/16 11:43:50 DEBUG hops.Hop:     45    TRead recode (0,0)  CP
+24/02/16 11:43:50 DEBUG hops.Hop:     44    TRead i  (0,0)  CP
+24/02/16 11:43:50 DEBUG hops.Hop:     39    TWrite __pred (0,0)  CP
+24/02/16 11:43:50 DEBUG hops.Hop:     41    TWrite __pred (0,0)  CP
+24/02/16 11:43:50 DEBUG hops.Hop:     43    TWrite __pred (0,0)  CP
+24/02/16 11:43:50 DEBUG hops.Hop:     59    TWrite jspec1 (0,0)  CP
+24/02/16 11:43:50 DEBUG hops.Hop:     51    TRead recode (0,0)  CP
+24/02/16 11:43:50 DEBUG hops.Hop:     50    TRead binning (0,0)  CP
+24/02/16 11:43:50 DEBUG hops.Hop:     71    TWrite res (0,0)  CP
+24/02/16 11:43:50 DEBUG hops.Hop:     81    TWrite t1 (0,0)  CP
+24/02/16 11:43:50 DEBUG hops.Hop:   * 82    TRead data (112640,112640)  null
+24/02/16 11:43:50 DEBUG hops.Hop:     83    TRead jspec1 (0,0)  CP
+24/02/16 11:43:50 DEBUG hops.Hop:   * 84    FunOut X (112640,225280)  null
+24/02/16 11:43:50 DEBUG hops.Hop:   * 85    FunOut M (112640,225280)  null
+24/02/16 11:43:50 DEBUG hops.Hop:     88    TWrite t2 (0,0)  CP
+24/02/16 11:43:50 DEBUG hops.Hop:     92    TRead t2 (0,0)  CP
+24/02/16 11:43:50 DEBUG hops.Hop:     91    TRead t1 (0,0)  CP
+24/02/16 11:43:50 DEBUG hops.Hop:     109   TWrite res (0,0)  CP
+24/02/16 11:43:50 DEBUG hops.Hop:     89    TRead res (0,0)  CP
+24/02/16 11:43:50 DEBUG hops.Hop:     90    TRead i  (0,0)  CP
+24/02/16 11:43:50 DEBUG hops.Hop:     73    TWrite __pred (0,0)  CP
+24/02/16 11:43:50 DEBUG hops.Hop:     75    TWrite __pred (0,0)  CP
+24/02/16 11:43:50 DEBUG hops.Hop:     77    TWrite __pred (0,0)  CP
+24/02/16 11:43:50 DEBUG hops.Hop:   * 110   TRead X  (112640,112640)  null
+24/02/16 11:43:50 DEBUG io.FileFormatPropertiesCSV: FileFormatPropertiesCSV: header false delim , fill true fillValue 0.0 naStrings null
+24/02/16 11:43:50 DEBUG io.FileFormatPropertiesCSV: FileFormatPropertiesCSV full settings: header false delim , fill true fillValue 0.0 naStrings null
+24/02/16 11:43:50 DEBUG io.FileFormatPropertiesCSV: FileFormatPropertiesCSV: header false delim , fill true fillValue 0.0 naStrings null
+24/02/16 11:43:50 DEBUG io.FileFormatPropertiesCSV: FileFormatPropertiesCSV full settings: header false delim , fill true fillValue 0.0 naStrings null
+24/02/16 11:43:50 DEBUG hops.Hop:   * 127   TWrite dataNum (112640,225280)  null
+24/02/16 11:43:50 DEBUG hops.Hop:   * 128   PRead dataNum (112640,112640)  null
+24/02/16 11:43:50 DEBUG hops.Hop:   * 137   TWrite data (112640,225280)  null
+24/02/16 11:43:50 DEBUG hops.Hop:   * 139   PRead dataCat (112640,112640)  null
+24/02/16 11:43:50 DEBUG hops.Hop:     141   TWrite binning (0,0)  CP
+24/02/16 11:43:50 DEBUG io.FileFormatPropertiesCSV: FileFormatPropertiesCSV: header false delim , fill true fillValue 0.0 naStrings null
+24/02/16 11:43:50 DEBUG io.FileFormatPropertiesCSV: FileFormatPropertiesCSV full settings: header false delim , fill true fillValue 0.0 naStrings null
+24/02/16 11:43:50 DEBUG io.FileFormatPropertiesCSV: FileFormatPropertiesCSV: header false delim , fill true fillValue 0.0 naStrings null
+24/02/16 11:43:50 DEBUG io.FileFormatPropertiesCSV: FileFormatPropertiesCSV full settings: header false delim , fill true fillValue 0.0 naStrings null
+24/02/16 11:43:50 DEBUG io.FrameReaderFactory: Creating Frame Reader csvheader false delim , fill true fillValue 0.0 naStrings null
+24/02/16 11:43:50 DEBUG io.FrameReader: readFrameFromHDFS with schema
+24/02/16 11:43:50 DEBUG io.FrameReader: readFrameFromHDFS csv
+24/02/16 11:43:50 DEBUG fs.Globber: Starting: glob file:/home/arnab/reproducibility/vldb2022-UPLIFT-p2528/microbenchmarks/data1.csv
+24/02/16 11:43:50 DEBUG fs.Globber: Filesystem glob /home/arnab/reproducibility/vldb2022-UPLIFT-p2528/microbenchmarks/data1.csv
+24/02/16 11:43:50 DEBUG fs.Globber: Pattern: /home/arnab/reproducibility/vldb2022-UPLIFT-p2528/microbenchmarks/data1.csv
+24/02/16 11:43:51 DEBUG fs.Globber: Component home, patterned=false
+24/02/16 11:43:51 DEBUG fs.Globber: Component arnab, patterned=false
+24/02/16 11:43:51 DEBUG fs.Globber: Component reproducibility, patterned=false
+24/02/16 11:43:51 DEBUG fs.Globber: Component vldb2022-UPLIFT-p2528, patterned=false
+24/02/16 11:43:51 DEBUG fs.Globber: Component microbenchmarks, patterned=false
+24/02/16 11:43:51 DEBUG fs.Globber: Component data1.csv, patterned=false
+24/02/16 11:43:51 DEBUG fs.Globber: glob file:/home/arnab/reproducibility/vldb2022-UPLIFT-p2528/microbenchmarks/data1.csv: duration 0:00.025s
+24/02/16 11:43:51 DEBUG mapred.FileInputFormat: Time taken to get FileStatuses: 25
+24/02/16 11:43:51 INFO mapred.FileInputFormat: Total input files to process : 1
+24/02/16 11:43:51 DEBUG mapred.FileInputFormat: Total # of splits generated by getSplits: 136, TimeTaken: 35
+24/02/16 11:44:22 DEBUG fs.Globber: Starting: glob file:/home/arnab/reproducibility/vldb2022-UPLIFT-p2528/microbenchmarks/data1.csv
+24/02/16 11:44:22 DEBUG fs.Globber: Filesystem glob /home/arnab/reproducibility/vldb2022-UPLIFT-p2528/microbenchmarks/data1.csv
+24/02/16 11:44:22 DEBUG fs.Globber: Pattern: /home/arnab/reproducibility/vldb2022-UPLIFT-p2528/microbenchmarks/data1.csv
+24/02/16 11:44:22 DEBUG fs.Globber: Component home, patterned=false
+24/02/16 11:44:22 DEBUG fs.Globber: Component arnab, patterned=false
+24/02/16 11:44:22 DEBUG fs.Globber: Component reproducibility, patterned=false
+24/02/16 11:44:22 DEBUG fs.Globber: Component vldb2022-UPLIFT-p2528, patterned=false
+24/02/16 11:44:22 DEBUG fs.Globber: Component microbenchmarks, patterned=false
+24/02/16 11:44:22 DEBUG fs.Globber: Component data1.csv, patterned=false
+24/02/16 11:44:22 DEBUG fs.Globber: glob file:/home/arnab/reproducibility/vldb2022-UPLIFT-p2528/microbenchmarks/data1.csv: duration 0:00.003s
+24/02/16 11:44:22 DEBUG mapred.FileInputFormat: Time taken to get FileStatuses: 2
+24/02/16 11:44:22 INFO mapred.FileInputFormat: Total input files to process : 1
+24/02/16 11:44:22 DEBUG mapred.FileInputFormat: Total # of splits generated by getSplits: 136, TimeTaken: 3
+24/02/16 11:44:32 DEBUG io.FrameReaderFactory: Creating Frame Reader csvheader false delim , fill true fillValue 0.0 naStrings null
+24/02/16 11:44:32 DEBUG io.FrameReader: readFrameFromHDFS with schema
+24/02/16 11:44:32 DEBUG io.FrameReader: readFrameFromHDFS csv
+24/02/16 11:44:32 DEBUG fs.Globber: Starting: glob file:/home/arnab/reproducibility/vldb2022-UPLIFT-p2528/microbenchmarks/data2.csv
+24/02/16 11:44:32 DEBUG fs.Globber: Filesystem glob /home/arnab/reproducibility/vldb2022-UPLIFT-p2528/microbenchmarks/data2.csv
+24/02/16 11:44:32 DEBUG fs.Globber: Pattern: /home/arnab/reproducibility/vldb2022-UPLIFT-p2528/microbenchmarks/data2.csv
+24/02/16 11:44:32 DEBUG fs.Globber: Component home, patterned=false
+24/02/16 11:44:32 DEBUG fs.Globber: Component arnab, patterned=false
+24/02/16 11:44:32 DEBUG fs.Globber: Component reproducibility, patterned=false
+24/02/16 11:44:32 DEBUG fs.Globber: Component vldb2022-UPLIFT-p2528, patterned=false
+24/02/16 11:44:32 DEBUG fs.Globber: Component microbenchmarks, patterned=false
+24/02/16 11:44:32 DEBUG fs.Globber: Component data2.csv, patterned=false
+24/02/16 11:44:32 DEBUG fs.Globber: glob file:/home/arnab/reproducibility/vldb2022-UPLIFT-p2528/microbenchmarks/data2.csv: duration 0:00.001s
+24/02/16 11:44:32 DEBUG mapred.FileInputFormat: Time taken to get FileStatuses: 1
+24/02/16 11:44:32 INFO mapred.FileInputFormat: Total input files to process : 1
+24/02/16 11:44:32 DEBUG mapred.FileInputFormat: Total # of splits generated by getSplits: 48, TimeTaken: 1
+24/02/16 11:44:33 DEBUG fs.Globber: Starting: glob file:/home/arnab/reproducibility/vldb2022-UPLIFT-p2528/microbenchmarks/data2.csv
+24/02/16 11:44:33 DEBUG fs.Globber: Filesystem glob /home/arnab/reproducibility/vldb2022-UPLIFT-p2528/microbenchmarks/data2.csv
+24/02/16 11:44:33 DEBUG fs.Globber: Pattern: /home/arnab/reproducibility/vldb2022-UPLIFT-p2528/microbenchmarks/data2.csv
+24/02/16 11:44:33 DEBUG fs.Globber: Component home, patterned=false
+24/02/16 11:44:33 DEBUG fs.Globber: Component arnab, patterned=false
+24/02/16 11:44:33 DEBUG fs.Globber: Component reproducibility, patterned=false
+24/02/16 11:44:33 DEBUG fs.Globber: Component vldb2022-UPLIFT-p2528, patterned=false
+24/02/16 11:44:33 DEBUG fs.Globber: Component microbenchmarks, patterned=false
+24/02/16 11:44:33 DEBUG fs.Globber: Component data2.csv, patterned=false
+24/02/16 11:44:33 DEBUG fs.Globber: glob file:/home/arnab/reproducibility/vldb2022-UPLIFT-p2528/microbenchmarks/data2.csv: duration 0:00.001s
+24/02/16 11:44:33 DEBUG mapred.FileInputFormat: Time taken to get FileStatuses: 1
+24/02/16 11:44:33 INFO mapred.FileInputFormat: Total input files to process : 1
+24/02/16 11:44:33 DEBUG mapred.FileInputFormat: Total # of splits generated by getSplits: 48, TimeTaken: 1
+INFO: starting transformencode
+24/02/16 11:45:23 DEBUG encode.MultiColumnEncoder: Encoding with staged approach on: 1 Threads
+24/02/16 11:46:12 DEBUG encode.MultiColumnEncoder: Elapsed time for build phase: 49601.417466 ms
+24/02/16 11:46:13 DEBUG encode.MultiColumnEncoder: Elapsed time for allocation: 810.740706 ms
+24/02/16 11:47:05 DEBUG encode.MultiColumnEncoder: Elapsed time for apply phase: 52712.867896 ms
+24/02/16 11:47:05 DEBUG encode.MultiColumnEncoder: Time spent getting metadata 147.48348 ms
+Elapsed time for transformations using SystemDS = 102580.0 millsec
+INFO: starting transformencode
+24/02/16 11:47:05 DEBUG encode.MultiColumnEncoder: Encoding with staged approach on: 1 Threads
+24/02/16 11:47:50 DEBUG encode.MultiColumnEncoder: Elapsed time for build phase: 44919.740526 ms
+24/02/16 11:47:51 DEBUG encode.MultiColumnEncoder: Elapsed time for allocation: 392.50311 ms
+24/02/16 11:48:39 DEBUG encode.MultiColumnEncoder: Elapsed time for apply phase: 48316.556372 ms
+24/02/16 11:48:39 DEBUG encode.MultiColumnEncoder: Time spent getting metadata 121.593496 ms
+Elapsed time for transformations using SystemDS = 93391.0 millsec
+INFO: starting transformencode
+24/02/16 11:48:39 DEBUG encode.MultiColumnEncoder: Encoding with staged approach on: 1 Threads
+24/02/16 11:49:23 DEBUG encode.MultiColumnEncoder: Elapsed time for build phase: 43782.696824 ms
+24/02/16 11:49:23 DEBUG encode.MultiColumnEncoder: Elapsed time for allocation: 393.010624 ms
+24/02/16 11:50:12 DEBUG encode.MultiColumnEncoder: Elapsed time for apply phase: 49055.809516 ms
+24/02/16 11:50:12 DEBUG encode.MultiColumnEncoder: Time spent getting metadata 118.695244 ms
+Elapsed time for transformations using SystemDS = 92990.0 millsec
+INFO: starting transformencode
+24/02/16 11:50:12 DEBUG encode.MultiColumnEncoder: Encoding with staged approach on: 1 Threads
+24/02/16 11:50:55 DEBUG encode.MultiColumnEncoder: Elapsed time for build phase: 42899.441328 ms
+24/02/16 11:50:55 DEBUG encode.MultiColumnEncoder: Elapsed time for allocation: 424.107852 ms
+24/02/16 11:51:44 DEBUG encode.MultiColumnEncoder: Elapsed time for apply phase: 49153.513444 ms
+24/02/16 11:51:44 DEBUG encode.MultiColumnEncoder: Time spent getting metadata 119.030662 ms
+Elapsed time for transformations using SystemDS = 92204.0 millsec
+INFO: starting transformencode
+24/02/16 11:51:44 DEBUG encode.MultiColumnEncoder: Encoding with staged approach on: 1 Threads
+24/02/16 11:52:27 DEBUG encode.MultiColumnEncoder: Elapsed time for build phase: 42908.17555 ms
+24/02/16 11:52:27 DEBUG encode.MultiColumnEncoder: Elapsed time for allocation: 436.353904 ms
+24/02/16 11:53:15 DEBUG encode.MultiColumnEncoder: Elapsed time for apply phase: 48442.140768 ms
+24/02/16 11:53:15 DEBUG encode.MultiColumnEncoder: Time spent getting metadata 121.16898 ms
+Elapsed time for transformations using SystemDS = 91535.0 millsec
+(5000000, 100)
+SystemDS Statistics:
+Total elapsed time:		565.950 sec.
+Total compilation time:		0.899 sec.
+Total execution time:		565.052 sec.
+Cache hits (Mem/Li/WB/FS/HDFS):	11/0/0/0/2.
+Cache writes (Li/WB/FS/HDFS):	0/10/1/0.
+Cache times (ACQr/m, RLS, EXP):	52.782/4.366/35.401/0.000 sec.
+HOP DAGs recompiled (PRED, SB):	0/1.
+HOP DAGs recompile time:	0.004 sec.
+Transferred bytes (Host/Datetime/ByteAmount):
+CPU usage %: 1715.18
+Memory usage %: 50.01
+TransformEncode num. encoders:	500
+TransformEncode build time:	224.104 sec.
+	Recode build time:	36.234 sec.
+	Binning build time:	187.870 sec.
+TransformEncode apply time:	243.319 sec.
+	Recode apply time:	45.617 sec.
+	Binning apply time:	197.703 sec.
+TransformEncode PreProc. time:	2.458 sec.
+TransformEncode PostProc. time:	1.884 sec.
+Total JIT compile time:		5.732 sec.
+Total JVM GC count:		88.
+Total JVM GC time:		4.632 sec.
+Heavy hitter instructions:
+  #  Instruction      Time(s)  Count
+  1  transformencode  472.701      5
+  2  append            50.792      1
+  3  ncol              41.509      3
+  4  createvar          0.022     19
+  5  rmvar              0.004    194
+  6  floor              0.003      5
+  7  rand               0.003      1
+  8  +                  0.003    263
+  9  leftIndex          0.002      5
+ 10  print              0.001     11
+
+24/02/16 11:53:16 INFO api.DMLScript: END DML run 02/16/2024 11:53:15
+24/02/16 11:53:16 DEBUG fs.FileSystem: FileSystem.close() by method: org.apache.hadoop.fs.FilterFileSystem.close(FilterFileSystem.java:529)); Key: (hadoop (auth:SIMPLE))@file://; URI: file:///; Object Identity Hash: 48c6ba12
+24/02/16 11:53:16 DEBUG fs.FileSystem: FileSystem.close() by method: org.apache.hadoop.fs.RawLocalFileSystem.close(RawLocalFileSystem.java:759)); Key: null; URI: file:///; Object Identity Hash: 36711333
+24/02/16 11:53:16 DEBUG util.ShutdownHookManager: Completed shutdown in 0.006 seconds; Timeouts: 0
+24/02/16 11:53:16 DEBUG util.ShutdownHookManager: ShutdownHookManager completed shutdown.

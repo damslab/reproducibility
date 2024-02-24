@@ -16,7 +16,7 @@ from sklearn import preprocessing
 
 def getTransformSpec(X, filename):
     # Deserialize the transform spec
-    fullfile = "/home/aphani/datasets/" + filename
+    fullfile = "../systemds/specs/" + filename
     specFile = open(fullfile, "r")
     spec = json.loads(specFile.read())
 
@@ -88,7 +88,7 @@ def transformFUnion(X, specfile, resultfile, scale=False, save=True):
     #timeres = timeres + ((time.time() - t1) * 1000) #millisec
 
     # Seperate numeric inputs
-    numeric = list(X.select_dtypes(include=np.float).columns)
+    numeric = list(X.select_dtypes(include=np.float64).columns)
     num_pipe = Pipeline([
             ('selector', ColumnSelector(numeric)),
     ])
@@ -113,7 +113,7 @@ def transformFUnion(X, specfile, resultfile, scale=False, save=True):
     print(num_pipe)
 
     # Seperate categorical features
-    categorical = list(X.select_dtypes(exclude=np.float).columns)
+    categorical = list(X.select_dtypes(exclude=np.float64).columns)
     dc = encoders['dc']
     isDC = True if dc else False   #False if empty
     rc = encoders['rc']
@@ -154,7 +154,7 @@ def transformFUnion(X, specfile, resultfile, scale=False, save=True):
         print(np.shape(transformed))
         print("Elapsed time for transformations using FeatureUnion in millsec")
         print(timeres)
-        resfile = "./results/" + resultfile
+        resfile = resultfile
         np.savetxt(resfile, timeres, delimiter="\t", fmt='%f')
     else:
         t1 = time.time()

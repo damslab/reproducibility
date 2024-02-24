@@ -22,12 +22,14 @@ def readNprep(nRows, spark):
     # Read the 1M or the 10M dataset
     if nRows == 1:
       print("Reading file: criteo_day21_1M")
+      path = sys.argv[1]
       criteo = spark.read.options(inferSchema='True', delimiter=',') \
-               .csv("file:/home/aphani/datasets/criteo_day21_1M")
+               .csv(f"file:{path}")
     if nRows == 10:
+      path = sys.argv[1]
       print("Reading file: criteo_day21_10M")
       criteo = spark.read.options(inferSchema='True', delimiter=',') \
-               .csv("file:/home/aphani/datasets/criteo_day21_10M_cleaned")
+               .csv(f"file:{path}")
     print(criteo.printSchema())
     print(criteo.show(5))
     criteo.persist(StorageLevel.MEMORY_ONLY)
@@ -50,9 +52,11 @@ def transformSparkml(criteo):
     return encoded
 
 
+nthreads_arg = sys.argv[2] #num of threads or "all"
+nthreads = "*" if nthreads_arg.lower() == "all" else nthreads_arg
 spark = SparkSession\
     .builder\
-    .master("local[*]")\
+    .master(f"local[{nthreads}]")\
     .config("spark.driver.memory", "110g")\
     .config("spark.kryoserializer.buffer.max", "1024m")\
     .appName("CriteoBySparkML")\
@@ -83,3 +87,10 @@ totTime = totTime + ((time.time() - t1) * 1000) #millisec
 print("Elapsed time for transformations via sparkml = %s sec" % (time.time() - t1))
 
 print("Average elapsed time = %s millisec" % (totTime/3))
+if nthreads_arg.lower() == "all":
+    filename = "Tab3_T3_spark.dat"
+else:
+    filename = "Tab3_T3_spark1T.dat"
+avgTime = round((totTime/3)/1000, 1) #sec
+with open(filename, "w") as file:
+    file.write(str(avgTime))

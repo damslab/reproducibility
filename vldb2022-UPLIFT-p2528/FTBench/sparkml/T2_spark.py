@@ -20,7 +20,7 @@ warnings.filterwarnings('ignore') #cleaner, but not recommended
 
 def readNprep():
     # Read and isolate target and training data
-    kdd = pd.read_csv("~/datasets/KDD98.csv", delimiter=",", header=None)
+    kdd = pd.read_csv("../../datasets/KDD98.csv", delimiter=",", header=None)
     print(kdd.head())
     kddX = kdd.iloc[:,0:469]
     kddX = kddX.drop([0], axis=0)
@@ -39,10 +39,11 @@ def readNprep():
     # The default dtype for all columns is object at this point 
     fl = [4,7,16,26,*range(43,50),53,*range(75,195),*range(198,361),407,409,410,411,*range(434,469)]
     kddX[fl] = kddX[fl].astype(float)
-    cat = kddX.select_dtypes(exclude=np.float).columns
+    cat = kddX.select_dtypes(exclude=np.float64).columns
     kddX[cat] = kddX[cat].astype(str)
     #print(kddX.info())
     kddX_df = spark.createDataFrame(kddX)
+    print("#partitions: ", kddX_df.rdd.getNumPartitions())
     kddX_df.persist(StorageLevel.MEMORY_ONLY)
     print((kddX.count(), len(kddX.columns)))
     return kddX_df
@@ -111,9 +112,11 @@ def transformPipe(kddX):
     #print(encoded.rdd.toDebugString)
     return encoded
 
+nthreads_arg = sys.argv[1] #num of threads or "all"
+nthreads = "*" if nthreads_arg.lower() == "all" else nthreads_arg
 spark = SparkSession\
     .builder\
-    .master("local[*]")\
+    .master(f"local[{nthreads}]")\
     .config("spark.driver.memory", "110g")\
     .config("spark.kryoserializer.buffer.max", "1024m")\
     .config("spark.sql.execution.arrow.pyspark.enabled", "true")\
@@ -150,4 +153,11 @@ totTime = totTime + ((time.time() - t1) * 1000) #millisec
 print("Elapsed time for transformations via sparkml = %s sec" % (time.time() - t1))
 
 print("Average elapsed time = %s millisec" % (totTime/3))
+if nthreads_arg.lower() == "all":
+    filename = "Tab3_T2_spark.dat"
+else:
+    filename = "Tab3_T2_spark1T.dat"
+avgTime = round((totTime/3)/1000, 1) #sec
+with open(filename, "w") as file:
+    file.write(str(avgTime))
 

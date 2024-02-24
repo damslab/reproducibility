@@ -1,4 +1,4 @@
-data = read("file:/home/aphani/vldb_22/data.csv", data_type="frame", format="csv", header=FALSE);
+data = read("data.csv", data_type="frame", format="csv", header=FALSE);
 allCols = "1";
 for (i in 2:ncol(data))
   allCols = allCols+","+i;
@@ -6,7 +6,6 @@ for (i in 2:ncol(data))
 recode = allCols;
 dummy = allCols;
 jspec1 = "{ ids:true, recode:["+recode+"], dummycode:["+dummy+"]}"; #RC-DC
-#jspec1 = "{ ids:true, recode:["+recode+"]}"; #RC
 
 hash = allCols;
 K = 10000; #10% of #distinct values (i.e. results 10% #cols of OHE)
@@ -28,15 +27,15 @@ res = R[1:5,];
 
 nthread = $1;
 if (nthread == 1)
-  write(res, "file:/home/aphani/vldb_22/results/res_DC_1thread.dat", format="csv", sep="\t");
+  write(res, "res_DC_1thread.dat", format="csv", sep="\t");
 if (nthread == 2)
-  write(res, "file:/home/aphani/vldb_22/results/res_DC_2thread.dat", format="csv", sep="\t");
+  write(res, "res_DC_2thread.dat", format="csv", sep="\t");
 if (nthread == 4)
-  write(res, "file:/home/aphani/vldb_22/results/res_DC_4thread.dat", format="csv", sep="\t");
+  write(res, "res_DC_4thread.dat", format="csv", sep="\t");
 if (nthread == 8)
-  write(res, "file:/home/aphani/vldb_22/results/res_DC_8thread.dat", format="csv", sep="\t");
+  write(res, "res_DC_8thread.dat", format="csv", sep="\t");
 if (nthread == 16)
-  write(res, "file:/home/aphani/vldb_22/results/res_DC_16thread.dat", format="csv", sep="\t");
+  write(res, "res_DC_16thread.dat", format="csv", sep="\t");
 if (nthread == 32)
-  write(res, "file:/home/aphani/vldb_22/results/res_DC_32thread.dat", format="csv", sep="\t");
+  write(res, "res_DC_32thread.dat", format="csv", sep="\t");
 

@@ -1,7 +1,7 @@
 # T6: run with argument 1 (spec1)
 # T7: run with argument 2 (spec2)
 
-data = read("../datasets/crypto.csv", data_type="frame", format="csv",
+data = read("../../datasets/crypto.csv", data_type="frame", format="csv",
     naStrings=["inf", "-inf", "", "NaN"], header=TRUE);
 # This dataset has .mtd file to reduce binning overhead
 # Having a schema removes the parseDouble overhead from both build and apply
@@ -36,9 +36,9 @@ for (i in 1:lim) {
 R = order(target=R, by=1);
 res = R[1:5,];
 if ($1 == 1)
-  write(res, "file:/home/aphani/submission_22/results/crypto_s1_dml.dat", format="csv", sep="\t");
+  write(res, "crypto_s1_dml.dat", format="csv", sep="\t");
 if ($1 == 2)
-  write(res, "file:/home/aphani/submission_22/results/crypto_s2_dml.dat", format="csv", sep="\t");
+  write(res, "crypto_s2_dml.dat", format="csv", sep="\t");
 
 print("("+nrow(X_en)+", "+ncol(X_en)+")");
 

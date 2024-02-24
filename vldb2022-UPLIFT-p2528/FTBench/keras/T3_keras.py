@@ -33,10 +33,10 @@ def readNprep(nRows):
     # Read the 1M or the 10M dataset
     if nRows == 1:
       print("Reading file: criteo_day21_1M")
-      criteo = pd.read_csv("~/datasets/criteo_day21_1M", delimiter=",", header=None)
+      criteo = pd.read_csv("../../datasets/criteo_day21_1M", delimiter=",", header=None)
     else:
       print("Reading file: criteo_day21_10M")
-      criteo = pd.read_csv("~/datasets/criteo_day21_10M", delimiter=",", header=None)
+      criteo = pd.read_csv("../../datasets/criteo_day21_10M", delimiter=",", header=None)
     print(criteo.head())
     # Replace NaNs with 0 for numeric and empty string for categorical
     criteo = criteo.apply(lambda x: x.fillna(0) if x.dtype.kind in 'biufc' else x.fillna(''))

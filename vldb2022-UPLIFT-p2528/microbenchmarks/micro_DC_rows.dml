@@ -1,4 +1,4 @@
-data = read("file:/home/aphani/vldb_22/data.csv", data_type="frame", format="csv", header=FALSE);
+data = read("data.csv", data_type="frame", format="csv", header=FALSE);
 allCols = "1";
 for (i in 2:ncol(data))
   allCols = allCols+","+i;
@@ -26,5 +26,5 @@ print("("+nrow(X)+", "+ncol(X)+")");
 res = R[4:10,];
 print(toString(res));
 
-write(res, "file:/home/aphani/vldb_22/results/res_DC_rows.dat", format="csv", sep="\t");
+write(res, "res_DC_rows.dat", format="csv", sep="\t");
 

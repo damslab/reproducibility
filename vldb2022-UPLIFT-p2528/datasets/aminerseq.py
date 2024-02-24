@@ -10,6 +10,7 @@ from nltk import bigrams, trigrams
 from itertools import cycle, chain
 from joblib import Parallel, delayed
 from multiprocessing import Manager
+nltk.download('punkt')
 
 #os.system("taskset -p 0xff %d" % os.getpid())
 # Make numpy values easier to read.

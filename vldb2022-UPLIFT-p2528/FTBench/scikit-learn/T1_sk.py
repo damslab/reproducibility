@@ -20,7 +20,7 @@ warnings.filterwarnings('ignore') #cleaner, but not recommended
 
 def readNprep():
     # Read and isolate target and training data
-    adult = pd.read_csv("../datasets/adult.data", delimiter=",", header=None)
+    adult = pd.read_csv("../../datasets/adult.data", delimiter=",", header=None)
     print(adult.head())
 
     # Pandas infer the type of a few columns as int64.
