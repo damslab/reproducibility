@@ -17,7 +17,7 @@ This repository contains reproducibility submissions, related to publications of
 
 ## VLDB 2022
 
-- [p2528 UPLIFT: Parallelization Strategies for Feature Transformations in Machine Learning Workloads](vldb2022-UPLIFT-p2528/)
+- [UPLIFT: Parallelization Strategies for Feature Transformations in Machine Learning Workloads](vldb2022-UPLIFT-p2528/)
 
 ## CIDR 2022
 
