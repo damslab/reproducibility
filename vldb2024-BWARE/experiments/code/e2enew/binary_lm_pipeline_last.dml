@@ -1,0 +1,84 @@
+
+# Frame input
+data = read($1)
+
+# Detect and apply schema
+sc = detectSchema(data)
+data = applySchema(data, sc)
+
+specBase = $2
+sp1 = read(specBase+"_l1.json" , data_type="scalar", value_type="string")
+sp2 = read(specBase+"_l2.json" , data_type="scalar", value_type="string")
+sp3 = read(specBase+"_l3.json" , data_type="scalar", value_type="string")
+sp4 = read(specBase+"_l5.json" , data_type="scalar", value_type="string")
+sp5 = read(specBase+"_l10.json" , data_type="scalar", value_type="string")
+sp6 = read(specBase+"_l20.json" , data_type="scalar", value_type="string")
+sp7 = read(specBase+"_l40.json" , data_type="scalar", value_type="string")
+sp8 = read(specBase+"_l80.json" , data_type="scalar", value_type="string")
+
+specs = frame("", rows=8, cols=1)
+specs[1,1] = sp1
+specs[2,1] = sp2
+specs[3,1] = sp3
+specs[4,1] = sp4
+specs[5,1] = sp5
+specs[6,1] = sp6
+specs[7,1] = sp7
+specs[8,1] = sp8
+
+# Get labels:
+[tmp, notUsed] = transformencode(target=data, spec=sp1)
+Y = tmp[1:nrow(tmp), ncol(tmp)]
+Y = replace(target=Y, pattern=NaN, replacement=0);
+if(max(Y) > 1)
+	Y = Y -1
+
+parfor( i in 1 : 8){
+   spec = as.scalar(specs[i,1])
+   # Transform encode
+   [Xt, M] = transformencode(target=data, spec=spec)
+
+   # Replace all Nan Values.
+   X = replace(target=Xt, pattern=NaN, replacement=0);
+   X = X[1:nrow(X), 1:(ncol(X) - 1)]
+
+   ## Materialize hyper tuned normalized features
+   [Xp1, a, b] = normalize(X  )
+   [Xp2, a, b] = normalize(X^2)
+   [Xp3, a, b] = normalize(X^3)
+   [Xp4, a, b] = normalize(X^4)
+   [Xp5, a, b] = normalize(X^5)
+   [Xp6, a, b] = normalize(X^6)
+   [Xp7, a, b] = normalize(X^7)
+   [Xp8, a, b] = normalize(X^8)
+
+   parfor( j in 1 : 8){
+
+      Xl = X;
+      if (j == 2)
+         Xl = cbind(X, Xp2)
+      else if (j == 3)
+         Xl = cbind(X, Xp2, Xp3)
+      else if (j == 4)
+         Xl = cbind(X, Xp2, Xp3, Xp4)
+      else if (j == 5)
+         Xl = cbind(X, Xp2, Xp3, Xp4, Xp5)
+      else if (j == 6)
+         Xl = cbind(X, Xp2, Xp3, Xp4, Xp5, Xp6)
+      else if (j == 7)
+         Xl = cbind(X, Xp2, Xp3, Xp4, Xp5, Xp6, Xp7)
+      else if (j == 8)
+         Xl = cbind(X, Xp2, Xp3, Xp4, Xp5, Xp6, Xp7, Xp8)
+
+      # Train model
+      bias = lmCG(X=Xl, y=Y, reg = 1e-1, icpt = 0, tol=1e-10, maxi = 1000, verbose = FALSE)
+
+      # Validate model
+      Y_hat = lmPredict(X = Xl, B=bias, ytest=Y, icpt = 0, verbose = FALSE)
+
+   	print("AUC: " + auc(Y, Y_hat) +  "    i : " +  i + "   j : " + j)
+   }
+}
+
+
+

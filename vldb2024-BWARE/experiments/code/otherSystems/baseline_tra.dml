@@ -1,0 +1,8 @@
+# raw
+data = read($1)
+
+# Transform encode
+spec = read($2, data_type="scalar", value_type="string")
+[Xt, M] = transformencode(target=data, spec=spec)
+
+print(toString(Xt, rows = 1, cols = 1))

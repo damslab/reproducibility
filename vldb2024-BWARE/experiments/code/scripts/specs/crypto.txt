@@ -1,0 +1,10 @@
+Col:   0, Unique:    1956782, ValueType:  INT32
+Col:   1, Unique:         14, ValueType:  INT32
+Col:   2, Unique:      21443, ValueType:  INT32
+Col:   3, Unique:   10189357, ValueType:   FP64
+Col:   4, Unique:    2800856, ValueType:   FP64
+Col:   5, Unique:    2689111, ValueType:   FP64
+Col:   6, Unique:   10166348, ValueType:   FP64
+Col:   7, Unique:   22531508, ValueType:   FP64
+Col:   8, Unique:   23573752, ValueType:   FP64
+Col:   9, Unique:   22176026, ValueType:   FP64

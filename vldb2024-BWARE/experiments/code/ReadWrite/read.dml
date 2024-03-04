@@ -1,0 +1,3 @@
+m = read($1)
+m  = m + 3
+print(sum(m))

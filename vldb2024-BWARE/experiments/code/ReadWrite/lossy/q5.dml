@@ -1,0 +1,10 @@
+source("code/ReadWrite/lossy/util.dml") as util
+
+mOrg = read($1)
+
+m = util::removeNan(mOrg)
+m = util::quantize(m, 2^5)
+differenceStatistics(mOrg, m)
+
+write(m, $2, format=$3)
+

@@ -1,0 +1,35 @@
+
+# Frame input
+data = read($1)
+
+# Detect and apply schema
+sc = detectSchema(data)
+data = applySchema(data, sc)
+
+# Transform encode
+spec = read($2, data_type="scalar", value_type="string")
+[Xt, M] = transformencode(target=data, spec=spec)
+
+# Replace all Nan Values.
+X = replace(target=Xt, pattern=NaN, replacement=0);
+
+# Extract X and Y
+Y = X[1:nrow(X), ncol(X)]
+X = X[1:nrow(X), 1:(ncol(X) - 1)]
+
+X = cbind(X, X^2)
+
+# pre-process normalize
+[X, cmin, cmax] = normalize(X)
+
+print("Columns X: " + ncol(X))
+print("Columns Y: " + ncol(Y))
+
+# Train model
+bias = lmCG(X=X, y=Y, reg = 1e-1, icpt = 0, tol=1e-10, maxi = 1000, verbose = TRUE)
+
+# Validate model
+y_hat = lmPredict(X = X, B=bias, ytest=Y, icpt = 0, verbose = TRUE)
+
+
+

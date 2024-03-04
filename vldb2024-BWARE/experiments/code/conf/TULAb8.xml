@@ -1,0 +1,4 @@
+<root>
+    <sysds.defaultblocksize>8000</sysds.defaultblocksize>
+    <sysds.compressed.transformencode>true</sysds.compressed.transformencode>
+</root>

@@ -1,0 +1,6 @@
+x = read($1)
+
+sc = detectSchema(x)
+x = applySchema(x, sc)
+
+write(x, $2, format=$3)

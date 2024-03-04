@@ -1,0 +1,201 @@
+Col:   0, Unique:     2, ValueType:BOOLEAN
+Col:   1, Unique: 74700, ValueType:   FP32
+Col:   2, Unique: 88153, ValueType:   FP32
+Col:   3, Unique: 66800, ValueType:   FP32
+Col:   4, Unique: 58047, ValueType:   FP32
+Col:   5, Unique: 50749, ValueType:   FP32
+Col:   6, Unique:119376, ValueType:   FP32
+Col:   7, Unique: 30459, ValueType:   FP32
+Col:   8, Unique: 82994, ValueType:   FP32
+Col:   9, Unique: 75953, ValueType:   FP32
+Col:  10, Unique: 41102, ValueType:   FP32
+Col:  11, Unique:107253, ValueType:   FP32
+Col:  12, Unique:105335, ValueType:   FP32
+Col:  13, Unique:  8294, ValueType:   FP32
+Col:  14, Unique: 91866, ValueType:   FP32
+Col:  15, Unique: 63772, ValueType:   FP32
+Col:  16, Unique: 16087, ValueType:   FP32
+Col:  17, Unique: 69773, ValueType:   FP32
+Col:  18, Unique:115093, ValueType:   FP32
+Col:  19, Unique:117587, ValueType:   FP32
+Col:  20, Unique:120498, ValueType:   FP32
+Col:  21, Unique:109811, ValueType:   FP32
+Col:  22, Unique:118318, ValueType:   FP32
+Col:  23, Unique: 71141, ValueType:   FP32
+Col:  24, Unique: 20164, ValueType:   FP32
+Col:  25, Unique: 81975, ValueType:   FP32
+Col:  26, Unique: 11782, ValueType:   FP32
+Col:  27, Unique:106447, ValueType:   FP32
+Col:  28, Unique: 48626, ValueType:   FP32
+Col:  29, Unique: 28267, ValueType:   FP32
+Col:  30, Unique: 68049, ValueType:   FP32
+Col:  31, Unique:124818, ValueType:   FP32
+Col:  32, Unique: 61917, ValueType:   FP32
+Col:  33, Unique: 66718, ValueType:   FP32
+Col:  34, Unique: 90613, ValueType:   FP32
+Col:  35, Unique: 20116, ValueType:   FP32
+Col:  36, Unique: 98461, ValueType:   FP32
+Col:  37, Unique: 76499, ValueType:   FP32
+Col:  38, Unique: 61884, ValueType:   FP32
+Col:  39, Unique: 90971, ValueType:   FP32
+Col:  40, Unique: 94105, ValueType:   FP32
+Col:  41, Unique:118389, ValueType:   FP32
+Col:  42, Unique:108016, ValueType:   FP32
+Col:  43, Unique: 25735, ValueType:   FP32
+Col:  44, Unique: 12819, ValueType:   FP32
+Col:  45, Unique:103847, ValueType:   FP32
+Col:  46, Unique:155550, ValueType:   FP32
+Col:  47, Unique: 73805, ValueType:   FP32
+Col:  48, Unique:132131, ValueType:   FP32
+Col:  49, Unique:131778, ValueType:   FP32
+Col:  50, Unique:118440, ValueType:   FP32
+Col:  51, Unique: 25994, ValueType:   FP32
+Col:  52, Unique:120302, ValueType:   FP32
+Col:  53, Unique:100302, ValueType:   FP32
+Col:  54, Unique: 26845, ValueType:   FP32
+Col:  55, Unique:124172, ValueType:   FP32
+Col:  56, Unique:103431, ValueType:   FP32
+Col:  57, Unique: 82482, ValueType:   FP32
+Col:  58, Unique: 28487, ValueType:   FP32
+Col:  59, Unique: 91106, ValueType:   FP32
+Col:  60, Unique: 29965, ValueType:   FP32
+Col:  61, Unique: 87506, ValueType:   FP32
+Col:  62, Unique:139985, ValueType:   FP32
+Col:  63, Unique: 58902, ValueType:   FP32
+Col:  64, Unique: 73859, ValueType:   FP32
+Col:  65, Unique: 45808, ValueType:   FP32
+Col:  66, Unique: 87099, ValueType:   FP32
+Col:  67, Unique: 38015, ValueType:   FP32
+Col:  68, Unique:112732, ValueType:   FP32
+Col:  69, Unique:   404, ValueType:   FP32
+Col:  70, Unique: 87124, ValueType:   FP32
+Col:  71, Unique:130258, ValueType:   FP32
+Col:  72, Unique: 10994, ValueType:   FP32
+Col:  73, Unique: 89124, ValueType:   FP32
+Col:  74, Unique:119229, ValueType:   FP32
+Col:  75, Unique:142257, ValueType:   FP32
+Col:  76, Unique:106818, ValueType:   FP32
+Col:  77, Unique:117852, ValueType:   FP32
+Col:  78, Unique: 87636, ValueType:   FP32
+Col:  79, Unique: 56603, ValueType:   FP32
+Col:  80, Unique: 42358, ValueType:   FP32
+Col:  81, Unique:112941, ValueType:   FP32
+Col:  82, Unique: 61176, ValueType:   FP32
+Col:  83, Unique:121941, ValueType:   FP32
+Col:  84, Unique:121724, ValueType:   FP32
+Col:  85, Unique:112113, ValueType:   FP32
+Col:  86, Unique: 85983, ValueType:   FP32
+Col:  87, Unique:118047, ValueType:   FP32
+Col:  88, Unique:104519, ValueType:   FP32
+Col:  89, Unique: 64327, ValueType:   FP32
+Col:  90, Unique: 80611, ValueType:   FP32
+Col:  91, Unique:136762, ValueType:   FP32
+Col:  92, Unique:  6712, ValueType:   FP32
+Col:  93, Unique: 89725, ValueType:   FP32
+Col:  94, Unique: 20877, ValueType:   FP32
+Col:  95, Unique: 69073, ValueType:   FP32
+Col:  96, Unique: 23118, ValueType:   FP32
+Col:  97, Unique:128983, ValueType:   FP32
+Col:  98, Unique:136596, ValueType:   FP32
+Col:  99, Unique: 26003, ValueType:   FP32
+Col: 100, Unique: 54076, ValueType:   FP32
+Col: 101, Unique:127938, ValueType:   FP32
+Col: 102, Unique: 99604, ValueType:   FP32
+Col: 103, Unique:121297, ValueType:   FP32
+Col: 104, Unique:  7880, ValueType:   FP32
+Col: 105, Unique: 57555, ValueType:   FP32
+Col: 106, Unique: 29759, ValueType:   FP32
+Col: 107, Unique: 55392, ValueType:   FP32
+Col: 108, Unique:116113, ValueType:   FP32
+Col: 109, Unique:  7443, ValueType:   FP32
+Col: 110, Unique: 92894, ValueType:   FP32
+Col: 111, Unique: 84165, ValueType:   FP32
+Col: 112, Unique: 35763, ValueType:   FP32
+Col: 113, Unique: 48755, ValueType:   FP32
+Col: 114, Unique: 91265, ValueType:   FP32
+Col: 115, Unique: 34474, ValueType:   FP32
+Col: 116, Unique: 66232, ValueType:   FP32
+Col: 117, Unique: 50656, ValueType:   FP32
+Col: 118, Unique:142577, ValueType:   FP32
+Col: 119, Unique:120226, ValueType:   FP32
+Col: 120, Unique: 87359, ValueType:   FP32
+Col: 121, Unique:137913, ValueType:   FP32
+Col: 122, Unique: 51412, ValueType:   FP32
+Col: 123, Unique: 96743, ValueType:   FP32
+Col: 124, Unique:104282, ValueType:   FP32
+Col: 125, Unique: 69978, ValueType:   FP32
+Col: 126, Unique: 12803, ValueType:   FP32
+Col: 127, Unique: 31980, ValueType:   FP32
+Col: 128, Unique: 75740, ValueType:   FP32
+Col: 129, Unique: 75292, ValueType:   FP32
+Col: 130, Unique: 90390, ValueType:   FP32
+Col: 131, Unique: 29068, ValueType:   FP32
+Col: 132, Unique: 17668, ValueType:   FP32
+Col: 133, Unique: 45933, ValueType:   FP32
+Col: 134, Unique: 15050, ValueType:   FP32
+Col: 135, Unique:108001, ValueType:   FP32
+Col: 136, Unique:114560, ValueType:   FP32
+Col: 137, Unique:136790, ValueType:   FP32
+Col: 138, Unique:120426, ValueType:   FP32
+Col: 139, Unique: 93063, ValueType:   FP32
+Col: 140, Unique:111649, ValueType:   FP32
+Col: 141, Unique: 96534, ValueType:   FP32
+Col: 142, Unique:109362, ValueType:   FP32
+Col: 143, Unique:107390, ValueType:   FP32
+Col: 144, Unique: 73618, ValueType:   FP32
+Col: 145, Unique: 32282, ValueType:   FP32
+Col: 146, Unique: 85551, ValueType:   FP32
+Col: 147, Unique: 63920, ValueType:   FP32
+Col: 148, Unique:115939, ValueType:   FP32
+Col: 149, Unique:  8750, ValueType:   FP32
+Col: 150, Unique:128768, ValueType:   FP32
+Col: 151, Unique: 66988, ValueType:   FP32
+Col: 152, Unique: 86276, ValueType:   FP32
+Col: 153, Unique: 74885, ValueType:   FP32
+Col: 154, Unique: 59419, ValueType:   FP32
+Col: 155, Unique: 93953, ValueType:   FP32
+Col: 156, Unique:106147, ValueType:   FP32
+Col: 157, Unique: 33544, ValueType:   FP32
+Col: 158, Unique:104755, ValueType:   FP32
+Col: 159, Unique:124166, ValueType:   FP32
+Col: 160, Unique: 86800, ValueType:   FP32
+Col: 161, Unique:140049, ValueType:   FP32
+Col: 162, Unique:  9324, ValueType:   FP32
+Col: 163, Unique: 45271, ValueType:   FP32
+Col: 164, Unique: 99623, ValueType:   FP32
+Col: 165, Unique: 98136, ValueType:   FP32
+Col: 166, Unique: 98698, ValueType:   FP32
+Col: 167, Unique: 14804, ValueType:   FP32
+Col: 168, Unique:121787, ValueType:   FP32
+Col: 169, Unique: 76606, ValueType:   FP32
+Col: 170, Unique: 14958, ValueType:   FP32
+Col: 171, Unique: 92022, ValueType:   FP32
+Col: 172, Unique:101030, ValueType:   FP32
+Col: 173, Unique:118795, ValueType:   FP32
+Col: 174, Unique:103266, ValueType:   FP32
+Col: 175, Unique:114038, ValueType:   FP32
+Col: 176, Unique: 71799, ValueType:   FP32
+Col: 177, Unique:121929, ValueType:   FP32
+Col: 178, Unique: 66581, ValueType:   FP32
+Col: 179, Unique:121987, ValueType:   FP32
+Col: 180, Unique: 68947, ValueType:   FP32
+Col: 181, Unique:100507, ValueType:   FP32
+Col: 182, Unique: 43274, ValueType:   FP32
+Col: 183, Unique:130480, ValueType:   FP32
+Col: 184, Unique: 94101, ValueType:   FP32
+Col: 185, Unique:122813, ValueType:   FP32
+Col: 186, Unique: 96336, ValueType:   FP32
+Col: 187, Unique: 76782, ValueType:   FP32
+Col: 188, Unique:137637, ValueType:   FP32
+Col: 189, Unique: 88619, ValueType:   FP32
+Col: 190, Unique: 34022, ValueType:   FP32
+Col: 191, Unique: 92373, ValueType:   FP32
+Col: 192, Unique: 73740, ValueType:   FP32
+Col: 193, Unique: 45819, ValueType:   FP32
+Col: 194, Unique: 87908, ValueType:   FP32
+Col: 195, Unique: 75785, ValueType:   FP32
+Col: 196, Unique: 44240, ValueType:   FP32
+Col: 197, Unique:102069, ValueType:   FP32
+Col: 198, Unique: 31689, ValueType:   FP32
+Col: 199, Unique: 73090, ValueType:   FP32
+Col: 200, Unique:124689, ValueType:   FP32

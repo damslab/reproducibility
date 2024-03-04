@@ -1,0 +1,112 @@
+wlm = function(Matrix[Double] X, Matrix[Double] y,  Double regularization = 0.09,
+    Integer maxi = 0, Boolean verbose = TRUE) return (Matrix[Double] B) {
+ 
+  n = nrow(X);
+  m = ncol(X);
+  maxi = ifelse(maxi == 0, m, maxi)
+
+  # extract the weights of 0 and 1 as fractions
+  weight = sum(y) / nrow(y)
+  inv_weight = 1 / weight 
+
+  # Since y is all 0 and 1 
+  # if weight is == 0.5 then 
+  scale_lambda = matrix(0, rows=m, cols=1)
+  delta = weight - inv_weight 
+  weight = abs(y / delta - weight) + 0.5
+
+  print(toString(t(weight)))
+
+  p = t(t(y) %*% X)
+  r = - p;
+  norm_r2 = sum (r ^ 2);
+  norm_r2_initial = norm_r2;
+
+  if (verbose) print ("||r|| initial value = " + sqrt (norm_r2_initial));
+
+  beta = matrix (0, rows=m, cols=1);
+  i = 0;
+  while (i < maxi){
+    q = t(t(X %*% p ) %*% X)
+    q = q + regularization * p;
+    a = norm_r2 / sum (p * q);
+    beta = beta + a * p;
+    r = r + a * q;
+    old_norm_r2 = norm_r2;
+    norm_r2 = sum(r ^ 2);
+    p = -r + (norm_r2 / old_norm_r2) * p;
+    i = i + 1;
+    if (verbose) print ("Iteration " + i + ":  ||r|| / ||r init|| = " + sqrt (norm_r2 / norm_r2_initial));
+  }
+
+  if (i >= maxi) {
+    if (verbose) print ("Warning: the maximum number of iterations has been reached.");
+  }
+  
+  B = beta;
+}
+
+
+
+# Frame input
+data = read($1)
+# Detect and apply schema
+sc = detectSchema(data)
+data = applySchema(data, sc)
+
+# Transform encode
+spec = read($2, data_type="scalar", value_type="string")
+[Xt, M] = transformencode(target=data, spec=spec)
+
+# Replace all Nan Values.
+X = replace(target=Xt, pattern=NaN, replacement=0);
+
+# Extract X and Y
+Y = X[1:nrow(X),ncol(X)]
+X = X[1:nrow(X), 1:(ncol(X)-1)]
+
+# pre-process normalize
+[X, cmin, cmax] = normalize(X)
+
+# Train model
+bias = wlm(X=X, y=Y, maxi=100, verbose = TRUE)
+
+# Validate model
+Y_P = lmPredict(X = X, B=bias, ytest=Y, verbose = TRUE)
+
+stats = function(Matrix[Double] P, Matrix[Double] Y, Double split){
+  print("Split: " + split)
+  Pc = (P > split) + 1
+  [nn, ca_test] = confusionMatrix(Pc, Y)
+  accuracy = sum(Y == Pc) / nrow(Y)
+  print("Accuracy:")
+  print(accuracy)
+  print("Confusion Matrix: ")
+  print(toString(ca_test))
+}
+Y_c = Y +1
+
+# weight2 = sum(Y_P > weight) / nrow(Y)
+# print(weight2)
+stats(Y_P, Y_c, 0.5)
+
+# Read Test data
+data2 = read($3)
+# Slice out transform encode metadata for test columns.
+M_t = M[1:nrow(M),1:ncol(M) -1]
+# Transform Apply
+Xtest = transformapply(target=data2, spec=spec, meta=M)
+# Predict on test data.
+Y_P = lmPredict(X=Xtest, B=bias, verbose=FALSE) > 0.5
+
+# Construct output file.
+Id = $4
+y_file = cbind(seq(Id,Id + nrow(Xtest)-1), Y_P)
+col_names = ["id", "target"]
+y_file = as.frame(y_file, col_names)
+# change the data types to make the saved frame the right type of csv
+sc = frame("Tmp",rows=1,cols=2)
+sc[1,1] = "INT32"
+sc[1,2] = "FP64"
+y_file = applySchema(y_file, sc) 
+write(y_file, "tmp/" + $5, format="csv", header=TRUE)

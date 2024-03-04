@@ -1,0 +1,13 @@
+f = read($1)
+
+print(ncol(f))
+
+while(FALSE){}
+sc = detectSchema(f)
+print(toString(sc))
+f2 = applySchema(f, sc)
+
+spec = read($2, data_type="scalar", value_type="string")
+[Xt, M] = transformencode(target=f2, spec=spec)
+
+write(Xt, $1+".tmp", format="binary")

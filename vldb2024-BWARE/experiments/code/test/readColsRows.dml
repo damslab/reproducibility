@@ -1,0 +1,6 @@
+
+
+x = read($1)
+
+print("rows: " + toString(nrow(x)))
+print("cols: " + toString(ncol(x)))

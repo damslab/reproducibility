@@ -1,0 +1,13 @@
+
+data = read($1)
+
+spec = read($2, data_type="scalar", value_type="string")
+
+[X, M] = transformencode(target=data, spec=spec)
+
+[Y_n, C_n] = pca(X=X, K=4, center=TRUE, scale=TRUE)
+
+print(sum(C_n))
+print(toString(C_n))
+
+# print(sum(X))

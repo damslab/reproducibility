@@ -1,0 +1,20 @@
+
+# Frame input
+data = read($1)
+
+# Detect and apply schema
+sc = detectSchema(data)
+data = applySchema(data, sc)
+
+# Transform encode
+spec = read($2, data_type="scalar", value_type="string")
+[Xt, M] = transformencode(target=data, spec=spec)
+
+X = replace(target=Xt, pattern=NaN, replacement=0);
+# Extract X 
+X = X[1:nrow(X), 2:(ncol(X))]
+
+[Y_n, C_n] = pca(X=X, K=4, center=TRUE, scale=TRUE)
+
+print(sum(C_n))
+print(toString(C_n))

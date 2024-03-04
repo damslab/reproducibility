@@ -1,0 +1,5 @@
+m = rand(rows=$1, cols=$2, min=$3, max=$4, seed=13)
+m2 = ceil(m)
+
+print(toString(m2))
+write(m2, $5, format=$6)

@@ -1,0 +1,13 @@
+data = read($1)
+spec = read($2, data_type="scalar", value_type="string")
+
+[X, M] = transformencode(target=data, spec=spec)
+X = replace(target=X, pattern=NaN, replacement=0);
+[X, cmin, cmax] = normalize(X)
+# print(toString(X[1:100]))
+
+# [X, Centering, ScaleFactor] = scale(X, TRUE, TRUE)
+# print(toString(X[1:100]))
+[Y_n, C_n] = kmeans(X=X, k=100, runs= 1, max_iter=28, eps= 1e-17, seed= 13, is_verbose=TRUE)
+
+print(sum(Y_n))

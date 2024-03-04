@@ -1,0 +1,9 @@
+f = read($1)
+
+cols = ncol(f)
+c = f[1,1]
+print(toString(c))
+print(toString(cols))
+while(FALSE){}
+
+write(f, $1+".tmp", format="compressed")

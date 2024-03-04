@@ -1,0 +1,15 @@
+F = read($1)
+s = read($2, data_type="scalar", value_type="string")
+[X , M] = transformencode(target=F, spec =s )
+
+# Replace NaN
+X2 = replace(target=X, pattern=NaN, replacement=1e20);
+minimalValue = min(X2)
+X = replace(target=X, pattern=NaN, replacement=minimalValue);
+
+nRowMeta = min(nrow(M) , 10)
+print(toString(F[1:10]))
+print(toString(X[1:10]))
+print(toString(M[1:nRowMeta]))
+write(X,$3, format=$5)
+write(M,$4, format="binary")

@@ -1,0 +1,4 @@
+<root>
+    <sysds.compressed.linalg>true</sysds.compressed.linalg>
+    <sysds.defaultblocksize>16000</sysds.defaultblocksize>
+</root>

@@ -1,0 +1,13 @@
+fname = $1
+uname = $2
+x = read(fname, format="csv", sep="\t", header=FALSE)
+
+xt = t(x)
+xtl = xt[1] 
+xt = xt[2:ncol(x)]
+# write(xt, uname +".csv", format="csv")
+# write(xtl, uname+"_label.csv", format="csv")
+
+
+write(xt, uname +".data", format="binary")
+write(xtl, uname+"_label.data", format="binary")

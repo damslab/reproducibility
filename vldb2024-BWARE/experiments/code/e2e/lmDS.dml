@@ -1,0 +1,40 @@
+# Frame input
+data = read($1)
+# Detect and apply schema
+sc = detectSchema(data)
+data = applySchema(data, sc)
+
+# Transform encode
+spec = read($2, data_type="scalar", value_type="string")
+[Xt, M] = transformencode(target=data, spec=spec)
+
+# Replace all Nan Values.
+X = replace(target=Xt, pattern=NaN, replacement=-1);
+
+# Extract X and Y
+Y = X[1:nrow(X),ncol(X)]
+X = X[1:nrow(X), 1:(ncol(X)-1)]
+
+# pre-process normalize
+[X, cmin, cmax] = normalize(X)
+
+# Train model
+bias = lm(X=X, y=Y, icpt = 1, verbose = TRUE)
+
+# Validate model
+y_hat = lmPredict(X = X, B=bias, ytest=Y, icpt = 1, verbose = TRUE)
+
+stats = function(Matrix[Double] P, Matrix[Double] Y, Double split){
+	print("Split: " + split)
+	Pc = (P > split) + 1
+	[nn, ca_test] = confusionMatrix(Pc, Y)
+	accuracy = sum(Y == Pc) / nrow(Y)
+	print("Accuracy:")
+	print(accuracy)
+	print("Confusion Matrix: ")
+	print(toString(ca_test))
+}
+Y_c = Y + 1
+
+stats(y_predict_test, T_c, 0.5)
+

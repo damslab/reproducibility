@@ -1,0 +1,62 @@
+# Frame input
+data = read($1)
+# Detect and apply schema
+sc = detectSchema(data)
+data = applySchema(data, sc)
+
+# Transform encode
+spec = read($2, data_type="scalar", value_type="string")
+[Xt, M] = transformencode(target=data, spec=spec)
+
+# Replace all Nan Values.
+X = replace(target=Xt, pattern=NaN, replacement=0);
+
+# Extract X and Y
+Y = X[1:nrow(X),ncol(X)] + 1
+X = X[1:nrow(X), 1:(ncol(X)-1)]
+
+# pre-process normalize
+[X, cmin, cmax] = normalize(X)
+
+# Train model
+bias = multiLogReg(X=X, Y=Y, maxii=50, icpt=2, reg=0.00001, verbose = TRUE)
+
+# Validate model
+[Mm,P,acc] = multiLogRegPredict(X = X, B=bias, Y=Y, verbose = TRUE)
+
+stats = function(Matrix[Double] P, Matrix[Double] Y){
+	[nn, ca_test] = confusionMatrix(P, Y)
+	accuracy = sum(Y == P) / nrow(Y)
+	print("Accuracy:")
+	print(accuracy)
+	print("Confusion Matrix: ")
+	print(toString(ca_test))
+}
+
+stats(P, Y)
+
+# Read Test data
+data2 = read($3)
+# Slice out transform encode metadata for test columns.
+M_t = M[1:nrow(M),1:ncol(M) -1]
+# Transform Apply
+Xtest = transformapply(target=data2, spec=spec, meta=M)
+
+[X, cmin, cmax] = normalize(Xtest)
+
+# Predict on test data.
+[M,P,acc] = multiLogRegPredict(X=Xtest, B=bias, verbose=FALSE)
+
+P = P -1
+
+# Construct output file.
+Id = $4
+y_file = cbind(seq(Id,Id + nrow(Xtest)-1), P)
+col_names = ["id", "target"]
+y_file = as.frame(y_file, col_names)
+# change the data types to make the saved frame the right type of csv
+sc = frame("Tmp",rows=1,cols=2)
+sc[1,1] = "INT32"
+sc[1,2] = "FP64"
+y_file = applySchema(y_file, sc) 
+write(y_file, "tmp/" + $5, format="csv", header=TRUE)

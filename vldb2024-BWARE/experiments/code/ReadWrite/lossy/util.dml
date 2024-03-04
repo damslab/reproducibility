@@ -1,0 +1,44 @@
+
+quantize = function (Matrix[Double] m, Double nBuckets ) return (Matrix[Double] m){
+    minimalValue = min(m)
+    m = m - minimalValue 
+    maximum = max(m)
+    m = round(m / maximum * nBuckets)  / nBuckets  * maximum
+    m = m + minimalValue
+}
+
+quantizeIndividual = function (Matrix[Double] m, Double nBuckets ) return (Matrix[Double] m){
+    minimalValue = colMins(m)
+    m = m - minimalValue 
+    maximum = colMaxs(m)
+    m = round(m / maximum * nBuckets)  / nBuckets  * maximum
+    m = m + minimalValue
+}
+
+usingTransformEncode = function (Matrix[Double]m , Double nBuckets) return (Matrix[Double] m){
+    spec = "{ids:true, bin:[{id:1, method:equi-height, numbins:"+nBuckets+"}]}"
+    R = matrix(m, rows= ncol(m) * nrow(m), cols=1)
+    F = as.frame(R)
+    [M2, MD] = transformencode(target=F, spec=spec)
+    M3 = transformdecode(target=M2, spec=spec, meta=MD)
+    M4 = as.matrix(M3)
+    m = matrix(M4, rows = nrow(m), cols = ncol(m))
+}
+
+usingTransformEncodeIndividual = function (Matrix[Double]m, Double nBuckets) return (Matrix[Double] m){
+    spec = "{ids:true, bin:["
+    for( n in 1: ncol(m)){
+        spec = spec + "{id:"+n+", method:equi-height, numbins:" + nBuckets + "},"
+    }
+    spec = spec + "]}"
+    F = as.frame(m)
+    [M2, MD] = transformencode(target=F, spec=spec)
+    M3 = transformdecode(target=M2, spec=spec, meta=MD)
+    m = as.matrix(M3)
+}
+
+removeNan =  function(Matrix[Double] m) return (Matrix[Double] m){
+    m2 = replace(target=m, pattern=NaN, replacement=1e20);
+    minimalValue = min(m2)
+    m = replace(target=m, pattern=NaN, replacement=minimalValue);
+}

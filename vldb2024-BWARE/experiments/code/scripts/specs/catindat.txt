@@ -1,0 +1,24 @@
+Col:   0, Unique:     2, ValueType:BOOLEAN
+Col:   1, Unique:     2, ValueType:BOOLEAN
+Col:   2, Unique:     2, ValueType:BOOLEAN
+Col:   3, Unique:     2, ValueType:BOOLEAN
+Col:   4, Unique:     2, ValueType:CHARACTER
+Col:   5, Unique:     3, ValueType: STRING
+Col:   6, Unique:     6, ValueType: STRING
+Col:   7, Unique:     6, ValueType: STRING
+Col:   8, Unique:     6, ValueType: STRING
+Col:   9, Unique:     4, ValueType: STRING
+Col:  10, Unique:   222, ValueType: STRING
+Col:  11, Unique:   522, ValueType: STRING
+Col:  12, Unique:  1218, ValueType: STRING
+Col:  13, Unique:  2209, ValueType: STRING
+Col:  14, Unique: 11690, ValueType: STRING
+Col:  15, Unique:     3, ValueType:  INT32
+Col:  16, Unique:     5, ValueType: STRING
+Col:  17, Unique:     6, ValueType: STRING
+Col:  18, Unique:    15, ValueType:CHARACTER
+Col:  19, Unique:    26, ValueType:CHARACTER
+Col:  20, Unique:   192, ValueType: STRING
+Col:  21, Unique:     7, ValueType:  INT32
+Col:  22, Unique:    12, ValueType:  INT32
+Col:  23, Unique:     2, ValueType:BOOLEAN

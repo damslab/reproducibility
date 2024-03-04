@@ -1,0 +1,4 @@
+<root>
+    <sysds.defaultblocksize>1000</sysds.defaultblocksize>
+    <sysds.io.compression.encoding>Zstd</sysds.io.compression.encoding>
+</root>

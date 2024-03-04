@@ -1,0 +1,3 @@
+f = read($1, format="csv", data_type="frame", header=FALSE)
+## Print first 10 lines...
+print(toString(f[1:10]))

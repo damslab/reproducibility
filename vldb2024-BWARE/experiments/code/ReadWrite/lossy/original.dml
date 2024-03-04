@@ -1,0 +1,3 @@
+m = read($1)
+while(FALSE){}
+write(m, $2, format=$3)

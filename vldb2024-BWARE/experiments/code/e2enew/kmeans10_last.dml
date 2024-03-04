@@ -1,0 +1,28 @@
+
+# Frame input
+data = read($1)
+
+# Detect and apply schema
+sc = detectSchema(data)
+data = applySchema(data, sc)
+
+# Transform encode
+spec = read($2, data_type="scalar", value_type="string")
+[Xt, M] = transformencode(target=data, spec=spec)
+
+# Replace all Nan Values.
+X = replace(target=Xt, pattern=NaN, replacement=0);
+
+# Extract X and Y
+Y = X[1:nrow(X), ncol(X)]
+# X = X[1:nrow(X), 1:(ncol(X) - 1)]
+
+# Train model
+[C_n, Y_n] = kmeans(X=X, k=100, runs= 10, max_iter=30, eps= 1e-17, seed= 13, is_verbose=TRUE)
+
+# Train stats
+Y_n_2 = kmeansPredict(X=X, C=C_n)
+
+print(toString(Y_n_2, rows=min(nrow(Y_n_2), 20), cols=min(ncol(Y_n_2), 100)))
+
+

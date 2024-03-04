@@ -1,0 +1,3 @@
+<root>
+    <sysds.defaultblocksize>1000</sysds.defaultblocksize>
+</root>

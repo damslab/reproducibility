@@ -1,0 +1,28 @@
+
+# Frame input
+data = read($1)
+
+# Detect and apply schema
+sc = detectSchema(data)
+data = applySchema(data, sc)
+
+# Transform encode
+spec = read($2, data_type="scalar", value_type="string")
+[Xt, M] = transformencode(target=data, spec=spec)
+
+# Replace all Nan Values.
+X = replace(target=Xt, pattern=NaN, replacement=0);
+
+# Extract X and Y
+Y = X[1:nrow(X), ncol(X)]
+X = X[1:nrow(X), 1:(ncol(X) - 1)]
+
+if(max(Y) > 1)
+	Y = Y - 1
+
+bias = l2svm(X=X, Y=Y, maxIterations=90, verbose=TRUE, epsilon = 1e-17)
+
+[y_predict_test, n] = l2svmPredict(X=X, W=bias, verbose=TRUE)
+
+
+

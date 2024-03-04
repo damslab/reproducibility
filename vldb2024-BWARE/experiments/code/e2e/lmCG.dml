@@ -1,0 +1,29 @@
+
+x_raw = read($1)
+y = read($2) 
+xtest = read($3) 
+ytest = read($4)
+
+classToClassify = $5
+
+y_corrected = (y == classToClassify)
+ytest_corrected = (ytest == classToClassify)
+
+# Scale input
+[x, Centering, ScaleFactor] = scale(x_raw, TRUE, TRUE)
+xtest = scaleApply(xtest, Centering, ScaleFactor)
+
+# Last paper: tol=0.000000001 reg=0.001 maxiter=10
+bias = lmCG(X=x, y=y_corrected, maxi = 100, tol = 1e-16)
+
+y_predict_test = lmPredict(X = xtest, B=bias, ytest=ytest_corrected, verbose = TRUE)
+
+print(toString(t(y_predict_test)))
+
+y_predict_classifications = (y_predict_test > 0.0) + 1
+
+[nn, ca_test] = confusionMatrix(y_predict_classifications, ytest_corrected + 1)
+print("Confusion: ")
+print(toString(ca_test))
+
+

@@ -1,0 +1,8 @@
+{
+	"ids":true,
+	"dummycode":[1,2,5],
+	"bin":[
+		{ "id":3, "method":"equi-width", "numbins":3 },
+		{ "id":4, "method":"equi-width", "numbins":3 }
+	]
+}

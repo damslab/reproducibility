@@ -1,0 +1,15 @@
+data = read($1)
+
+print(toString(data))
+print(sum(data))
+
+print(mean(rowSums(data)))
+print(mean(colSums(data)))
+
+a = matrix(0,1,1)
+
+for (n in 1:10){
+    a  = a + data[n,1]
+}
+
+print(toString(a))

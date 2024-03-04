@@ -1,0 +1,24 @@
+
+# Frame input
+data = read($1)
+
+# Detect and apply schema
+sc = detectSchema(data)
+data = applySchema(data, sc)
+
+# Transform encode
+spec = read($2, data_type="scalar", value_type="string")
+[Xt, M] = transformencode(target=data, spec=spec)
+
+# Replace all Nan Values.
+X = replace(target=Xt, pattern=NaN, replacement=0);
+
+# Extract X and Y Criteo
+Y = X[1:nrow(X), 1]
+X = X[1:nrow(X), 2:(ncol(X))]
+
+# pre-process normalize
+[X, cmin, cmax] = normalize(X)
+
+write(X, $3, format=$5)
+write(Y, $4, format=$5)

@@ -1,0 +1,3 @@
+Col:   0,  Unique:     2,  ValueType:BOOLEAN
+Col:  40,  Unique:114585,  ValueType:   FP64
+Col:  41,  Unique:119832,  ValueType:   FP64

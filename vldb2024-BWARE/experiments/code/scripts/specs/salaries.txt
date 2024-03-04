@@ -1,0 +1,6 @@
+Col:   0,  Unique:     3, ValueType: STRING
+Col:   1,  Unique:     2, ValueType:CHARACTER
+Col:   2,  Unique:    48, ValueType:  INT32
+Col:   3,  Unique:    32, ValueType:  INT32
+Col:   4,  Unique:     2, ValueType: STRING
+Col:   5,  Unique:   199, ValueType:  INT32

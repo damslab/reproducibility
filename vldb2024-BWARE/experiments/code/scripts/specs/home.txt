@@ -1,0 +1,121 @@
+Col:   0,  Unique:     2,  ValueType:BOOLEAN
+Col:   1,  Unique:     2,  ValueType: STRING
+Col:   2,  Unique:     3,  ValueType:CHARACTER
+Col:   3,  Unique:     2,  ValueType:CHARACTER
+Col:   4,  Unique:     2,  ValueType:CHARACTER
+Col:   5,  Unique:    15,  ValueType:  INT32
+Col:   6,  Unique:  2548,  ValueType:   FP64
+Col:   7,  Unique:  5603,  ValueType:   FP64
+Col:   8,  Unique: 13673,  ValueType:   FP64
+Col:   9,  Unique:  1003,  ValueType:   FP64
+Col:  10,  Unique:     8,  ValueType: STRING
+Col:  11,  Unique:     8,  ValueType: STRING
+Col:  12,  Unique:     5,  ValueType: STRING
+Col:  13,  Unique:     6,  ValueType: STRING
+Col:  14,  Unique:     6,  ValueType: STRING
+Col:  15,  Unique:    81,  ValueType:   FP64
+Col:  16,  Unique: 17460,  ValueType:  INT32
+Col:  17,  Unique: 12574,  ValueType:  INT32
+Col:  18,  Unique: 15688,  ValueType:  INT32
+Col:  19,  Unique:  6168,  ValueType:  INT32
+Col:  20,  Unique:    63,  ValueType:  INT32
+Col:  21,  Unique:     2,  ValueType:BOOLEAN
+Col:  22,  Unique:     2,  ValueType:BOOLEAN
+Col:  23,  Unique:     2,  ValueType:BOOLEAN
+Col:  24,  Unique:     2,  ValueType:BOOLEAN
+Col:  25,  Unique:     2,  ValueType:BOOLEAN
+Col:  26,  Unique:     2,  ValueType:BOOLEAN
+Col:  27,  Unique:    19,  ValueType: STRING
+Col:  28,  Unique:    18,  ValueType:  INT32
+Col:  29,  Unique:     3,  ValueType:  INT32
+Col:  30,  Unique:     3,  ValueType:  INT32
+Col:  31,  Unique:     7,  ValueType: STRING
+Col:  32,  Unique:    24,  ValueType:  INT32
+Col:  33,  Unique:     2,  ValueType:BOOLEAN
+Col:  34,  Unique:     2,  ValueType:BOOLEAN
+Col:  35,  Unique:     2,  ValueType:BOOLEAN
+Col:  36,  Unique:     2,  ValueType:BOOLEAN
+Col:  37,  Unique:     2,  ValueType:BOOLEAN
+Col:  38,  Unique:     2,  ValueType:BOOLEAN
+Col:  39,  Unique:    58,  ValueType: STRING
+Col:  40,  Unique:114585,  ValueType:   FP64
+Col:  41,  Unique:119832,  ValueType:   FP64
+Col:  42,  Unique:   815,  ValueType:   FP64
+Col:  43,  Unique:  2340,  ValueType:   FP64
+Col:  44,  Unique:  3781,  ValueType:   FP64
+Col:  45,  Unique:   286,  ValueType:   FP32
+Col:  46,  Unique:   150,  ValueType:   FP64
+Col:  47,  Unique:  3182,  ValueType:   FP64
+Col:  48,  Unique:   258,  ValueType:   FP64
+Col:  49,  Unique:   286,  ValueType:   FP32
+Col:  50,  Unique:   404,  ValueType:   FP32
+Col:  51,  Unique:   306,  ValueType:   FP32
+Col:  52,  Unique:  3528,  ValueType:   FP64
+Col:  53,  Unique:  1869,  ValueType:   FP64
+Col:  54,  Unique:  5200,  ValueType:   FP64
+Col:  55,  Unique:   387,  ValueType:   FP64
+Col:  56,  Unique:  3291,  ValueType:   FP64
+Col:  57,  Unique:   761,  ValueType:   FP64
+Col:  58,  Unique:  3842,  ValueType:   FP64
+Col:  59,  Unique:   222,  ValueType:   FP32
+Col:  60,  Unique:   155,  ValueType:   FP64
+Col:  61,  Unique:  3129,  ValueType:   FP64
+Col:  62,  Unique:    27,  ValueType:   FP32
+Col:  63,  Unique:    31,  ValueType:   FP32
+Col:  64,  Unique:    26,  ValueType:   FP32
+Col:  65,  Unique:    26,  ValueType:   FP32
+Col:  66,  Unique:  3564,  ValueType:   FP64
+Col:  67,  Unique:   737,  ValueType:   FP64
+Col:  68,  Unique:  5302,  ValueType:   FP64
+Col:  69,  Unique:   168,  ValueType:   FP64
+Col:  70,  Unique:  3328,  ValueType:   FP64
+Col:  71,  Unique:  1149,  ValueType:   FP64
+Col:  72,  Unique:  3773,  ValueType:   FP64
+Col:  73,  Unique:   246,  ValueType:   FP32
+Col:  74,  Unique:   152,  ValueType:   FP64
+Col:  75,  Unique:  3203,  ValueType:   FP64
+Col:  76,  Unique:    47,  ValueType:   FP32
+Col:  77,  Unique:    47,  ValueType:   FP32
+Col:  78,  Unique:    50,  ValueType:   FP32
+Col:  79,  Unique:    48,  ValueType:   FP32
+Col:  80,  Unique:  3561,  ValueType:   FP64
+Col:  81,  Unique:  1098,  ValueType:   FP64
+Col:  82,  Unique:  5282,  ValueType:   FP64
+Col:  83,  Unique:   215,  ValueType:   FP32
+Col:  84,  Unique:  3324,  ValueType:   FP64
+Col:  85,  Unique:     5,  ValueType: STRING
+Col:  86,  Unique:     4,  ValueType: STRING
+Col:  87,  Unique:  5117,  ValueType:   FP64
+Col:  88,  Unique:     8,  ValueType: STRING
+Col:  89,  Unique:     3,  ValueType: STRING
+Col:  90,  Unique:    34,  ValueType:  INT32
+Col:  91,  Unique:    11,  ValueType:  INT32
+Col:  92,  Unique:    34,  ValueType:  INT32
+Col:  93,  Unique:    10,  ValueType:  INT32
+Col:  94,  Unique:  3774,  ValueType:  INT32
+Col:  95,  Unique:     2,  ValueType:BOOLEAN
+Col:  96,  Unique:     2,  ValueType:BOOLEAN
+Col:  97,  Unique:     2,  ValueType:BOOLEAN
+Col:  98,  Unique:     2,  ValueType:BOOLEAN
+Col:  99,  Unique:     2,  ValueType:BOOLEAN
+Col: 100,  Unique:     2,  ValueType:BOOLEAN
+Col: 101,  Unique:     2,  ValueType:BOOLEAN
+Col: 102,  Unique:     2,  ValueType:BOOLEAN
+Col: 103,  Unique:     2,  ValueType:BOOLEAN
+Col: 104,  Unique:     2,  ValueType:BOOLEAN
+Col: 105,  Unique:     2,  ValueType:BOOLEAN
+Col: 106,  Unique:     2,  ValueType:BOOLEAN
+Col: 107,  Unique:     2,  ValueType:BOOLEAN
+Col: 108,  Unique:     2,  ValueType:BOOLEAN
+Col: 109,  Unique:     2,  ValueType:BOOLEAN
+Col: 110,  Unique:     2,  ValueType:BOOLEAN
+Col: 111,  Unique:     2,  ValueType:BOOLEAN
+Col: 112,  Unique:     2,  ValueType:BOOLEAN
+Col: 113,  Unique:     2,  ValueType:BOOLEAN
+Col: 114,  Unique:     2,  ValueType:BOOLEAN
+Col: 115,  Unique:     6,  ValueType:  INT32
+Col: 116,  Unique:    10,  ValueType:  INT32
+Col: 117,  Unique:    10,  ValueType:  INT32
+Col: 118,  Unique:    25,  ValueType:  INT32
+Col: 119,  Unique:    12,  ValueType:  INT32
+Col: 120,  Unique:    26,  ValueType:  INT32

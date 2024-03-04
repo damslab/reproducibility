@@ -1,0 +1,9 @@
+m = rand(rows= $1, cols=$2, min=$3, max=$4, sparsity=$5)
+if( $3 != $4) # Make it Integers
+  m = ceil(m)
+
+f = as.frame(m)
+sh = detectSchema(f)
+f = applySchema(f, sh)
+print(toString(f[1:10]))
+write(f, $7, format=$6)

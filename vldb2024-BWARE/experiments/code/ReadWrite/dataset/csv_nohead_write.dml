@@ -1,0 +1,6 @@
+f = read($1, format="csv", data_type="frame", header=FALSE)
+# while(FALSE){}
+sh = detectSchema(f)
+f = applySchema(f, sh)
+print(toString(f[1:10]))
+write(f, $2, format=$3)

@@ -1,0 +1,5 @@
+<root>
+    <sysds.compressed.linalg>WORKLOAD</sysds.compressed.linalg>
+    <sysds.defaultblocksize>4000</sysds.defaultblocksize>
+    <sysds.compressed.transformencode>true</sysds.compressed.transformencode>
+</root>

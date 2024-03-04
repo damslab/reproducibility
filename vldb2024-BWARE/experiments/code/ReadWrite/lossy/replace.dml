@@ -1,0 +1,9 @@
+m = read($1)
+while(FALSE){}
+# Replace NaN with minimum value.
+m2 = replace(target=m, pattern=NaN, replacement=1e20);
+replacementValue = min(m2)
+m = replace(target=m, pattern=NaN, replacement=replacementValue);
+
+write(m, $2, format=$3)
+

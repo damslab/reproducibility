@@ -1,0 +1,13 @@
+{
+  "ids":true,
+  "bin":[{"id":1, "method":"equi-height", "numbins":100000},
+         {"id":2, "method":"equi-height", "numbins":100000},
+         {"id":3, "method":"equi-height", "numbins":100000},
+         {"id":4, "method":"equi-height", "numbins":100000},
+         {"id":5, "method":"equi-height", "numbins":100000},
+         {"id":6, "method":"equi-height", "numbins":100000},
+         {"id":7, "method":"equi-height", "numbins":100000},
+         {"id":8, "method":"equi-height", "numbins":100000},
+         {"id":9, "method":"equi-height", "numbins":100000},
+         {"id":10, "method":"equi-height", "numbins":100000}]
+}

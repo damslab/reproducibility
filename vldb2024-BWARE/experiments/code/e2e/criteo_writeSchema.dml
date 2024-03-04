@@ -1,0 +1,12 @@
+
+# Frame input
+data = read($1)
+
+while(FALSE){
+   
+}
+# Detect and apply schema
+sc = detectSchema(data)
+data = applySchema(data, sc)
+
+write(data, $2, format=$3)

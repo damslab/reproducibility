@@ -1,0 +1,4 @@
+m = rand(rows= $1, cols=$2, min=$3, max=$4, sparsity=$5)
+if( $3 != $4) # Make it integers!
+    m = ceil(m)
+write(m, $7, format=$6)

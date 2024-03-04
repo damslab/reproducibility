@@ -1,0 +1,15 @@
+Col:   0, Unique:    69, ValueType:  INT32
+Col:   1, Unique:     8, ValueType: STRING
+Col:   2, Unique: 17923, ValueType:  INT32
+Col:   3, Unique:    16, ValueType: STRING
+Col:   4, Unique:    16, ValueType:  INT32
+Col:   5, Unique:     7, ValueType: STRING
+Col:   6, Unique:    15, ValueType: STRING
+Col:   7, Unique:     6, ValueType: STRING
+Col:   8, Unique:     5, ValueType: STRING
+Col:   9, Unique:     2, ValueType: STRING
+Col:  10, Unique:   136, ValueType:  INT32
+Col:  11, Unique:    79, ValueType:  INT32
+Col:  12, Unique:   100, ValueType:  INT32
+Col:  13, Unique:    49, ValueType: STRING
+Col:  14, Unique:     2, ValueType: STRING

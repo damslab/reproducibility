@@ -1,0 +1,9 @@
+x = read($1)
+
+sc = detectSchema(x)
+x = applySchema(x, sc)
+# Transform encode
+spec = read($2, data_type="scalar", value_type="string")
+[Xt, M] = transformencode(target=x, spec=spec)
+
+write(Xt, $3, format=$4)

@@ -1,0 +1,47 @@
+{
+  "ids":true,
+  "dummycode":[
+    2,3,4,5,
+    11,12,13,14,15,
+    28,
+    32,
+    40,
+    86,87,
+    89,90
+  ],
+  "bin":[
+    {"id":   7,"method": "equi-width","numbins": 800},
+    {"id":   8,"method": "equi-width","numbins": 800},
+    {"id":   9,"method": "equi-width","numbins": 800},
+    {"id":  10,"method": "equi-width","numbins": 800},
+    {"id":  17,"method": "equi-width","numbins": 800},
+    {"id":  18,"method": "equi-width","numbins": 800},
+    {"id":  19,"method": "equi-width","numbins": 800},
+    {"id":  20,"method": "equi-width","numbins": 800},
+    {"id":  41,"method": "equi-width","numbins": 800},
+    {"id":  42,"method": "equi-width","numbins": 800},
+    {"id":  43,"method": "equi-width","numbins": 800},
+    {"id":  44,"method": "equi-width","numbins": 800},
+    {"id":  45,"method": "equi-width","numbins": 800},
+    {"id":  48,"method": "equi-width","numbins": 800},
+    {"id":  53,"method": "equi-width","numbins": 800},
+    {"id":  54,"method": "equi-width","numbins": 800},
+    {"id":  55,"method": "equi-width","numbins": 800},
+    {"id":  57,"method": "equi-width","numbins": 800},
+    {"id":  59,"method": "equi-width","numbins": 800},
+    {"id":  62,"method": "equi-width","numbins": 800},
+    {"id":  68,"method": "equi-width","numbins": 800},
+    {"id":  69,"method": "equi-width","numbins": 800},
+    {"id":  71,"method": "equi-width","numbins": 800},
+    {"id":  72,"method": "equi-width","numbins": 800},
+    {"id":  73,"method": "equi-width","numbins": 800},
+    {"id":  76,"method": "equi-width","numbins": 800},
+    {"id":  81,"method": "equi-width","numbins": 800},
+    {"id":  82,"method": "equi-width","numbins": 800},
+    {"id":  83,"method": "equi-width","numbins": 800},
+    {"id":  85,"method": "equi-width","numbins": 800},
+    {"id":  88,"method": "equi-width","numbins": 800},
+    {"id":  95,"method": "equi-width","numbins": 800}
+  ]
+}
+

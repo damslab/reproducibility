@@ -1,0 +1,5 @@
+m = read($1)
+for(i in 1:$2){
+    m2 = rbind(m,m)
+}
+print(toString(m2[1:10]))

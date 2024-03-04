@@ -1,0 +1,6 @@
+f = read($1)
+
+sc = detectSchema(f)
+f2 = applySchema(f, sc)
+
+write(f2,$1+".bin", format="binary")

@@ -1,0 +1,47 @@
+{
+   "ids": true,
+   "recode": [
+      15
+   ],
+   "hash": [
+      14
+   ],
+   "K": 25,
+   "dummycode": [
+      2,
+      4,
+      6,
+      7,
+      8,
+      9,
+      10,
+      14
+   ],
+   "bin": [
+      {
+         "id": 1,
+         "method": "equi-width",
+         "numbins": 25
+      },
+      {
+         "id": 3,
+         "method": "equi-width",
+         "numbins": 25
+      },
+      {
+         "id": 11,
+         "method": "equi-width",
+         "numbins": 25
+      },
+      {
+         "id": 12,
+         "method": "equi-width",
+         "numbins": 25
+      },
+      {
+         "id": 13,
+         "method": "equi-width",
+         "numbins": 25
+      }
+   ]
+}

@@ -1,0 +1,19 @@
+X = read($1)
+Y = read($2)
+w = matrix(0, rows=ncol(X), cols=1)
+Xw = matrix(0, rows=nrow(X), cols=1)
+s = t(X) %*% Y # Swap transpose.
+Xd = X %*% s
+out = 1 - Y * Xw
+sv = (out > 0)
+out = out * sv
+
+p = 0
+
+for (i in 1 :10000){
+    p = sum(out * Y * Xd)
+}
+
+
+
+print(toString(p))

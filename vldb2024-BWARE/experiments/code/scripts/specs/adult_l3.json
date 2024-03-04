@@ -1,0 +1,52 @@
+{
+   "ids": true,
+   "recode": [
+      15
+   ],
+   "hash": [
+      4,14
+   ],
+   "K": 15,
+   "dummycode": [
+      2,
+      4,
+      6,
+      7,
+      8,
+      9,
+      10,
+      14
+   ],
+   "bin": [
+      {
+         "id": 1,
+         "method": "equi-width",
+         "numbins": 15
+      },
+      {
+         "id": 3,
+         "method": "equi-width",
+         "numbins": 15
+      },
+      {
+         "id": 5,
+         "method": "equi-width",
+         "numbins": 15
+      },
+      {
+         "id": 11,
+         "method": "equi-width",
+         "numbins": 15
+      },
+      {
+         "id": 12,
+         "method": "equi-width",
+         "numbins": 15
+      },
+      {
+         "id": 13,
+         "method": "equi-width",
+         "numbins": 15
+      }
+   ]
+}

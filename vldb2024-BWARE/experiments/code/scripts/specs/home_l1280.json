@@ -1,0 +1,21 @@
+{
+  "ids":true,
+  "dummycode":[
+    2,3,4,5,
+    11,12,13,14,15,
+    28,
+    32,
+    40,
+    86,87,
+    89,90
+  ],
+  "bin":[
+    {"id":   9,"method": "equi-width","numbins": 6400},
+    {"id":  17,"method": "equi-width","numbins": 6400},
+    {"id":  18,"method": "equi-width","numbins": 6400},
+    {"id":  19,"method": "equi-width","numbins": 6400},
+    {"id":  41,"method": "equi-width","numbins": 6400},
+    {"id":  42,"method": "equi-width","numbins": 6400}
+  ]
+}
+
