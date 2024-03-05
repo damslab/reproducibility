@@ -1,11 +1,8 @@
 #!/usr/bin/env python3
-import pandas
 import pandas as pd
 import os
 import glob
 import sys
-import matplotlib.pyplot as plt
-import numpy as np
 
 routing_strategies = ["default", "init_once", "opportunistic", "adaptive_reinit", "dynamic", "backpressure"]
 benchmarks = ["imdb", "ssb", "ssb-skew"]
@@ -95,7 +92,7 @@ for benchmark in benchmarks:
 latex_table = f"""\\begin{{table}}[!t]
   \\centering
   \\caption{{Execution Time -- Pipeline Execution Time of Different Routing Strategies [seconds].}}
-  \\vspace{{-0.3cm}}  \\setlength\\tabcolsep{{10.5pt}}
+  \\vspace{{-0.3cm}}  \\setlength\\tabcolsep{{10.3pt}}
   \\begin{{tabular}}{{lrrr}}
     \\toprule
     \\textbf{{Routing Strategy}} & \\textbf{{JOB}} & \\textbf{{SSB}} & \\textbf{{SSB-skew}}\\\\
@@ -110,7 +107,7 @@ latex_table = f"""\\begin{{table}}[!t]
     \\bottomrule
   \\end{{tabular}}
   \\label{{tab:3_1_pipeline}}
-  \\vspace{{-0.1cm}}
+  \\vspace{{-0.2cm}}
 \\end{{table}}
 """
 

@@ -3,10 +3,6 @@
 import pandas as pd
 import os
 import glob
-import matplotlib.pyplot as plt
-import matplotlib.ticker as mtick
-import numpy as np
-from statistics import mean
 
 benchmarks = ["imdb", "ssb", "ssb-skew"]
 routing_strategies = ["default_path", "alternate", "init_once", "opportunistic",
@@ -120,7 +116,7 @@ latex_table = f"""\\begin{{table}}[!t]
     \\bottomrule
     \\end{{tabular}}
   \\label{{tab:2_4_routing_all}}
-  \\vspace{{-0.1cm}}
+  \\vspace{{-0.2cm}}
 \\end{{table}}
 """
 

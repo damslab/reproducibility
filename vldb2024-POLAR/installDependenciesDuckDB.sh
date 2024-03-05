@@ -5,7 +5,7 @@ INSTALL_DIR="${PWD}"
 sudo apt update
 
 declare -a packages=(
-  "cgroup-tools" "git" "libssl-dev" "python3-pip" # "texlive-full"
+  "cgroup-tools" "git" "libssl-dev" "python3-pip" "texlive-full"
 )
 
 for package in "${packages[@]}"

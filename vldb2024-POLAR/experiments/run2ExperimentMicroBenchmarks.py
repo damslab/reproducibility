@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
-import csv
 import glob
 import multiprocessing as mp
+import select
 import subprocess as sp
 import os
 
@@ -216,7 +216,51 @@ def execute_benchmark_3():
         sp.call(["mv", f"{cwd}/duckdb-polr/tmp/results.csv", f"{cwd}/experiment-results/3_2_query/{b}/duckdb.csv"])
         sp.call(["mkdir", "-p", f"{cwd}/experiment-results/4_1_endtoend/{b}/duckdb"])
         sp.call(["cp", f"{cwd}/experiment-results/3_2_query/{b}/duckdb.csv",
-                f"{cwd}/experiment-results/4_1_endtoend/{b}/duckdb/duckdb-1.csv"])
+                 f"{cwd}/experiment-results/4_1_endtoend/{b}/duckdb/duckdb-1.csv"])
+
+
+def run_command(command, output_file):
+    with open(output_file, 'w') as f:
+        proc = sp.Popen(command,
+                        stdout=sp.PIPE,
+                        stderr=sp.STDOUT,
+                        bufsize=1,  # Line buffered
+                        universal_newlines=True)
+
+        while proc.poll() is None:
+            readable, _, _ = select.select([proc.stdout], [], [])
+            if readable:
+                output = proc.stdout.readline()
+                f.write(output)
+                f.flush()
+
+        for output in proc.stdout.readlines():
+            f.write(output)
+            f.flush()
+
+
+def execute_benchmark_4():
+    cwd = os.getcwd()
+
+    for b in benchmarks:
+        # DuckDB
+        sp.call(["mkdir", "-p", f"{cwd}/experiment-results/3_5_intermediates/{b}/duckdb"])
+        run_command([f"{cwd}/duckdb-polr/build/release/benchmark/benchmark_runner",
+                     f"benchmark/{b}/.*",
+                     "--threads=1",
+                     "--nruns=1",
+                     "--profile"
+                     ], f"{cwd}/experiment-results/3_5_intermediates/{b}/duckdb/duckdb.log")
+
+        # POLAR
+        sp.call(["mkdir", "-p", f"{cwd}/experiment-results/3_5_intermediates/{b}/polar"])
+        run_command([f"{cwd}/duckdb-polr/build/release/benchmark/benchmark_runner",
+                     f"benchmark/{b}/.*",
+                     "--polr_mode=bushy",
+                     "--threads=1",
+                     "--nruns=1",
+                     "--profile"
+                     ], f"{cwd}/experiment-results/3_5_intermediates/{b}/polar/polar.log")
 
 
 if __name__ == "__main__":
@@ -224,6 +268,7 @@ if __name__ == "__main__":
     sp.call(["rm", "-rf", f"{os.getcwd()}/experiment-results/2_5_init_tuple"])
     sp.call(["rm", "-rf", f"{os.getcwd()}/experiment-results/3_1_pipeline"])
     sp.call(["rm", "-rf", f"{os.getcwd()}/experiment-results/3_2_query"])
+    sp.call(["rm", "-rf", f"{os.getcwd()}/experiment-results/3_5_intermediates"])
     sp.call(["rm", "-rf", f"{os.getcwd()}/experiment-results/4_1_endtoend"])
     sp.call(["rm", "-rf", f"{os.getcwd()}/duckdb-polr/tmp"])
     sp.call(["mkdir", "-p", f"{os.getcwd()}/duckdb-polr/tmp"])
@@ -260,3 +305,4 @@ if __name__ == "__main__":
     sp.call(["rm", "-rf", f"{os.getcwd()}/duckdb-polr/tmp"])
     sp.call(["mkdir", "-p", f"{os.getcwd()}/duckdb-polr/tmp"])
     execute_benchmark_3()
+    execute_benchmark_4()

@@ -1,9 +1,12 @@
 import pandas as pd
 import os
 import glob
-import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
+import matplotlib
+
+matplotlib.rcParams["pdf.fonttype"] = 42
+matplotlib.rcParams["ps.fonttype"] = 42
 
 benchmarks = ["imdb", "ssb", "ssb-skew"]
 sample_sizes = [1] + list(range(2, 17, 2))
@@ -88,7 +91,6 @@ plt.xlabel("Selectivity Space Samples")
 plt.ylabel("Min. Intermediates")
 plt.gca().yaxis.set_major_formatter(mtick.PercentFormatter(xmax=1.0))
 plt.yscale("log", base=2)
-#plt.ylim(bottom=0)
 plt.legend(frameon=False)
 plt.xticks(ticks=formatted_results["x_values"], labels=formatted_results["x_values"])
 plt.tight_layout()

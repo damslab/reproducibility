@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
-import pandas
 import pandas as pd
 import os
-import glob
 import matplotlib.pyplot as plt
 import matplotlib.ticker as plticker
 import numpy as np
+import matplotlib
+
+matplotlib.rcParams["pdf.fonttype"] = 42
+matplotlib.rcParams["ps.fonttype"] = 42
 
 benchmarks = ["imdb", "ssb", "ssb-skew"]
 regret_budgets = ["0.01"]
@@ -188,7 +190,7 @@ latex_table = f"""\\definecolor{{dollarbill}}{{RGB}}{{0, 176, 0}}
     \\bottomrule
   \\end{{tabular}}
   \\label{{tab:3_4_endtoend}}
-  \\vspace{{-0.3cm}}
+  \\vspace{{-0.2cm}}
 \\end{{table}}
 """
 

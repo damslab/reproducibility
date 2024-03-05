@@ -4,6 +4,10 @@ import pandas as pd
 import os
 import glob
 import matplotlib.pyplot as plt
+import matplotlib
+
+matplotlib.rcParams["pdf.fonttype"] = 42
+matplotlib.rcParams["ps.fonttype"] = 42
 
 benchmarks = ["imdb", "ssb", "ssb-skew"]
 adaptive_routing_strategies = ["adaptive_reinit", "dynamic"]

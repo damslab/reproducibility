@@ -3,8 +3,11 @@
 import pandas as pd
 import os
 import glob
-import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib
+
+matplotlib.rcParams["pdf.fonttype"] = 42
+matplotlib.rcParams["ps.fonttype"] = 42
 
 benchmarks = ["ssb"]
 enumerators = ["sample", "bfs_min_card", "bfs_random", "each_last_once", "each_first_once"]
@@ -73,8 +76,6 @@ for enumerator in enumerators:
 plt.xlabel("Sample Count")
 plt.ylabel("Average Compile Time (ms)")
 plt.ylim(bottom=0)
-#plt.yscale("log")
 plt.legend(frameon=False)
-#plt.xticks(ticks=x_values, labels=x_values)
 plt.tight_layout()
 plt.savefig("paper/figures/2_2_enumeration_timings.pdf")

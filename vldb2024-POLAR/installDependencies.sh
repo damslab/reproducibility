@@ -67,7 +67,7 @@ mkdir -p data/imdb
 mkdir -p data/ssb
 mkdir -p data/ssb-skew
 
-echo "Preparing benchmark data for SkinnerDB..."
+echo "Preparing benchmark data for third-party systems..."
 sed -i"" -e "s|PATHVAR|${INSTALL_DIR}|" ./experiments/util/*.sql
 sed -i"" -e "s|PATHVAR|${INSTALL_DIR}/data|" ./experiments/util/skinnerdb/*.sql
 cat experiments/util/export-imdb.sql | duckdb-polr/build/release/duckdb duckdb-polr/duckdb_benchmark_data/imdb.duckdb
@@ -92,12 +92,6 @@ if [[ ! -d "${INSTALL_DIR}/skinnerdb" ]]; then
   gdown https://drive.google.com/uc?id=1UCXtiPvVlwzUCWxKM6ic-XqIryk4OTgE
   unzip imdbskinner.zip -d data
   rm imdbskinner.zip
-  mkdir -p data/skinnerssb
-  java -jar -Xmx32G -XX:+UseConcMarkSweepGC skinnerdb/jars/CreateDB.jar skinnerssb data/skinnerssb
-  echo -e "exec experiments/util/schema-ssb.sql\nexec experiments/util/skinnerdb/load-ssb.sql\nquit" | java -jar -Xmx200G -XX:+UseConcMarkSweepGC skinnerdb/jars/Skinner.jar data/skinnerssb
-  mkdir -p data/skinnerssb-skew
-  java -jar -Xmx32G -XX:+UseConcMarkSweepGC skinnerdb/jars/CreateDB.jar skinnerssb-skew data/skinnerssb-skew
-  echo -e "exec experiments/util/schema-ssb-skew.sql\nexec experiments/util/skinnerdb/load-ssb-skew.sql\nquit" | java -jar -Xmx200G -XX:+UseConcMarkSweepGC skinnerdb/jars/Skinner.jar data/skinnerssb-skew
 fi
 
 if [[ ! -d "${INSTALL_DIR}/skinnermt" ]]; then
@@ -122,11 +116,7 @@ if [[ ! -d "${INSTALL_DIR}/skinnermt" ]]; then
   cd ../../skinnermt/Filter
   g++ -std=c++11 -lpthread -shared -fPIC -O3 jniFilter.cpp -o jniFilter.so -I../../build/install/include/
   cd ../..
-  mkdir -p data/skinnermtssb
-  mkdir -p data/skinnermtssb-skew
-  java -jar -Xmx32G -XX:+UseConcMarkSweepGC skinnerdb/jars/CreateDB.jar skinnerssb data/skinnermtssb
-  java -jar -Xmx32G -XX:+UseConcMarkSweepGC skinnerdb/jars/CreateDB.jar skinnerssb-skew data/skinnermtssb-skew
-  cat <<EOT >> data/skinnermtssb/config.sdb
+  cat <<EOT >> data/skinnermtimdb/config.sdb
 PARALLEL_ALGO=DP
 NR_WARMUP=1
 NR_EXECUTORS=1
@@ -135,11 +125,6 @@ WRITE_RESULTS=false
 THREADS=8
 JNI_PATH=$INSTALL_DIR/skinnermt/Filter/jniFilter.so
 EOT
-  cp data/skinnermtssb/config.sdb data/skinnermtssb-skew/config.sdb
-  cp data/skinnermtssb/config.sdb data/skinnermtimdb/config.sdb
-  cd skinnermt/scripts
-  echo -e "exec ${INSTALL_DIR}/experiments/util/schema-ssb.sql\nexec ${INSTALL_DIR}/experiments/util/skinnerdb/load-ssb.sql\ncompress;\nquit" | /usr/lib/jvm/java-1.16.0-openjdk-amd64/bin/java -jar -Xmx200G -Xms200G Skinner.jar "${INSTALL_DIR}"/data/skinnermtssb
-  echo -e "exec ${INSTALL_DIR}/experiments/util/schema-ssb-skew.sql\nexec ${INSTALL_DIR}/experiments/util/skinnerdb/load-ssb-skew.sql\ncompress;\nquit" | /usr/lib/jvm/java-1.16.0-openjdk-amd64/bin/java -jar -Xmx200G -Xms200G Skinner.jar "${INSTALL_DIR}"/data/skinnermtssb-skew
   cd "${INSTALL_DIR}"
 fi
 

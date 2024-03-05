@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 
-import pandas as pd
 import os
 import glob
 import matplotlib.pyplot as plt
+import matplotlib
+
+matplotlib.rcParams["pdf.fonttype"] = 42
+matplotlib.rcParams["ps.fonttype"] = 42
 
 benchmarks = ["imdb", "ssb"]
 init_counts = [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024]

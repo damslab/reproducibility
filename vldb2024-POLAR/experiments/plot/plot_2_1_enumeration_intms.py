@@ -85,7 +85,7 @@ latex_table = f"""\\begin{{table}}[!t]
     \\bottomrule
   \\end{{tabular}}
   \\label{{tab:1_1_sel_intms}}
-  \\vspace{{-0.2cm}}
+  \\vspace{{-0.4cm}}
 \\end{{table}}
 """
 
@@ -135,6 +135,7 @@ latex_table = f"""\\begin{{table}}[!t]
     \\bottomrule
   \\end{{tabular}}
 \\label{{tab:1_2_potential_savings}}
+\\vspace{{-0.2.cm}}
 \\end{{table}}
 """
 

@@ -1,0 +1,165 @@
+% VLDB template version of 2020-08-03 enhances the ACM template, version 1.7.0:
+% https://www.acm.org/publications/proceedings-template
+% The ACM Latex guide provides further information about the ACM template
+
+\documentclass[sigconf,nonacm,pdfa,screen]{acmart}
+% \settopmatter{authorsperrow=4}
+% \usepackage[a-2b]{pdfx}
+\usepackage{listings}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{float}
+% \usepackage{balance}
+\floatstyle{plaintop}
+\restylefloat{table}
+
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\renewcommand{\algorithmiccomment}[1]{\hfill \textit{// #1}}
+\algtext*{EndFor}% Remove "end for" text
+\algtext*{EndWhile}% Remove "end while" text
+\algtext*{EndIf}% Remove "end if" text
+
+%\usepackage{fontawesome}
+\newcommand{\eg}{e.\,g.,\ }
+\newcommand{\ie}{i.\,e.,\ }
+\usepackage{csquotes} %\enquote{}
+
+%% The following content must be adapted for the final version
+% paper-specific
+\newcommand\vldbdoi{10.14778/3648160.3648175}
+\newcommand\vldbpages{1350 - 1363}
+% issue-specific
+\newcommand\vldbvolume{17}
+\newcommand\vldbissue{6}
+\newcommand\vldbyear{2024}
+% should be fine as it is
+\newcommand\vldbauthors{\authors}
+\newcommand\vldbtitle{\shorttitle} 
+% leave empty if no availability url should be set
+\newcommand\vldbavailabilityurl{https://github.com/damslab/reproducibility/tree/master/vldb2024-POLAR}
+% whether page numbers should be shown or not, use 'plain' for review versions, 'empty' for camera ready
+\newcommand\vldbpagestyle{empty} 
+
+\newcommand{\mat}[1]{\ensuremath{\mathbf{#1}}}
+\newtheorem{example2}{Example}
+\newcommand{\card}[1]{\lvert #1\rvert}
+
+\begin{document}
+
+\title{POLAR: Adaptive and Non-invasive Join Order Selection via Plans of Least Resistance}
+
+%%
+%% The "author" command and its associated commands are used to define the authors and their affiliations.
+\author{David Justen}\authornote{Corresponding author's email: david.justen@tu-berlin.de}
+\affiliation{\institution{TU Berlin}}
+%\email{david.justen@tu-berlin.de}
+%\orcid{1234-5678-9012}
+
+\author{Daniel Ritter}
+\affiliation{\institution{SAP}}
+%\email{daniel.ritter@sap.com}
+%\orcid{0000-0001-6146-3365}
+
+\author{Campbell Fraser}
+\affiliation{\institution{Google}}
+%\email{campbellf@google.com}
+
+\author{Andrew Lamb}
+\author{Nga Tran}
+\affiliation{\institution{InfluxData}}
+%\email{{alamb,ntran}@influxdata.com}
+%\email{alamb@influxdata.com}
+%\email{ntran@influxdata.com}
+
+\author{Allison Lee}
+\affiliation{\institution{Snowflake}}
+%\email{allison.lee@snowflake.com}
+
+\author{Thomas Bodner}
+\affiliation{\institution{Hasso Plattner Institute}\institution{University of Potsdam}}
+%\email{thomas.bodner@hpi.de}
+%\orcid{0000-0002-7822-2098}
+
+\author{Mhd Yamen Haddad}
+\affiliation{\institution{INRIA, Ecole Polytechnique}}
+%\email{mhd-yamen.haddad@inria.fr}
+%\email{mhaddad@yugabyte.com}
+%\orcid{0000-0002-2206-1328}
+
+\author{Steffen Zeuch}
+\author{Volker Markl}
+\affiliation{\institution{TU Berlin}}
+%\email{{first.last}@tu-berlin.de}
+
+\author{Matthias Boehm}
+\affiliation{\institution{TU Berlin}}
+
+%%
+%% The abstract is a short summary of the work to be presented in the
+%% article.
+\begin{abstract}
+%1. State the problem
+Join ordering and query optimization are crucial for query performance but remain challenging due to unknown or changing characteristics of query intermediates, especially for complex queries with many joins.
+%2. Say why it's an interesting problem
+Over the past two decades, a spectrum of techniques for adaptive query processing (AQP)---including inter-/intra-operator adaptivity and tuple routing---have been proposed to address these challenges. However, commercial database systems in practice do not implement holistic AQP techniques because they increase the system complexity (e.g., intertwined planning and execution) and thus, complicate debugging and testing. Additionally, existing approaches may incur large overheads, leading to problematic performance regressions.
+%3. Say what your solution achieves
+In this paper, we introduce POLAR, a simple yet very effective technique for a self-regulating selection of alternative join orderings with bounded overhead. We enhance left-deep join pipelines with alternative join orders, perform regret-bounded tuple routing to find and validate \enquote{plans of least resistance}, and then process the majority of tuple batches through these plans. We study different join order selection techniques, different routing strategies, and a variety of workload characteristics.
+%4. Say what follows from your solution
+Our experiments with a POLAR prototype in DuckDB show runtime improvements of up to 9x and less than 7\% overhead for all benchmark queries, while outperforming state-of-the-art AQP systems by up to 15x.
+\end{abstract}
+
+\maketitle
+
+%%% do not modify the following VLDB block %%
+%%% VLDB block start %%%
+\pagestyle{\vldbpagestyle}
+\begingroup\small\noindent\raggedright\textbf{PVLDB Reference Format:}\\
+\vldbauthors. \vldbtitle. PVLDB, \vldbvolume(\vldbissue): \vldbpages, \vldbyear.\\
+\href{https://doi.org/\vldbdoi}{doi:\vldbdoi}
+\endgroup
+\begingroup
+\renewcommand\thefootnote{}\footnote{\noindent
+This work is licensed under the Creative Commons BY-NC-ND 4.0 International License. Visit \url{https://creativecommons.org/licenses/by-nc-nd/4.0/} to view a copy of this license. For any use beyond those covered by this license, obtain permission by emailing \href{mailto:info@vldb.org}{info@vldb.org}. Copyright is held by the owner/author(s). Publication rights licensed to the VLDB Endowment. \\
+\raggedright Proceedings of the VLDB Endowment, Vol. \vldbvolume, No. \vldbissue\ %
+ISSN 2150-8097. \\
+\href{https://doi.org/\vldbdoi}{doi:\vldbdoi} \\
+}\addtocounter{footnote}{-1}\endgroup
+%%% VLDB block end %%%
+
+%%% do not modify the following VLDB block %%
+%%% VLDB block start %%%
+\ifdefempty{\vldbavailabilityurl}{}{
+\vspace{.3cm}
+\begingroup\small\noindent\raggedright\textbf{PVLDB Artifact Availability:}\\
+The source code, data, and/or other artifacts have been made available at \url{\vldbavailabilityurl}.
+\endgroup
+}
+%%% VLDB block end %%%
+
+%% INTRODUCTION
+\input{sections/1_introduction}
+
+%% THE PLAN OF LEAST RESISTANCE
+\input{sections/2_4_polr}
+
+%% EXPERIMENTS
+\input{sections/5_experiments}
+
+%% RELATED WORK
+\input{sections/6_related_work}
+
+%% CONCLUSIONS
+\input{sections/7_conclusion}
+
+\begin{acks}
+We thank the participants of Dagstuhl Seminar 17222~\cite{DBLP:journals/dagstuhl-reports/Borovica-GajicG17} and 22111~\cite{DBLP:journals/dagstuhl-reports/Borovica-GajicG22} for inspiring this research and invaluable discussions. We also gratefully acknowledge funding from the German Federal Ministry of Education and Research (under research grant BIFOLD23B) as well as initial funding from SAP.
+\end{acks}
+
+%\clearpage
+\balance
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{sample-base_new}
+
+\end{document}
+\endinput
