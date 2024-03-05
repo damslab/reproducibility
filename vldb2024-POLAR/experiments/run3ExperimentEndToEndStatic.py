@@ -93,5 +93,5 @@ if __name__ == "__main__":
             # Copy results for Postgres intermediate count experiment
             if system == "postgres":
                 sp.call(["mkdir", "-p", f"{os.getcwd()}/experiment-results/3_5_intermediates/{benchmark}/{system}"])
-                sp.call(["cp", f"{os.getcwd()}/static/3_5_intermediates/{benchmark}/{system}/{system}.log",
-                         f"{os.getcwd()}/experiment-results/3_5_intermediates/{benchmark}/{system}/{system}.log"])
+                sp.call(["cp", f"{os.getcwd()}/static/3_5_intermediates/{benchmark}/{system}/{system}.csv",
+                         f"{os.getcwd()}/experiment-results/3_5_intermediates/{benchmark}/{system}/{system}.csv"])

@@ -4,7 +4,7 @@ import os
 import pandas as pd
 
 benchmarks = ["imdb", "ssb", "ssb-skew"]
-systems = ["polar", "duckdb", "skinnerdb"]
+systems = ["polar", "duckdb", "skinnerdb", "postgres"]
 
 results = {}
 for system in systems:
@@ -19,6 +19,14 @@ for system in systems:
             sum_intermediates = 0
             for index, row in df.iterrows():
                 sum_intermediates += float(row["Tuples"])
+            results[system][benchmark] = sum_intermediates
+            continue
+
+        if system == "postgres":
+            path = os.getcwd() + f"/experiment-results/3_5_intermediates/{benchmark}/{system}/{system}.csv"
+            sum_intermediates = 0
+            for index, row in df.iterrows():
+                sum_intermediates += int(row["join_intermediates"])
             results[system][benchmark] = sum_intermediates
             continue
 
@@ -52,7 +60,7 @@ latex_table = f"""\\begin{{table}}
         \\textbf{{System}} & \\textbf{{JOB}} & \\textbf{{SSB}} & \\textbf{{SSB-skew}} \\\\
         \\midrule
 		DuckDB & {formatted_results["duckdb"]["imdb"]}\\,M & {formatted_results["duckdb"]["ssb"]}\\,M & {formatted_results["duckdb"]["ssb-skew"]}\\,M\\\\
-        Postgres & 272\\,M & 598\\,M & 503\\,M\\\\
+        Postgres & {formatted_results["postgres"]["imdb"]}\\,M & {formatted_results["postgres"]["ssb"]}\\,M & {formatted_results["postgres"]["ssb-skew"]}\\,M\\\\
         SkinnerDB & {formatted_results["skinnerdb"]["imdb"]}\\,M & --- & ---\\\\
         \\midrule
         POLAR & {formatted_results["polar"]["imdb"]}\\,M & {formatted_results["polar"]["ssb"]}\\,M & {formatted_results["polar"]["ssb-skew"]}\\,M\\\\

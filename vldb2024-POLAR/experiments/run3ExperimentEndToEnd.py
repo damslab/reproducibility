@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import json
 import glob
 import os
 import psycopg2
@@ -11,6 +12,16 @@ nruns = 5
 threads = ["1", "8"]
 benchmarks = ["imdb", "ssb", "ssb-skew"]
 cwd = os.getcwd()
+
+
+def extract_join_intermediates(qp):
+    counter = 0
+    if qp["Node Type"] == "Nested Loop" or qp["Node Type"] == "Hash Join" or qp["Node Type"] == "Merge Join":
+        counter += qp["Actual Rows"] * qp["Actual Loops"]
+    if "Plans" in qp:
+        for plan in qp["Plans"]:
+            counter += extract_join_intermediates(plan)
+    return counter
 
 
 # Run Postgres
@@ -70,15 +81,17 @@ def run_postgres():
         cur.execute(f"set max_parallel_workers_per_gather = 0")
         cur.execute("commit;")
 
-        output = ""
+        output = "query,join_intermediates\n"
         for query_path in queries:
+            query_name = query_path.split("/")[-1]
             query = open(query_path).read()
-            cur.execute(f"EXPLAIN (FORMAT JSON, ANALYZE) {query}")
-            output += f"{cur.fetchall()}\n"
+            cur.execute(f"EXPLAIN (FORMAT JSON, ANALYZE, COSTS 0) {query}")
+            query_plan = json.loads(cur.fetchone())
             cur.execute("commit;")
+            output += f"{query_name},{extract_join_intermediates(query_plan['Plan'])}\n"
 
         sp.call(["mkdir", "-p", f"{cwd}/experiment-results/3_5_intermediates/{benchmark}/postgres"])
-        with open(f"{cwd}/experiment-results/3_5_intermediates/{benchmark}/postgres/postgres.log", "w") as file:
+        with open(f"{cwd}/experiment-results/3_5_intermediates/{benchmark}/postgres/postgres.csv", "w") as file:
             file.write(output)
 
     cur.close()
