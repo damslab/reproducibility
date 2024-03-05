@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import json
 import glob
 import os
 import psycopg2
@@ -86,7 +85,7 @@ def run_postgres():
             query_name = query_path.split("/")[-1]
             query = open(query_path).read()
             cur.execute(f"EXPLAIN (FORMAT JSON, ANALYZE, COSTS 0) {query}")
-            query_plan = json.loads(cur.fetchone())
+            query_plan = cur.fetchone()[0][0]
             cur.execute("commit;")
             output += f"{query_name},{extract_join_intermediates(query_plan['Plan'])}\n"
 
