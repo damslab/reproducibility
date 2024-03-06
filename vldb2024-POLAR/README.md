@@ -1,34 +1,97 @@
-**Paper name:** POLAR: Adaptive and Non-invasive Join Order Selection via Plans of Least Resistance
+# Reproducibility Info
 
-Source Code Info
+**Paper:** POLAR: Adaptive and Non-invasive Join Order Selection via Plans of Least Resistance [[link](https://doi.org/10.14778/3648160.3648175)]
+
+#### Source Code Info
 - Repository: POLAR (https://github.com/d-justen/duckdb-polr)
 - Programming Language: C++
-- Additional Programming Language info: Clang-12 is recommended but other compilers may work as well
+- Additional Programming Language info: At least a C++-11 compliant compiler is required
 
-Hardware Info to Reproduce Experiment Results
+#### Hardware Info to Reproduce Experiment Results
 
 - Processor: AMD EPYC 7443P CPU @ 2.85 GHz
 - Cores: 24 physical cores (48 vCores)
 - Memory: 256 GB
-- Disk: SSD, at least 300 GB.
+- Disk: SSD, at least 500 GB.
 
-Experimentation Info
+#### Experimentation Info
 
 - Environment: Ubuntu 20.04 LTS is used for the experiments.
+- Compiler: Clang-12
 
-**Usage**
+## Usage
 
-Run `./installDependenciesDuckDB.sh` to install the dependencies and generate the benchmark data.
-The following packages are required:
+The experiments can either be run in a DuckDB-only mode (simple setup, minimal requirements) or extensive mode
+(complex setup, reproduce third-party system baselines). The DuckDB-only mode executes all experiments on POLAR
+as well as DuckDB and Lookahead Information Passing as baselines. For the remaining baselines it reuses previous
+experiment results obtained from our own hardware setup. The extensive mode requires installing 
+[SkinnerDB](https://github.com/cornelldbgroup/skinnerdb), 
+[SkinnerMT](https://github.com/cornelldbgroup/skinnerdb/tree/skinnermt), and [Postgres](https://www.postgresql.org), 
+which serve as additional baselines. Both options run the experiments, generate the figures and tables from the
+experiments section and compile the resulting paper as a PDF. We advise you to run the experiment within a `tmux`
+session as they may take a few days.
+
+### DuckDB-only Mode
+
+Please make sure to use the environment and compiler from the **Experimentation Info** above.
+
+#### Instructions
+
+1. Run `./installDependenciesDuckDB.sh`. Installs the dependencies and generates the benchmark data (JOB, SSB, 
+SSB-skew). *Estimated time: 1-2 hours.*
+2. Run `./runAllExperiments.sh duckdb-only`. Executes the experiments and generates the paper artifacts. *Estimated
+time: 2-3 days.*
+3. Open `paper/main.pdf` to check the results.
+
+#### Required Packages
+
+In this mode, the following required packages are installed:
 - *cgroup-tools*: For thread limiting
-- *git*: For checking out the POLAR and DBGen repositories 
+- *git*: For checking out the POLAR and DBGen repositories
 - *libssl-dev*: For building DuckDB
 - *python3-pip*: For python requirements
+- *texlive-full*: For paper PDF compilation
 
-Execute all automated benchmarks with `./runAllBenchmarks.sh`. The resulting figures and tables are saved in `paper/{figures,tables}`.
+### Extensive Mode
 
-Execute specific benchmarks with `./runBenchmark.sh`. You can specify the benchmark, routing strategy, regret budget, and
-number of threads.
+Please make sure to use the environment and compiler from the **Experimentation Info** above.
+
+#### Instructions
+
+1. Run `./installDependencies.sh`. Installs the dependencies and generates the benchmark data (JOB, SSB,
+   SSB-skew). This script is **explicitly** only tested for Ubuntu 20.04. Alternatively, 
+   [SkinnerDB](https://github.com/cornelldbgroup/skinnerdb),
+   [SkinnerMT](https://github.com/cornelldbgroup/skinnerdb/tree/skinnermt), and [Postgres](https://www.postgresql.org)
+   can be installed manually according to their individual instructions. The remaining (DuckDB-based) 
+   requirements can then be installed with `installDependenciesDuckDB.sh`. *Estimated time: 2-3 hours.*
+2. Run `./runAllExperiments.sh`. Executes the experiments and generates the paper artifacts. *Estimated
+   time: 3-4 days.*
+3. Open `paper/main.pdf` to check the results.
+
+#### Required Packages
+
+In this mode, the following required packages are installed:
+- *cgroup-tools*: For thread limiting
+- *git*: For checking out the POLAR and DBGen repositories
+- *libssl-dev*: For building DuckDB
+- *openjdk-8-jre-headless*: For running SkinnerDB
+- *openjdk-16-jre-headless*: For running SkinnerMT
+- *postgresql-12*: For Postgres baseline experiments
+- *python3-pip*: For python requirements
+- *software-properties-common*: For SkinnerMT installation
+- *texlive-full*: For paper PDF compilation
+- *unzip*: For SkinnerDB/MT installation
+
+### Sandbox Mode
+
+With `runBenchmark.sh` you can execute benchmarks (JOB, SSB or SSB-skew) and specify a routing strategy, regret budget,
+and number of threads.
+
+#### Instructions
+
+1. Run `./installDependenciesDuckDB.sh`. Installs the dependencies and generates the benchmark data (JOB, SSB,
+   SSB-skew). *Estimated time: 1-2 hours.*
+2. Run `./runBenchmark.sh`. For usage, see below.
 
 ```
 Usage: ./runBenchmark.sh [-h] [-b benchmark] [-s strategy] [-r regret_budget] [-t threads]
@@ -38,6 +101,6 @@ Available options:
 -h, --help
 -b, --benchmark       imdb,ssb,ssb-skew (default: imdb)
 -s, --strategy        init_once,opportunistic,adapt_tuple_count,adapt_window_size (default: adapt_window_size)
--r, --regret_budget   float (default: 0.1)
+-r, --regret_budget   float (default: 0.01)
 -t, --threads         integer (default: 1)
 ```

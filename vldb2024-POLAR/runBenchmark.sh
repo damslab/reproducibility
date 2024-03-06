@@ -2,7 +2,7 @@
 
 BENCHMARK="imdb"
 STRATEGY="adaptive_reinit"
-REGRET_BUDGET="0.1"
+REGRET_BUDGET="0.01"
 THREADS=1
 
 usage() {
@@ -14,7 +14,7 @@ Available options:
 -h, --help
 -b, --benchmark       imdb,ssb,ssb-skew (default: imdb)
 -s, --strategy        init_once,opportunistic,adapt_tuple_count,adapt_window_size (default: adapt_window_size)
--r, --regret_budget   float (default: 0.1)
+-r, --regret_budget   float (default: 0.01)
 -t, --threads         integer (default: 1)
 EOF
   exit
