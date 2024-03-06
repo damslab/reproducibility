@@ -3,6 +3,7 @@
 INSTALL_DIR="${PWD}"
 
 sudo apt update
+sudo add-apt-repository ppa:deadsnakes/ppa
 
 declare -a packages=(
   "cgroup-tools" "git" "libssl-dev" "openjdk-8-jre-headless" "openjdk-16-jre-headless" "postgresql-12" "python3-pip" "software-properties-common" "texlive-full" "unzip"
@@ -16,10 +17,6 @@ do
     sudo apt install "${package}"
   fi
 done
-
-sudo add-apt-repository ppa:deadsnakes/ppa
-
-sudo pip install gdown
 
 echo "Starting Postgres..."
 sudo systemctl start postgresql.service
@@ -86,10 +83,20 @@ sed -i"" -e "s|\x0| |g" ./data/imdb/movie_info.tbl.dirty
 iconv -f utf-8 -t utf-8 -c ./data/imdb/movie_info.tbl.dirty > ./data/imdb/movie_info.tbl
 rm data/imdb/movie_info.tbl.dirty
 
+if [[ ! -d "${INSTALL_DIR}/venv" ]]; then
+  echo "Creating Python Virtual Environment"
+  python3 -m venv venv
+  source "venv/bin/activate"
+  pip install pip --upgrade > /dev/null
+  pip -q install -r requirements.txt
+  pip install --upgrade --no-cache-dir gdown
+  echo "$HOSTNAME"
+fi
+
 if [[ ! -d "${INSTALL_DIR}/skinnerdb" ]]; then
   echo "Downloading SkinnerDB..."
   git clone https://github.com/cornelldbgroup/skinnerdb.git
-  gdown https://drive.google.com/uc?id=1UCXtiPvVlwzUCWxKM6ic-XqIryk4OTgE
+  gdown "1UCXtiPvVlwzUCWxKM6ic-XqIryk4OTgE&confirm=t"
   unzip imdbskinner.zip -d data
   rm imdbskinner.zip
 fi
@@ -126,13 +133,4 @@ THREADS=8
 JNI_PATH=$INSTALL_DIR/skinnermt/Filter/jniFilter.so
 EOT
   cd "${INSTALL_DIR}"
-fi
-
-if [[ ! -d "${INSTALL_DIR}/venv" ]]; then
-  echo "Creating Python Virtual Environment"
-  python3 -m venv venv
-  source "venv/bin/activate"
-  pip install pip --upgrade > /dev/null
-  pip -q install -r requirements.txt
-  echo "$HOSTNAME"
 fi
