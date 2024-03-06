@@ -1,6 +1,6 @@
 # Reproducibility Info
 
-**Paper:** POLAR: Adaptive and Non-invasive Join Order Selection via Plans of Least Resistance [[link](https://doi.org/10.14778/3648160.3648175)]
+**Paper:** POLAR: Adaptive and Non-invasive Join Order Selection via Plans of Least Resistance [[link](https://www.vldb.org/pvldb/vol17/p1185-justen.pdf)]
 
 #### Source Code Info
 - Repository: POLAR (https://github.com/d-justen/duckdb-polr)
@@ -103,4 +103,32 @@ Available options:
 -s, --strategy        init_once,opportunistic,adapt_tuple_count,adapt_window_size (default: adapt_window_size)
 -r, --regret_budget   float (default: 0.01)
 -t, --threads         integer (default: 1)
+```
+
+## Citation
+
+If you use POLAR, please cite our paper.
+
+```
+@article{justen2024polar,
+  author       = {David Justen and
+                  Daniel Ritter and
+                  Campbell Fraser and
+                  Andrew Lamb and
+                  Nga Tran and
+                  Allison Lee and
+                  Thomas Bodner and
+                  Mhd Yamen Haddad and
+                  Steffen Zeuch and
+                  Volker Markl and
+                  Matthias Boehm},
+  title        = {POLAR: Adaptive and Non-invasive Join Order Selection via Plans of Least Resistance},
+  journal      = {Proc. {VLDB} Endow.},
+  volume       = {17},
+  number       = {6},
+  pages        = {1350--1363},
+  year         = {2024},
+  url          = {https://www.vldb.org/pvldb/vol17/p1185-justen.pdf},
+  doi          = {10.14778/3648160.3648175}
+}
 ```
