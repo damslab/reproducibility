@@ -24,6 +24,7 @@ for system in systems:
 
         if system == "postgres":
             path = os.getcwd() + f"/experiment-results/3_5_intermediates/{benchmark}/{system}/{system}.csv"
+            df = pd.read_csv(path)
             sum_intermediates = 0
             for index, row in df.iterrows():
                 sum_intermediates += int(row["join_intermediates"])
