@@ -25,7 +25,7 @@ mkdir -p paper/tables
 cp static/figures/join_order_search_space-3.pdf paper/figures
 cp static/figures/parallel-exec-2-2.pdf paper/figures
 cp static/figures/polar_pipeline-5.pdf paper/figures
-cp static/figures/routing-example.pdf paper/figures
+cp static/figures/routing_example.pdf paper/figures
 
 python3 experiments/plot/plot_1_2_potential_savings.py
 python3 experiments/plot/plot_2_0_sample_size.py
@@ -33,7 +33,7 @@ python3 experiments/plot/plot_2_1_enumeration_intms.py
 python3 experiments/plot/plot_2_2_enumeration_timings.py
 python3 experiments/plot/plot_2_3_routing_adaptive.py
 python3 experiments/plot/plot_2_4_routing_all.py
-python3 experiments/plot_2_5_init_tuple.py
+python3 experiments/plot/plot_2_5_init_tuple.py
 python3 experiments/plot/plot_3_1_pipeline.py
 python3 experiments/plot/plot_3_2_query.py
 python3 experiments/plot/plot_3_5_intermediates.py

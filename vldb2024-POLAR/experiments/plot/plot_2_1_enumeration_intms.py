@@ -135,7 +135,7 @@ latex_table = f"""\\begin{{table}}[!t]
     \\bottomrule
   \\end{{tabular}}
 \\label{{tab:1_2_potential_savings}}
-\\vspace{{-0.2.cm}}
+\\vspace{{-0.2cm}}
 \\end{{table}}
 """
 

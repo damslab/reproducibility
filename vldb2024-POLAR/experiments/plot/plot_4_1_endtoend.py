@@ -38,7 +38,7 @@ for benchmark in benchmarks:
             timings = []
             for index, row in df.iterrows():
                 timings.append(float(row["duration"]))
-            benchmark_results[system_names].append(sum(timings))
+            benchmark_results[system_names[system]].append(sum(timings))
 
     for system in ["skinnerdb", "skinnermt"]:
         if benchmark != "imdb":
@@ -90,7 +90,9 @@ for i in range(len(benchmarks)):
     max_skinner = 0
     if benchmarks[i] == "imdb":
         max_skinner = max(list(results[i]["SkinnerDB"]))
-    ylimt = max(max_skinner, max_postgres) * 1.1
+    max_duckdb = max(list(results[i]["DuckDB"]))
+    max_polar = max(list(results[i]["POLAR"]))
+    ylimt = max(max_skinner, max_postgres, max_duckdb) * 1.1
     ax[i].set_ylim(bottom=0, top=ylimt)
 
     if i == 0:
