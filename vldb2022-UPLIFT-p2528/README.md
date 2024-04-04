@@ -44,6 +44,7 @@ This script installs `jdk11`, `maven`, `git`, `python3`, `r-base`, and `texlive`
 
 All the datasets are publicly available. 
 1) To automatically download the Kaggle datasets, please setup Kaggle [API](https://github.com/Kaggle/kaggle-api). Install kaggle via `pip`, add `~/.local/bin` to `PATH`, and update `KAGGLE_USERNAME` and `KAGGLE_KEY` fields in `.bash_profile` or `.bashrc`. Verify with `which kaggle`. An alternative is to manually download the datasets from the Kaggle website in the `datasets` folder.
+Note: You may need to accept competition's rules to be able to download a subset of these datasets.
 2) I could not make `wget` work for the Criteo dataset. Please download the day_21.gz from [here](https://criteo.wetransfer.com/downloads/4bbea9b4a54baddea549d71271a38e2c20230428071257/d4f0d2/grid).
 3) Finally, use the below script to automatically download and prepare the datasets.
 

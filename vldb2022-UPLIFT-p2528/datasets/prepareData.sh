@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# This script prepares the datasets for the FTBench use cases.
+# To prepare individual datasets, use getAndPrep script (see below).
+
 ./getAndPrep.sh T1
 ./getAndPrep.sh T2
 ./getAndPrep.sh T3

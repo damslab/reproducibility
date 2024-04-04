@@ -12,7 +12,7 @@ fi
 # Figure 4b: Use case T8. Dataset Home Credit Risk dataset.
 if [ "$1" = "T8" ]; then
   ./config partransform stop
-  runjava -f T8.dml -stats
+  ./runjava -f T8.dml -stats
   mv homecredit_dml.dat homecredit_dml_base.dat
   ./config partransform start
   ./runjava -f T8.dml -stats

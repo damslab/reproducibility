@@ -1,6 +1,7 @@
 #!/bin/bash
 
 mv kdd_dml.dat kdd_tmp_dat #save before rerunning T2
+mv criteo10M_s2_dml.dat criteo10M_s2_tmp.dat #same before rerunning T4
 ./config partransform start
 ./runjava -f T2.dml -stats
 ./runjava -f T4.dml -stats
@@ -19,4 +20,5 @@ cp 4e_T2_Base.dat Tab3_T2_base.dat
 ./runjava -f T4_star.dml -stats
 ./config partransform start
 mv kdd_tmp_dat kdd_dml.dat #restore T2 result
+mv criteo10M_s2_tmp.dat criteo10M_s2_dml.dat #restore T4 result
 
