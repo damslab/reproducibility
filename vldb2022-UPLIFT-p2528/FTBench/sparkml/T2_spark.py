@@ -113,7 +113,7 @@ def transformPipe(kddX):
     return encoded
 
 nthreads_arg = sys.argv[1] #num of threads or "all"
-nthreads = "*" if nthreads_arg.lower() == "all" else nthreads_arg
+nthreads = "32" if nthreads_arg.lower() == "all" else nthreads_arg
 spark = SparkSession\
     .builder\
     .master(f"local[{nthreads}]")\

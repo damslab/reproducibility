@@ -75,7 +75,7 @@ In this paper, we define a feature transformation benchmark, **FTBench**, to fos
 		    ./runAll_sk.sh 2>&1 | tee outFTsk.log
 		    mv *.dat ../../results
 
-3. Additionally, we used specialized systems such as sparkml, dask, and TensorFlow/Keras to implement a subset of use cases.  They are available inside respective folders.
+3. Additionally, we used specialized systems such as sparkml, dask, and TensorFlow/Keras to implement a subset of use cases.  They are available inside respective folders. For SparkML, some use cases may require more than the given 110gb memory.
 
 		    cd FTBench/sparkml
 		    ./runAll_spark.sh 2>&1 | tee outFTspark.log

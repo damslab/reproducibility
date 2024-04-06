@@ -53,7 +53,7 @@ def transformSparkml(criteo):
 
 
 nthreads_arg = sys.argv[2] #num of threads or "all"
-nthreads = "*" if nthreads_arg.lower() == "all" else nthreads_arg
+nthreads = "32" if nthreads_arg.lower() == "all" else nthreads_arg
 spark = SparkSession\
     .builder\
     .master(f"local[{nthreads}]")\

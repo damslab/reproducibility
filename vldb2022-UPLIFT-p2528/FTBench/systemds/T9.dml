@@ -30,6 +30,6 @@ write(res, "catindat_dml.dat", format="csv", sep="\t");
 print("("+nrow(X_en)+", "+ncol(X_en)+")");
 
 avg = matrix(0, rows=1, cols=1);
-avg[1,1] = floor((sum(res)/5) / 1000);
+avg[1,1] = ceil((sum(res)/5) / 1000);
 write(avg, "Tab3_T9_dml.dat", format="csv", sep="\t");
 

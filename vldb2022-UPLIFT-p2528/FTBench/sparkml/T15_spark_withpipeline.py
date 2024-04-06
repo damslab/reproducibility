@@ -182,7 +182,7 @@ def applyFTset5(criteo, nBins):
 # NOTE: single-threaded execution takes 3.7x more time
 spark = SparkSession\
     .builder\
-    .master("local[*]")\
+    .master("local[32]")\
     .config("spark.driver.memory", "110g")\
     .config("spark.kryoserializer.buffer.max", "1024m")\
     .config("spark.sql.execution.arrow.pyspark.enabled", "true")\

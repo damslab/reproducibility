@@ -16,7 +16,8 @@ echo "----------------------------"
 for nchar in {25..500..25}
 do
   echo "String length: $nchar"
-  python3 dataGenString_10c.py $nrow $ndist $nchar
+  python3 dataGenString_10c.py $nrow $ndist $nchar        #multi-threaded
+#  python3 dataGen_single_threaded.py $nrow $ndist $nchar  #single-threaded
 
   ./config partransform stop
   ./runjava -f T13.dml

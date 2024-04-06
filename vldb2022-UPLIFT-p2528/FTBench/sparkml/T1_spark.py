@@ -44,7 +44,7 @@ def transform(adult):
 
 spark = SparkSession\
     .builder\
-    .master("local[*]")\
+    .master("local[32]")\
     .config("spark.driver.memory", "110g")\
     .config("spark.kryoserializer.buffer.max", "1024m")\
     .appName("CriteoBySparkML")\
