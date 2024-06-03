@@ -3,7 +3,7 @@
 INSTALL_DIR="${PWD}"
 
 sudo apt update
-sudo add-apt-repository ppa:deadsnakes/ppa
+sudo add-apt-repository ppa:deadsnakes/ppa -y
 
 declare -a packages=(
   "cgroup-tools" "git" "libssl-dev" "openjdk-8-jre-headless" "openjdk-16-jre-headless" "postgresql-12" "python3-pip" "software-properties-common" "texlive-full" "unzip"
