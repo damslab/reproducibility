@@ -29,6 +29,19 @@ for benchmark in benchmarks:
                 timings.append(float(row["timing"]))
             benchmark_results[system_names[system]].append(sum(timings))
 
+    for system in ["skinnermt", "skinnerdb"]:
+        if benchmark != "imdb":
+            break
+        benchmark_results[system_names[system]] = []
+        for nthreads in threads:
+            path = os.getcwd() + f"/experiment-results/4_1_endtoend/{benchmark}/{system}/{system}-{nthreads}.csv"
+            df = pd.read_csv(path)
+            df = df.groupby("Query", as_index=False).median()
+            timings = []
+            for index, row in df.iterrows():
+                timings.append(float(row["Millis"]) / 1000)
+            benchmark_results[system_names[system]].append(sum(timings))
+
     for system in ["postgres"]:
         benchmark_results[system_names[system]] = []
         for nthreads in threads:
@@ -38,18 +51,6 @@ for benchmark in benchmarks:
             timings = []
             for index, row in df.iterrows():
                 timings.append(float(row["duration"]))
-            benchmark_results[system_names[system]].append(sum(timings))
-
-    for system in ["skinnerdb", "skinnermt"]:
-        if benchmark != "imdb":
-            break
-        benchmark_results[system_names[system]] = []
-        for nthreads in threads:
-            path = os.getcwd() + f"/experiment-results/4_1_endtoend/{benchmark}/{system}/{system}-{nthreads}.csv"
-            df = pd.read_csv(path)
-            timings = []
-            for index, row in df.iterrows():
-                timings.append(float(row["Millis"]) / 1000)
             benchmark_results[system_names[system]].append(sum(timings))
 
     results.append(benchmark_results)

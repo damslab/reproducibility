@@ -7,9 +7,6 @@ nruns = 5
 threads = ["1", "8"]
 benchmarks = ["imdb", "ssb", "ssb-skew"]
 
-# TODO copy static files
-
-
 # Run DuckDB
 def run_duckdb():
     cwd = os.getcwd()

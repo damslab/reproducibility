@@ -19,6 +19,10 @@
 - Environment: Ubuntu 20.04 LTS is used for the experiments.
 - Compiler: Clang-12
 
+Please note that we assume `python3` and `python3-venv` to be pre-installed and texlive **not** to be installed yet
+(check with `apt search texlive | grep -i install`). Also note that some experiments use cgroup virtualization, which 
+Docker does not support.
+
 ## Usage
 
 The experiments can either be run in a DuckDB-only mode (simple setup, minimal requirements) or extensive mode
@@ -33,7 +37,8 @@ session as they may take a few days.
 
 ### DuckDB-only Mode
 
-Please make sure to use the environment and compiler from the **Experimentation Info** above.
+Please make sure to use the environment and compiler from the **Experimentation Info** above and hardware similar to
+the specifications in **Hardware Info**.
 
 #### Instructions
 
@@ -45,16 +50,19 @@ time: 2-3 days.*
 
 #### Required Packages
 
-In this mode, the following required packages are installed:
+In this mode, the following required dependencies are installed by the install script:
 - *cgroup-tools*: For thread limiting
+- *cmake*: For building
 - *git*: For checking out the POLAR and DBGen repositories
 - *libssl-dev*: For building DuckDB
 - *python3-pip*: For python requirements
-- *texlive-full*: For paper PDF compilation
+- *TeX Live*: For paper PDF compilation (including `tex-common`, `texinfo`, `equivs`, `perl-tk`, `perl-doc`)
+- *wget*: For texlive installation
 
 ### Extensive Mode
 
-Please make sure to use the environment and compiler from the **Experimentation Info** above.
+Please make sure to use the environment and compiler from the **Experimentation Info** above and hardware similar to
+the specifications in **Hardware Info**.
 
 #### Instructions
 
@@ -70,8 +78,9 @@ Please make sure to use the environment and compiler from the **Experimentation 
 
 #### Required Packages
 
-In this mode, the following required packages are installed:
+In this mode, the following required dependencies are installed by the install script:
 - *cgroup-tools*: For thread limiting
+- *cmake*: For building
 - *git*: For checking out the POLAR and DBGen repositories
 - *libssl-dev*: For building DuckDB
 - *openjdk-8-jre-headless*: For running SkinnerDB
@@ -79,8 +88,9 @@ In this mode, the following required packages are installed:
 - *postgresql-12*: For Postgres baseline experiments
 - *python3-pip*: For python requirements
 - *software-properties-common*: For SkinnerMT installation
-- *texlive-full*: For paper PDF compilation
+- *TeX Live*: For paper PDF compilation (including `tex-common`, `texinfo`, `equivs`, `perl-tk`, `perl-doc`)
 - *unzip*: For SkinnerDB/MT installation
+- *wget*: For texlive installation
 
 ### Sandbox Mode
 

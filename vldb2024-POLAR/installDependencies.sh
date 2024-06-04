@@ -3,10 +3,9 @@
 INSTALL_DIR="${PWD}"
 
 sudo apt update
-sudo add-apt-repository ppa:deadsnakes/ppa -y
 
 declare -a packages=(
-  "cgroup-tools" "git" "libssl-dev" "openjdk-8-jre-headless" "openjdk-16-jre-headless" "postgresql-12" "python3-pip" "software-properties-common" "texlive-full" "unzip"
+  "cgroup-tools" "cmake" "git" "libssl-dev" "openjdk-8-jre-headless" "openjdk-16-jre-headless" "postgresql-12" "python3-pip" "software-properties-common" "unzip" "wget"
 )
 
 for package in "${packages[@]}"
@@ -14,18 +13,28 @@ do
   dpkg -s "${package}" &> /dev/null
   if [ $? -ne 0 ]; then
     echo "Installing ${package}..."
-    sudo apt install "${package}"
+    sudo apt install -y "${package}"
   fi
 done
 
-echo "Starting Postgres..."
-sudo systemctl start postgresql.service
+sudo add-apt-repository ppa:deadsnakes/ppa -y
+sudo apt update
+
+echo "Installing TeX Live"
+mkdir install-tl && cd install-tl
+wget -O - -- http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz | tar xzf - --strip-components=1
+sudo apt install -y tex-common texinfo equivs perl-tk perl-doc
+sudo ./install-tl -profile ../texlive.profile
+cd ..
 
 echo "Creating cgroups..."
 sudo cgcreate -a "$USER" -t "$USER" -g cpu:/limitcpu1
 sudo cgset -r cpu.cfs_quota_us=100000 limitcpu1
 sudo cgcreate -a "$USER" -t "$USER" -g cpu:/limitcpu8
 sudo cgset -r cpu.cfs_quota_us=800000 limitcpu8
+
+echo "Starting Postgres..."
+sudo systemctl start postgresql.service
 
 if [[ ! -d "${INSTALL_DIR}/duckdb-polr" ]]; then
   echo "Downloading POLAR..."

@@ -5,7 +5,7 @@ INSTALL_DIR="${PWD}"
 sudo apt update
 
 declare -a packages=(
-  "cgroup-tools" "git" "libssl-dev" "python3-pip" "texlive-full"
+  "cgroup-tools" "cmake" "git" "libssl-dev" "python3-pip" "wget"
 )
 
 for package in "${packages[@]}"
@@ -16,6 +16,13 @@ do
     sudo apt install "${package}"
   fi
 done
+
+echo "Installing TeX Live"
+mkdir install-tl && cd install-tl
+wget -O - -- http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz | tar xzf - --strip-components=1
+sudo apt install -y tex-common texinfo equivs perl-tk perl-doc
+sudo ./install-tl -profile ../texlive.profile
+cd ..
 
 echo "Creating cgroups..."
 sudo cgcreate -a "$USER" -t "$USER" -g cpu:/limitcpu1
