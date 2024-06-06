@@ -36,4 +36,4 @@ mask = matrix(0, rows=1, cols=ncol(data));
 print("Sum after clean: "+sum(X_clean));
 
 print("("+nrow(data)+", "+ncol(data)+")");
-write(data, "Mumbai/aps_scaled", format="binary");
+write(data, "Memphis/aps_scaled", format="binary");

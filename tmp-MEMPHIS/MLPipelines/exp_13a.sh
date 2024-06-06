@@ -12,6 +12,7 @@ rm cvlm.dat
 rm cvlm_async.dat
 rm cvlm_reuse.dat
 rm cvlm_async_reuse.dat
+rm cvlm_reuse_lima.dat
 
 echo "Starting grid search CVLM  "
 echo "-------------------------- "
@@ -38,6 +39,12 @@ do
     end=$(date +%s%N)
     config2 all stop
     echo -e $nrows'\t'$cols'\t'$((($end-$start)/1000000)) >> cvlm_async.dat
+
+    # Disable multi-backend reuse configuration for LIMA
+    start=$(date +%s%N)
+    runspark -f cvlm.dml -args $nrows -stats -lineage reuse_full
+    end=$(date +%s%N)
+    echo -e $nrows'\t'$cols'\t'$((($end-$start)/1000000)) >> cvlm_reuse_lima.dat
 
     start=$(date +%s%N)
     runspark -f cvlm.dml -args $nrows -stats -lineage reuse_multilevel

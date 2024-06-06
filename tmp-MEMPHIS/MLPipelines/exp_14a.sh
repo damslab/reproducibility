@@ -7,9 +7,10 @@
 rows=60000
 cols=170
 
-#rm clean.dat
+rm clean.dat
 rm clean_noparfor.dat
 rm clean_reuse.dat
+rm clean_lima
 
 echo "Starting cleaningalo enumeration  "
 echo "----------------------------------- "
@@ -32,6 +33,12 @@ do
     runspark -f topkclean_aps.dml -stats
     end=$(date +%s%N)
     echo -e $nrows'\t'$cols'\t'$((($end-$start)/1000000)) >> clean_noparfor.dat
+
+    # Disable multi-backend configuration for LIMA
+    start=$(date +%s%N)
+    runspark -f topkclean_aps.dml -stats -lineage reuse_full
+    end=$(date +%s%N)
+    echo -e $nrows'\t'$cols'\t'$((($end-$start)/1000000)) >> clean_lima.dat
 
     config2 all start
     start=$(date +%s%N)

@@ -1,7 +1,7 @@
 
-## Reproducibility Submission for MUMBAI
+## Reproducibility Submission for MEMPHIS
 
-**Paper name:** MUMBAI: Lineage-based Reuse and Related 
+**Paper name:** MEMPHIS: Holistic Lineage-based Reuse and 
 Memory Management for Multi- backend ML Systems
 
 Source Code Info
@@ -39,11 +39,11 @@ All the datasets are publicly available. `datasets/` directory contains the scri
 
 Execute the shell scripts in the `microbenchmarks/` directory.
 
-**Step 5:** Run End-to-End ML pipelines.
+**Step 5:** Run End-to-End ML pipelines and compare with other reuse frameworks.
 
 Execute the shell scripts in the `MLPipelines` directory.
 
-**Step 6:** Run other baseline comparisons.
+**Step 6:** Run other ML systems (PyTorch) for comparison.
 
 Execute the PyTorch scripts in the `MLSystemsComparison` directory.
 

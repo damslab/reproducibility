@@ -120,7 +120,7 @@ getAccuracy = function(Matrix[double] X, Matrix[double] y) return (Double accura
 
 ############################################################
 
-data = read("Mumbai/aps_scaled", data_type="matrix");
+data = read("Memphis/aps_scaled", data_type="matrix");
 datay = data[,1];
 dataX = data[,2:ncol(data)];
 

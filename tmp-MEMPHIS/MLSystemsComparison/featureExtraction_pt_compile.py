@@ -77,7 +77,7 @@ class RandomDataset(Dataset):
         random_data = random_data.to("cuda")
         return random_data
 
-#@torch.compile
+@torch.compile
 def predict_model(model, dataset, batch_size):
     # Forward pass batch-wise 
     Y_pred = []
@@ -125,8 +125,6 @@ for i in range(1, 5):
 print(Y_np1.shape)
 print(Y_pred1.device)
 print("Total time for AlexNet = %s sec" % (time.time() - t1))
-# Clear the allocation cache to avoid OOM
-torch.cuda.empty_cache()
 
 # Freeze and extract top 3 layers of VGG16
 model = models.vgg16(weights='VGG16_Weights.DEFAULT').double()
@@ -142,8 +140,6 @@ for i in range(1, 4):
 print(Y_np2.shape)
 print(Y_pred2.device)
 print("Total time for VGG16 = %s sec" % (time.time() - t1))
-# Clear the allocation cache to avoid OOM
-torch.cuda.empty_cache()
 
 # Freeze and extract top 4 layers of ResNet18
 

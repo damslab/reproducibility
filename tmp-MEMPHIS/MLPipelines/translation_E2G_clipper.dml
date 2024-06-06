@@ -1,0 +1,107 @@
+rwRowIndexMax = function(matrix[double] X, matrix[double] idxSeq) return (double index) {
+  # rowIndexMax synchronizes and pulls the result matrix from device to host.
+  # This rewrite avoids that by getting just the max (scalar) from gpu
+  v1 = max(X); #d2h
+  I = X == v1;
+  index = max(I * idxSeq); #idxSeq moved to gpu only once
+}
+
+affine_forward = function(matrix[double] X, matrix[double] W, matrix[double] b) return (matrix[double] out) {
+  out = X %*% W + b;
+}
+
+affine_init = function(int D, int M, int seed = -1 ) return (matrix[double] W, matrix[double] b) {
+  W = rand(rows=D, cols=M, pdf="normal", seed=seed) * sqrt(2.0/D);
+  b = matrix(0, rows=1, cols=M);
+}
+
+relu_forward = function(matrix[double] X) return (matrix[double] out) {
+  out = max(0, X);
+}
+
+softmax_forward = function(matrix[double] scores) return (matrix[double] probs) {
+  scores = scores - rowMaxs(scores);  # numerical stability
+  unnorm_probs = exp(scores);  # unnormalized probabilities
+  probs = unnorm_probs / rowSums(unnorm_probs);  # normalized probabilities
+}
+
+scoring_feedForward = function(Matrix[Double] X, Matrix[Double] W1, Matrix[Double] b1, 
+	Matrix[Double] W2, Matrix[Double] b2, Matrix[Double] W3, Matrix[Double] b3, 
+	Matrix[Double] W4, Matrix[Double] b4) return(Matrix[Double] output_probs) 
+{
+  # 1st hidden layer (affine + ReLU)
+  out1 = affine_forward(X, W1, b1);
+  outr1 = relu_forward(out1);
+  # 2nd hidden layer (affine + ReLU)
+  out2 = affine_forward(outr1, W2, b2);
+  outr2 = relu_forward(out2);
+  # 3rd hidden layer (affine + ReLU)
+  out3 = affine_forward(outr2, W3, b3);
+  outr3 = relu_forward(out3);
+  # Output layer (affine + softmax)
+  out4 = affine_forward(outr3, W4, b4);
+  output_probs = softmax_forward(out4); 
+  # Return the output vector as probability distribution
+} 
+
+##################################################################3
+
+# Read the sequence-of-words and the dictionary
+# Only read the distinct words to mimic Clipper-like prediction reuse
+data = read("../datasets/E2G_WMT14_distinct.csv", data_type="frame", format="csv",header=FALSE);
+#data = data[1:50,]; #subset for testing
+meta = read("../datasets/words_dictionary2_1.csv", data_type="frame", format="csv",header=FALSE);
+meta_ger = read("../datasets/german_vocab2.csv", data_type="frame", format="csv", header=FALSE);
+# Read the pre-trained embeddings
+W = read("../datasets/word_embeddings2_1.csv", format="csv", header=FALSE);
+# Initiate reads
+print(toString(data[1,1]));
+print(toString(meta[1:10,]));
+chunk = W[nrow(W)-10:nrow(W),1:5];
+print(toString(chunk));
+
+jspec2 = "{ ids:true, recode:[1]}"; #RC 1st column
+
+# Initialize weights and biases
+input_size = ncol(W);
+hidden_size = 64;
+output_size = nrow(meta_ger);
+idxSeq = t(seq(1, nrow(meta_ger)));
+[W1, b1] = affine_init(input_size, hidden_size, 42);
+[W2, b2] = affine_init(hidden_size, hidden_size, 43);
+[W3, b3] = affine_init(hidden_size, hidden_size, 44);
+[W4, b4] = affine_init(hidden_size, output_size, 45);
+
+# Mini-batch processing
+batch_size = 1;
+iter = 0
+nrow = nrow(data);
+num_iters = ceil(nrow / batch_size)
+beg = 1
+while(iter < num_iters) {
+  end = beg + batch_size - 1
+  if(end > nrow) 
+    end = nrow;
+  batch = data[beg:end,];
+  # Get the recoded value for this word
+  idx = transformapply(target=batch, spec=jspec2, meta=meta);
+  # Robust handling of non-English words (replace with 'padding')
+  idx = replace(target=idx, pattern=NaN, replacement=6537);
+  #TODO: Replace with universal token <unk>
+  while(FALSE){}
+  emd_idx = as.scalar(idx); #literal replaced with the scalar index
+  # Index out the corresponding embedding
+  X_batch = W[emd_idx:emd_idx,];
+  while(FALSE){}
+  # Pass the embedding to the feedforward network
+  prob_dist = scoring_feedForward(X_batch, W1, b1, W2, b2, W3, b3, W4, b4);
+  # Find the most probable German word
+  index_ger = rwRowIndexMax(prob_dist, idxSeq);
+  while(FALSE){} #block end
+  word_ger = meta_ger[index_ger,1];
+  iter = iter + 1;
+  beg = end + 1;
+}
+print(toString(word_ger));
+
+

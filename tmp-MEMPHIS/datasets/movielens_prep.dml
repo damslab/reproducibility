@@ -32,4 +32,4 @@ if (sfactor < 1) {
 }
 
 print("("+nrow(data)+", "+ncol(data)+")");
-write(data, "Mumbai/movies_ratings", format="binary");
+write(data, "Memphis/movies_ratings", format="binary");

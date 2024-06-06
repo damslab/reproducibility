@@ -1,4 +1,4 @@
-# Using TF 2.2 for compatibality with Cuda 10.2 (MUMBAI/SystemDS needs Cuda 10.2).
+# Using TF 2.2 for compatibality with Cuda 10.2 (MEMPHIS/SystemDS needs Cuda 10.2).
 # TF 2.2 needs Cuda 10.1. Use soft links to map Cuda 10.1 to Cuda 10.2
 # FIXME: GPU is not utilized. Probably due to compatibility issues.
 # CPU and GPU are taking the same time
