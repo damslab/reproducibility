@@ -3,6 +3,7 @@
 INSTALL_DIR="${PWD}"
 
 echo "Downloading JOB data... [SkinnerDB]"
+source "venv/bin/activate"
 gdown "1UCXtiPvVlwzUCWxKM6ic-XqIryk4OTgE&confirm=t"
 unzip imdbskinner.zip -d data
 

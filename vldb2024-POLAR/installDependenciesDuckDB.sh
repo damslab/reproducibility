@@ -5,7 +5,7 @@ INSTALL_DIR="${PWD}"
 sudo apt update
 
 declare -a packages=(
-  "cgroup-tools" "cmake" "git" "libssl-dev" "python3-pip" "wget"
+  "cgroup-tools" "cmake" "git" "libssl-dev" "python3-pip" "python3-venv" "wget"
 )
 
 for package in "${packages[@]}"
