@@ -42,9 +42,9 @@ the specifications in **Hardware Info**.
 
 #### Instructions
 
-1. Run `./installDependenciesDuckDB.sh`. Installs the dependencies and generates the benchmark data (JOB, SSB, 
+1. Run `./1-prepareExperiments.sh duckdb-only`. Installs the dependencies and generates the benchmark data (JOB, SSB, 
 SSB-skew). *Estimated time: 1-2 hours.*
-2. Run `./runAllExperiments.sh duckdb-only`. Executes the experiments and generates the paper artifacts. *Estimated
+2. Run `./2-runAllExperiments.sh duckdb-only`. Executes the experiments and generates the paper artifacts. *Estimated
 time: 2-3 days.*
 3. Open `paper/main.pdf` to check the results.
 
@@ -66,13 +66,13 @@ the specifications in **Hardware Info**.
 
 #### Instructions
 
-1. Run `./installDependencies.sh`. Installs the dependencies and generates the benchmark data (JOB, SSB,
+1. Run `./1-prepareExperiments.sh`. Installs the dependencies and generates the benchmark data (JOB, SSB,
    SSB-skew). This script is **explicitly** only tested for Ubuntu 20.04. Alternatively, 
    [SkinnerDB](https://github.com/cornelldbgroup/skinnerdb),
    [SkinnerMT](https://github.com/cornelldbgroup/skinnerdb/tree/skinnermt), and [Postgres](https://www.postgresql.org)
    can be installed manually according to their individual instructions. The remaining (DuckDB-based) 
-   requirements can then be installed with `installDependenciesDuckDB.sh`. *Estimated time: 2-3 hours.*
-2. Run `./runAllExperiments.sh`. Executes the experiments and generates the paper artifacts. *Estimated
+   requirements can then be installed with `1-prepareExperiments.sh duckdb-only`. *Estimated time: 2-3 hours.*
+2. Run `./2-runAllExperiments.sh`. Executes the experiments and generates the paper artifacts. *Estimated
    time: 3-4 days.*
 3. Open `paper/main.pdf` to check the results.
 
@@ -99,7 +99,7 @@ and number of threads.
 
 #### Instructions
 
-1. Run `./installDependenciesDuckDB.sh`. Installs the dependencies and generates the benchmark data (JOB, SSB,
+1. Run `./1-prepareExperiments.sh duckdb-only`. Installs the dependencies and generates the benchmark data (JOB, SSB,
    SSB-skew). *Estimated time: 1-2 hours.*
 2. Run `./runBenchmark.sh`. For usage, see below.
 
