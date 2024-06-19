@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
+sudo add-apt-repository ppa:deadsnakes/ppa -y
+sudo apt update
+
 declare -a packages=(
-  "openjdk-8-jre-headless" "openjdk-16-jre-headless" "postgresql-12" "software-properties-common" "unzip"
+  "gdown" "openjdk-8-jre-headless" "openjdk-16-jre-headless" "postgresql-12" "software-properties-common" "unzip"
 )
 
 for package in "${packages[@]}"
@@ -12,9 +15,6 @@ do
     sudo apt install -y "${package}"
   fi
 done
-
-sudo add-apt-repository ppa:deadsnakes/ppa -y
-sudo apt update
 
 echo "Starting Postgres..."
 sudo systemctl start postgresql.service
