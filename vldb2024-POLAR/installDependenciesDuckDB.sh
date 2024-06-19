@@ -13,7 +13,7 @@ do
   dpkg -s "${package}" &> /dev/null
   if [ $? -ne 0 ]; then
     echo "Installing ${package}..."
-    sudo apt install "${package}"
+    sudo apt install -y "${package}"
   fi
 done
 
