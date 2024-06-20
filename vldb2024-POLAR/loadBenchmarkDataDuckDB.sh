@@ -1,5 +1,7 @@
 INSTALL_DIR="${PWD}"
 
+set -eo pipefail
+
 echo "Generating SSB data..."
 cd ssb-dbgen
 ./dbgen -v -s 100

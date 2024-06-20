@@ -1,5 +1,7 @@
 # Please note: loadBenchmarkDataDuckDB.sh must run beforehand
 
+set -eo pipefail
+
 INSTALL_DIR="${PWD}"
 
 echo "Downloading JOB data... [SkinnerDB]"
