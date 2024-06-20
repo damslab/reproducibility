@@ -1,6 +1,6 @@
 # Please note: loadBenchmarkDataDuckDB.sh must run beforehand
 
-set -eo pipefail
+set -o pipefail
 
 INSTALL_DIR="${PWD}"
 
