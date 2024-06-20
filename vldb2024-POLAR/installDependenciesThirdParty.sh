@@ -6,9 +6,6 @@ declare -a packages=(
   "openjdk-8-jre-headless" "openjdk-16-jre-headless" "postgresql-12" "software-properties-common" "unzip"
 )
 
-sudo add-apt-repository ppa:deadsnakes/ppa -y
-sudo apt update
-
 for package in "${packages[@]}"
 do
   dpkg -s "${package}" &> /dev/null
