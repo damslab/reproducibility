@@ -7,14 +7,13 @@ else
   echo "Preparing experiments with third-party system installation DISABLED."
 fi
 
-source installDependenciesDuckDB.sh
 if [ $# -eq 0 ];
 then
-  source installDependenciesThirdParty.sh
-fi
-
-source loadBenchmarkDataDuckDB.sh
-if [ $# -eq 0 ];
-then
-  source loadBenchmarkDataThirdParty.sh
+  source scripts/installSystemsDependencies.sh
+  source scripts/installSystems.sh
+  source scripts/loadBenchmarkData.sh
+else
+  source scripts/installSystemsDependencies.sh duckdb-only
+  source scripts/installSystems.sh duckdb-only
+  source scripts/loadBenchmarkData.sh duckdb-only
 fi
