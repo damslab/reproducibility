@@ -9,11 +9,11 @@ fi
 
 if [ $# -eq 0 ];
 then
-  source scripts/installSystemsDependencies.sh
+  source scripts/installSystemDependencies.sh
   source scripts/installSystems.sh
   source scripts/loadBenchmarkData.sh
 else
-  source scripts/installSystemsDependencies.sh duckdb-only
+  source scripts/installSystemDependencies.sh duckdb-only
   source scripts/installSystems.sh duckdb-only
   source scripts/loadBenchmarkData.sh duckdb-only
 fi
