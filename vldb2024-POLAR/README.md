@@ -32,9 +32,8 @@ experiment results obtained from our own hardware setup. The extensive mode inst
 [SkinnerDB](https://github.com/cornelldbgroup/skinnerdb), 
 [SkinnerMT](https://github.com/cornelldbgroup/skinnerdb/tree/skinnermt), and [Postgres](https://www.postgresql.org), 
 which serve as additional baselines. Both options run the experiments, generate the figures and tables from the
-experiments section and compile the resulting paper as a PDF. We advise you to run the experiment within a `tmux`
-session as they may take a few days. The experiment setup is automated but might require some supervision as parts
-of the installation require sudo rights.
+experiments section and compile the resulting paper as a PDF. We advise you to run the experiments within a `tmux`
+session as they may take a few days.
 
 ### DuckDB-only Mode
 
