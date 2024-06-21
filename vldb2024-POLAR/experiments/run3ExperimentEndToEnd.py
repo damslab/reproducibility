@@ -32,7 +32,12 @@ def run_postgres():
         sp.call(["mkdir", "-p", f"{cwd}/experiment-results/4_1_endtoend/{benchmark}/postgres"])
         print(f"Loading {benchmark} data...")
         cur.execute(open(f"{os.getcwd()}/experiments/util/schema-{benchmark}.sql", "r").read())
-        cur.execute(open(f"{os.getcwd()}/experiments/util/load-{benchmark}.sql", "r").read())
+        tables = glob.glob(os.path.join(f"{os.getcwd()}/data/{benchmark}", "*.tbl"))
+        tables.sort()
+        for table in tables:
+            with open(table, "r") as tbl_file:
+                tbl_name = table.split("/")[-1].split(".")[0]
+                cur.copy_from(tbl_file, tbl_name, sep="|")
         cur.execute(open(f"{os.getcwd()}/experiments/util/fkidx-{benchmark}.sql", "r").read())
         cur.execute("commit;")
         print("Done.")

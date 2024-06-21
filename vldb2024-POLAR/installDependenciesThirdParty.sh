@@ -16,6 +16,7 @@ do
 done
 
 echo "Starting Postgres..."
+sudo sed -E -i 's/(local\s+all\s+postgres\s+)peer/\1trust/'
 sudo systemctl start postgresql.service
 
 if [[ ! -d "${INSTALL_DIR}/skinnerdb" ]]; then

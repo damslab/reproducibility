@@ -12,7 +12,7 @@
 - Processor: AMD EPYC 7443P CPU @ 2.85 GHz
 - Cores: 24 physical cores (48 vCores)
 - Memory: 256 GB
-- Disk: SSD, at least 500 GB.
+- Disk: SSD, 1 TB.
 
 #### Experimentation Info
 
@@ -21,19 +21,20 @@
 
 Please note that we assume `python3` and `python3-venv` to be pre-installed and texlive **not** to be installed yet
 (check with `apt search texlive | grep -i install`). Also note that some experiments use cgroup virtualization, which 
-Docker does not support.
+Docker does not support. We advise to run the experiments on a clean Ubuntu 20.04 (virtual) machine.
 
 ## Usage
 
-The experiments can either be run in a DuckDB-only mode (simple setup, minimal requirements) or extensive mode
-(complex setup, reproduce third-party system baselines). The DuckDB-only mode executes all experiments on POLAR
+The experiments can either be run in a DuckDB-only mode (simpler setup, fewer requirements) or extensive mode
+(more complex setup to reproduce third-party system baselines). The DuckDB-only mode executes all experiments on POLAR
 as well as DuckDB and Lookahead Information Passing as baselines. For the remaining baselines it reuses previous
-experiment results obtained from our own hardware setup. The extensive mode requires installing 
+experiment results obtained from our own hardware setup. The extensive mode installs
 [SkinnerDB](https://github.com/cornelldbgroup/skinnerdb), 
 [SkinnerMT](https://github.com/cornelldbgroup/skinnerdb/tree/skinnermt), and [Postgres](https://www.postgresql.org), 
 which serve as additional baselines. Both options run the experiments, generate the figures and tables from the
 experiments section and compile the resulting paper as a PDF. We advise you to run the experiment within a `tmux`
-session as they may take a few days.
+session as they may take a few days. The experiment setup is automated but might require some supervision as parts
+of the installation require sudo rights.
 
 ### DuckDB-only Mode
 
