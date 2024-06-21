@@ -18,6 +18,7 @@ done
 echo "Starting Postgres..."
 sudo sed -E -i 's/(local\s+all\s+postgres\s+)peer/\1trust/' /etc/postgresql/12/main/pg_hba.conf
 sudo systemctl start postgresql.service
+sudo systemctl restart postgresql.service
 
 if [[ ! -d "${INSTALL_DIR}/skinnerdb" ]]; then
   echo "Downloading SkinnerDB..."
