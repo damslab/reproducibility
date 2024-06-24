@@ -62,12 +62,16 @@ EOT
   sed -i"" -e "s|false|0|g" ./data/ssb/date.tbl
   sed -i"" -e "s|true|1|g" ./data/ssb-skew/date.tbl
   sed -i"" -e "s|false|0|g" ./data/ssb-skew/date.tbl
+
   mv data/imdb/cast_info.tbl data/imdb/cast_info.tbl.dirty
   sed -i"" -e "s|\x0| |g" ./data/imdb/cast_info.tbl.dirty
   iconv -f utf-8 -t utf-8 -c ./data/imdb/cast_info.tbl.dirty > ./data/imdb/cast_info.tbl
   rm data/imdb/cast_info.tbl.dirty
+
   mv data/imdb/movie_info.tbl data/imdb/movie_info.tbl.dirty
   sed -i"" -e "s|\x0| |g" ./data/imdb/movie_info.tbl.dirty
+  sed -i"" -e 's|\\|\\\\|g' ./data/imdb/movie_info.tbl.dirty
   iconv -f utf-8 -t utf-8 -c ./data/imdb/movie_info.tbl.dirty > ./data/imdb/movie_info.tbl
   rm data/imdb/movie_info.tbl.dirty
+  sed -i"" -e '1463936d' ./data/imdb/name.tbl
 fi
