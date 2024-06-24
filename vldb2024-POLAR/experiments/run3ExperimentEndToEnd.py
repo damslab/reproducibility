@@ -37,7 +37,7 @@ def run_postgres():
         for table in tables:
             with open(table, "r") as tbl_file:
                 tbl_name = table.split("/")[-1].split(".")[0]
-                cur.copy_from(tbl_file, tbl_name, sep="|")
+                cur.copy_from(tbl_file, tbl_name, sep="|", null="")
         cur.execute(open(f"{os.getcwd()}/experiments/util/fkidx-{benchmark}.sql", "r").read())
         cur.execute("commit;")
         print("Done.")
