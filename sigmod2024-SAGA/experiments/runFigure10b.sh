@@ -6,7 +6,7 @@ for data in 37 74 110 147
 do
   echo "executing pipeline"$pip" on "${data}
   start=$(date +%s%N)
-  time -p sparkDML -debug -exec hybrid -f pipelines/pipeline${pip}.dml  -args \
+  time -p ./sparkDML -debug -exec hybrid -f pipelines/pipeline${pip}.dml  -args \
      rep/EEG_${data}.bin  \
      meta/meta_EEG.csv $pathout/$data.csv 
   end=$(date +%s%N)

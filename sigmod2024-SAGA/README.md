@@ -18,7 +18,7 @@
  - The software stack comprises Ubuntu 20.04.1, Apache Hadoop 3.3.1, and Apache Spark 3.2.0. SAGA uses OpenJDK 11.0.13 with 110 GB max and initial JVM heap size. However, Apache SystemDS and the experiments are fully portable to any OS.
 
 **Quickstart Guide:**
- - Setup the environment
+ - Setup the environment (e.g., install R, set JAVA_HOME)
 
         ./system_setup.sh
 
@@ -32,13 +32,20 @@
         cd systemds;
         mvn clean package -P distribution
 
- - Run JUnit tests of cleaning pipelines
+ - Run JUnit tests of cleaning pipelines (ensure min 4GB memory)
 
         mvn test -Dtest="**.functions.pipelines.**"
 
  - Run the individual experiments for specific tables/plots
-   (see experiments and TaskParallelExperiments)
+   (we recommend to run them one by one to facilitate debugging)
 
-   
-**Last Update:** Sep 20, 2024 (minor fixes)
+        ./01_getAndSummarizeData.sh
+        ./02_runExperimentsTables456.sh
+        ./03_runExperimentsTables78.sh
+        ./04_runExperimentsFigures34567.sh
+        ./05_runExperimentsFigures89.sh
+        ./06_runExperimentsFigure10.sh
+        ./07_runExperimentsTable9.sh
+
+**Last Update:** Nov 17, 2024 (more explicit instructions)
 

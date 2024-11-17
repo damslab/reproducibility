@@ -4,7 +4,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn import preprocessing
 
-data = "data/Food_Inspections.csv"
+data = "../data/Food_Inspections.csv"
 def prepareFood(data):
     df = pd.read_csv(data, header=0, sep=",", encoding="latin-1")
     df.drop("Inspection ID", axis=1, inplace=True)
