@@ -3,7 +3,7 @@
 # Set variables to be used in the other scripts.
 # Change these settings to specify what experiments to run, and machines to use.
 
-# Remote addresses These should be ssh accessable by name.
+# Remote addresses These should be ssh accessible by name.
 # Test by opening an terminal and writing 'ssh <name>' like 'ssh delta'
 address=("delta india mike papa romeo sierra uniform")
 
@@ -12,10 +12,10 @@ address=("delta india mike papa romeo sierra uniform")
 ## it is assumed main have faster and shorter internet connection to the other workers than
 ## the local machine
 main="tango"
-## Local machine name (hopefully the labtop you sit with should work nicely)
+## Local machine name (hopefully the laptop you sit with should work nicely)
 local_machine_name="XPS-15-7590"
 
-# IF YOU DONT HAVE A LIST OF REMOTE MACHINES: (This will not be perfomant and probably run out of memory)
+# IF YOU DONT HAVE A LIST OF REMOTE MACHINES: (This will not be performant and probably run out of memory)
 # address=("localhost localhost localhost")
 # main="localhost"
 
@@ -27,7 +27,7 @@ portForward=1
 
 # Set memory budget for the machines rule of thumb is 10% is in Xmn:
 if [ "$HOSTNAME" = "$local_machine_name" ]; then
-    # Local machine for WAN experiments use less memory (this is a labtop)
+    # Local machine for WAN experiments use less memory (this is a laptop)
     export SYSTEMDS_STANDALONE_OPTS="-Xmx30g -Xms30g -Xmn3000m"
 else
     # Distributed machines for LAN experiments 
@@ -42,7 +42,7 @@ export LOG4JPROP='code/conf/log4j-off.properties'
 remoteDir="reproducibility/sigmod2021-exdra-p523/experiments"
 
 # Systemds github hash used in paper submission for final experiments
-# This commit works in all experiments excpt PCA (mkl config)
+# This commit works in all experiments except PCA (mkl config)
 # This commit also does not create the data correctly, so start with the newer commit
 # is in our python api but that is not used for the actual performance
 # experiments.
