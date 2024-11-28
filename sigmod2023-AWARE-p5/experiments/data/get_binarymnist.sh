@@ -5,7 +5,7 @@ source parameters.sh
 source "$VENV_PATH/bin/activate"
 
 # Change base directory to data
-if [[ pwd != *"data"* ]]; then
+if [[ $(pwd) != *"data"* ]]; then
     cd "data"
 fi
 

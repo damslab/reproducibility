@@ -3,14 +3,17 @@
 echo "Beginning download of Census"
 
 # Change directory to data.
-if [[ pwd != *"data"* ]]; then
+if [[ $(pwd) != *"data"* ]]; then
     cd "data"
 fi
 
 # Download file if not already downloaded.
 if [[ ! -f "census/census.csv" ]]; then
     mkdir -p census/
-    wget -nv -O census/census.csv https://archive.ics.uci.edu/ml/machine-learning-databases/census1990-mld/USCensus1990.data.txt
+    wget -nv -O census/census.zip https://archive.ics.uci.edu/static/public/116/us+census+data+1990.zip
+    unzip census/census.zip USCensus1990.data.txt
+    mv USCensus1990.data.txt census/census.csv
+    rm census/census.zip
 else
     echo "Census is already downloaded"
 fi
