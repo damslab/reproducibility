@@ -6,7 +6,7 @@
 echo "Beginning download of Infinimnist"
 
 # Change base directory to data
-if [[ pwd != *"data"* ]]; then
+if [[ $(pwd) != *"data"* ]]; then
     cd "data"
 fi
 

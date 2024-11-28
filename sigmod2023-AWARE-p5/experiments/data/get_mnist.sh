@@ -3,7 +3,7 @@
 echo "Beginning download of mnist"
 
 # Change directory to data.
-if [[ pwd != *"data"* ]]; then
+if [[ $(pwd) != *"data"* ]]; then
     cd "data"
 fi
 
