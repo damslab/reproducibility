@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [[ ! -d "/usr/lib/jvm/java-8-openjdk-amd64" ]]; then 
+    echo "failed to load java 8 path."
+    exit -1
+fi
+
 JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
 PATH="/usr/lib/jvm/java-8-openjdk-amd64/bin":$PATH
 

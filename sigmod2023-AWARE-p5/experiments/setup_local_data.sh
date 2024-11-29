@@ -1,5 +1,4 @@
 #!/bin/bash
-
 source parameters.sh
 
 if [ ! -d "$SYSTEMDS_ROOT" ]; then

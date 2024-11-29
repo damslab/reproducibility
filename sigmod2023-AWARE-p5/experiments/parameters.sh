@@ -12,7 +12,7 @@ systemDSID="c6195020bf19c9e50f091cfc120bd2ec1805c00e"
 # SSH address of the machine running experiments.
 address=(so001)
 # Name of laptop if you are using one.
-laptop="XPS-15-7590"
+laptop="P14s-G4"
 
 # The directory on the remote machine to copy results from... (again if wanted)
 # This path should match the location of cloning the reproducability repository.
@@ -50,9 +50,10 @@ export SYSDS_QUIET=1
 # Machine parameters for memory consumption
 # Note the distributed options are needed for running in spark.
 if [ "$HOSTNAME" = "$laptop" ]; then
+    # export SYSTEMDS_STANDALONE_OPTS="-Xmx42g -Xms42g -Xmn4200m"
     # export SYSTEMDS_STANDALONE_OPTS="-Xmx32g -Xms32g -Xmn3200m"
-    export SYSTEMDS_STANDALONE_OPTS="-Xmx30g -Xms30g -Xmn3000m"
-    # export SYSTEMDS_STANDALONE_OPTS="-Xmx24g -Xms24g -Xmn2400m"
+    # export SYSTEMDS_STANDALONE_OPTS="-Xmx30g -Xms30g -Xmn3000m"
+    export SYSTEMDS_STANDALONE_OPTS="-Xmx24g -Xms24g -Xmn2400m"
     # export SYSTEMDS_STANDALONE_OPTS="-Xmx16g -Xms16g -Xmn1600m"
     # export SYSTEMDS_STANDALONE_OPTS="-Xmx8g -Xms8g -Xmn800m"
 elif [ "$HOSTNAME" = "alpha" ]; then
