@@ -69,29 +69,29 @@ for instances in $(seq 0 250 15000); do
           echo -n "${exp_type},${instances},${runtime_python}," | tee -a "$data_file"
 
           #by-row
-          runtime_r=$(runSystemDS_local ./shapley-permutation-experiment.dml -stats 1 -nvargs ${data_str} n_permutations=${permutations} integration_samples=${samples} rows_to_explain=${instances} write_to_file=0 execution_policy=by-row 2>/dev/null | grep "Total elapsed time" | awk '{print $4}' | tr \, \.)
+          runtime_r=$(./runSystemDS_local ./shapley-permutation-experiment.dml -stats 1 -nvargs ${data_str} n_permutations=${permutations} integration_samples=${samples} rows_to_explain=${instances} write_to_file=0 execution_policy=by-row 2>/dev/null | grep "Total elapsed time" | awk '{print $4}' | tr \, \.)
           echo -n "${runtime_r}," | tee -a "$data_file"
 
           #by-row non var
-          runtime_r_non_var="-1"#$(runSystemDS_local ./shapley-permutation-experiment.dml -stats 1 -nvargs ${data_str} remove_non_var=1 n_permutations=${permutations} integration_samples=${samples} rows_to_explain=${instances} write_to_file=0 execution_policy=by-row 2>/dev/null | grep "Total elapsed time" | awk '{print $4}' | tr \, \.)
+          runtime_r_non_var="-1"#$(./runSystemDS_local ./shapley-permutation-experiment.dml -stats 1 -nvargs ${data_str} remove_non_var=1 n_permutations=${permutations} integration_samples=${samples} rows_to_explain=${instances} write_to_file=0 execution_policy=by-row 2>/dev/null | grep "Total elapsed time" | awk '{print $4}' | tr \, \.)
           echo -n "${runtime_r_non_var}," | tee -a "$data_file"
 
           #by-row partitioned
-          runtime_r_partitioned="-1"#$(runSystemDS_local ./shapley-permutation-experiment.dml -stats 1 -nvargs ${data_str} remove_non_var=0 use_partitions=1 n_permutations=${permutations} integration_samples=${samples} rows_to_explain=${instances} write_to_file=0 execution_policy=by-row  2>/dev/null | grep "Total elapsed time" | awk '{print $4}' | tr \, \.)
+          runtime_r_partitioned="-1"#$(./runSystemDS_local ./shapley-permutation-experiment.dml -stats 1 -nvargs ${data_str} remove_non_var=0 use_partitions=1 n_permutations=${permutations} integration_samples=${samples} rows_to_explain=${instances} write_to_file=0 execution_policy=by-row  2>/dev/null | grep "Total elapsed time" | awk '{print $4}' | tr \, \.)
           echo -n "${runtime_r_partitioned}," | tee -a "$data_file"
 
           #by-permutation
-          runtime_p="-1"#$(runSystemDS_local ./shapley-permutation-experiment.dml -stats 1 -nvargs ${data_str} n_permutations=${permutations} integration_samples=${samples} rows_to_explain=${instances} write_to_file=0 execution_policy=by-permutation 2>/dev/null | grep "Total elapsed time" | awk '{print $4}' | tr \, \.)
+          runtime_p="-1"#$(./runSystemDS_local ./shapley-permutation-experiment.dml -stats 1 -nvargs ${data_str} n_permutations=${permutations} integration_samples=${samples} rows_to_explain=${instances} write_to_file=0 execution_policy=by-permutation 2>/dev/null | grep "Total elapsed time" | awk '{print $4}' | tr \, \.)
           echo -n "${runtime_p}," | tee -a "$data_file"
           unset runtime_p
 
           #legacy
-          runtime_l=$(runSystemDS_local ./shapley-permutation-experiment.dml -stats 1 -nvargs ${data_str} n_permutations=${permutations} integration_samples=${samples} rows_to_explain=${instances} write_to_file=0 execution_policy=legacy 2>/dev/null | grep "Total elapsed time" | awk '{print $4}' | tr \, \.)
+          runtime_l=$(./runSystemDS_local ./shapley-permutation-experiment.dml -stats 1 -nvargs ${data_str} n_permutations=${permutations} integration_samples=${samples} rows_to_explain=${instances} write_to_file=0 execution_policy=legacy 2>/dev/null | grep "Total elapsed time" | awk '{print $4}' | tr \, \.)
           echo -n "${runtime_l}," | tee -a "$data_file"
           unset runtime_l
 
           #legacy-iterative
-          runtime_l_i=$(runSystemDS_local ./shapley-permutation-experiment.dml -stats 1 -nvargs ${data_str} n_permutations=${permutations} integration_samples=${samples} rows_to_explain=${instances} write_to_file=0 execution_policy=legacy-iterative 2>/dev/null | grep "Total elapsed time" | awk '{print $4}' | tr \, \.)
+          runtime_l_i=$(./runSystemDS_local ./shapley-permutation-experiment.dml -stats 1 -nvargs ${data_str} n_permutations=${permutations} integration_samples=${samples} rows_to_explain=${instances} write_to_file=0 execution_policy=legacy-iterative 2>/dev/null | grep "Total elapsed time" | awk '{print $4}' | tr \, \.)
           echo -n "${runtime_l_i}" | tee -a "$data_file"
           unset runtime_l_i
 

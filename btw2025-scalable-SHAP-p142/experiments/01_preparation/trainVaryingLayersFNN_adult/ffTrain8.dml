@@ -11,7 +11,7 @@ X = read("../10_data/adult/Adult_X.csv");
 y = read("../10_data/adult/Adult_y.csv");
 y = y-1
 
-print("--> Training Model with 2 hidden layers")
+print("--> Training Model with 8 hidden layers")
 #ffTrain(X=X,Y=y,out_activation="sigmoid", loss_fcn="l2", validation_split=0.4, verbose=TRUE, epochs=20)
 
 N = nrow(X) # number of samples
