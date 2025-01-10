@@ -1,0 +1,15 @@
+print("-> Reading Data")
+X = read("../10_data/adult/Adult_X.csv")
+y = read("../10_data/adult/Adult_y.csv")
+
+print("-> Training multiLogReg")
+[Xtrain,Xtest,ytrain,ytest] = split(X=X,Y=y,f=0.7,cont=FALSE,seed=7)
+# learn model
+B = multiLogReg(X=Xtrain, Y=ytrain, maxii=50, icpt=2, reg=0.001, verbose=TRUE);
+
+print("-> Testing Model")
+[M,yhat,acc] = multiLogRegPredict(X=Xtrain, B=B, Y=ytrain, verbose=TRUE);
+[M,yhat,acc] = multiLogRegPredict(X=Xtest, B=B, Y=ytest, verbose=TRUE);
+
+print("-> Writing Model")
+write(B, "../10_data/adult/models/Adult_MLR.csv", format="csv")
