@@ -29,4 +29,4 @@ else
 fi
 
 echo "Installing required packages."
-pip install "numpy<=1.24.3" pandas scipy scikit-learn tensorflow
+pip install "numpy<=1.24.3" pandas scipy scikit-learn tensorflow shap

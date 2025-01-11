@@ -58,28 +58,29 @@ df_y = pd.read_csv(args.data_dir+args.data_y, header=None)
 
 #%%
 #load model
-model = load(args.data_dir+"models/"+args.model_type+".joblib")
-X_train, X_test, y_train, y_test = sk.model_selection.train_test_split(df_x.values, df_y.values.ravel(), test_size=0.2, random_state=42)
-if args.model_type == "ffn":
-    y_train = y_train - 1
-    y_test = y_test - 1
-#%%
-#test model
-y_pred = model.predict(X_test)
-
-if args.model_type == "multiLogReg":
-    accuracy = sk.metrics.accuracy_score(y_test, y_pred)
-    conf_matrix = sk.metrics.confusion_matrix(y_test, y_pred)
-
-    if not args.silent:
-        print(f"Accuracy: {accuracy}")
-        print(f"Confusion Matrix:\n{conf_matrix}")
-
-#%%
-#add faster svm function
-bias=[]
-if args.model_type == "l2svm":
-    bias = np.genfromtxt(args.data_dir+"census_bias.csv", delimiter=',')
+if args.model_type != "l2svm":
+    model = load(args.data_dir+"models/"+args.model_type+".joblib")
+    X_train, X_test, y_train, y_test = sk.model_selection.train_test_split(df_x.values, df_y.values.ravel(), test_size=0.2, random_state=42)
+    if args.model_type == "ffn":
+        y_train = y_train - 1
+        y_test = y_test - 1
+    #%%
+    #test model
+    y_pred = model.predict(X_test)
+    
+    if args.model_type == "multiLogReg":
+        accuracy = sk.metrics.accuracy_score(y_test, y_pred)
+        conf_matrix = sk.metrics.confusion_matrix(y_test, y_pred)
+    
+        if not args.silent:
+            print(f"Accuracy: {accuracy}")
+            print(f"Confusion Matrix:\n{conf_matrix}")
+else:
+    #%%
+    #add faster svm function
+    bias=[]
+    if args.model_type == "l2svm":
+        bias = np.genfromtxt(args.data_dir+"models/Census_SVM.csv", delimiter=',')
 def l2svmPredict(X):
     W=bias
     n, m = X.shape
