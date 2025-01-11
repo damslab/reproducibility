@@ -1,6 +1,6 @@
 #!/bin/bash
 # HDFS directory to upload the folder to
-HDFS_DIR="/user/hadoop/shap"
+HDFS_DIR="/user/hadoop/scalabe-shap"
 LOCAL_FOLDER="../10_data"
 
 # Check if HDFS is available
