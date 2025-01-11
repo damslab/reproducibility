@@ -1,7 +1,8 @@
 #!/bin/bash
 set -e   # fail on any error
 echo "Beginning download of Adult Dataset"
-
+ 
+mkdir -p ../10_data
 cd ../10_data
 
 # Download file if not already downloaded.
@@ -11,7 +12,7 @@ if [[ ! -f "adult/Adult.csv" ]]; then
     #the download is very slow
     wget -nv -O adult/Adult.csv https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data
     if [[ -f "adult/Adult.csv" ]]; then
-      sed -i '' '$d' adult/Adult.csv; # fix empty line at end of file
+      sed -i '$d' adult/Adult.csv; # fix empty line at end of file
       echo "Successfully downloaded Adult dataset."
     else
       echo "Could not download Adult dataset."
