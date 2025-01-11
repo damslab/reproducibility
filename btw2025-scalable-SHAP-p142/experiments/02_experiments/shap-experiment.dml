@@ -25,22 +25,20 @@
 # also, store meatadata M from transformencode to use partitions
 
 source("experimental-versions/shapley-permutation-opt.dml") as shapleyPermutation
-source("experimental-versions/shapley-permutation-cluster.dml") as shapleyPermutationCluster
 source("experimental-versions/shapley-permutation.dml") as shapleyPermutationLegacy
 source("../0_preparation/train-systemds/ffn_layer_variation/ffPredict_layerVariation.dml") as ffPredict_layerVariation
 #maybe neccessary to manually use ff_pass instead of buitlin ffPRedcit
-#source("<path-to-ff_pass>") as ff_pass
 
 # defaults
 model_type= ifdef($model_type, "multiLogRegPredict")
 model_function="shap_"+model_type+"_custom"
-data_dir  = ifdef($data_dir, "../data/adult/")
+data_dir  = ifdef($data_dir, "../10_data/adult/")
 X_bg_path = ifdef($X_bg_path, "Adult_X.csv")
 B_path    = ifdef($B_path, "Adult_W.csv")
 metadata_path = ifdef($metadata_path, "Adult_meta.csv")
 
 # set model
-if ( model_type != "multiLogRegPredict" & model_type != "l2svmPredict" & model_type != "lmPredict" & model_type != "ffPredict" & model_type != "ffPredict_1l" & model_type != "ffPredict_2l" & model_type != "ffPredict_4l" & model_type != "ffPredict_8l" )
+if ( model_type != "multiLogRegPredict" & model_type != "l2svmPredict" & model_type != "ffPredict" & model_type != "ffPredict_1l" & model_type != "ffPredict_2l" & model_type != "ffPredict_4l" & model_type != "ffPredict_8l" )
   stop("Unknown model type: "+model_type)
 
 # set the total number of permutations from the commandline using `-nvargs n_permutations=10`
@@ -78,23 +76,7 @@ x = X_bg[1:rows_to_explain,]
 
 
 #compute shapley values
-if(execution_policy == 'final-parallel'){
-  #final builtin method
-  # LanguageException -- ERROR: [line 0:0] -- Function shapExplainer() is undefined.
-  #[S, expected] = shapExplainer(
-  #model_function=model_function,
-  #model_args=list(B=B),
-  #x_multirow=x,
-  #X_bg=X_bg,
-  #n_permutations=n_permutations,
-  #integration_samples=integration_samples,
-  #remove_non_var=remove_non_var,
-  #partitions=partitions,
-  #seed=-1,
-  #verbose=1
-  #)
-
-} else if (execution_policy == 'legacy-iterative') {
+if (execution_policy == 'legacy-iterative') {
   #first version using iterative operations instead of vectorized ones
   print("Using iterative legacy approach.")
   S = matrix(0, rows=nrow(x), cols=ncol(x))
@@ -164,8 +146,6 @@ shap_l2svmPredict_custom = function(Matrix[Double] X, Matrix[Double] B)
 # function to wrap ffPredict to make sure its outputs are compatible
 shap_ffPredict_custom = function(Matrix[Double] X, List[unknown] B)
 return( Matrix[Double] P){
-  #output = ff_pass::feedForward(X, B, TRUE)
-  #P = as.matrix(output[length(output)])
   P = ffPredict(model=B, X=X, batch_size=512)
 }
 
@@ -177,15 +157,15 @@ return( Matrix[Double] P){
 
 shap_ffPredict_2l_custom = function(Matrix[Double] X, List[unknown] B)
 return( Matrix[Double] P){
-P = ffPredict_layerVariation::ffPredict2(model=B, X=X, batch_size=512)
+  P = ffPredict_layerVariation::ffPredict2(model=B, X=X, batch_size=512)
 }
 
 shap_ffPredict_4l_custom = function(Matrix[Double] X, List[unknown] B)
 return( Matrix[Double] P){
-P = ffPredict_layerVariation::ffPredict4(model=B, X=X, batch_size=512)
+  P = ffPredict_layerVariation::ffPredict4(model=B, X=X, batch_size=512)
 }
 
 shap_ffPredict_8l_custom = function(Matrix[Double] X, List[unknown] B)
 return( Matrix[Double] P){
-P = ffPredict_layerVariation::ffPredict8(model=B, X=X, batch_size=512)
+  P = ffPredict_layerVariation::ffPredict8(model=B, X=X, batch_size=512)
 }
