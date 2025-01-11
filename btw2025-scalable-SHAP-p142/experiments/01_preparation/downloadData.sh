@@ -30,8 +30,8 @@ if [[ ! -f "census/Census.csv" ]]; then
     mkdir -p census/
     mkdir -p census/models
     #the download is very slow
-    wget -nv -O census/census.csv https://kdd.ics.uci.edu/databases/census1990/USCensus1990.data.txt
-    if [[ -f "census/census.csv" ]]; then
+    wget -nv -O census/Census.csv https://kdd.ics.uci.edu/databases/census1990/USCensus1990.data.txt
+    if [[ -f "census/Census.csv" ]]; then
       echo "Successfully downloaded census dataset."
     else
       echo "Could not download dataset."
