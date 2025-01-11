@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -e
 echo "Installing apt packages (java, maven, git etc.)"
 sudo apt update
 sudo apt install -y openjdk-11-jdk-headless

@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # HDFS directory to upload the folder to
 HDFS_DIR="/user/hadoop/shap"
 LOCAL_FOLDER="../10_data"

@@ -43,8 +43,8 @@ from joblib import dump
 # In[41]:
 
 
-X = pd.read_csv("../data/adult/Adult_X.csv", header=None).values
-y = pd.read_csv("../data/adult/Adult_y.csv", header=None).values - 1
+X = pd.read_csv("../10_data/adult/Adult_X.csv", header=None).values
+y = pd.read_csv("../10_data/adult/Adult_y.csv", header=None).values - 1
 
 
 X_train, X_test, y_train, y_test = train_test_split(
@@ -87,7 +87,7 @@ model.evaluate(X_test, y_test)
 
 
 # In[64]:
-dump(model, "../data/adult/ffn.joblib")
+dump(model, "../data/adult/models/ffn.joblib")
 
 
 

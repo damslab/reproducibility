@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 #based on https://github.com/damslab/reproducibility/blob/master/vldb2022-UPLIFT-p2528/libraries/buildSource.sh by @phaniarnab
 
 echo "Clone Apache SystemDS repository"

@@ -30,14 +30,14 @@ from joblib import dump, load
 # for command line args
 import argparse
 parser=argparse.ArgumentParser(description="Prepare Models for permutation shap experiments.")
-parser.add_argument("--data-dir", default="../data/adult/", help="Path to CSV with X data.")
+parser.add_argument("--data-dir", default="../10_data/adult/", help="Path to CSV with X data.")
 parser.add_argument("--data-x", default="Adult_X.csv", help="Path to CSV with X data.")
 parser.add_argument("--data-y", default="Adult_y.csv", help="Path to CSV with y data.")
 parser.add_argument("--model-type", default="multiLogReg", help="Model type to prepare.")
 args=parser.parse_args()
 
 #load prepared data into dataframe
-
+print(f"Reading data at {args.data_dir+args.data_x} and {args.data_dir+args.data_y}")
 df_x = pd.read_csv(args.data_dir+args.data_x, header=None)
 df_y = pd.read_csv(args.data_dir+args.data_y, header=None)
 X_train, X_test, y_train, y_test = train_test_split(df_x.values, df_y.values.ravel(), test_size=0.2, random_state=42)
@@ -73,4 +73,4 @@ if args.model_type == "l2svm":
 
 
 #safe model to disk
-dump(model, args.data_dir+args.model_type+".joblib")
+dump(model, args.data_dir+"models/"+args.model_type+".joblib")
