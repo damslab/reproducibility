@@ -1,5 +1,6 @@
 .idea/
 /experiments/10_data/*
 /experiments/00_setup/systemds/
+/experiments/python-venv/
 /experiments/lib/
 /experiments/SystemDS.jar

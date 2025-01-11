@@ -11,6 +11,3 @@ sudo apt install -y python3-dev python3-pip python3-venv
 sudo apt install -y r-base
 sudo apt install -y texlive-extra-utils #for pdfcrop
 export JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk-amd64
-
-echo "Installing python packages"
-pip install numpy pandas scipy scikit-learn tensorflow

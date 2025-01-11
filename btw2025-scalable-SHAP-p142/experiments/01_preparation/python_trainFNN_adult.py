@@ -35,14 +35,13 @@ from tensorflow.keras.optimizers import SGD
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
 import pandas as pd
-import shap
 
 from joblib import dump
 
 
 # In[41]:
 
-
+print("Reading data")
 X = pd.read_csv("../10_data/adult/Adult_X.csv", header=None).values
 y = pd.read_csv("../10_data/adult/Adult_y.csv", header=None).values - 1
 
@@ -76,6 +75,8 @@ model = create_model(input_size, hidden_size, output_size, drop_out)
 optimizer = SGD(learning_rate=learning_rate)
 model.compile(optimizer=optimizer, loss='mse', metrics=['accuracy'])
 
+print("Traing model")
+
 # Training
 model.fit(X_train, y_train, epochs=epochs, batch_size=batch_size, validation_data=(X_test, y_test))
 
@@ -85,9 +86,9 @@ model.fit(X_train, y_train, epochs=epochs, batch_size=batch_size, validation_dat
 # In[56]:
 model.evaluate(X_test, y_test)
 
-
+print("Storing model")
 # In[64]:
-dump(model, "../data/adult/models/ffn.joblib")
+dump(model, "../10_data/adult/models/ffn.joblib")
 
 
 

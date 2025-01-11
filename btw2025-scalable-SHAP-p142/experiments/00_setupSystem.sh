@@ -8,6 +8,8 @@ cd ./00_setup
 
 ./systemSetup.sh
 
+./pythonSetup.sh
+
 ./buildSystemDS.sh
 
 ./checkSpark.sh
