@@ -26,7 +26,7 @@
 
 source("experimental-versions/shapley-permutation-opt.dml") as shapleyPermutation
 source("experimental-versions/shapley-permutation.dml") as shapleyPermutationLegacy
-source("../0_preparation/train-systemds/ffn_layer_variation/ffPredict_layerVariation.dml") as ffPredict_layerVariation
+source("../01_preparation/trainVaryingLayersFNN_adult/ffPredict_layerVariation.dml") as ffPredict_layerVariation
 #maybe neccessary to manually use ff_pass instead of buitlin ffPRedcit
 
 # defaults
@@ -59,7 +59,7 @@ use_partitions = ifdef($use_partitions, 0)
 
 #read data
 X_bg = read(data_dir+X_bg_path)
-B = read(B_path)
+B = read(data_dir+B_path)
 
 if (use_partitions == 1){
   #partitions can be generated from dummycoding-metadata using shapleyUtils::meatadataToPartitions(metadata=metadata)

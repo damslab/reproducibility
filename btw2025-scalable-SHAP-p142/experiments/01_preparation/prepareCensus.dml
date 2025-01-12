@@ -1,3 +1,5 @@
+source("../02_experiments/experimental-versions/shapley-utils.dml") as shapleyUtils
+
 print("-> Reading Data Census")
 F = read("../10_data/census/Census.csv", data_type="frame", format="csv", header=TRUE)
 
@@ -40,10 +42,12 @@ y_corrected = (y == min(y))
 # Scale input
 [X2, Centering, ScaleFactor] = scale(X2, FALSE, FALSE)
 
-# Continuous split ... aka not random.
+print("-> Preparing metadata into partitions")
+partitions = shapleyUtils::meatadataToPartitions(metadata=M)
 
 print("-> Writing prepared data")
-write(M, "../10_data/census/census_dummycoding_meta.csv", format="csv")
+write(M, "../10_data/census/Census_dummycoding_meta.csv", format="csv")
+write(partitions, "../10_data/census/Census_partitions.csv", format="csv")
 X=X2[1:30000]
 write(X, "../10_data/census/Census_X.csv", format="csv")
 y=y_corrected[1:30000]
