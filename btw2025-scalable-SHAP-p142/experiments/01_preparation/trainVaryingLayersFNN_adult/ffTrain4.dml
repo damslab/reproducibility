@@ -129,6 +129,6 @@ for (e in 1:epochs) {
 
 print("-->Storing model")
 model = list(W1=W1, b1=b1, W11=W11, b11=b11, W12=W12, b12=b12, W13=W13, b13=b13, W2=W2, b2=b2)
-write(model, "../10_data/adult/models/Adult_FFN_4l.bin", format="binary")
+write(model, "../10_data/adult/models/Adult_FNN_4l.bin", format="binary")
 
 print("- DONE -")
