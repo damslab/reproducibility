@@ -21,7 +21,6 @@
 #-------------------------------------------------------------
 #
 #Runs systemds multiple times and stores resulting runtimes and sample sizes in file
-set -e
 
 data_file="${1:-runtimes_local.csv}"
 incr_instances="${2:-250}"
@@ -35,14 +34,14 @@ samples=100
 adult_data_sysds_str="data_dir=../10_data/adult/ X_bg_path=Adult_X.csv B_path=models/Adult_MLR.csv metadata_path=Adult_partitions.csv model_type=multiLogRegPredict"
 adult_data_python_str="--data-dir=../10_data/adult/ --data-x=Adult_X.csv --model-type=multiLogReg"
 
-#ffn
-adult_ffn_data_sysds_str="data_dir=../10_data/adult/ X_bg_path=Adult_X.csv B_path=ffn_model.bin metadata_path=Adult_partitions.csv model_type=ffPredict"
-adult_ffn_data_python_str="--data-dir=../10_data/adult/ --data-x=Adult_X.csv --model-type=ffn"
+#fnn
+adult_fnn_data_sysds_str="data_dir=../10_data/adult/ X_bg_path=Adult_X.csv B_path=models/Adult_FNN.bin metadata_path=Adult_partitions.csv model_type=ffPredict"
+adult_fnn_data_python_str="--data-dir=../10_data/adult/ --data-x=Adult_X.csv --model-type=fnn"
 
 census_data_sysds_str="data_dir=../10_data/census/ X_bg_path=Census_X.csv B_path=models/Census_SVM.csv metadata_path=Census_partitions.csv model_type=l2svmPredict"
 census_data_python_str="--data-dir=../10_data/census/ --data-x=Census_X.csv --data-y=Census_y_corrected.csv --model-type=l2svm"
 
-exp_type_array=("adult_linlogreg" "census_l2svm" "adult_ffn")
+exp_type_array=("adult_linlogreg" "census_l2svm" "adult_fnn")
 
 echo "Outputfile: $data_file"
 echo "Errors got to $stderr_file"
@@ -63,9 +62,9 @@ for instances in $(seq 0 $incr_instances $max_instances); do
           elif [ "$exp_type" = "census_l2svm" ]; then
               data_str=$census_data_sysds_str
               py_str=$census_data_python_str
-          elif [ "$exp_type" = "adult_ffn" ]; then
-              data_str=$adult_ffn_data_sysds_str
-              py_str=$adult_ffn_data_python_str
+          elif [ "$exp_type" = "adult_fnn" ]; then
+              data_str=$adult_fnn_data_sysds_str
+              py_str=$adult_fnn_data_python_str
           else
               echo "Exp type unknown: $exp_type"
               exit 1
@@ -75,8 +74,8 @@ for instances in $(seq 0 $incr_instances $max_instances); do
 	  echo "Running experiments for model type $exp_type with $permutations permutations  and $instances instances..."
 	  echo "======================================================================"
           echo -n "${exp_type},${instances}," | tee -a "$data_file"
-          #python
-          runtime_python=$(python ./shap-experiment-python.py ${py_str} --n-permutations=${permutations} --n-instances=${instances} --silent --just-print-t 2>>$stderr_file)
+          #python with tmp file, since tqdm may mess up output
+	  runtime_python=$(python ./shap-experiment-python.py ${py_str} --n-permutations=${permutations} --n-instances=${instances} --silent --just-print-t 2>>"$stderr_file")
           echo -n "${runtime_python}," | tee -a "$data_file"
 
           #by-row

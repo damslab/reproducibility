@@ -88,7 +88,7 @@ model.evaluate(X_test, y_test)
 
 print("Storing model")
 # In[64]:
-dump(model, "../10_data/adult/models/ffn.joblib")
+dump(model, "../10_data/adult/models/fnn.joblib")
 
 
 

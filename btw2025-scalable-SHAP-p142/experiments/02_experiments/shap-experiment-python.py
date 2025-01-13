@@ -46,6 +46,7 @@ parser.add_argument("--n-permutations", help="Number of permutations.", default=
 parser.add_argument("--n-samples", help="Number of permutations.", default=100)
 parser.add_argument('--silent', action='store_true', help='Don\'t print a thing.')
 parser.add_argument('--just-print-t', action='store_true', help='Don\'t store, just print time at end.')
+parser.add_argument('--write-t-to', default="", help='Write time to file so testscript can read it from there.')
 args=parser.parse_args()
 
 
@@ -61,17 +62,18 @@ df_y = pd.read_csv(args.data_dir+args.data_y, header=None)
 if args.model_type != "l2svm":
     model = load(args.data_dir+"models/"+args.model_type+".joblib")
     X_train, X_test, y_train, y_test = sk.model_selection.train_test_split(df_x.values, df_y.values.ravel(), test_size=0.2, random_state=42)
-    if args.model_type == "ffn":
+
+    if args.model_type == "fnn":
         y_train = y_train - 1
         y_test = y_test - 1
-    #%%
-    #test model
-    y_pred = model.predict(X_test)
-    
-    if args.model_type == "multiLogReg":
-        accuracy = sk.metrics.accuracy_score(y_test, y_pred)
-        conf_matrix = sk.metrics.confusion_matrix(y_test, y_pred)
-    
+        y_pred = model.predict(X_test, verbose=0)
+    else:
+        y_pred = model.predict(X_test)
+        
+        if args.model_type == "multiLogReg":
+            accuracy = sk.metrics.accuracy_score(y_test, y_pred)
+            conf_matrix = sk.metrics.confusion_matrix(y_test, y_pred)
+        
         if not args.silent:
             print(f"Accuracy: {accuracy}")
             print(f"Confusion Matrix:\n{conf_matrix}")
@@ -102,7 +104,7 @@ if args.model_type == "multiLogReg":
     permutation_explainer = shap.explainers.Permutation(model.predict_proba, shap.maskers.Independent(df_x.values, max_samples=int(args.n_samples)))
 elif args.model_type == "l2svm":
     permutation_explainer = shap.explainers.Permutation(l2svmPredict, shap.maskers.Independent(df_x.values, max_samples=int(args.n_samples)))
-elif args.model_type == "ffn":
+elif args.model_type == "fnn":
     predict_func = lambda x: model.predict(x, verbose=0, batch_size=1028)
     permutation_explainer = shap.explainers.Permutation(predict_func, shap.maskers.Independent(df_x.values, max_samples=int(args.n_samples)))
 else:
@@ -121,6 +123,9 @@ if not args.silent:
 
 if args.just_print_t:
     print(str(total_t))
+if args.write_t_to != "":
+    with open(args.write_t_to, "w") as tempfile:
+        tempfile.write(str(total_t))
 else:
     df_shap_values = pd.DataFrame(shap_values.values)
     df_shap_values.to_pickle(args.data_dir+args.result_file_name)
