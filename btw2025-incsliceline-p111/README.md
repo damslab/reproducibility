@@ -19,11 +19,11 @@
  * KDD'98: <https://archive.ics.uci.edu/ml/machine-learning-databases/kddcup98-mld/epsilon_mirror/cup98lrn.zip>
  * US Census: <https://tubcloud.tu-berlin.de/s/yWafF6pnZ6Ywdok/download/USCensus.csv>
 
-**Hardware and Software Info:** The experiments use a single scale-out AMD server:
+**Hardware and Software Info:** The experiments use a single scale-out server node:
  * Scale-out node: single AMD EPYC 7443P CPU at 2.8-4.0 GHz (24 physical/48 virtual cores), 256GB DDR4 RAM at 3.2 GHz balanced across 8 memory channels, 2 x 480 GB SATA SSDs (system), 8 x 2TB SATA HDDs (data).
  * The software stack comprises Ubuntu 20.04.6, Apache Hadoop 3.3, Apache Spark 3.5, OpenJDK 11 (with -Xmx200g -Xms200g), and Apache SystemDS from the main branch (as of Jan 03, 2025).
 
-**Setup and Experiments:** The repository is pre-populated with the paper's experimental results (`./results`), individual plots (`./plots`), and SystemDS source code. The entire experimental evaluation can be run via `./runAll.sh`, which deletes the results and plots and performs setup, dataset download and preparation, local experiments, and plotting. However, for a more controlled evaluation, we recommend running the individual steps separately:
+**Setup and Experiments:** The repository is pre-populated with the paper's experimental results (`./results`), individual plots (`./plots`), and SystemDS source code. The entire experimental evaluation can be run via `./runAll.sh`, which deletes the results and plots and performs setup, dataset download and preparation, local experiments, and plotting. However, for a more controlled evaluation, we recommend running the individual steps separately (e.g., via `nohup ./run5Experiments.sh &`):
 
     ./run1SetupDependencies.sh;
     ./run2SetupSystemDS.sh;
