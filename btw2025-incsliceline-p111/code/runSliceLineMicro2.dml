@@ -1,0 +1,65 @@
+# get the datasets
+X1 = read("./data/Adult_X.csv");
+e1 = read("./data/Adult_o_e.csv");
+X2 = read("./data/Covtype_X.csv");
+e2 = read("./data/Covtype_o_e.csv");
+X = list(X1, X2);
+e = list(e1, e2);
+k = 10;
+
+#encodeLat=$1
+pruning = $1;
+
+alpha = 0.95
+tpSize = 16
+
+#warmup
+sigma = max(ceil(0.01 * nrow(X1)), 8);
+[S,C,D] = sliceLine(X=X1, e=e1, k=k, maxL=0, alpha=alpha, minSup=sigma, tpBlksz=tpSize, verbose=TRUE);
+Dl = list();
+
+numAdded = 2^seq(0,14)
+R = matrix(0, nrow(numAdded), 3*2+1)
+for(i in 1:nrow(numAdded)) {
+  numAdded0 = as.scalar(numAdded[i,1]);
+  R[i,1] = numAdded0;
+  for(j in 1:2) { # for all datasets
+    X0 = as.matrix(X[j]);
+    e0 = as.matrix(e[j]);
+    sigma = max(ceil(0.01 * nrow(X0)), 8)
+    L = ifelse(j>=2, ifelse(j==4, 4, 3), 0);
+
+    # run slice line
+    t1 = time();
+    [S,C,D] = sliceLine(X=X0, e=e0, k=k, maxL=L, alpha=alpha, minSup=sigma, tpBlksz=tpSize, verbose=TRUE);
+    t2 = time();
+
+    Xa=X0[1:nrow(X0)-numAdded0,];
+    ea=e0[1:nrow(e0)-numAdded0,];
+    Xb=X0[nrow(X0)-numAdded0:nrow(X0),]
+    eb=e0[nrow(e0)-numAdded0:nrow(e0),]
+
+    # run incremental slice line init
+    t3 = time();
+      [TK, TKC, D, Lat, meta, Stats, Xout, eOut, foffb, foffe, params] = incSliceLine(addedX=Xa, addedE=ea,
+        k=k, alpha=alpha, minSup=sigma, maxL=L, tpBlksz=tpSize, encodeLat=FALSE, verbose=TRUE);
+    t4 = time();
+    Dl = append(Dl, D)
+
+    # run incremental slice line adapt
+    t5 = time();
+    [TK1, TKC1, D1, Lat1, meta1, Stats1, Xout1, eOut1, foffb2, foffe2, params] = incSliceLine(addedX=Xb, oldX = Xa,
+      oldE = ea, addedE=eb, prevLattice = Lat, metaPrevLattice=meta, prevStats = Stats, prevTK = TK, prevTKC = TKC, k=k,
+      maxL=L, alpha=alpha, minSup=sigma, tpBlksz=tpSize, encodeLat=FALSE, indicesRemoved=matrix(0,0,0),
+      verbose=TRUE, params=params, prevFoffb = foffb, prevFoffe = foffe, pruningStrat=pruning);
+    t6 = time();
+    Dl = append(Dl, D);
+    print("EXPERIMENT (full, init, incr): "+(t2-t1)/1e9+" "+(t4-t3)/1e9+" "+(t6-t5)/1e9);
+    R[i,(3*(j-1)+2):(3*j)+1] = t(as.matrix(list((t2-t1)/1e9, (t4-t3)/1e9, (t6-t5)/1e9)))
+  }
+}
+
+
+print(sum(TK))
+write(R, "./results/Exp2b_"+pruning+".csv", format="csv");
+write(Dl, "./results/Exp2b_"+pruning+"_debug.csv", format="csv");

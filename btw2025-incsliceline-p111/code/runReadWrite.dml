@@ -1,0 +1,3 @@
+fname = $1
+X = read(fname);
+write(X, fname+".mtx", format="mm");

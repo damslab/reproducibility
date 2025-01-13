@@ -1,0 +1,22 @@
+X1 = read("./data/Adult_X.csv");
+e1 = read("./data/Adult_o_e.csv");
+X2 = read("./data/Covtype_X.csv");
+e2 = read("./data/Covtype_o_e.csv");
+
+Xa = X1;
+Xb = X2;
+ea = e1;
+eb = e2;
+for(i in 1:10) {
+  write(Xa, "./data/Adult_X"+i+".bin", format="binary");
+  write(Xb, "./data/Covtype_X"+i+".bin", format="binary");
+  write(ea, "./data/Adult_o_e"+i+".bin", format="binary");
+  write(eb, "./data/Covtype_o_e"+i+".bin", format="binary");
+  while(FALSE){} #write first
+  Xa = rbind(Xa, X1);
+  Xb = rbind(Xb, X2);
+  ea = rbind(ea, e1);
+  eb = rbind(eb, e2);
+  print("Creating and writing replicated dataset ["+i+"]");
+}
+

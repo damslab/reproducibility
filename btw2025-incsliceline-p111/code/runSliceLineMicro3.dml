@@ -1,0 +1,82 @@
+# get the datasets
+X1 = read("./data/Adult_X1.bin");
+e1 = read("./data/Adult_o_e1.bin");
+X2 = read("./data/Adult_X2.bin");
+e2 = read("./data/Adult_o_e2.bin");
+X3 = read("./data/Adult_X3.bin");
+e3 = read("./data/Adult_o_e3.bin");
+X4 = read("./data/Adult_X4.bin");
+e4 = read("./data/Adult_o_e4.bin");
+X5 = read("./data/Adult_X5.bin");
+e5 = read("./data/Adult_o_e5.bin");
+X6 = read("./data/Adult_X6.bin");
+e6 = read("./data/Adult_o_e6.bin");
+X7 = read("./data/Adult_X7.bin");
+e7 = read("./data/Adult_o_e7.bin");
+X8 = read("./data/Adult_X8.bin");
+e8 = read("./data/Adult_o_e8.bin");
+X9 = read("./data/Adult_X9.bin");
+e9 = read("./data/Adult_o_e9.bin");
+X10 = read("./data/Adult_X10.bin");
+e10 = read("./data/Adult_o_e10.bin");
+
+X = list(X1, X2, X3, X4, X5, X6, X7, X8, X9, X10);
+e = list(e1, e2, e3, e4, e5, e6, e7, e8, e9, e10);
+k = 10;
+
+#encodeLat=$1
+pruning = $1;
+
+numRep = 5;
+alpha = 0.95
+tpSize = 16
+
+#warmup
+sigma = max(ceil(0.01 * nrow(X1)), 8);
+[S,C,D] = sliceLine(X=X1, e=e1, k=k, maxL=0, alpha=alpha, minSup=sigma, tpBlksz=tpSize, verbose=TRUE);
+
+R = matrix(0, 10, 4)
+for(i in 1:10) {
+  numAdded0 = 12;
+  R[i,1] = i; 
+  X0 = as.matrix(X[i]);    
+  e0 = as.matrix(e[i]); 
+  sigma =  max(ceil(0.01 * nrow(X0)), 8);
+  L = 0;
+
+    # run slice line
+  t1 = time(); 
+  for(ii in 1:numRep){
+    [S,C,D] = sliceLine(X=X0, e=e0, k=k, maxL=L, alpha=alpha, minSup=sigma, tpBlksz=tpSize, verbose=TRUE);
+  }
+  t2 = time();
+    
+  Xa=X0[1:nrow(X0)-numAdded0,];
+  ea=e0[1:nrow(e0)-numAdded0,];
+  Xb=X0[nrow(X0)-numAdded0:nrow(X0),]
+  eb=e0[nrow(e0)-numAdded0:nrow(e0),]
+
+  # run incremental slice line init
+  t3 = time();
+  for(ii in 1:numRep){   
+   [TK, TKC, D, Lat, meta, Stats, Xout, eOut, foffb, foffe, params] = incSliceLine(addedX=Xa, addedE=ea, 
+        k=k, alpha=alpha, minSup=sigma, maxL=L, tpBlksz=tpSize, encodeLat=FALSE, verbose=TRUE);
+  }  
+  t4 = time();
+ 
+  # run incremental slice line adapt
+  t5 = time();
+  for(ii in 1:numRep){ 
+   [TK1, TKC1, D1, Lat1, meta1, Stats1, Xout1, eOut1, foffb2, foffe2, params] = incSliceLine(addedX=Xb, oldX = Xa, 
+      oldE = ea, addedE=eb, prevLattice = Lat, metaPrevLattice=meta, prevStats = Stats, prevTK = TK, prevTKC = TKC, k=k,
+      maxL=L, alpha=alpha, minSup=sigma, tpBlksz=tpSize, encodeLat=FALSE, indicesRemoved=matrix(0,0,0), 
+      verbose=TRUE, params=params, prevFoffb = foffb, prevFoffe = foffe, pruningStrat=pruning);
+  }    
+  t6 = time();
+  print("EXPERIMENT (full, init, incr): "+(t2-t1)/1e9+" "+(t4-t3)/1e9+" "+(t6-t5)/1e9); 
+  R[i,2:4] = t(as.matrix(list((t2-t1)/1e9/numRep, (t4-t3)/1e9/numRep, (t6-t5)/1e9/numRep)))
+}
+
+
+print(sum(TK))
+write(R, "./results/Exp2c_"+pruning+".csv", format="csv");

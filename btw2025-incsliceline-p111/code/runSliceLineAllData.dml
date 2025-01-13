@@ -1,0 +1,59 @@
+# get the datasets
+X1 = read("./data/Adult_X.csv");
+e1 = read("./data/Adult_o_e.csv");
+X2 = read("./data/Covtype_X.csv");
+e2 = read("./data/Covtype_o_e.csv");
+X3 = read("./data/KDD98_X.csv");
+e3 = read("./data/KDD98_o_e.csv");
+X4 = read("./data/USCensus_X.csv");
+e4 = read("./data/USCensus_o_e.csv");
+X = list(X1, X2, X3, X4);
+e = list(e1, e2, e3, e4);
+k = 10;
+
+#encodeLat=$1
+pruning = $1;
+
+numRepetitions = 10;
+alpha = 0.95
+tpSize = 16
+
+R = matrix(0, numRepetitions, 3*4)
+for(i in 1:numRepetitions) {
+  for(j in 1:4) { # for all datasets
+    X0 = as.matrix(X[j]);    
+    e0 = as.matrix(e[j]); 
+    sigma = max(ceil(0.01 * nrow(X0)), 8)
+    L = ifelse(j>=2, ifelse(j==4, 4, 3), 0);
+
+    # run slice line
+    t1 = time(); 
+    [S,C,D] = sliceLine(X=X0, e=e0, k=k, maxL=L, alpha=alpha, minSup=sigma, tpBlksz=tpSize, verbose=TRUE);
+    t2 = time();
+    
+    Xa=X0[1:nrow(X0)-12,];
+    ea=e0[1:nrow(e0)-12,];
+    Xb=X0[nrow(X0)-12:nrow(X0),]
+    eb=e0[nrow(e0)-12:nrow(e0),]
+
+    # run incremental slice line init
+    t3 = time();
+    [TK, TKC, D, Lat, meta, Stats, Xout, eOut, foffb, foffe, params] = incSliceLine(addedX=Xa, addedE=ea, 
+        k=k, alpha=alpha, minSup=sigma, maxL=L, tpBlksz=tpSize, encodeLat=FALSE, verbose=TRUE);
+    t4 = time();
+    
+    # run incremental slice line adapt
+    t5 = time();
+    [TK1, TKC1, D1, Lat1, meta1, Stats1, Xout1, eOut1, foffb2, foffe2, params] = incSliceLine(addedX=Xb, oldX = Xa, 
+      oldE = ea, addedE=eb, prevLattice = Lat, metaPrevLattice=meta, prevStats = Stats, prevTK = TK, prevTKC = TKC, k=k,
+      maxL=L, alpha=alpha, minSup=sigma, tpBlksz=tpSize, encodeLat=FALSE, indicesRemoved=matrix(0,0,0), 
+      verbose=TRUE, params=params, prevFoffb = foffb, prevFoffe = foffe, pruningStrat=pruning);
+    t6 = time();
+    print("EXPERIMENT (full, init, incr): "+(t2-t1)/1e9+" "+(t4-t3)/1e9+" "+(t6-t5)/1e9); 
+    R[i,(3*(j-1)+1):(3*j)] = t(as.matrix(list((t2-t1)/1e9, (t4-t3)/1e9, (t6-t5)/1e9)))
+  }
+}
+
+
+print(sum(TK))
+write(R, "./results/Exp1_"+pruning+".csv", format="csv");
