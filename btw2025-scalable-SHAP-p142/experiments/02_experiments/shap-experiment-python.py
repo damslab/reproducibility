@@ -121,11 +121,11 @@ if not args.silent:
     print("Time:", total_t, "s")
 #%%
 
-if args.just_print_t:
-    print(str(total_t))
 if args.write_t_to != "":
     with open(args.write_t_to, "w") as tempfile:
         tempfile.write(str(total_t))
+if args.just_print_t:
+    print(str(total_t))
 else:
     df_shap_values = pd.DataFrame(shap_values.values)
     df_shap_values.to_pickle(args.data_dir+args.result_file_name)

@@ -7,8 +7,8 @@ echo "========================================================================"
 
 cd ./01_preparation
 
-#./downloadData.sh
-#./prepareAndTrain.sh
+./downloadData.sh
+./prepareAndTrain.sh
 
 if ../00_setup/checkSpark.sh; then
   echo "Trying to copy data and models to HDFS."

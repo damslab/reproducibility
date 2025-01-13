@@ -70,9 +70,7 @@ for instances in $(seq 0 $incr_instances $max_instances); do
               exit 1
           fi
 	  
-	  echo "======================================================================"
-	  echo "Running experiments for model type $exp_type with $permutations permutations  and $instances instances..."
-	  echo "======================================================================"
+	  echo "--> Model type $exp_type | $permutations permutations | $instances instances..."
           echo -n "${exp_type},${instances}," | tee -a "$data_file"
           #python with tmp file, since tqdm may mess up output
 	  runtime_python=$(python ./shap-experiment-python.py ${py_str} --n-permutations=${permutations} --n-instances=${instances} --silent --just-print-t 2>>"$stderr_file")
