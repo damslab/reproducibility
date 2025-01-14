@@ -1,8 +1,8 @@
 #!/bin/bash
 
-instances=50
-permutations=500
-samples=1000
+instances="${1:-50}"
+permutations="${2:-500}"
+samples="${3:-1000}"
 
 echo "Computing large baseline for Adult with python for $instances instances on $permutations permutaions with $samples. Depending on the setup, this may take >6h..."
 #adult
