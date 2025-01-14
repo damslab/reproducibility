@@ -33,6 +33,7 @@ source("../01_preparation/trainVaryingLayersFNN_adult/ffPredict_layerVariation.d
 model_type= ifdef($model_type, "multiLogRegPredict")
 model_function="shap_"+model_type+"_custom"
 data_dir  = ifdef($data_dir, "../10_data/adult/")
+output_dir = ifdef($output_dir, "../10_data/adult/")
 X_bg_path = ifdef($X_bg_path, "Adult_X.csv")
 B_path    = ifdef($B_path, "Adult_W.csv")
 metadata_path = ifdef($metadata_path, "Adult_meta.csv")
@@ -123,7 +124,7 @@ if( write_to_file == 1){
   #custom tag for results
   file_tag = ifdef($file_tag, "")
   print("Writing to file")
-  write(S, data_dir+"shap-values_permutation_"+n_permutations+"perm_"+integration_samples+"samples"+file_tag+".csv", format="csv")
+  write(S, output_dir+"shap-values_permutation_"+n_permutations+"perm_"+integration_samples+"samples"+file_tag+".csv", format="csv")
 }
 
 ############################
