@@ -22,7 +22,7 @@
 #
 #Runs systemds multiple times and stores resulting runtimes and sample sizes in file
 
-data_file="${1:-runtimes_local.csv}"
+data_file="${1:-../10_data/runtimes_local.csv}"
 incr_instances="${2:-250}"
 max_instances="${3:-15000}"
 stderr_file="${4:-errors_local.log}"
@@ -72,8 +72,7 @@ for instances in $(seq 0 $incr_instances $max_instances); do
 	  
 	  echo "--> Model type $exp_type | $permutations permutations | $instances instances..."
           echo -n "${exp_type},${instances}," | tee -a "$data_file"
-          #python with tmp file, since tqdm may mess up output
-	  runtime_python=$(python ./shap-experiment-python.py ${py_str} --n-permutations=${permutations} --n-instances=${instances} --silent --just-print-t 2>>"$stderr_file")
+	  runtime_python=$(python ./shap-experiment-python.py ${py_str} --n-permutations=${permutations} --n-instances=${instances} --silent --just-print-t 2>>/dev/null)
           echo -n "${runtime_python}," | tee -a "$data_file"
 
           #by-row

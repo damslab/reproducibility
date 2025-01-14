@@ -25,7 +25,7 @@
 # also, store meatadata M from transformencode to use partitions
 
 source("experimental-versions/shapley-permutation-distributed.dml") as shapleyPermutationSpark
-source("experimental-versions/shapley-permutation.dml.dml") as shapleyPermutationLegacy
+source("experimental-versions/shapley-permutation.dml") as shapleyPermutationLegacy
 source("../01_preparation/trainVaryingLayersFNN_adult/ffPredict_layerVariation.dml") as ffPredict_layerVariation
 
 

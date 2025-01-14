@@ -22,7 +22,7 @@
 #
 #Runs systemds multiple times and stores resulting runtimes and sample sizes in file
 
-data_file="${1:-runtimes_distributed.csv}"
+data_file="${1:-../10_data/runtimes_distributed.csv}"
 permutations=3
 samples=100
 
@@ -47,8 +47,7 @@ for instances in $(seq 0 1000 16000); do
 
     #take three samples per size
     for j in {1..3}; do
-#        echo -n "${instances}," | tee -a "$data_file"
-	    for num_executors in 2 4 8 ; do
+      for num_executors in 2 4 8 ; do
         for exp_type in "${exp_type_array[@]}"; do
           if [ "$exp_type" = "adult_linlogreg" ]; then
             data_str=$adult_data_sysds_str
@@ -84,15 +83,15 @@ for instances in $(seq 0 1000 16000); do
           unset runtime_p
 
           #cluster
-          runtime_cluster=$(runspark-num-executors ${num_executors} -f /home/lepage/scripts/shap/examples/shapley-permutation-experiment-spark.dml -stats 1 -nvargs remove_non_var=0 use_partitions=0 n_permutations=${permutations} integration_samples=${samples} rows_to_explain=${instances} write_to_file=0 execution_policy=by-row ${data_str})
-          #echo "$runtime_cluster"
+          runtime_cluster=$(./runSystemDS_distributed ${num_executors} -f  ./shap-experiment-distributed.dml -stats 1 -nvargs remove_non_var=0 use_partitions=0 n_permutations=${permutations} integration_samples=${samples} rows_to_explain=${instances} write_to_file=0 execution_policy=by-row ${data_str})
           runtime_cluster=$(echo "$runtime_cluster" | grep "Total elapsed time" | awk '{print $4}' | tr \, \.)
           echo -n "${runtime_cluster}," | tee -a "$data_file"
           unset runtime_cluster
 
-          runtime_cluster_partitioned=$(runspark-num-executors ${num_executors} -f /home/lepage/scripts/shap/examples/shapley-permutation-experiment-spark.dml -stats 1 -nvargs remove_non_var=0 use_partitions=1 n_permutations=${permutations} integration_samples=${samples} rows_to_explain=${instances} write_to_file=0 execution_policy=by-row ${data_str})
+          runtime_cluster_partitioned=''
+	  #$(./runSystemDS_distributed ${num_executors} -f /home/lepage/scripts/shap/examples/shapley-permutation-experiment-spark.dml -stats 1 -nvargs remove_non_var=0 use_partitions=1 n_permutations=${permutations} integration_samples=${samples} rows_to_explain=${instances} write_to_file=0 execution_policy=by-row ${data_str})
           #echo "$runtime_cluster_partitioned"
-          runtime_cluster_partitioned=$(echo "$runtime_cluster_partitioned" | grep "Total elapsed time" | awk '{print $4}' | tr \, \.)
+          #runtime_cluster_partitioned=$(echo "$runtime_cluster_partitioned" | grep "Total elapsed time" | awk '{print $4}' | tr \, \.)
           echo -n "${runtime_cluster_partitioned},${num_executors}" | tee -a "$data_file"
           unset runtime_cluster_partitioned
 

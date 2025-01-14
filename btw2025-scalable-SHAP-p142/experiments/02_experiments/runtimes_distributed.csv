@@ -1,0 +1,6 @@
+exp_type,instances,runtime_row,runtime_row_non_var,runtime_row_partitioned,runtime_permutation,runtime_cluster,runtime_cluster_partitioned,executors_cluster
+adult_linlogreg,1,,,,,7.040,,2
+census_l2svm,1,,,,,12.057,,2
+adult_fnn,1,,,,,9.269,,2
+adult_linlogreg,1,,,,,6.882,,4
+census_l2svm,1,,,,,

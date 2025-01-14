@@ -8,7 +8,7 @@ git clone https://github.com/apache/systemds.git
 
 echo "Create branch from the commit that was used"
 cd systemds || exit
-git checkout -b reproducibility-shap 5015f63a79
+git checkout -b reproducibility-shap bd17eadc2c2cbb8077857e4a10b78db4ca485941 
 
 echo "Build the source"
 mvn clean package -P distribution

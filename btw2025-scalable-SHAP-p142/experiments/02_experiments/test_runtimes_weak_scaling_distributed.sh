@@ -22,7 +22,7 @@
 #
 #Runs systemds multiple times and stores resulting runtimes and sample sizes in file
 
-data_file="${1:-../data/runtimes_cluster_weak_scaling.csv}"
+data_file="${1:-../10_data/runtimes_cluster_weak_scaling.csv}"
 permutations=3
 samples=100
 instances=30000
@@ -32,8 +32,10 @@ instance_scaling=true
 feature_scaling=true
 layer_scaling=true
 
+hdfs_dir="/user/hadoop/scalable-shap/10_data/"
+
 #svm
-census_data_sysds_str="data_dir=/user/hadoop/shap/census/ X_bg_path=census_xTrain.csv B_path=census_bias.csv model_type=l2svmPredict"
+census_data_sysds_str="data_dir=$hdfs_dir/census/ X_bg_path=Census_X.csv B_path=models/Census_SVM.csv model_type=l2svmPredict"
 
 echo "Outputfile: $data_file"
 
@@ -54,7 +56,7 @@ for j in {1..6}; do
 	  inst_scaling=$((3500*scaling_factor))
 	  start=`date '+%F_%H:%M:%S'`
 	  echo -n "instance_scaling_census_svm,${num_executors},${inst_scaling},371,NaN,${start}," | tee -a "$data_file"
-	  runtime_instances=$(runspark-num-executors ${num_executors} -f /home/lepage/scripts/shap/examples/shapley-permutation-experiment-spark.dml -stats 1 -nvargs remove_non_var=0 use_partitions=0 n_permutations=${permutations} integration_samples=${samples} rows_to_explain=${inst_scaling} write_to_file=0 execution_policy=by-row metadata_path=census_dummycoding_partitions.csv ${census_data_sysds_str})
+	  runtime_instances=$(runspark-num-executors ${num_executors} -f ./shap-experiment-distributed.dml -stats 1 -nvargs remove_non_var=0 use_partitions=0 n_permutations=${permutations} integration_samples=${samples} rows_to_explain=${inst_scaling} write_to_file=0 execution_policy=by-row metadata_path=Census_partitions.csv ${census_data_sysds_str})
     	  echo "$runtime_instances"
 	  runtime_instances=$(echo "$runtime_instances" | grep "Total elapsed time" | awk '{print $4}' | tr \, \.)
 	  end=`date '+%F_%H:%M:%S'`
@@ -67,7 +69,7 @@ for j in {1..6}; do
 	  n_features=$((45*scaling_factor))
 	  start=`date '+%F_%H:%M:%S'`
 	  echo -n "feature_scaling_census_svm,${num_executors},${instances},${n_features},NaN,${start}," | tee -a "$data_file"
-	  runtime_features=$(runspark-num-executors ${num_executors} -f /home/lepage/scripts/shap/examples/shapley-permutation-experiment-spark.dml -stats 1 -nvargs remove_non_var=0 use_partitions=1 n_permutations=${permutations} integration_samples=${samples} rows_to_explain=${instances} write_to_file=0 execution_policy=by-row metadata_path=partitions_${n_features}.csv ${census_data_sysds_str})
+	  runtime_features=$(runspark-num-executors ${num_executors} -f ./shap-experiment-distributed.dml -stats 1 -nvargs remove_non_var=0 use_partitions=1 n_permutations=${permutations} integration_samples=${samples} rows_to_explain=${instances} write_to_file=0 execution_policy=by-row metadata_path=partitions_${n_features}.csv ${census_data_sysds_str})
 	  end=`date '+%F_%H:%M:%S'`
     	  echo "$runtime_features"
 	  runtime_features=$(echo "$runtime_features" | grep "Total elapsed time" | awk '{print $4}' | tr \, \.)
@@ -80,7 +82,7 @@ for j in {1..6}; do
 	  start=`date '+%F_%H:%M:%S'`
 	  
 	  echo -n "layer_scaling_adult_fnn,${num_executors},${instances},107,${scaling_factor},${start}," | tee -a "$data_file"
-	  runtime_layers=$(runspark-num-executors ${num_executors} -f /home/lepage/scripts/shap/examples/shapley-permutation-experiment-spark.dml -stats 1 -nvargs remove_non_var=0 use_partitions=0 n_permutations=${permutations} integration_samples=${samples} rows_to_explain=${instances} write_to_file=0 execution_policy=by-row data_dir=/user/hadoop/shap/adult/ X_bg_path=Adult_X.csv B_path=ffn_${scaling_factor}l_model.bin metadata_path=Adult_partitions.csv model_type=ffPredict_${scaling_factor}l)
+	  runtime_layers=$(runspark-num-executors ${num_executors} -f ./shap-experiment-distributed.dml -stats 1 -nvargs remove_non_var=0 use_partitions=0 n_permutations=${permutations} integration_samples=${samples} rows_to_explain=${instances} write_to_file=0 execution_policy=by-row data_dir=$hdfs_dir/adult/ X_bg_path=Adult_X.csv B_path=models/Adult_FNN_${scaling_factor}l.bin metadata_path=Adult_partitions.csv model_type=ffPredict_${scaling_factor}l)
 	  end=`date '+%F_%H:%M:%S'`
 
     	  echo "$runtime_layers"

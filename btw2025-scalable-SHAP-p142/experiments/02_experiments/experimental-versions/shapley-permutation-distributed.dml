@@ -18,9 +18,8 @@
 # under the License.
 #
 #-------------------------------------------------------------
-#TODO: get path from project src?
-source("../shapley-utils.dml") as shapleyUtils
-source("/home/lepage/scalable-shap-reproducibility/0_preparation/train-systemds/ffn_layer_variation/ffPredict_layerVariation.dml") as ffPredict_layerVariation
+source("experimental-versions/shapley-utils.dml") as shapleyUtils
+source("../01_preparation/trainVaryingLayersFNN_adult/ffPredict_layerVariation.dml") as ffPredict_layerVariation
 # This is a wrapper for the different permutation explainers. It tries to be smart about choosing the execution policy.
 #
 # INPUT:
