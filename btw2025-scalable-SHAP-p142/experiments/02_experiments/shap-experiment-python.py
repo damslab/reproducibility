@@ -127,5 +127,8 @@ if args.write_t_to != "":
 if args.just_print_t:
     print(str(total_t))
 else:
-    df_shap_values = pd.DataFrame(shap_values.values)
+    if shap_values.values.ndim == 3:
+        df_shap_values = pd.DataFrame(shap_values.values[:,:,1])
+    else:
+        df_shap_values = pd.DataFrame(shap_values.values)
     df_shap_values.to_pickle(args.result_file_name)

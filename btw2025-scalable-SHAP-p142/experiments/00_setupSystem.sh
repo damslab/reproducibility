@@ -6,7 +6,7 @@ echo "========================================================================"
 
 cd ./00_setup
 
-./systemSetup.sh
+#./systemSetup.sh
 
 ./pythonSetup.sh
 
