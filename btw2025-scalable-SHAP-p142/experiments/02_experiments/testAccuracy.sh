@@ -10,10 +10,10 @@ source ../python-venv/bin/activate
 adult_data_sysds_str="data_dir=../10_data/adult/ X_bg_path=Adult_X.csv B_path=models/Adult_MLR.csv metadata_path=Adult_partitions.csv model_type=multiLogRegPredict"
 adult_data_python_str="--data-dir=../10_data/adult/ --data-x=Adult_X.csv --model-type=multiLogReg"
 
-census_data_sysds_str="data_dir=../10_data/census/X_bg_path=Census_X.csv B_path=models/Census_SVM.csv metadata_path=Census_partitions.csv model_type=l2svmPredict"
+census_data_sysds_str="data_dir=../10_data/census/ X_bg_path=Census_X.csv B_path=models/Census_SVM.csv metadata_path=Census_partitions.csv model_type=l2svmPredict"
 census_data_python_str="--data-dir=../10_data/census/ --data-x=Census_X.csv --data-y=Census_y_corrected.csv --model-type=l2svm"
 
-exp_type_array=("adult_linlogreg" "census_l2svm")
+exp_type_array=("census_l2svm")  #"adult_linlogreg" "census_l2svm")
 
 instances=50
 permutations=10
