@@ -325,7 +325,7 @@ if args.distributed:
 
     # In[ ]:
 
-    data_weak_scaling = pd.read_csv(data_path+"runtimes_weak_scaling_30k.csv")
+    data_weak_scaling = pd.read_csv(data_path+"runtimes_weak_scaling.csv")
     data_instance_scaling = data_weak_scaling[data_weak_scaling['exp_type'] == 'instance_scaling_census_svm'] \
         .drop(columns=['exp_type','start','end']).groupby(['num_executors','instances']).mean().reset_index()
     data_instance_scaling_singlenode = data_instance_scaling[data_instance_scaling['num_executors']==1]
