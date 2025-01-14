@@ -24,21 +24,22 @@
 # run the script staging/learnedSampling/1_Data_Model_Prep.dml to prepare the model
 # also, store meatadata M from transformencode to use partitions
 
-source("../shapley-permutation-spark.dml") as shapleyPermutationSpark
-source("../shapley-permutation.dml") as shapleyPermutationLegacy
-source("../shapley-utils.dml") as shapleyUtils
-source("/home/lepage/scalable-shap-reproducibility/0_preparation/train-systemds/ffn_layer_variation/ffPredict_layerVariation.dml") as ffPredict_layerVariation
+source("experimental-versions/shapley-permutation-distributed.dml") as shapleyPermutationSpark
+source("experimental-versions/shapley-permutation.dml.dml") as shapleyPermutationLegacy
+source("../01_preparation/trainVaryingLayersFNN_adult/ffPredict_layerVariation.dml") as ffPredict_layerVariation
+
 
 # defaults
 model_type= ifdef($model_type, "multiLogRegPredict")
 model_function="shap_"+model_type+"_custom"
-data_dir  = ifdef($data_dir, "../data/adult/")
+data_dir  = ifdef($data_dir, "../10_data/adult/")
+output_dir = ifdef($output_dir, "../10_data/adult/")
 X_bg_path = ifdef($X_bg_path, "Adult_X.csv")
 B_path    = ifdef($B_path, "Adult_W.csv")
 metadata_path = ifdef($metadata_path, "Adult_meta.csv")
 
 # set model
-if ( model_type != "multiLogRegPredict" & model_type != "l2svmPredict" & model_type != "lmPredict" & model_type != "ffPredict" & model_type != "ffPredict_1l" & model_type != "ffPredict_2l" & model_type != "ffPredict_4l" & model_type != "ffPredict_8l" )
+if ( model_type != "multiLogRegPredict" & model_type != "l2svmPredict" & model_type != "ffPredict" & model_type != "ffPredict_1l" & model_type != "ffPredict_2l" & model_type != "ffPredict_4l" & model_type != "ffPredict_8l" )
   stop("Unknown model type: "+model_type)
 
 # set the total number of permutations from the commandline using `-nvargs n_permutations=10`
@@ -124,9 +125,12 @@ if( write_to_file == 1){
   #custom tag for results
   file_tag = ifdef($file_tag, "")
   print("Writing to file")
-  write(S, data_dir+"shap-values_permutation_"+n_permutations+"perm_"+integration_samples+"samples"+file_tag+".csv", format="csv")
+  write(S, output_dir+"shap-values_permutation_"+n_permutations+"perm_"+integration_samples+"samples"+file_tag+".csv", format="csv")
 }
 
+############################
+## Model functions
+############################
 
 # function to wrap multiLogRegPredict to make sure its outputs are compatible
 shap_multiLogRegPredict_custom = function(Matrix[Double] X, Matrix[Double] B)
@@ -150,7 +154,7 @@ shap_lmPredict_custom = function(Matrix[Double] X, Matrix[Double] B)
 # function to wrap ffPredict to make sure its outputs are compatible
 shap_ffPredict_custom = function(Matrix[Double] X, List[unknown] B)
 return( Matrix[Double] P){
-  P = ffPredict(model=B, X=X, batch_size=1028)
+  P = ffPredict(model=B, X=X, batch_size=512)
 }
 
 #functions for different fnn layers
