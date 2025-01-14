@@ -131,4 +131,4 @@ else:
         df_shap_values = pd.DataFrame(shap_values.values[:,:,1])
     else:
         df_shap_values = pd.DataFrame(shap_values.values)
-    df_shap_values.to_pickle(args.result_file_name)
+    df_shap_values.to_csv(args.result_file_name, index=False)
