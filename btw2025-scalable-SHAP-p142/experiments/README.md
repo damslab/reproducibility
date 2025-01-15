@@ -16,6 +16,11 @@ Make sure to execute them from within their directory, since sourcing in scripts
 Since we are collecting runtimes from multiple methods of which each on their own already runs for up to 1h, 
 it is likely that the experiments take >12h.
 
+The actual runtime experiments [02_experiments/test_runtimes_local.sh](02_experiments%2Ftest_runtimes_local.sh) can be 
+stopped at any given time to only get runtimes up to the current number of instances.
+In this case, executing the following scripts should still produce 
+plots for all runtimes that were collected up to this point. 
+
 To do this it runs the following scripts:
 
 - [runAllLocal.sh](runAllLocal.sh)
@@ -46,6 +51,10 @@ To do this it runs the following scripts:
 It expects that at least [run0_SetupSystem.sh](run0_SetupSystem.sh) and [run1_PrepareDataAndModels.sh](run1_PrepareDataAndModels.sh)
 were executed once, so that the models are available in HDFS. AS with the local experiments, these test can run for >12h.
 It generates the remaining plots into [11_results](11_results).
+
+If [02_experiments/test_runtimes_local.sh](02_experiments%2Ftest_runtimes_local.sh) was not run for all instances configured,
+it is possible that some speed-up plots may show unexpected results or do not render at all.
+This is due to the fact that the plots reuse the runtimes from local as runtimes for single-node execution.
 
 - [runAllDistributed.sh](runAllDistributed.sh)
   - [run2_2ExperimentsDistributed.sh](run2_2ExperimentsDistributed.sh)
