@@ -11,7 +11,7 @@
 #   - Experiment2a4.pdf --> Figure 5d
 #   - Experiment2c1.pdf --> Figure 6a
 #   - Experiment2c2.pdf --> Figure 6b
-#   - Experiment2b.pdf --> Figure 7
+#   - Experiment2bx.pdf --> Figure 7 (x=[1-7], top-down)
 #   - Experiment3.pdf --> Figure 8
 
 Rscript code/plotting/Experiment1a.r;

@@ -53,7 +53,7 @@ for(i in 1:nrow(numAdded)) {
       maxL=L, alpha=alpha, minSup=sigma, tpBlksz=tpSize, encodeLat=FALSE, indicesRemoved=matrix(0,0,0),
       verbose=TRUE, params=params, prevFoffb = foffb, prevFoffe = foffe, pruningStrat=pruning);
     t6 = time();
-    Dl = append(Dl, D);
+    Dl = append(Dl, D1);
     print("EXPERIMENT (full, init, incr): "+(t2-t1)/1e9+" "+(t4-t3)/1e9+" "+(t6-t5)/1e9);
     R[i,(3*(j-1)+2):(3*j)+1] = t(as.matrix(list((t2-t1)/1e9, (t4-t3)/1e9, (t6-t5)/1e9)))
   }

@@ -3,16 +3,16 @@ for(i in 1:7) {
   require(graphics)
   require(Matrix)
 
-  pdf(file=paste("Experiment2b",i,".pdf",sep=""),
+  pdf(file=paste("plots/Experiment2b",i,".pdf",sep=""),
     width=7.3, height=3.0, family="serif", pointsize=14)
 
   numInit = (i-1)*4
   numInc = numInit + 1;
 
 
-  data0 = readMM(paste("../results/Exp2b_1_debug.csv/",numInit,"_null.mtx",sep=""))[,2:3]
+  data0 = readMM(paste("results/Exp2b_1_debug.csv/",numInit,"_null.mtx",sep=""))[,2:3]
   data0 = t(as.matrix(data0))
-  data1 = readMM(paste("../results/Exp2b_1_debug.csv/",numInc,"_null.mtx",sep=""))[,2:3]
+  data1 = readMM(paste("results/Exp2b_1_debug.csv/",numInc,"_null.mtx",sep=""))[,2:3]
   data1 = t(as.matrix(data1))
 
   data1 = rbind(data0, cbind(data1,matrix(0,2,ncol(data0)-ncol(data1))))

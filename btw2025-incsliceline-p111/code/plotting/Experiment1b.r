@@ -1,10 +1,10 @@
 require(graphics)
 require(Matrix)
 
-pdf(file="Experiment1b.pdf",
+pdf(file="plots/Experiment1b.pdf",
   width=7.3, height=4.5, family="serif", pointsize=14)
 
-data0 = colMeans(read.table("../results/Exp1_0.csv", sep=",")[2:10,])
+data0 = colMeans(read.table("results/Exp1_0.csv", sep=",")[2:10,])
 
 data0
 

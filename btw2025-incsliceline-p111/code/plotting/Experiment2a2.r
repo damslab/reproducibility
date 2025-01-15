@@ -1,10 +1,10 @@
 require(graphics)
 require(Matrix)
 
-pdf(file="Experiment2a2.pdf",
+pdf(file="plots/Experiment2a2.pdf",
   width=5, height=4.5, family="serif", pointsize=14)
 
-data = read.table("../results/Exp2a_1.csv", sep=",")
+data = read.table("results/Exp2a_1.csv", sep=",")
 data = cbind(data[,1], data[,5:7])
 
 plot_colors <- c("orangered","orange","cornflowerblue")

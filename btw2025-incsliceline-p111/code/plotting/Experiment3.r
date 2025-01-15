@@ -1,10 +1,10 @@
 require(graphics)
 require(Matrix)
 
-pdf(file="Experiment3.pdf",
+pdf(file="plots/Experiment3.pdf",
   width=7.3, height=4.5, family="serif", pointsize=14)
 
-data0 = colMeans(read.table("../results/Exp3.csv", sep=",")[2:5,])
+data0 = colMeans(read.table("results/Exp3.csv", sep=",")[2:5,])
 X = matrix(data0, 4, 8, byrow=TRUE)
 X = cbind(X[,1],X[,2],X[,8],X[,5],X[,7],X[,6],X[,4],X[,3])
 
