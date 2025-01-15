@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Function to check if a number is an integer between 1 and 8
+function is_valid_integer() {
+    local num="$1"
+    if [[ "$num" =~ ^[1-8]$ ]]; then
+        return 0  # Valid
+    else
+        return 1  # Invalid
+    fi
+}
+
+num_executors=$1
+
+if ! is_valid_integer "$num_executors"; then
+    echo "Error: The first argument must be an integer between 1 and 8."
+    exit 1
+fi
+
+shift
+
+SYSTEMDS_JAR=$(realpath ../SystemDS.jar)
+SYSTEMDS_REPO_PATH=$(realpath ../00_setup/systemds)
+# Client mode
+$SPARK_HOME/bin/spark-submit \
+      --master yarn \
+      --deploy-mode client \
+      --driver-memory 38g \
+      --num-executors "$num_executors" \
+      --executor-memory 230g \
+      --executor-cores 48 \
+      --conf spark.driver.extraJavaOptions="-XX:+UseParallelGC -Xms38g -Xmn3800m -Dlog4j.configuration=file:$SYSTEMDS_REPO_PATH/conf/log4j.properties" \
+      --conf spark.ui.showConsoleProgress=true \
+      --conf spark.executor.heartbeatInterval=100s \
+      --conf spark.network.timeout=51200s \
+      --conf spark.executor.memoryOverhead=10000 \
+      file:$SYSTEMDS_JAR \
+      -debug \
+      -config $SYSTEMDS_REPO_PATH/conf/SystemDS-config-defaults.xml \
+      "$@"
