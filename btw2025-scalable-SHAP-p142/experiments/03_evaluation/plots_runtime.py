@@ -13,7 +13,7 @@ import matplotlib
 import argparse
 parser=argparse.ArgumentParser(description="Plot runtime graphs..")
 parser.add_argument("--data-dir", default="../10_data/", help="Path to dir where runtimes are stored.")
-parser.add_argument("--plots-path", default="./11_results/", help="Path to dir where resulting pltos should be stored.")
+parser.add_argument("--plots-path", default="../11_results/", help="Path to dir where resulting pltos should be stored.")
 parser.add_argument('--distributed', action='store_true', help='Also compute plots for distributed experiments.')
 parser.add_argument('--show', action='store_true', help='Try to display plots during computation.')
 args=parser.parse_args()
@@ -169,7 +169,7 @@ if args.distributed:
 
     # In[33]:
 
-    data_cluster_all = pd.read_csv(data_path+"runtimes_cluster.csv")
+    data_cluster_all = pd.read_csv(data_path+"runtimes_distributed.csv")
 
     # adult linlogreg
     data_cluster_adult_linlogreg = data_cluster_all[data_cluster_all['exp_type'] == "adult_linlogreg"].drop(columns=['exp_type'])
@@ -324,7 +324,7 @@ if args.distributed:
 
     # In[ ]:
 
-    data_weak_scaling = pd.read_csv(data_path+"runtimes_weak_scaling.csv")
+    data_weak_scaling = pd.read_csv(data_path+"runtimes_cluster_weak_scaling.csv")
     data_instance_scaling = data_weak_scaling[data_weak_scaling['exp_type'] == 'instance_scaling_census_svm'] \
         .drop(columns=['exp_type','start','end']).groupby(['num_executors','instances']).mean().reset_index()
     data_instance_scaling_singlenode = data_instance_scaling[data_instance_scaling['num_executors']==1]
