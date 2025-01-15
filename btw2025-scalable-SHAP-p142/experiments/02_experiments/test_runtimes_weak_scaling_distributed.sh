@@ -62,7 +62,7 @@ for j in $(seq 1 $num_samp_per_config); do
 	  inst_scaling=$((3500*scaling_factor))
 	  start=`date '+%F_%H:%M:%S'`
 	  echo -n "instance_scaling_census_svm,${num_executors},${inst_scaling},371,NaN,${start}," | tee -a "$data_file"
-	  runtime_instances=$(runspark-num-executors ${num_executors} -f ./shap-experiment-distributed.dml -stats 1 -nvargs remove_non_var=0 use_partitions=0 n_permutations=${permutations} integration_samples=${samples} rows_to_explain=${inst_scaling} write_to_file=0 execution_policy=by-row metadata_path=Census_partitions.csv ${census_data_sysds_str})
+	  runtime_instances=$(./runSystemDS_distributed ${num_executors} -f ./shap-experiment-distributed.dml -stats 1 -nvargs remove_non_var=0 use_partitions=0 n_permutations=${permutations} integration_samples=${samples} rows_to_explain=${inst_scaling} write_to_file=0 execution_policy=by-row metadata_path=Census_partitions.csv ${census_data_sysds_str})
     	  echo "$runtime_instances"
 	  runtime_instances=$(echo "$runtime_instances" | grep "Total elapsed time" | awk '{print $4}' | tr \, \.)
 	  end=`date '+%F_%H:%M:%S'`
@@ -75,7 +75,7 @@ for j in $(seq 1 $num_samp_per_config); do
 	  n_features=$((45*scaling_factor))
 	  start=`date '+%F_%H:%M:%S'`
 	  echo -n "feature_scaling_census_svm,${num_executors},${instances},${n_features},NaN,${start}," | tee -a "$data_file"
-	  runtime_features=$(runspark-num-executors ${num_executors} -f ./shap-experiment-distributed.dml -stats 1 -nvargs remove_non_var=0 use_partitions=1 n_permutations=${permutations} integration_samples=${samples} rows_to_explain=${instances} write_to_file=0 execution_policy=by-row metadata_path=partitions_${n_features}.csv ${census_data_sysds_str})
+	  runtime_features=$(./runSystemDS_distributed ${num_executors} -f ./shap-experiment-distributed.dml -stats 1 -nvargs remove_non_var=0 use_partitions=1 n_permutations=${permutations} integration_samples=${samples} rows_to_explain=${instances} write_to_file=0 execution_policy=by-row metadata_path=partitions_${n_features}.csv ${census_data_sysds_str})
 	  end=`date '+%F_%H:%M:%S'`
     	  echo "$runtime_features"
 	  runtime_features=$(echo "$runtime_features" | grep "Total elapsed time" | awk '{print $4}' | tr \, \.)
@@ -88,7 +88,7 @@ for j in $(seq 1 $num_samp_per_config); do
 	  start=`date '+%F_%H:%M:%S'`
 	  
 	  echo -n "layer_scaling_adult_fnn,${num_executors},${instances},107,${scaling_factor},${start}," | tee -a "$data_file"
-	  runtime_layers=$(runspark-num-executors ${num_executors} -f ./shap-experiment-distributed.dml -stats 1 -nvargs remove_non_var=0 use_partitions=0 n_permutations=${permutations} integration_samples=${samples} rows_to_explain=${instances} write_to_file=0 execution_policy=by-row data_dir=$hdfs_dir/adult/ X_bg_path=Adult_X.csv B_path=models/Adult_FNN_${scaling_factor}l.bin metadata_path=Adult_partitions.csv model_type=ffPredict_${scaling_factor}l)
+	  runtime_layers=$(./runSystemDS_distributed ${num_executors} -f ./shap-experiment-distributed.dml -stats 1 -nvargs remove_non_var=0 use_partitions=0 n_permutations=${permutations} integration_samples=${samples} rows_to_explain=${instances} write_to_file=0 execution_policy=by-row data_dir=$hdfs_dir/adult/ X_bg_path=Adult_X.csv B_path=models/Adult_FNN_${scaling_factor}l.bin metadata_path=Adult_partitions.csv model_type=ffPredict_${scaling_factor}l)
 	  end=`date '+%F_%H:%M:%S'`
 
     	  echo "$runtime_layers"

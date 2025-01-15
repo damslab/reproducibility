@@ -1,0 +1,16 @@
+partitionspath="../10_data/census/"
+#45 partitions
+partitions = matrix("45 371", rows=2, cols=1) 
+write(partitions, partitionspath+"partitions_45.csv", format="csv")
+
+#90 partitions
+partitions = matrix("90 371", rows=2, cols=1) 
+write(partitions, partitionspath+"partitions_90.csv", format="csv")
+
+#180 partitions
+partitions = matrix("180 371", rows=2, cols=1) 
+write(partitions, partitionspath+"partitions_180.csv", format="csv")
+
+#360 partitions
+partitions = matrix("360 371", rows=2, cols=1) 
+write(partitions, partitionspath+"partitions_360.csv", format="csv")
