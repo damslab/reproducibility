@@ -31,8 +31,9 @@ samples=100
 
 num_samp_per_config=3
 if [ "${SHAP_FAST_EXP}" = "1" ]; then
-  echo "SHAP_FAST_EXP is set. Running with just 1 run per configuration to be faster."
+  echo "SHAP_FAST_EXP is set. Running with just 1 run per configuration and 2500 instances added ech run to be faster."
   num_samp_per_config=1
+  incr_instances=2500
 fi
 
 

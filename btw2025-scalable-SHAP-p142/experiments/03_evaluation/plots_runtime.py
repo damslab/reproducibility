@@ -37,7 +37,7 @@ data_adult_linlogreg = data_adult_linlogreg.groupby('instances').mean()
 # In[18]:
 
 # adult fnn
-data_adult_fnn = data_all[data_all['exp_type'].isin(["adult_ffn", "adult_fnn"])].drop(columns=['exp_type'])
+data_adult_fnn = data_all[data_all['exp_type'] ==  "adult_fnn"].drop(columns=['exp_type'])
 data_adult_fnn = data_adult_fnn.groupby('instances').mean()
 
 # In[11]:
@@ -101,7 +101,6 @@ matplotlib.rc('font', **font)
 # adult fnn
 # data_tmp = data_adult_fnn.loc[data_adult_fnn.index <= 10000]
 data_tmp = data_adult_fnn.groupby('instances').agg(['mean']).loc[data_adult_fnn.index <= 10000].dropna()
-
 fig, (ax1) = plt.subplots(1, 1, figsize=(4, 3))
 
 ax1.plot(data_tmp.runtime_legacy_iterative/60, label="Iterative Preparation", color="tab:purple")
@@ -176,7 +175,7 @@ if args.distributed:
     data_cluster_adult_linlogreg = data_cluster_all[data_cluster_all['exp_type'] == "adult_linlogreg"].drop(columns=['exp_type'])
 
     # adult fnn
-    data_cluster_adult_fnn = data_cluster_all[data_cluster_all['exp_type'].isin(["adult_ffn", "adult_fnn"])].drop(columns=['exp_type'])
+    data_cluster_adult_fnn = data_cluster_all[data_cluster_all['exp_type'] == "adult_fnn"].drop(columns=['exp_type'])
 
     # census svm
     data_cluster_census_svm = data_cluster_all[data_cluster_all['exp_type'] == "census_l2svm"].drop(columns=['exp_type'])
