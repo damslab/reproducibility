@@ -1,0 +1,10 @@
+#!/bin/bash
+
+java -Xmx14g -Xms4g -Xmn4g \
+    -cp ../SystemDS.jar:../lib/* \
+    -Dlog4j.configuration=file:../00_setup/systemds/conf/log4j.properties \
+    org.apache.sysds.api.DMLScript \
+    -exec singlenode \
+    -debug \
+    -config ../00_setup/systemds/conf/SystemDS-config-defaults.xml \
+    "$@"

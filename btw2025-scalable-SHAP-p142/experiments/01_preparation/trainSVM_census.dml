@@ -1,0 +1,17 @@
+print("-> Reading Data")
+X = read("../10_data/census/Census_X.csv")
+y = read("../10_data/census/Census_y_corrected.csv")
+
+print("-> Training L2SVM")
+bias = l2svm(X=X, Y=y, maxIterations=90, verbose=TRUE, epsilon = 1e-17)
+
+print("-> Testing L2SVM (No split, but don't care about accurracy of models here.)")
+[y_predict_test, n] = l2svmPredict(X=X, W=bias, verbose=TRUE)
+y_predict_classifications = (y_predict_test > 0.0) + 1
+
+[nn, ca_test] = confusionMatrix(y_predict_classifications, y + 1)
+print("Confusion: ")
+print(toString(ca_test))
+
+print("-> Writing Model")
+write(bias, "../10_data/census/models/Census_SVM.csv", format="csv")

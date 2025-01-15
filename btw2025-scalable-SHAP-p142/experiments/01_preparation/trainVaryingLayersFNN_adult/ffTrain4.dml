@@ -1,0 +1,134 @@
+setwd("../00_setup/systemds/scripts")
+source("nn/layers/affine.dml") as affine
+source("nn/layers/l2_loss.dml") as l2_loss
+source("nn/layers/dropout.dml") as dropout
+source("nn/layers/relu.dml") as relu
+source("nn/layers/sigmoid.dml") as sigmoid
+source("nn/optim/sgd_nesterov.dml") as sgd_nesterov
+
+print("--> Loading prepared Dataset")
+X = read("../10_data/adult/Adult_X.csv");
+y = read("../10_data/adult/Adult_y.csv");
+y = y-1
+
+print("--> Training Model with 4 hidden layers")
+#ffTrain(X=X,Y=y,out_activation="sigmoid", loss_fcn="l2", validation_split=0.4, verbose=TRUE, epochs=20)
+
+N = nrow(X) # number of samples
+D = ncol(X) # number of features
+t = ncol(y) # number of targets
+
+# Create network:
+print("--> affine1 -> relu1 -> dropout1 -> a11 -> r11 -> d11 -> a12 -> r12 -> d12 -> a13 -> r13 -> d13 -> affine2 -> sigmoid")
+H = 128  # number of neurons in hidden layer
+p = 0.35 # dropout probability
+[W1, b1] = affine::init(D, H, -1)
+[W11, b11] = affine::init(H, H, -1)
+[W12, b12] = affine::init(H, H, -1)
+[W13, b13] = affine::init(H, H, -1)
+[W2, b2] = affine::init(H, t, -1)
+
+# Initialize SGD w/ Nesterov momentum optimizer
+lr = 0.05  # learning rate
+mu = 0.5  # momentum
+decay = 0.99  # learning rate decay constant
+vW1 = sgd_nesterov::init(W1); vb1 = sgd_nesterov::init(b1)
+vW11 = sgd_nesterov::init(W11); vb11 = sgd_nesterov::init(b11)
+vW12 = sgd_nesterov::init(W12); vb12 = sgd_nesterov::init(b12)
+vW13 = sgd_nesterov::init(W13); vb13 = sgd_nesterov::init(b13)
+vW2 = sgd_nesterov::init(W2); vb2 = sgd_nesterov::init(b2)
+
+# Optimize
+print("--> Starting optimization")
+batch_size = 64
+epochs = 20
+iters = ceil(N / batch_size)
+
+for (e in 1:epochs) {
+  loss = 0
+  for(i in 1:iters) {
+    # Get next batch
+    X_batch = X[i:i+batch_size-1,]
+    y_batch = y[i:i+batch_size-1,]
+
+    # Compute forward pass
+    ## layer 1:
+    out1 = affine::forward(X_batch, W1, b1)
+    outr1 = relu::forward(out1)
+    [outd1, maskd1] = dropout::forward(outr1, p, -1)
+
+    ## layer 11:
+    out11 = affine::forward(outd1, W11, b11)
+    outr11 = relu::forward(out11)
+    [outd11, maskd11] = dropout::forward(outr11, p, -1)
+
+    ## layer 12:
+    out12 = affine::forward(outd11, W12, b12)
+    outr12 = relu::forward(out12)
+    [outd12, maskd12] = dropout::forward(outr12, p, -1)
+
+    ## layer 13:
+    out13 = affine::forward(outd12, W13, b13)
+    outr13 = relu::forward(out13)
+    [outd13, maskd13] = dropout::forward(outr13, p, -1)
+
+
+    ## layer 2:
+    out2 = affine::forward(outd13, W2, b2)
+    probs = sigmoid::forward(out2)
+
+    # Compute loss
+    loss = loss + l2_loss::forward(probs, y_batch)
+
+    # Compute backward pass
+    ## loss:
+    dprobs = l2_loss::backward(probs, y_batch)
+
+    ## layer 2:
+    dout2 = sigmoid::backward(dprobs, out2)
+    [doutd13, dW2, db2] = affine::backward(dout2, outd13, W2, b2)
+
+    ## layer 13:
+    doutr13 = dropout::backward(doutd13, outr13, p, maskd13)
+    dout13 = relu::backward(doutr13, out13)
+    [doutd12, dW13, db13] = affine::backward(dout13, outd12, W13, b13)
+
+    ## layer 12:
+    doutr12 = dropout::backward(doutd12, outr12, p, maskd12)
+    dout12 = relu::backward(doutr12, out12)
+    [doutd11, dW12, db12] = affine::backward(dout12, outd11, W12, b12)
+
+    ## layer 11:
+    doutr11 = dropout::backward(doutd11, outr11, p, maskd11)
+    dout11 = relu::backward(doutr11, out11)
+    [doutd1, dW11, db11] = affine::backward(dout11, outd1, W11, b11)
+
+    ## layer 1:
+    doutr1 = dropout::backward(doutd1, outr1, p, maskd1)
+    dout1 = relu::backward(doutr1, out1)
+    [dX_batch, dW1, db1] = affine::backward(dout1, X_batch, W1, b1)
+
+    # Optimize with SGD w/ Nesterov momentum
+    [W1, vW1] = sgd_nesterov::update(W1, dW1, lr, mu, vW1)
+    [b1, vb1] = sgd_nesterov::update(b1, db1, lr, mu, vb1)
+    [W11, vW11] = sgd_nesterov::update(W11, dW11, lr, mu, vW11)
+    [b11, vb11] = sgd_nesterov::update(b11, db11, lr, mu, vb11)
+    [W12, vW12] = sgd_nesterov::update(W12, dW12, lr, mu, vW12)
+    [b12, vb12] = sgd_nesterov::update(b12, db12, lr, mu, vb12)
+    [W13, vW13] = sgd_nesterov::update(W13, dW13, lr, mu, vW13)
+    [b13, vb13] = sgd_nesterov::update(b13, db13, lr, mu, vb13)
+    [W2, vW2] = sgd_nesterov::update(W2, dW2, lr, mu, vW2)
+    [b2, vb2] = sgd_nesterov::update(b2, db2, lr, mu, vb2)
+  }
+  print("  --> Epoch "+e+", Loss: " + loss)
+  # Anneal momentum towards 0.999
+  mu = mu + (0.999 - mu)/(1+epochs-e)
+  # Decay learning rate
+  lr = lr * decay
+}
+
+print("-->Storing model")
+model = list(W1=W1, b1=b1, W11=W11, b11=b11, W12=W12, b12=b12, W13=W13, b13=b13, W2=W2, b2=b2)
+write(model, "../10_data/adult/models/Adult_FNN_4l.bin", format="binary")
+
+print("- DONE -")

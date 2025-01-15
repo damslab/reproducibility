@@ -1,0 +1,54 @@
+source("../02_experiments/experimental-versions/shapley-utils.dml") as shapleyUtils
+
+print("-> Reading Data Census")
+F = read("../10_data/census/Census.csv", data_type="frame", format="csv", header=TRUE)
+
+# data preparation
+jspec= "{ ids:true, recode:[2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,"
++"21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,"
++"41,42,43,44,45,47,48,49,50,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,68,69], bin:["
++"{id:46, method:equi-width, numbins:10},"
++"{id:51, method:equi-width, numbins:10},"
++"{id:67, method:equi-width, numbins:10}]}"
+
+print("-> Transformencoding")
+[X,M] = transformencode(target=F, spec=jspec);
+X = X[,2:ncol(X)] #drop id
+
+# run one hot encoding using transformencodes dummycode
+dummycode="C1";
+for(i in 2:ncol(X))
+  dummycode = dummycode+",C"+i;
+jspec_dummycode= "{ ids:false, dummycode:["+dummycode+"]}"
+
+X_frame=as.frame(X)
+
+print("-> Dummycoding")
+[X2,M] = transformencode(target=X_frame, spec=jspec_dummycode);
+
+
+# create lables via clustering
+print("-> Creating lables with kmeans")
+[C,y] = kmeans(X=X2, k=4)
+
+
+
+# LM only allows for 1 classification therefore we choose to classify label 0.
+# (if this is MNIST this would corespond to predicting when the value is 0 or not.)
+
+y_corrected = (y == min(y))
+
+
+# Scale input
+[X2, Centering, ScaleFactor] = scale(X2, FALSE, FALSE)
+
+print("-> Preparing metadata into partitions")
+partitions = shapleyUtils::meatadataToPartitions(metadata=M)
+
+print("-> Writing prepared data")
+write(M, "../10_data/census/Census_dummycoding_meta.csv", format="csv")
+write(partitions, "../10_data/census/Census_partitions.csv", format="csv")
+X=X2[1:30000]
+write(X, "../10_data/census/Census_X.csv", format="csv")
+y=y_corrected[1:30000]
+write(y, "../10_data/census/Census_y_corrected.csv", format="csv")

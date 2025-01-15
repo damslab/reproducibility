@@ -1,0 +1,162 @@
+setwd("../00_setup/systemds")
+source("scripts/nn/layers/affine.dml") as affine
+source("scripts/nn/layers/l2_loss.dml") as l2_loss
+source("scripts/nn/layers/dropout.dml") as dropout
+source("scripts/nn/layers/relu.dml") as relu
+source("scripts/nn/layers/sigmoid.dml") as sigmoid
+source("scripts/nn/optim/sgd_nesterov.dml") as sgd_nesterov
+
+ffPredict1 = function(List[unknown] model, Matrix[double] X, Integer batch_size = 128)
+  return(Matrix[Double] pred)
+{
+  rows = nrow(X)
+  out = as.matrix(model["W2"])
+  cols = ncol(out)
+  pred = matrix(0, rows, cols)
+
+  iters = ceil(rows / batch_size)
+
+  batch = batch_size
+  for(i in 1:iters) {
+    begin = (i-1)*batch+1
+    end = min(rows, begin + batch - 1)
+    X_batch = X[begin:end,]
+
+    # Compute forward pass
+    ## layer 1:
+    out1 = affine::forward(X_batch, as.matrix(model["W1"]), as.matrix(model["b1"]))
+    outr1 = relu::forward(out1)
+
+    ## layer 2:
+    out2 = affine::forward(outr1, as.matrix(model["W2"]), as.matrix(model["b2"]))
+    
+    pred[begin:end,] = sigmoid::forward(out2)
+  }
+}
+
+ffPredict2 = function(List[unknown] model, Matrix[double] X, Integer batch_size = 128)
+  return(Matrix[Double] pred)
+{
+  rows = nrow(X)
+  out = as.matrix(model["W2"])
+  cols = ncol(out)
+  pred = matrix(0, rows, cols)
+
+  iters = ceil(rows / batch_size)
+
+  batch = batch_size
+  for(i in 1:iters) {
+    begin = (i-1)*batch+1
+    end = min(rows, begin + batch - 1)
+    X_batch = X[begin:end,]
+    
+    # Compute forward pass
+    ## layer 1:
+    out1 = affine::forward(X_batch, as.matrix(model["W1"]), as.matrix(model["b1"]))
+    outr1 = relu::forward(out1)
+
+    ## layer 11:
+    out11 = affine::forward(outr1, as.matrix(model["W11"]), as.matrix(model["b11"]))
+    outr11 = relu::forward(out11)
+
+    ## layer 2:
+    out2 = affine::forward(outr11, as.matrix(model["W2"]), as.matrix(model["b2"]))
+    pred[begin:end,] = sigmoid::forward(out2)
+  }
+}
+
+ffPredict4 = function(List[unknown] model, Matrix[double] X, Integer batch_size = 128)
+  return(Matrix[Double] pred)
+{
+  rows = nrow(X)
+  out = as.matrix(model["W2"])
+  cols = ncol(out)
+  pred = matrix(0, rows, cols)
+
+  iters = ceil(rows / batch_size)
+
+  batch = batch_size
+  for(i in 1:iters) {
+    begin = (i-1)*batch+1
+    end = min(rows, begin + batch - 1)
+    X_batch = X[begin:end,]
+
+    # Compute forward pass
+    ## layer 1:
+    out1 = affine::forward(X_batch, as.matrix(model["W1"]), as.matrix(model["b1"]))
+    outr1 = relu::forward(out1)
+
+    ## layer 11:
+    out11 = affine::forward(outr1, as.matrix(model["W11"]), as.matrix(model["b11"]))
+    outr11 = relu::forward(out11)
+
+    ## layer 12:
+    out12 = affine::forward(outr11, as.matrix(model["W12"]), as.matrix(model["b12"]))
+    outr12 = relu::forward(out12)
+
+    ## layer 13:
+    out13 = affine::forward(outr12, as.matrix(model["W13"]), as.matrix(model["b13"]))
+    outr13 = relu::forward(out13)
+
+    ## layer 2:
+    out2 = affine::forward(outr13, as.matrix(model["W2"]), as.matrix(model["b2"]))
+    
+    pred[begin:end,] = sigmoid::forward(out2)
+  }
+}
+
+ffPredict8 = function(List[unknown] model, Matrix[double] X, Integer batch_size = 128)
+  return(Matrix[Double] pred)
+{
+  rows = nrow(X)
+  out = as.matrix(model["W2"])
+  cols = ncol(out)
+  pred = matrix(0, rows, cols)
+
+  iters = ceil(rows / batch_size)
+
+  batch = batch_size
+  for(i in 1:iters) {
+    begin = (i-1)*batch+1
+    end = min(rows, begin + batch - 1)
+    X_batch = X[begin:end,]
+
+    # Compute forward pass
+    ## layer 1:
+    out1 = affine::forward(X_batch, as.matrix(model["W1"]), as.matrix(model["b1"]))
+    outr1 = relu::forward(out1)
+
+    ## layer 11:
+    out11 = affine::forward(outr1, as.matrix(model["W11"]), as.matrix(model["b11"]))
+    outr11 = relu::forward(out11)
+
+    ## layer 12:
+    out12 = affine::forward(outr11, as.matrix(model["W12"]), as.matrix(model["b12"]))
+    outr12 = relu::forward(out12)
+
+    ## layer 13:
+    out13 = affine::forward(outr12, as.matrix(model["W13"]), as.matrix(model["b13"]))
+    outr13 = relu::forward(out13)
+
+    ## layer 14:
+    out14 = affine::forward(outr13, as.matrix(model["W14"]), as.matrix(model["b14"]))
+    outr14 = relu::forward(out14)
+
+    ## layer 15:
+    out15 = affine::forward(outr14, as.matrix(model["W15"]), as.matrix(model["b15"]))
+    outr15 = relu::forward(out15)
+
+    ## layer 16:
+    out16 = affine::forward(outr15, as.matrix(model["W16"]), as.matrix(model["b16"]))
+    outr16 = relu::forward(out16)
+
+    ## layer 17:
+    out17 = affine::forward(outr16, as.matrix(model["W17"]), as.matrix(model["b17"]))
+    outr17 = relu::forward(out17)
+
+    ## layer 2:
+    out2 = affine::forward(outr17, as.matrix(model["W2"]), as.matrix(model["b2"]))
+    
+    pred[begin:end,] = sigmoid::forward(out2) 
+  }
+}

@@ -1,0 +1,10 @@
+print("-> Reading Data")
+X = read("../10_data/adult/Adult_X.csv")
+y = read("../10_data/adult/Adult_y.csv")
+y = y-1
+
+print("--> Training Model")
+model = ffTrain(X=X,Y=y,out_activation="sigmoid", loss_fcn="l2", validation_split=0.4, verbose=TRUE, epochs=20)
+
+print("--> Writing Model")
+write(model, "../10_data/adult/models/Adult_FNN.bin", format="binary")

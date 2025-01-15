@@ -1,0 +1,51 @@
+source("trainVaryingLayersFNN_adult/ffPredict_layerVariation.dml") as ffPredict_layerVar
+
+print("--> Loading prepared Dataset")
+X = read("../10_data/adult/Adult_X.csv");
+y = read("../10_data/adult/Adult_y.csv");
+y = y-1
+
+print("\n--> Testing model with 1 hidden layer.")
+print(" --> Loading model")
+model = read("../10_data/adult/models/Adult_FNN_1l.bin")
+
+print(" --> Calling model for 1k predictions.")
+preds = ffPredict_layerVar::ffPredict1(model=model, X=X[1:1000])
+preds = (preds >= 0.5)
+acc = mean(preds == y[1:1000])
+print(" --> Accuracy: "+acc)
+
+
+print("\n--> Testing model with 2 hidden layers.")
+print(" --> Loading model")
+model = read("../10_data/adult/models/Adult_FNN_2l.bin")
+
+print(" --> Calling model for 1k predictions.")
+preds = ffPredict_layerVar::ffPredict2(model=model, X=X[1:1000])
+preds = (preds >= 0.5)
+acc = mean(preds == y[1:1000])
+print(" --> Accuracy: "+acc)
+
+
+print("\n--> Testing model with 4 hidden layers.")
+print(" --> Loading model")
+model = read("../10_data/adult/models/Adult_FNN_4l.bin")
+
+print(" --> Calling model for 1k predictions.")
+preds = ffPredict_layerVar::ffPredict4(model=model, X=X[1:1000])
+preds = (preds >= 0.5)
+acc = mean(preds == y[1:1000])
+print(" --> Accuracy: "+acc)
+
+
+print("\n--> Testing model with 8 hidden layers.")
+print(" --> Loading model")
+model = read("../10_data/adult/models/Adult_FNN_8l.bin")
+
+print(" --> Calling model for 1k predictions.")
+preds = ffPredict_layerVar::ffPredict8(model=model, X=X[1:1000])
+preds = (preds >= 0.5)
+acc = mean(preds == y[1:1000])
+print(" --> Accuracy: "+acc)
+
+print("\n-> DONE <-")
