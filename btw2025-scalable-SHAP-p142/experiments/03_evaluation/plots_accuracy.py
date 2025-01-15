@@ -17,7 +17,7 @@ from joblib import load
 import argparse
 parser=argparse.ArgumentParser(description="Plot runtime graphs..")
 parser.add_argument("--data-dir", default="../10_data/", help="Path to dir where runtimes are stored.")
-parser.add_argument("--plots-path", default="./plots/", help="Path to dir where resulting plots should be stored.")
+parser.add_argument("--plots-path", default="../10_results/", help="Path to dir where resulting plots should be stored.")
 parser.add_argument("--max-computations", default="10", help="Path to dir where resulting plots should be stored.")
 parser.add_argument('--show', action='store_true', help='Try to display plots during computation.')
 args=parser.parse_args()
@@ -271,8 +271,8 @@ ax1.legend(ncol=2, prop={'size': 12})
 
 # Show the plot
 fig.tight_layout()
-print(f"Writing plot to {args.plots_path}accuracy_example_adult_btw25.pdf")
-fig.savefig(args.plots_path+"accuracy_example_adult_btw25.pdf", bbox_inches='tight')
+print(f"Writing plot to {args.plots_path}Fig3_accuracy_example_adult_btw25.pdf")
+fig.savefig(args.plots_path+"Fig3_accuracy_example_adult_btw25.pdf", bbox_inches='tight')
 if args.show:
     plt.show()
 

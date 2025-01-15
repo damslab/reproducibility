@@ -21,6 +21,8 @@ done
 echo "Testing FNN with varying layers on Adult"
 ./runSystemDS -f "trainVaryingLayersFNN_adult/ffPredict_test.dml"
 
+source "$VENV_DIR/bin/activate"
+
 echo "Training MLR in Python"
 python3 ./python_trainMultiLogReg_adult.py 
 echo "Training FNN in Python"

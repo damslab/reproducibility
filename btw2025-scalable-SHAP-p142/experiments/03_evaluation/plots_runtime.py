@@ -13,7 +13,7 @@ import matplotlib
 import argparse
 parser=argparse.ArgumentParser(description="Plot runtime graphs..")
 parser.add_argument("--data-dir", default="../10_data/", help="Path to dir where runtimes are stored.")
-parser.add_argument("--plots-path", default="./plots/", help="Path to dir where resulting pltos should be stored.")
+parser.add_argument("--plots-path", default="./11_results/", help="Path to dir where resulting pltos should be stored.")
 parser.add_argument('--distributed', action='store_true', help='Also compute plots for distributed experiments.')
 parser.add_argument('--show', action='store_true', help='Try to display plots during computation.')
 args=parser.parse_args()
@@ -88,8 +88,8 @@ ax2.set_ylabel("Runtime in Minutes")
 fig.legend(loc='upper center', ncol=4, bbox_to_anchor=(0.5, 0))
 # Display the plot
 plt.tight_layout()
-print(f"Writing plot to {plots_path}runtimes_linear_models_btw25.pdf")
-plt.savefig(plots_path+"runtimes_linear_models_btw25.pdf", bbox_inches='tight')
+print(f"Writing plot to {plots_path}Fig4_runtimes_linear_models_btw25.pdf")
+plt.savefig(plots_path+"Fig4_runtimes_linear_models_btw25.pdf", bbox_inches='tight')
 if args.show:
     plt.show()
 
@@ -121,8 +121,8 @@ ax1.set_ylabel("Runtime in Minutes")
 ax1.legend(loc='upper right', fontsize=11)
 # ax1.set_title("Runtime for Feed-Forward Neural Network \n on Adult Dataset with 107 Features (14 Partitions)")
 plt.tight_layout()
-print(f"Writing plot to {plots_path}runtimes_fnn_btw25.pdf")
-plt.savefig(plots_path+"runtimes_fnn_btw25.pdf", bbox_inches='tight')
+print(f"Writing plot to {plots_path}Fig5_runtimes_fnn_btw25.pdf")
+plt.savefig(plots_path+"Fig5_runtimes_fnn_btw25.pdf", bbox_inches='tight')
 if args.show:
     plt.show()
 
@@ -159,8 +159,8 @@ plt.tight_layout()
 # plt.yscale('log')
 # plt.xscale('log')
 plt.legend(loc='upper center', ncol=1, bbox_to_anchor=(0.51, -0.25))
-print(f"Writing plot to {plots_path}runtimes_speedup_max_10000_btw25.pdf")
-plt.savefig(plots_path+"runtimes_speedup_max_10000_btw25.pdf", bbox_inches='tight')
+print(f"Writing plot to {plots_path}Fig6_runtimes_speedup_max_10000_btw25.pdf")
+plt.savefig(plots_path+"Fig6_runtimes_speedup_max_10000_btw25.pdf", bbox_inches='tight')
 if args.show:
     plt.show()
 print("Done with plots for local experiments.")
@@ -237,8 +237,8 @@ if args.distributed:
     fig.legend(loc='upper center', ncol=3, bbox_to_anchor=(0.5, 0.05))
     # Display the plot
     plt.tight_layout()
-    print(f"Writing plot to {plots_path}runtimes_models_cluster_btw25.pdf")
-    plt.savefig(plots_path+"runtimes_models_cluster_btw25.pdf", bbox_inches='tight')
+    print(f"Writing plot to {plots_path}Fig7_runtimes_models_cluster_btw25.pdf")
+    plt.savefig(plots_path+"Fig7_runtimes_models_cluster_btw25.pdf", bbox_inches='tight')
     if args.show:
         plt.show()
 
@@ -318,8 +318,8 @@ if args.distributed:
     # fig.suptitle("Cluster Scalability of Row-wise Parallelized Permutation Sampling\nSVM on Census with 371 Features")
     plt.tight_layout()
     fig.legend(loc='upper center', ncol=3, bbox_to_anchor=(0.5, 0.05))
-    print(f"Writing plot to {plots_path}runtimes_scalability_btw25.pdf")
-    plt.savefig(plots_path+"runtimes_scalability_btw25.pdf", bbox_inches='tight')
+    print(f"Writing plot to {plots_path}Fig8_runtimes_scalability_btw25.pdf")
+    plt.savefig(plots_path+"Fig8_runtimes_scalability_btw25.pdf", bbox_inches='tight')
     if args.show:
         plt.show()
 
@@ -376,7 +376,7 @@ if args.distributed:
     fig.legend(loc='upper center', ncol=1, bbox_to_anchor=(0.525, 0.05), handles=custom_handles, prop={'size': 11})
     # Display the plot
     plt.tight_layout()
-    print(f"Writing plot to {plots_path}weak_scaling_singleplot_btw25.pdf")
-    plt.savefig(plots_path+"weak_scaling_singleplot_btw25.pdf", bbox_inches='tight')
+    print(f"Writing plot to {plots_path}Fig9_weak_scaling_btw25.pdf")
+    plt.savefig(plots_path+"Fig9_weak_scaling_btw25.pdf", bbox_inches='tight')
     if args.show:
         plt.show()
