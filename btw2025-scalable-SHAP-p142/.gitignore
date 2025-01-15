@@ -6,3 +6,5 @@
 /experiments/SystemDS.jar
 /experiments/03_evaluation/plots/*
 /experiments/03_evaluation/.ipynb_checkpoints
+/experiments/11_results/Fig*
+/experiments/11_results/mse*
