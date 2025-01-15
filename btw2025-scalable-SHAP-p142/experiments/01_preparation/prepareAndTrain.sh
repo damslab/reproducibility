@@ -21,6 +21,9 @@ done
 echo "Testing FNN with varying layers on Adult"
 ./runSystemDS -f "trainVaryingLayersFNN_adult/ffPredict_test.dml"
 
+echo "Preparing Partitions to simulate feature scaling."
+./runSystemDS -f preparePartitionsForFeatureScaling.dml
+
 source "../python-venv/bin/activate"
 
 echo "Training MLR in Python"
