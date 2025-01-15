@@ -1,8 +1,15 @@
 #!/bin/bash
 
+
 instances="${1:-50}"
 permutations="${2:-500}"
 samples="${3:-1000}"
+
+if [ "${SHAP_FAST_EXP}" = "1" ]; then
+  echo "SHAP_FAST_EXP is set. Running with less samples and permutations to be faster."
+  samples="500"
+  permutations="250"
+fi
 
 echo "Computing large baseline for Adult with python for $instances instances on $permutations permutaions with $samples. Depending on the setup, this may take >6h..."
 #adult

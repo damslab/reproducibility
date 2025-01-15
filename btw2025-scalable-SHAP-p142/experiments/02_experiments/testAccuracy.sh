@@ -19,6 +19,11 @@ instances=50
 permutations=10
 samples=100
 
+if [ "${SHAP_FAST_EXP}" = "1" ]; then
+  echo "SHAP_FAST_EXP is set. Running with just 10 computations per configuration to be faster."
+  n_computations=10
+fi
+
 
 
  for exp_type in "${exp_type_array[@]}"; do

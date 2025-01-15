@@ -8,6 +8,6 @@ fi
 
 ./run1_PrepareDataAndModels.sh
 
-./run2_1ExperimentsLocal.sh
+./run2_1ExperimentsDistributed.sh
 
-./run3_1GeneratePlotsLocal.sh
+./run3_1GeneratePlotsDistributed.sh

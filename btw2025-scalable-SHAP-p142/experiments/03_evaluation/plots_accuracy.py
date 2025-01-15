@@ -18,7 +18,7 @@ import argparse
 parser=argparse.ArgumentParser(description="Plot runtime graphs..")
 parser.add_argument("--data-dir", default="../10_data/", help="Path to dir where runtimes are stored.")
 parser.add_argument("--plots-path", default="../10_results/", help="Path to dir where resulting plots should be stored.")
-parser.add_argument("--max-computations", default="10", help="Path to dir where resulting plots should be stored.")
+parser.add_argument("--max-computations", default="100", help="Max Computations used during accuracy experiment.")
 parser.add_argument('--show', action='store_true', help='Try to display plots during computation.')
 args=parser.parse_args()
 

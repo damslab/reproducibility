@@ -29,6 +29,12 @@ stderr_file="${4:-errors_local.log}"
 permutations=3
 samples=100
 
+num_samp_per_config=3
+if [ "${SHAP_FAST_EXP}" = "1" ]; then
+  echo "SHAP_FAST_EXP is set. Running with just 1 run per configuration to be faster."
+  num_samp_per_config=1
+fi
+
 
 #logreg
 adult_data_sysds_str="data_dir=../10_data/adult/ X_bg_path=Adult_X.csv B_path=models/Adult_MLR.csv metadata_path=Adult_partitions.csv model_type=multiLogRegPredict"
@@ -54,7 +60,7 @@ for instances in $(seq 0 $incr_instances $max_instances); do
     [[ $instances -eq 0 ]] && instances=1
 
     #take three samples per size
-    for j in {1..3}; do
+    for j in $(seq 1 $num_samp_per_config); do
       for exp_type in "${exp_type_array[@]}"; do
 	  if [ "$exp_type" = "adult_linlogreg" ]; then
 	      data_str=$adult_data_sysds_str

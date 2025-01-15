@@ -27,6 +27,12 @@ permutations=3
 samples=100
 instances=30000
 
+num_samp_per_config=6
+if [ "${SHAP_FAST_EXP}" = "1" ]; then
+  echo "SHAP_FAST_EXP is set. Running with just 1 run per configuration to be faster."
+  num_samp_per_config=2
+fi
+
 #types
 instance_scaling=true
 feature_scaling=true
@@ -40,7 +46,7 @@ census_data_sysds_str="data_dir=$hdfs_dir/census/ X_bg_path=Census_X.csv B_path=
 echo "Outputfile: $data_file"
 
 echo "exp_type,num_executors,instances,features,fnn_layers,start,end,runtime" | tee "$data_file"
-for j in {1..6}; do
+for j in $(seq 1 $num_samp_per_config); do
    for scaling_factor in 1 2 4 8 ; do
 	
   	#scale executors on every odd run
