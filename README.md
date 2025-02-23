@@ -5,6 +5,7 @@ This repository contains reproducibility submissions, related to publications of
 ## BTW 2025
 
 - [Incremental SliceLine for Iterative ML Model Debugging under Updates](btw2025-incsliceline-p111/)
+- [Scalable Computation of Shapley Additive Explanations](btw2025-scalable-SHAP-p142/)
 
 
 ## SIGMOD 2024
