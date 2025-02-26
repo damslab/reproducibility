@@ -1,3 +1,3 @@
 digraph {
-    title[label="Academic Lineage\nof Hartmut Wedekind", fontcolor=white, fillcolor=black, style=filled, shape=box, fontsize=140, margin="1"]
+    title[fontname="Calibri", label="Academic Lineage\nof Hartmut Wedekind", fontcolor=white, fillcolor=black, style=filled, shape=box, fontsize=140, margin="1", peripheries=0]
 }

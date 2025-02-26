@@ -5,7 +5,8 @@
 **Poster Creation:** The poster was created in the Graphviz DOT language. Modify these DOT text files and produce the poster as follows:
 
     fdp -Tpdf -O -v wedekind_graph.dot;
-    fdp -Tjpeg -O -v wedekind_heading.dot
+    fdp -Tpng -O -v wedekind_heading.dot;
+    fdp -Tpng -O -v wedekind_colorscheme.dot;
 
-**Last Update:** Feb 23, 2025 (initial setup)
+**Last Update:** Feb 26, 2025 (final poster)
 
