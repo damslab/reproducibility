@@ -1,0 +1,269 @@
+model,task,metric,value,precision,hf_name,model_physical_size
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_boolq,acc,0.8409785932721713,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_logiqa,acc,0.3195084485407066,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu,acc,0.679532830081185,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_humanities,acc,0.6437832093517535,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_formal_logic,acc,0.46825396825396826,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_high_school_european_history,acc,0.7575757575757576,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_high_school_us_history,acc,0.8382352941176471,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_high_school_world_history,acc,0.8565400843881856,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_international_law,acc,0.8181818181818182,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_jurisprudence,acc,0.7777777777777778,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_logical_fallacies,acc,0.803680981595092,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_moral_disputes,acc,0.7485549132947977,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_moral_scenarios,acc,0.5743016759776536,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_philosophy,acc,0.7234726688102894,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_prehistory,acc,0.7438271604938271,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_professional_law,acc,0.5052151238591917,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_world_religions,acc,0.8362573099415205,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_other,acc,0.7431606050852912,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_business_ethics,acc,0.69,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_clinical_knowledge,acc,0.7924528301886793,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_college_medicine,acc,0.6936416184971098,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_global_facts,acc,0.38,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_human_aging,acc,0.7040358744394619,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_management,acc,0.8058252427184466,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_marketing,acc,0.8931623931623932,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_medical_genetics,acc,0.78,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_miscellaneous,acc,0.8403575989782887,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_nutrition,acc,0.7647058823529411,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_professional_accounting,acc,0.549645390070922,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_professional_medicine,acc,0.7830882352941176,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_virology,acc,0.5120481927710844,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_social_sciences,acc,0.7686057848553787,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_econometrics,acc,0.5,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_high_school_geography,acc,0.803030303030303,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_high_school_government_and_politics,acc,0.8756476683937824,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_high_school_macroeconomics,acc,0.6692307692307692,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_high_school_microeconomics,acc,0.7941176470588235,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_high_school_psychology,acc,0.8605504587155963,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_human_sexuality,acc,0.7938931297709924,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_professional_psychology,acc,0.7205882352941176,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_public_relations,acc,0.6727272727272727,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_security_studies,acc,0.746938775510204,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_sociology,acc,0.8557213930348259,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_us_foreign_policy,acc,0.87,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_stem,acc,0.5832540437678402,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_abstract_algebra,acc,0.34,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_anatomy,acc,0.6814814814814815,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_astronomy,acc,0.7631578947368421,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_college_biology,acc,0.8055555555555556,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_college_chemistry,acc,0.47,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_college_computer_science,acc,0.59,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_college_mathematics,acc,0.34,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_college_physics,acc,0.4411764705882353,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_computer_security,acc,0.75,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_conceptual_physics,acc,0.5957446808510638,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_electrical_engineering,acc,0.6551724137931034,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_elementary_mathematics,acc,0.48412698412698413,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_high_school_biology,acc,0.8064516129032258,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_high_school_chemistry,acc,0.6403940886699507,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_high_school_computer_science,acc,0.74,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_high_school_mathematics,acc,0.4148148148148148,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_high_school_physics,acc,0.44370860927152317,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_high_school_statistics,acc,0.5370370370370371,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_mmlu_machine_learning,acc,0.48214285714285715,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_openbookqa,acc,0.336,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_truthfulqa_mc1,acc,0.36964504283965727,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:Default (bf16/fp16),task_truthfulqa_mc2,acc,0.5406019556048346,Default (bf16/fp16),meta-llama/Llama-3.1-8B-Instruct,16060522496
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_boolq,acc,0.8397553516819571,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_logiqa,acc,0.31490015360983103,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu,acc,0.6758296538954565,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_humanities,acc,0.6365568544102019,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_formal_logic,acc,0.46825396825396826,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_high_school_european_history,acc,0.7393939393939394,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_high_school_us_history,acc,0.8529411764705882,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_high_school_world_history,acc,0.8481012658227848,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_international_law,acc,0.8264462809917356,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_jurisprudence,acc,0.7407407407407407,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_logical_fallacies,acc,0.803680981595092,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_moral_disputes,acc,0.7369942196531792,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_moral_scenarios,acc,0.553072625698324,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_philosophy,acc,0.7202572347266881,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_prehistory,acc,0.7654320987654321,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_professional_law,acc,0.49674054758800523,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_world_religions,acc,0.8421052631578947,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_other,acc,0.7425168973286128,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_business_ethics,acc,0.7,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_clinical_knowledge,acc,0.7811320754716982,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_college_medicine,acc,0.6994219653179191,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_global_facts,acc,0.38,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_human_aging,acc,0.6905829596412556,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_management,acc,0.8252427184466019,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_marketing,acc,0.8717948717948718,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_medical_genetics,acc,0.79,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_miscellaneous,acc,0.8390804597701149,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_nutrition,acc,0.7549019607843137,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_professional_accounting,acc,0.5815602836879432,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_professional_medicine,acc,0.7757352941176471,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_virology,acc,0.5180722891566265,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_social_sciences,acc,0.766980825479363,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_econometrics,acc,0.5263157894736842,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_high_school_geography,acc,0.7828282828282829,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_high_school_government_and_politics,acc,0.8756476683937824,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_high_school_macroeconomics,acc,0.676923076923077,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_high_school_microeconomics,acc,0.7689075630252101,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_high_school_psychology,acc,0.8623853211009175,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_human_sexuality,acc,0.8244274809160306,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_professional_psychology,acc,0.7205882352941176,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_public_relations,acc,0.6909090909090909,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_security_studies,acc,0.7346938775510204,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_sociology,acc,0.8507462686567164,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_us_foreign_policy,acc,0.83,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_stem,acc,0.5797653028861401,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_abstract_algebra,acc,0.37,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_anatomy,acc,0.674074074074074,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_astronomy,acc,0.743421052631579,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_college_biology,acc,0.8125,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_college_chemistry,acc,0.48,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_college_computer_science,acc,0.54,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_college_mathematics,acc,0.33,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_college_physics,acc,0.46078431372549017,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_computer_security,acc,0.76,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_conceptual_physics,acc,0.5787234042553191,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_electrical_engineering,acc,0.6344827586206897,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_elementary_mathematics,acc,0.48412698412698413,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_high_school_biology,acc,0.7967741935483871,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_high_school_chemistry,acc,0.6305418719211823,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_high_school_computer_science,acc,0.71,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_high_school_mathematics,acc,0.4111111111111111,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_high_school_physics,acc,0.4900662251655629,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_high_school_statistics,acc,0.5324074074074074,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_mmlu_machine_learning,acc,0.49107142857142855,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_openbookqa,acc,0.342,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_truthfulqa_mc1,acc,0.3659730722154223,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_FP8,task_truthfulqa_mc2,acc,0.5365585380780952,W8A8_FP8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_FP8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_boolq,acc,0.8162079510703364,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_logiqa,acc,0.271889400921659,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu,acc,0.6213502350092579,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_humanities,acc,0.5540913921360255,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_formal_logic,acc,0.3888888888888889,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_high_school_european_history,acc,0.6787878787878788,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_high_school_us_history,acc,0.7009803921568627,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_high_school_world_history,acc,0.7510548523206751,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_international_law,acc,0.7272727272727273,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_jurisprudence,acc,0.75,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_logical_fallacies,acc,0.7730061349693251,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_moral_disputes,acc,0.7196531791907514,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_moral_scenarios,acc,0.40782122905027934,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_philosophy,acc,0.6527331189710611,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_prehistory,acc,0.7283950617283951,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_professional_law,acc,0.4172099087353325,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_world_religions,acc,0.8011695906432749,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_other,acc,0.6958480849694239,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_business_ethics,acc,0.67,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_clinical_knowledge,acc,0.7320754716981132,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_college_medicine,acc,0.630057803468208,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_global_facts,acc,0.33,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_human_aging,acc,0.6591928251121076,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_management,acc,0.8349514563106796,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_marketing,acc,0.8547008547008547,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_medical_genetics,acc,0.75,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_miscellaneous,acc,0.8135376756066411,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_nutrition,acc,0.7287581699346405,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_professional_accounting,acc,0.4858156028368794,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_professional_medicine,acc,0.6176470588235294,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_virology,acc,0.5180722891566265,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_social_sciences,acc,0.731881702957426,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_econometrics,acc,0.45614035087719296,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_high_school_geography,acc,0.797979797979798,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_high_school_government_and_politics,acc,0.8601036269430051,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_high_school_macroeconomics,acc,0.6128205128205129,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_high_school_microeconomics,acc,0.7226890756302521,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_high_school_psychology,acc,0.818348623853211,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_human_sexuality,acc,0.7557251908396947,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_professional_psychology,acc,0.684640522875817,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_public_relations,acc,0.6181818181818182,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_security_studies,acc,0.7591836734693878,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_sociology,acc,0.8159203980099502,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_us_foreign_policy,acc,0.83,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_stem,acc,0.5404376784015223,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_abstract_algebra,acc,0.42,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_anatomy,acc,0.6814814814814815,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_astronomy,acc,0.7039473684210527,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_college_biology,acc,0.7291666666666666,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_college_chemistry,acc,0.43,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_college_computer_science,acc,0.51,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_college_mathematics,acc,0.28,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_college_physics,acc,0.47058823529411764,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_computer_security,acc,0.76,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_conceptual_physics,acc,0.5659574468085107,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_electrical_engineering,acc,0.5862068965517241,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_elementary_mathematics,acc,0.4603174603174603,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_high_school_biology,acc,0.7548387096774194,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_high_school_chemistry,acc,0.5369458128078818,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_high_school_computer_science,acc,0.65,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_high_school_mathematics,acc,0.34074074074074073,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_high_school_physics,acc,0.423841059602649,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_high_school_statistics,acc,0.5092592592592593,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_mmlu_machine_learning,acc,0.4107142857142857,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_openbookqa,acc,0.318,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_truthfulqa_mc1,acc,0.33659730722154224,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W4A16,task_truthfulqa_mc2,acc,0.5055270509557502,W4A16,espressor/meta-llama.Llama-3.1-8B-Instruct_W4A16,5700595200
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_boolq,acc,0.8363914373088684,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_logiqa,acc,0.30721966205837176,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu,acc,0.6731234866828087,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_humanities,acc,0.6361317747077577,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_formal_logic,acc,0.4523809523809524,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_high_school_european_history,acc,0.7333333333333333,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_high_school_us_history,acc,0.8480392156862745,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_high_school_world_history,acc,0.8565400843881856,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_international_law,acc,0.7933884297520661,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_jurisprudence,acc,0.7685185185185185,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_logical_fallacies,acc,0.7791411042944786,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_moral_disputes,acc,0.7341040462427746,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_moral_scenarios,acc,0.5810055865921788,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_philosophy,acc,0.7202572347266881,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_prehistory,acc,0.75,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_professional_law,acc,0.49022164276401564,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_world_religions,acc,0.8187134502923976,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_other,acc,0.7364016736401674,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_business_ethics,acc,0.67,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_clinical_knowledge,acc,0.769811320754717,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_college_medicine,acc,0.6820809248554913,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_global_facts,acc,0.43,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_human_aging,acc,0.6905829596412556,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_management,acc,0.8155339805825242,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_marketing,acc,0.8846153846153846,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_medical_genetics,acc,0.77,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_miscellaneous,acc,0.8416347381864623,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_nutrition,acc,0.761437908496732,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_professional_accounting,acc,0.5567375886524822,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_professional_medicine,acc,0.7389705882352942,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_virology,acc,0.5060240963855421,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_social_sciences,acc,0.7621059473513162,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_econometrics,acc,0.5175438596491229,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_high_school_geography,acc,0.7929292929292929,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_high_school_government_and_politics,acc,0.8652849740932642,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_high_school_macroeconomics,acc,0.676923076923077,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_high_school_microeconomics,acc,0.7773109243697479,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_high_school_psychology,acc,0.8440366972477065,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_human_sexuality,acc,0.8091603053435115,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_professional_psychology,acc,0.7156862745098039,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_public_relations,acc,0.6636363636363637,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_security_studies,acc,0.746938775510204,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_sociology,acc,0.8407960199004975,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_us_foreign_policy,acc,0.84,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_stem,acc,0.5791309863621947,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_abstract_algebra,acc,0.37,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_anatomy,acc,0.7037037037037037,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_astronomy,acc,0.743421052631579,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_college_biology,acc,0.8125,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_college_chemistry,acc,0.45,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_college_computer_science,acc,0.53,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_college_mathematics,acc,0.36,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_college_physics,acc,0.39215686274509803,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_computer_security,acc,0.75,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_conceptual_physics,acc,0.6,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_electrical_engineering,acc,0.6413793103448275,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_elementary_mathematics,acc,0.48148148148148145,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_high_school_biology,acc,0.8,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_high_school_chemistry,acc,0.6354679802955665,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_high_school_computer_science,acc,0.71,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_high_school_mathematics,acc,0.4148148148148148,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_high_school_physics,acc,0.4503311258278146,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_high_school_statistics,acc,0.5370370370370371,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_mmlu_machine_learning,acc,0.49107142857142855,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_openbookqa,acc,0.342,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_truthfulqa_mc1,acc,0.3635250917992656,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
+meta-llama/Llama-3.1-8B-Instruct:W8A8_int8,task_truthfulqa_mc2,acc,0.5375172728553106,W8A8_int8,espressor/meta-llama.Llama-3.1-8B-Instruct_W8A8_int8,9083953152
