@@ -21,7 +21,24 @@ python scripts/plot_accuracy.py
 ```
 
 
-#### 
+#### Evaluate Performance of Model Router
+
+First we need to start an embedding model server:
+
+```
+bash scripts/serve_embeddings.sh
+```
+
+and then we can start evaluating the router performance
+
 ```bash
 python scripts/eval_routing.py
 ```
+
+and plot the results:
+
+```
+python scripts/plot_router_results.py
+```
+
+You can also find the training and testing data on this [HuggingFace repository](https://huggingface.co/datasets/xiaozheyao/mmlu_responses/tree/main)
