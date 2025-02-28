@@ -30,7 +30,7 @@ SELECT
     m2.value AS f1,
     m3.value AS ucr_score
 FROM runs r
-LEFT JOIN params p ON r.run_uuid = p.run_uuid AND p.key = 'model.name'
+# LEFT JOIN params p ON r.run_uuid = p.run_uuid AND p.key = 'model.name'
 LEFT JOIN tags t1 ON r.run_uuid = t1.run_uuid AND t1.key = 'run_id'
 LEFT JOIN tags t2 ON r.run_uuid = t2.run_uuid AND t2.key = 'timeseries'
 LEFT JOIN metrics m1 ON r.run_uuid = m1.run_uuid AND m1.key = 'auroc'
