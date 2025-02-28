@@ -5,7 +5,7 @@
 **Paper Name:** Incremental SliceLine for Iterative ML Model Debugging under Updates
 
 **Paper Links:**
- * <https://mboehm7.github.io/resources/btw2025a.pdf> (green open access)
+ * <https://mboehm7.github.io/resources/btw2025b.pdf> (green open access)
 
 **Source Code Info:**
  * Repository: Apache SystemDS [1] (<https://github.com/apache/systemds>, commit [a41027f7aa256ee2ea8609f819cded19896bc9f4](https://github.com/apache/systemds/commit/a41027f7aa256ee2ea8609f819cded19896bc9f4))

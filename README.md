@@ -3,7 +3,7 @@
 This repository contains reproducibility submissions, related to publications of the DAMS Lab research group.
 
 ## BTW 2025
-
+- [Fast, Parameter-Free Time Series Anomaly Detection](btw2025-STAN/)
 - [Incremental SliceLine for Iterative ML Model Debugging under Updates](btw2025-incsliceline-p111/)
 - [Scalable Computation of Shapley Additive Explanations](btw2025-scalable-SHAP-p142/)
 - [Academic Lineage of Hartmut Wedekind Poster](btw2025-lineage-wed90/)
