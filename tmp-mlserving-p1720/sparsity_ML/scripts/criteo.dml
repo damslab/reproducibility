@@ -1,0 +1,52 @@
+getModelSparsity = function(Matrix[Double] beta) return(Double sparsity) 
+{
+  tmp = beta != 0;
+  sparsity = (nrow(beta)*ncol(beta) - sum(tmp))/nrow(beta);
+}
+
+# Read the cleaned Criteo data
+data = read("file:/home/arnab/datasets/criteo_day21_5M_cleaned", 
+    data_type="frame", format="csv", header=FALSE,
+    naStrings=["NA", "na", "null", "NaN", "nan", "", "?"]);
+# Bin(13) w/ 5 bins, DC(26), RC(1)
+jspec = read("file:/home/arnab/datasets/criteo_fe4.json", data_type="scalar", value_type="string");
+[X, Meta] = transformencode(target=data, spec=jspec);
+print("("+nrow(data)+", "+ncol(data)+")");
+
+# Train-test split at 70%.
+[Xtrain, Xtest, Ytrain, Ytest] = split(X=X[,2:ncol(X)], Y=X[,1]);
+print("("+nrow(Xtrain)+", "+ncol(Xtest)+")");
+
+# Find the baseline accuracies with all features.
+t1 = time();
+model = multiLogReg(X=Xtrain, Y=Ytrain, maxi=50, verbose=FALSE);
+t2 = time();
+[M, Ypred, acc] = multiLogRegPredict(X=Xtrain, B=model, Y=Ytrain);
+print("Baseline Train Accuracy(%): " + acc);
+[M, Ypred, acc] = multiLogRegPredict(X=Xtest, B=model, Y=Ytest);
+print("Baseline Test Accuracy(%): " + acc);
+print("Baseline Training Time: " + floor((t2-t1)/1000000)+" millsec");
+
+for (tau in seq(700, 2100, 200)) {
+  # Feature selection using lasso
+  beta = lasso(X=Xtrain, y=Ytrain, tau=tau, verbose=FALSE);
+  sp = getModelSparsity(beta);
+  print("Tau: " + tau + ", Model Sparsity: " + toString(sp));
+
+  # Remove the 0th features from train and test
+  selCols = beta != 0;
+  X_train_fe = removeEmpty(target=Xtrain, margin="cols", select=t(selCols));
+  print("("+nrow(X_train_fe)+", "+ncol(X_train_fe)+")");
+  X_test_fe = removeEmpty(target=Xtest, margin="cols", select=t(selCols));
+
+  # Find the train, test accuracy after feature selection
+  t1 = time();
+  model = multiLogReg(X=X_train_fe, Y=Ytrain, maxi=50, verbose=FALSE);
+  t2 = time();
+  print("Tau: " + tau + ", Model Sparsity: " + toString(sp) + ", Training Time: " + floor((t2-t1)/1000000)+" millsec");
+  [M, Ypred, acc] = multiLogRegPredict(X=X_train_fe, B=model, Y=Ytrain);
+  print("Train Accuracy(%): " + acc);
+  [M, Ypred, acc] = multiLogRegPredict(X=X_test_fe, B=model, Y=Ytest);
+  print("Test Accuracy(%): " + acc);
+}
+

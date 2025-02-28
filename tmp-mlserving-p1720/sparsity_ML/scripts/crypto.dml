@@ -1,0 +1,65 @@
+getModelSparsity = function(Matrix[Double] beta) return(Double sparsity) 
+{
+  tmp = beta != 0;
+  sparsity = (nrow(beta)*ncol(beta) - sum(tmp))/nrow(beta);
+}
+
+getRsquared = function(Matrix[Double] X, Matrix[Double] Y, Matrix[Double] beta) return(Double R2)
+{
+  n = nrow(Y);
+  Yhat = X %*% beta;
+  sum_y = sum(Y);
+  mean_y = sum_y / n;
+  tss = sum((Y - mean_y)^2);
+  rss = sum((Y - Yhat)^2);
+  R2 = 1 - (rss / tss);
+}
+
+# Read, transform, and scale the dataset
+data = read("file:/home/arnab/datasets/crypto.csv", data_type="frame", format="csv",
+    naStrings=["inf", "-inf", "", "NaN"], header=TRUE);
+# spec1: Binning, equi-width, large #numbins
+jspec = read("file:/home/arnab/datasets/crypto_spec3.json", data_type="scalar", value_type="string");
+print("("+nrow(data)+", "+ncol(data)+")");
+[X ,Meta] = transformencode(target=data, spec=jspec);
+write(X, "file:/home/arnab/datasets/crypto_encoded.dat", format="binary");
+y = X[,ncol(X)];
+[X, cmin, cmax] = scale(X, TRUE, TRUE);
+
+# Train-test split at 70%.
+[Xtrain, Xtest, Ytrain, Ytest] = split(X=X, Y=y);
+print("("+nrow(Xtrain)+", "+ncol(Xtest)+")");
+
+# Find the baseline accuracies with all features.
+t1 = time();
+beta = lm(X=Xtrain, y=Ytrain, verbose=FALSE);
+t2 = time();
+R2 = getRsquared(Xtrain, Ytrain, beta);
+print("Baseline Train (lm) R2: " + R2);
+R2 = getRsquared(Xtest, Ytest, beta);
+print("Baseline Test (lm) R2: " + R2);
+print("Baseline Training Time: " + floor((t2-t1)/1000000)+" millsec");
+
+tau = 5000;
+#for (tau in seq(1, 1500, 100)) {
+  # Feature selection using lasso
+  beta = lasso(X=Xtrain, y=Ytrain, tau=tau, verbose=FALSE);
+  sp = getModelSparsity(beta);
+
+  # Remove the 0ed features from train and test
+  selCols = beta != 0;
+  X_train_fe = removeEmpty(target=Xtrain, margin="cols", select=t(selCols));
+  print("("+nrow(X_train_fe)+", "+ncol(X_train_fe)+")");
+  X_test_fe = removeEmpty(target=Xtest, margin="cols", select=t(selCols));
+
+  # Find the train, test accuracy after feature selection
+  t1 = time();
+  model = lm(X=X_train_fe, y=Ytrain, verbose=FALSE);
+  t2 = time();
+  print("Tau: " + tau + ", Model Sparsity: " + toString(sp) + ", Training Time: " + floor((t2-t1)/1000000)+" millsec");
+  R2 = getRsquared(X_train_fe, Ytrain, model);
+  print("Training R2: " + R2);
+  R2 = getRsquared(X_test_fe, Ytest, model);
+  print("Test R2: " + R2);
+#}
+
