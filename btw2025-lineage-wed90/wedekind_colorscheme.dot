@@ -1,0 +1,11 @@
+digraph {
+    graph[fontname="Calibri", margin="0", label="Node Color Scheme"];
+    node [fontname="Calibri" style=filled fillcolor=white];
+a1 [label="1960s", fontcolor="white", shape=doubleoctagon, fillcolor=red, style=filled, shape=doubleoctagon];
+    a2 [label="1970s", shape=doubleoctagon, fillcolor=orange, style=filled, shape=doubleoctagon];
+    a3 [label="1980s", shape=doubleoctagon, fillcolor=yellow, style=filled, shape=doubleoctagon];
+    a4 [label="1990s", shape=doubleoctagon, fillcolor=yellowgreen, style=filled, shape=doubleoctagon];
+    a5 [label="2000s", shape=doubleoctagon, fillcolor=cyan, style=filled, shape=doubleoctagon];
+    a6 [label="2010s", shape=doubleoctagon, fillcolor=deepskyblue, style=filled, shape=doubleoctagon];
+    a7 [label="2020s", fontcolor="white", shape=doubleoctagon, fillcolor=blue, style=filled, shape=doubleoctagon];
+}

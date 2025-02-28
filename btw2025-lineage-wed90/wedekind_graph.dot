@@ -1,11 +1,11 @@
 digraph {
     graph[outputorder=edgesfirst size="32.1,45.8!" ratio="fill" margin="0.5" center=true, beautify=true];
-    node [fontname="Calibri" style=filled fillcolor=white fontsize=18];
+    node [fontname="Calibri" style=filled fillcolor=white fontsize=16];
 
     //wedekind subgraph
-    wedekind [label="Hartmut Wedekind\n1963", fontcolor=white, fillcolor=red, style=filled, shape=tripleoctagon, fontsize=24];
+    wedekind [label="Hartmut Wedekind\n1963", fontcolor=white, fillcolor=red, style=filled, shape=tripleoctagon, fontsize=22];
     a1 [label="Kreuzberger\n1969"];
-    petzold [label="Petzold\n1970", fillcolor=orange, style=filled, shape=doubleoctagon];
+    petzold [label="Hans-Joachim Petzold\n1970", fillcolor=orange, style=filled, shape=doubleoctagon];
     a3 [label="Bastian\n1972"];
     a4 [label="Clüsserath\n1972"];
     a5 [label="Osswald\n1972"];
@@ -15,51 +15,89 @@ digraph {
     a9 [label="Haag\n1981"];
     ortner [label="Erich Ortner\n1982", fillcolor=yellow, style=filled, shape=doubleoctagon];
     a11 [label="Eberlein\n1983"];
-    a12 [label="Kratzer\n1986"];
-    a13 [label="Schön\n1987"];
+    a12 [label="Klaus Peter Kratzer\n1986", fillcolor=yellow, style=filled, shape=doubleoctagon];
+    a13 [label="Dieter Schön\n1987", fillcolor=yellow, style=filled, shape=doubleoctagon];
     a14 [label="Zörntlein\n1987"];
     beckstein [label="Clemens Beckstein\n1988", fillcolor=yellow, style=filled, shape=doubleoctagon];
     jablonski [label="Stefan Jablonski\n1989", fillcolor=yellow, style=filled, shape=doubleoctagon];
-    a17 [label="Schreier\n1989"];
+    a17 [label="Ulf Schreier\n1989", fillcolor=yellow, style=filled, shape=doubleoctagon];
     a18 [label="Hofmann\n1990"];
     a19 [label="Nau\n1990"];
-    a20 [label="Tielemann\n1990"];
-    a21 [label="Ruf\n1991"];
+    a20 [label="Michael Tielemann\n1990", fillcolor=yellowgreen, style=filled, shape=doubleoctagon];
+    a21 [label="Thomas Ruf\n1991", fillcolor=yellowgreen, style=filled, shape=doubleoctagon];
     a22 [label="Leue\n1992"];
     a23 [label="Nagler\n1992"];
     a24 [label="Reinwald\n1993"];
-    a25 [label="Steinbauer\n1993"];
+    a25 [label="Dieter Steinbauer\n1993", fillcolor=yellowgreen, style=filled, shape=doubleoctagon];
     a26 [label="Sommer\n1993"];
     a27 [label="Kirsche\n1994"];
-    a28 [label="Lührser\n1996"];
+    a28 [label="Lührsen\n1996"];
     a29 [label="Schottmüller\n1996"];
-    a30 [label="Lenz\n1997"];
+    lenz [label="Richard Lenz\n1997", fillcolor=yellowgreen, style=filled, shape=doubleoctagon];
     a31 [label="Schuster\n1997"];
     lehner [label="Wolfgang Lehner\n1998", fillcolor=yellowgreen, style=filled, shape=doubleoctagon];
     a33 [label="Lotter\n1998"];
     a34 [label="Teschke\n1999"];
-    a35 [label="Albrecht, J.\n2001"];
-    a36 [label="Günzel\n2001"];
+    a35 [label="Jens Albrecht\n2001", fillcolor=cyan, style=filled, shape=doubleoctagon];
+    a36 [label="Holger Günzel\n2001", fillcolor=cyan, style=filled, shape=doubleoctagon];
     a37 [label="Bauer\n2002"];
     a38 [label="Hümmer\n2004"];
     a39 [label="Schlesinger\n2004"];
     wedekind -> a1,petzold,a3,a4,a5,a6;
     wedekind -> haerder,a8,a9,ortner;
     wedekind -> a11,a12,a13,a14,beckstein,jablonski;
-    wedekind -> a17,a18,a19,a20,a21,a22,a23,a24,a25,a26,a27,a28,a29,a30,a31;
+    wedekind -> a17,a18,a19,a20,a21,a22,a23,a24,a25,a26,a27,a28,a29,lenz,a31;
     wedekind -> lehner,a33,a34,a35,a36,a37,a38,a39;
 
     //petzold subgraph
     b1 [label="Albers\n1995"];
-    b2 [label="Stahlinger\n1996"];
-    petzold -> b1,b2;
+    strahringer [label="Susanne Strahringer\n1996", fillcolor=yellowgreen, style=filled, shape=doubleoctagon];
+    petzold -> b1,strahringer;
+
+    //strahringer subgraph
+    ba1 [label="Gnirs\n2004"];
+    ba2 [label="Löbbert-Passing\n2004"];
+    ba3 [label="Lutz Niehüser\n2005", fillcolor=cyan, style=filled, shape=doubleoctagon];
+    ba4 [label="von Blohn\n2005"];
+    ba5 [label="Behrens\n2007"];
+    ba6 [label="Stephan Schneider\n2007", fillcolor=cyan, style=filled, shape=doubleoctagon];
+    ba7 [label="Gmeiner\n2008"];
+    ba8 [label="Markus Westner\n2009", fillcolor=cyan, style=filled, shape=doubleoctagon];
+    ba9 [label="Daniel Simonovich\n2010", fillcolor=deepskyblue, style=filled, shape=doubleoctagon];
+    ba10 [label="Wilhelm\n2011"];
+    ba11 [label="Gräning\n2013"];
+    ba12 [label="Lohr\n2013"];
+    ba13 [label="Christian Leyh\n2014", fillcolor=deepskyblue, style=filled, shape=doubleoctagon];
+    ba14 [label="Wendler\n2015"];
+    ba15 [label="Wölfel\n2016"];
+    ba16 [label="Kobus\n2017"];
+    ba17 [label="Lackermair\n2017"];
+    ba18 [label="Lück\n2018"];
+    ba19 [label="Kopper\n2019"];
+    ba20 [label="Könning\n2020"];
+    ba21 [label="Schön\n2020"];
+    ba22 [label="Strasser\n2020"];
+    ba23 [label="von Bary\n2020"];
+    ba24 [label="Patrick Zschech\n2020", fillcolor=blue, fontcolor=white, style=filled, shape=doubleoctagon];
+    ba25 [label="Bley\n2021"];
+    ba26 [label="Hentschel\n2021"];
+    ba27 [label="Klotz\n2021"];
+    ba28 [label="Walter\n2021"];
+    ba29 [label="Wulf\n2021"];
+    ba30 [label="Brosig\n2022"];
+    ba31 [label="Käss\n2024"];
+    ba32 [label="Kratzer\n2023"];
+    strahringer -> ba1,ba2,ba3,ba4,ba5,ba6,ba7,ba8,ba9,ba10;
+    strahringer -> ba11,ba12,ba13,ba14,ba15,ba16,ba17,ba18,ba19,ba20;
+    strahringer -> ba21,ba22,ba23,ba24,ba25,ba26,ba27,ba28,ba29,ba30;
+    strahringer -> ba31,ba32;
 
     //haerder subgraph
     effelsberg [label="Wolfgang Effelsberg\n1981", fillcolor=yellow, style=filled, shape=doubleoctagon];
     reuter [label="Andreas Reuter\n1981", fillcolor=yellow, style=filled, shape=doubleoctagon];
     kuespert [label="Klaus Küspert\n1985", fillcolor=yellow, style=filled, shape=doubleoctagon];
     mwegener [label="Klaus Meyer-Wegener\n1986", fillcolor=yellow, style=filled, shape=doubleoctagon];
-    c5 [label="Peinl\n1986"];
+    c5 [label="Peter Peinl\n1986", fillcolor=yellow, style=filled, shape=doubleoctagon];
     mitschang [label="Bernhard Mitschang\n1988", fillcolor=yellow, style=filled, shape=doubleoctagon];
     rahm [label="Erhard Rahm\n1988", fillcolor=yellow, style=filled, shape=doubleoctagon];
     c8 [label="Mattos\n1989"];
@@ -181,11 +219,10 @@ digraph {
     werner -> caaa1,caaa2,caaa3;
 
     //mauve subgraph
-    cab1 [label="Scheuermann\n2007"];
+    scheuermann [label="Björn Scheuermann\n2007", fillcolor=cyan, style=filled, shape=doubleoctagon];
     cab2 [label="Caliskan\n2008"];
     cab3 [label="Kiess\n2008"];
     cab4 [label="Lochert\n2008"];
-    cab5 [label="Hoerster\n2009"];
     cab6 [label="Tran\n2009"];
     cab7 [label="Wewetzer\n2009"];
     cab8 [label="Rybicki\n2011"];
@@ -193,8 +230,30 @@ digraph {
     cab10 [label="Baselt\n2013"];
     cab11 [label="Kerper\n2013"];
     cab12 [label="Koegel\n2013"];
-    mauve -> cab1,cab2,cab3,cab4,cab5,cab6,cab7,cab8,cab9,cab10;
+    mauve -> scheuermann,cab2,cab3,cab4,cab6,cab7,cab8,cab9,cab10;
     mauve -> cab11,cab12;
+
+    //scheuermann subgraph
+    caba1 [label="Rybicki\n2011"];
+    tschorsch [label="Florian Tschorsch\n2016", fillcolor=deepskyblue, style=filled,  shape=doubleoctagon];
+    caba3 [label="Cagara\n2017"];
+    caba4 [label="Bittl\n2017"];
+    caba5 [label="Fießler\n2019"];
+    caba6 [label="Naumann\n2019"];
+    caba7 [label="Hager\n2020"];
+    caba8 [label="Schoppmann\n2021"];
+    caba9 [label="Henningsen\n2022"];
+    caba10 [label="Döbler\n2023"];
+    caba11 [label="Reichert\n2024"];
+    caba12 [label="Kondrateva\n2024"];
+    scheuermann -> caba1,tschorsch,caba3,caba4,caba5,caba6;
+    scheuermann -> caba7,caba8,caba9,caba10,caba11,caba12;
+
+    //tschorsch subgraph
+    cabaa1 [label="Rohrer\n2021"];
+    cabaa2 [label="Muth\n2023"];
+    cabaa3 [label="Kapp\n2024"];
+    tschorsch -> cabaa1, cabaa2, cabaa3;
 
     //reuter subgraph
     walter [label="Bernd Walter\n1985", fillcolor=yellow, style=filled,  shape=doubleoctagon];
@@ -214,7 +273,7 @@ digraph {
     cb15 [label="Pollak\n1999"];
     cb16 [label="Röhrle\n1999"];
     cb17 [label="Zink\n2000"];
-    cb18 [label="Schneider\n2003"];
+    cb18 [label="Kerstin Schneider\n2003", fillcolor=cyan, style=filled,  shape=doubleoctagon];
     cb19 [label="Böhr\n2011"];
     cb20 [label="Nehmer\n2011"];
     reuter -> walter,cb2,cb3,cb4,cb5,cb6,cb7,cb8,cb9,cb10;
@@ -239,18 +298,19 @@ digraph {
     stoerl [label="Uta Störl\n1999", fillcolor=yellowgreen, style=filled, shape=doubleoctagon];
     cc3 [label="Hüsemann\n2002"];
     cc4 [label="Lufter\n2005"];
-    cc5 [label="Dorendorf\n2006"];
+    cc5 [label="Stefan Dorendorf\n2006", fillcolor=cyan, style=filled, shape=doubleoctagon];
     cc6 [label="Gollmick\n2006"];
     cc7 [label="Skatulla\n2006"];
     cc8 [label="Stolze\n2006"];
     cc9 [label="Müller\n2008"];
     cc10 [label="Wiese\n2011"];
     cc11 [label="Rabinovitch\n2012"];
-    cc12 [label="Döhring\n2013"];
+    cc12 [label="Markus Döhring\n2013", fillcolor=deepskyblue, style=filled, shape=doubleoctagon];
     cc13 [label="Liebisch\n2014"];
-    cc14 [label="Koch\n2016"];
+    cc14 [label="Göbel\n2015"]
+    cc15 [label="Koch\n2016"];
     kuespert -> cc1,stoerl,cc3,cc4,cc5,cc6,cc7,cc8,cc9,cc10;
-    kuespert -> cc11,cc12,cc13,cc14;
+    kuespert -> cc11,cc12,cc13,cc14,cc15;
 
     //stoerl subgraph
     cca1 [label="Hillenbrand\n2023"];
@@ -274,7 +334,7 @@ digraph {
     cd15 [label="Nagy\n2012"];
     cd16 [label="Weiler\n2012"];
     cd17 [label="Lauterwald\n2015"];
-    cd18 [label="Stern\n2020"];
+    cd18 [label="Maike Stern\n2020", fontcolor="white", fillcolor=blue, style=filled,  shape=doubleoctagon];
     cd19 [label="Pollner\n2021"];
     cd20 [label="Beena Gopalakrishnan Nair\n2021"];
     cd21 [label="Schwab\n2022"];
@@ -378,7 +438,7 @@ digraph {
     cg3 [label="Stumm\n2010"];
     cg4 [label="Jörg\n2013"];
     cg5 [label="Hu\n2017"];
-    cg6 [label="Schildgen\n2017"];
+    cg6 [label="Johannes Schildgen\n2017", fillcolor=deepskyblue, style=filled, shape=doubleoctagon];
     cg7 [label="Qu\n2020"];
     dessloch -> cg1,cg2,cg3,cg4,cg5,cg6,cg7;
 
@@ -387,7 +447,7 @@ digraph {
     ch2 [label="von Riegen\n2012"];
     ch3 [label="Fabian Panse\n2014", fillcolor=deepskyblue, style=filled, shape=doubleoctagon];
     ch4 [label="Gessert\n2018"];
-    ch5 [label="Wolfram Wingerath\n2018", fillcolor=deepskyblue, style=filled, shape=doubleoctagon];
+    ch5 [label="Wolfram Wingerath\n2019", fillcolor=deepskyblue, style=filled, shape=doubleoctagon];
     ritter -> ch1,ch2,ch3,ch4,ch5;
 
     //ortner subgraph
@@ -416,23 +476,23 @@ digraph {
     petrov [label="Ilia Petrov\n2005", fillcolor=cyan, style=filled, shape=doubleoctagon];
     f11 [label="Mayer\n2006"];
     f12 [label="Lay\n2007"];
-    f13 [label="Müller\n2007"];
+    f13 [label="Sascha Mueller-Feuerstein\n2007", fillcolor=cyan, style=filled, shape=doubleoctagon];
     f14 [label="Faerber\n2010"];
     f15 [label="Götz\n2010"];
     f16 [label="Rehman\n2010"];
     f17 [label="Talib\n2011"];
-    f18 [label="Volz\n2011"];
+    f18 [label="Bernhard Volz\n2011", fillcolor=deepskyblue, style=filled, shape=doubleoctagon];
     f19 [label="Igler\n2012"];
     f20 [label="Meerkamm\n2012"];
     f21 [label="Schneider\n2013"];
     f22 [label="Hecht\n2014"];
     f23 [label="Jahn\n2014"];
     f24 [label="Roth\n2014"];
-    f25 [label="Schönig\n2015"];
+    schoenig [label="Stefan Schönig\n2015", fillcolor=deepskyblue, style=filled, shape=doubleoctagon];
     f26 [label="Zeising\n2015"];
     f27 [label="Seitz\n2016"];
     f28 [label="Wiedmann\n2017"];
-    f29 [label="Ackermann\n2018"];
+    f29 [label="Lars Ackermann\n2018", fillcolor=deepskyblue, style=filled, shape=doubleoctagon];
     f30 [label="Baumann\n2018"];
     f31 [label="Fichtner\n2024"];
     f32 [label="Schützenmeier\n2024"];
@@ -442,7 +502,7 @@ digraph {
     f36 [label="Petter\n2025"];
     jablonski -> f1,f2,f3,f4,f5,f6,f7,f8,f9,petrov;
     jablonski -> f11,f12,f13,f14,f15,f16,f17,f18,f19,f20;
-    jablonski -> f21,f22,f23,f24,f25,f26,f27,f28,f29,f30;
+    jablonski -> f21,f22,f23,f24,schoenig,f26,f27,f28,f29,f30;
     jablonski -> f31,f32,f33,f34,f35,f36;
 
     //pretrov subgraph
@@ -453,6 +513,12 @@ digraph {
     fa5 [label="Riegger\n2023"];
     fa6 [label="Bernhardt\n2025"];
     petrov -> fa1,fa2,fa3,fa4,fa5,fa6;
+
+    //schoenig subgraph
+    fb1 [label="Stoiber\n2024"];
+    fb2 [label="Hornsteiner\n2025"];
+    fb3 [label="Poss\n2025"];
+    schoenig -> fb1,fb2,fb3;
 
     //lehner subgraph
     g2 [label="Schmidt\n2006"];
@@ -473,7 +539,7 @@ digraph {
     g17 [label="Voigt\n2014"];
     g18 [label="Braunschweig\n2015"];
     g19 [label="Eberius\n2015"];
-    g20 [label="Tim Kiefer\n2015"];
+    g20 [label="Kiefer\n2015"];
     g21 [label="Siksnys\n2015"];
     g22 [label="Kernert\n2016"];
     g23 [label="Vasilyeva\n2016"];
@@ -488,16 +554,16 @@ digraph {
     g32 [label="Hartmann\n2018"];
     g33 [label="Kolditz\n2018"];
     g34 [label="Idris\n2019"];
-    g35 [label="Raisal Munir\n2019"];
+    g35 [label="Munir\n2019"];
     g36 [label="Damme\n2020"];
-    g37 [label="Jahan Lisa\n2020"];
+    g37 [label="Jahan\n2020"];
     g38 [label="Kegel\n2020"];
     g39 [label="Koci\n2020"];
     g40 [label="Krause\n2020"];
     g41 [label="Lersch\n2020"];
     g42 [label="Ungethüm\n2020"];
     g43 [label="Günther\n2021"];
-    g44 [label="Schad\n2021"];
+    g44 [label="Luong\n2021"];
     g45 [label="Ulbricht\n2021"];
     g46 [label="Zarubin\n2022"];
     g47 [label="Hertzschuch\n2023"];
@@ -530,4 +596,16 @@ digraph {
     gb1 [label="Phani\n2024"];
     gb2 [label="Baunsgaard\n2025"];
     boehm -> gb1,gb2
+
+    //subgraph lenz
+    h1 [label="Blechinger\n2012"];
+    h2 [label="Christoph Neumann\n2012", fillcolor=deepskyblue, style=filled,  shape=doubleoctagon];
+    h3 [label="Fischer\n2014"];
+    h4 [label="Wahl\n2024"];
+    h5 [label="Baumgärtel\n2015"];
+    h6 [label="Held\n2015"];
+    h7 [label="Endler\n2016"];
+    h8 [label="Tenschert\n2018"];
+    lenz -> h1,h2,h3,h4,h5,h6,h7,h8;
 }
+
