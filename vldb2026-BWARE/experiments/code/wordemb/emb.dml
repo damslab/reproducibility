@@ -1,0 +1,25 @@
+
+
+A = read($1)
+E = read($2)
+nrowA = nrow(A)
+ncolA = ncol(A)
+combined =  nrowA*ncolA
+
+
+# Reshape to vector
+A = matrix(A, rows = nrowA*ncolA, cols = 1)
+for( i in 1 : 10){
+    starti = time()
+    # One-hot-encode
+    oh = table(seq(1, combined), A)
+    # Embed
+    emb = oh %*% E
+    # Reshape Back
+    emb = matrix(emb, rows = nrowA, cols =ncol(E) * ncolA)
+    endi = time()
+    print("time embedding "+i+": " + (endi - starti))
+}
+
+print(toString(mean(emb)))
+

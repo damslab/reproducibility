@@ -1,0 +1,18 @@
+F = read($1)
+S = $2
+
+
+L = min(S-1, nrow(F))
+# W = F[1:L,1]
+
+# write(W, $1 + "_" + L +".words.bin", format="binary")
+
+E = F[1:L,2:ncol(F)]
+E = as.matrix(E)
+
+if(S < nrow(F))
+    L = min(S, nrow(F))
+# Add the Zero embedding as in unknown to the end.
+E = rbind(E,matrix(0, rows= 1, cols = ncol(E)))
+write(E, $1 + "_" + L +".embedding.bin", format="binary")
+write(E, $1 + "_" + L +".embedding.csv", format="csv")

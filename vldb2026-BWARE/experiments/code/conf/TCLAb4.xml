@@ -1,0 +1,6 @@
+<root>
+    <sysds.compressed.linalg>true</sysds.compressed.linalg>
+    <sysds.defaultblocksize>4000</sysds.defaultblocksize>
+    <sysds.native.blas>mkl</sysds.native.blas>
+    <sysds.compressed.transformencode>true</sysds.compressed.transformencode>
+</root>

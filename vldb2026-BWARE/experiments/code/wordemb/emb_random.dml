@@ -1,0 +1,31 @@
+
+
+
+nrowA = $1
+ncolA = $3
+nrowE = $2
+ncolE = 300
+combined =  nrowA*ncolA
+
+
+A = rand(rows = combined, cols = 1, min = 1, max = nrowE + 0.9999, seed = 32)
+E = rand(rows = nrowE, cols = ncolE, min = -1, max = 1, seed = 13)
+A = floor(A)
+
+start = time()
+for( i in 1 : 10){
+    starti = time()
+    # One-hot-encode
+    oh = table(seq(1, combined), A)
+    # Embed
+    emb = oh %*% E
+    # Reshape Back
+    emb = matrix(emb, rows = nrowA, cols =ncolE * ncolA)
+    endi = time()
+    print("time embedding "+i+": " + (endi - starti))
+}
+end = time()
+
+print("time all: " + (end- start))
+print(toString(colMeans(emb)))
+

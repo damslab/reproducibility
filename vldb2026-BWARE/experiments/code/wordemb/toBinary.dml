@@ -1,0 +1,3 @@
+
+M = read($1)
+write(M, $2, format="binary")

@@ -1,0 +1,5 @@
+<root>
+    <sysds.defaultblocksize>500</sysds.defaultblocksize>
+    <sysds.native.blas>mkl</sysds.native.blas>
+    <sysds.compressed.transformencode>true</sysds.compressed.transformencode>
+</root>
