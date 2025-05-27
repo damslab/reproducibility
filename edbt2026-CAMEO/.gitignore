@@ -1,0 +1,10 @@
+*.pyd
+*.cpp
+*.html
+.idea
+/build/
+/data/UCR_data/
+/data/compressed/
+*__pycache__
+*.idea
+

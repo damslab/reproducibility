@@ -1,0 +1,2 @@
+# cython: language_level=3, cdivision=True, boundscheck=False, wraparound=False, nonecheck=False, initializedcheck=False, infer_types=True
+cpdef simplify_by_pip(double[:] y, Py_ssize_t nlags, double acf_threshold)

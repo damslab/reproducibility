@@ -1,0 +1,2 @@
+## Install TerseTS to use PMC, SWING and SP
+You can easily install [TerseTS](https://github.com/cmcuza/TerseTS/) by cloning the repository and installing using pip as described in the [readme](https://github.com/cmcuza/TerseTS/blob/main/bindings/python/README.md). 
