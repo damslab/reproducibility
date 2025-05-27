@@ -7,7 +7,7 @@ of multi-threading.
 
 This repository reproduces the results presented in the paper:
 
-> Carlos sdj fijdf ijfd fdifjdif ijsdsd 
+>  Muñiz-Cuza, Carlos Enrique, Matthias Boehm, and Torben Bach Pedersen. "CAMEO: Autocorrelation-Preserving Line Simplification for Lossy Time Series Compression." EDBT (2026).
 
 This is a work in progress. 
 
