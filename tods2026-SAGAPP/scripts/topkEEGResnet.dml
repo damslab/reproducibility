@@ -1,0 +1,350 @@
+#-------------------------------------------------------------
+#
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#
+#-------------------------------------------------------------
+# Generate the logical pipelines for data cleaning
+
+source("scripts/pipelines/scripts/utils.dml") as utils;
+source("scripts/nn/networks/resnet_util.dml") as resnet_util
+source("scripts/nn/networks/resnet18.dml") as resnet18
+source("scripts/nn/layers/softmax.dml") as softmax
+source("scripts/nn/layers/cross_entropy_loss.dml") as cross_entropy
+source("scripts/nn/layers/logcosh_loss.dml") as logcosh
+source("nn/optim/adam.dml") as adam
+sep=$sep
+# read the inputs
+F = read($dirtyData, data_type="frame", format="csv", header=TRUE, 
+  naStrings= ["NA", "null","  ","NaN", "_nan_", "", "?", " ", "nan", "inf", "NAN", "99999", "99999.00"], sep=$sep);
+
+metaInfo = read($metaData, data_type="frame", format="csv", header=FALSE);
+primitives = read($primitives, data_type = "frame", format="csv", header= TRUE)
+param = read($parameters, data_type = "frame", format="csv", header= TRUE)
+topK = $topk
+resources = $rv
+expectedIncrease=$expectedIncrease
+sample=$sample
+output=$output
+max_iter=$max_iter
+testCV = as.logical($testCV)
+cvk = as.integer($cvk)
+trainTestSplit = as.double($split)
+evalFunc = $func
+enablePruning = $enablePruning
+seed=$seed
+applySliceLine = $sliceline;
+
+# Apply SliceLine to find the worst slice
+if (applySliceLine) {
+  rowMask = applySliceLine(F);
+  F = removeEmpty(target=F, margin="rows", select=rowMask);
+}
+split = nrow(F) * trainTestSplit
+
+if(testCV) {
+  trainData = F
+  testData = as.frame("0")
+}
+else {
+  trainData = F[1:split,]
+  testData = F[split+1:nrow(F),]
+}
+
+
+evalFunHp = as.matrix(NaN)
+if(nrow(metaInfo) < 2)
+  metaInfo = as.frame("NULL")
+else if(nrow(metaInfo) > 3) {
+  evalFunHp = as.matrix(metaInfo[4, 2:ncol(metaInfo)])
+   metaInfo = metaInfo[, 2:ncol(metaInfo)]
+}
+else
+  metaInfo = metaInfo[, 2:ncol(metaInfo)]
+# # # split in train/test 70/30
+
+print(toString(metaInfo))
+[topKPipelines, topKHyperParams, topKScores, baseLineScore, evalFunHp, applyFunc] = topk_cleaning(dataTrain=trainData, dataTest=testData, metaData=metaInfo, primitives=primitives, parameters=param,
+  evaluationFunc=evalFunc, evalFunHp=evalFunHp, topK=topK, expectedIncrease=expectedIncrease, max_iter=max_iter,
+  resource_val=resources, cv=testCV, cvk=cvk, sample=sample, isLastLabel=TRUE, enablePruning = enablePruning, seed=seed, correctTypos=FALSE) 
+
+write(topKPipelines, output+"/pip.csv", format="csv")
+write(topKHyperParams, output+"/hp.csv", format="csv")
+write(topKScores, output+"/bestAcc.csv", format="csv")
+write(baseLineScore, output+"/dirtyScore.csv", format="csv")
+write(evalFunHp, output+"/evalHp.csv", format="csv")
+write(applyFunc, output+"/applyFunc.csv", format="csv")
+
+# Apply SliceLine
+applySliceLine = function(Frame[Unknown] data) return(Matrix[Double] rowMask) {
+  jspec1 = read("./eeg_spec1.json", data_type="scalar", value_type="string");
+  [X, Meta] = transformencode(target=data, spec=jspec1);
+  X = replace(target=X, pattern=NaN, replacement=0); #replace NaNs
+
+  y = X[,ncol(X)];
+  X = X[,1:(ncol(X)-1)];
+
+  model = multiLogReg(X=X, Y=y, verbose=FALSE);
+  [M, Ypred, acc] = multiLogRegPredict(X=X, B=model, Y=y);
+  e = (y != Ypred);
+
+  print("("+nrow(X)+", "+ncol(X)+")");
+  print("("+nrow(e)+", "+ncol(e)+")");
+  [TK,TKC,D] = slicefinder(X=X, e=e, k=1, alpha=0.95, minSup=32, tpBlksz=16, verbose=FALSE);
+
+  print("After Slice-finding: -----");
+  print(toString(TK));
+  mask = rowSums(X == TK[1,]);
+  I = (mask == sum(TK[1,] > 0));
+  X_slice = removeEmpty(target=data, margin="rows", select=I);
+  y_slice = removeEmpty(target=y, margin="rows", select=I);
+  print(nrow(X_slice) + ", " + ncol(X_slice));
+  print(nrow(y_slice) + ", " + ncol(y_slice));
+  
+  # Return the row mask
+  rowMask = I;
+}
+
+
+# UDF for ResNet
+evalResnet = function(Matrix[Double] X, Matrix[Double] Y, Matrix[Double] Xtest, Matrix[Double] Ytest, 
+    Matrix[Double]  Xorig=as.matrix(0), Matrix[Double] evalFunHp, Boolean writeError=FALSE)
+  return(Matrix[Double] output, Matrix[Double] error)
+{
+  classes = 2 #for EEG dataset 
+  [model, ema_means_vars] = resnet18::init(classes, -1)
+  optimizer_params = resnet18::init_adam_optim_params(classes)
+  Hin = 32
+  Win = 32
+  C = 3  # input channels
+#  X = X[1:256,]
+#  Y = Y[1:256,];
+#  Xtest = Xtest[1:256,]
+#  Ytest = Ytest[1:256,];
+  N = nrow(X);
+  pad_dim = Hin*Win*C - ncol(X);
+  padding = matrix(0, rows=N, cols=pad_dim);
+  X = cbind(X, padding);
+  padding = matrix(0, rows=nrow(Xtest), cols=pad_dim);
+  Xtest = cbind(Xtest, padding);
+  dummy = "1";
+  jspec= "{ ids:true, dummycode:["+dummy+"]}"
+  [Y,M] = transformencode(target=as.frame(Y), spec=jspec);
+  [Ytest,M] = transformencode(target=as.frame(Ytest), spec=jspec);
+  print("("+nrow(X)+", "+ncol(X)+")");
+
+  # train ResNet
+  epochs = 5 #20
+  batch_size = 256 #16
+  bestAcc = 0;
+  bestEpoch = 0;
+  # hyperparameter tuning
+  if(is.na(as.scalar(evalFunHp[1,1])))
+  {
+    print("Hyperparmeter tuning for ResNet18");
+    params = list("epoch")
+    for (h1 in seq(2,8,2)) {
+      batch_size = h1*64; #128-512
+      [learned_model, learned_emas] = train(X, Y, model, ema_means_vars, N, Hin, Win, 
+          epochs, batch_size, optimizer_params)
+      [accuracy, error] = test(Xtest, Ytest, learned_model, learned_emas, Hin, Win);
+      if (as.scalar(accuracy[1,1]) > bestAcc) {
+        bestAcc = as.scalar(accuracy[1,1]);
+        bestHP = batch_size;
+      }
+    }
+    print("Best batch size: "+bestHP);
+    evalFunHp[1,1] = bestHP;
+  }
+
+  [learned_model, learned_emas] = train(X, Y, model, ema_means_vars, N, Hin, Win, 
+      epochs, as.scalar(evalFunHp[1,1]), optimizer_params)
+  [accuracy, error] = test(Xtest, Ytest, learned_model, learned_emas, Hin, Win);
+  if (writeError) {
+    [accuracyTr, errorTr] = test(X, Y, learned_model, learned_emas, Hin, Win);
+    print("Writing errors for slicefinder")
+    write(errorTr, "eeg_e.csv", format="csv");
+  }
+  output = cbind(accuracy, evalFunHp)
+}
+
+train = function(matrix[double] X, matrix[double] Y, list[unknown] model, list[unknown] emas, 
+    int samples, int Hin, int Win, int epochs, int batch_size, list[unknown] optim_params)
+    return (list[unknown] learned_model, list[unknown] learned_emas) {
+    # optimizer hyper parameters
+    lr = 0.001
+    epsilon = 1e-8
+    # *** adam
+    beta1 = 0.9
+    beta2 = 0.999
+    t = 0
+    # *** rmsprop
+    decay_rate = 0.99
+    # sgd momentum & nesterov
+    momentum = 0.8
+    learned_model = list()
+    learned_emas = list()
+    iterations = ceil(samples/batch_size)
+    mode = "train"
+
+    for (epoch in 1:epochs) {
+        loss_avg = 0.0
+        print("Start epoch: " + epoch + " & batch size: " + batch_size)
+        for (i in 1:iterations) {
+            #print(" - Iteration: " + i)
+            # get batch
+            start = (i - 1) * batch_size + 1
+            end = min(samples, i * batch_size)
+            X_batch = X[start:end,]
+            Y_batch = Y[start:end,]
+            # forward pass
+            [out, emas, cached_out, cached_means_vars] = resnet18::forward(X_batch, Hin, Win, model, mode, emas)
+            # loss
+            loss = logcosh::forward(out, Y_batch)
+            loss_avg = (loss_avg * (i - 1) + loss) / i
+            # backward
+            dOut = logcosh::backward(out, Y_batch)
+            [dX, gradients] = resnet18::backward(dOut, cached_out, model, cached_means_vars)
+            [model, optim_params] = resnet18::update_params_with_adam(model, gradients, lr, 
+                beta1, beta2, epsilon, t, optim_params)
+            t = t + 1
+        }
+        # reshuffle mini batches
+        r = rand(rows=nrow(Y), cols=1, min=0, max=1, pdf="uniform")
+        X_tmp = order(target=cbind(r, X), by=1)
+        Y_tmp = order(target=cbind(r, Y), by=1)
+        X = X_tmp[,2:ncol(X_tmp)]
+        Y = Y_tmp[,2:ncol(Y_tmp)]
+        #print("Epoch Avg. Loss: " + loss_avg)
+    }
+    learned_model = model
+    learned_emas = emas
+}
+
+test = function(matrix[double] X, matrix[double] Y, list[unknown] model, list[unknown] emas, int Hin, int Win) 
+  return(Matrix[Double] output, Matrix[Double] error)
+{
+    # forward pass
+    mode = "test";
+    [out, emas, cached_out, cached_means_vars] = resnet18::forward(X, Hin, Win, model, mode, emas)
+    # calculate accuracy
+    y_pred = rowIndexMax(out);
+    y_ground = rowIndexMax(Y);
+    acc = sum(y_pred == y_ground) / nrow(Y) * 100;
+    print("Accuracy: "+acc);
+    output = as.matrix(acc);
+    error = y_pred != y_ground;
+}
+ 
+
+
+# UDF for evaluation  
+evalClassification = function(Matrix[Double] X, Matrix[Double] Y, Matrix[Double] Xtest, Matrix[Double] Ytest, Matrix[Double] Xorig=as.matrix(0),
+  Matrix[Double] evalFunHp, Boolean writeError=FALSE)
+return(Matrix[Double] output, Matrix[Double] error)
+{
+  if(is.na(as.scalar(evalFunHp[1,1])))
+  {
+    nc = max(Y);
+    params = list("icpt", "reg", "tol")
+    paramRanges = list(seq(0, 2, 1), 10^seq(1,-3), 10^seq(1,-5));
+    dataArgs = list("X", "Y");
+    trainArgs = list(X=X, Y=Y, icpt=-1, reg=-1, tol=-1, maxi=1000, maxii=0, verbose=FALSE);
+    t1 = time()
+    [B1,opt] = gridSearch(X=X, y=Y, train="multiLogReg", predict="accuracy", numB=(ncol(X)+1)*(nc-1),
+      params=params, paramValues=paramRanges, dataArgs=dataArgs, trainArgs=trainArgs, cv=TRUE, cv=3, verbose=FALSE);
+    print("time taken for gridsearch "+ (time() - t1)/1e9+"s")
+    evalFunHp = as.matrix(opt) 
+  }
+  if(min(Y) == max(Y))
+  {
+    print("min(Y) = max(Y)")
+    accuracy = as.matrix(0)
+    a = 0
+  }
+  else {
+    beta = multiLogReg(X=X, Y=Y, icpt=as.scalar(evalFunHp[1,1]), reg=as.scalar(evalFunHp[1,2]), tol=as.scalar(evalFunHp[1,3]), 
+      maxi=1000, maxii=0, verbose=FALSE);
+    [prob, yhat, accuracy] = multiLogRegPredict(Xtest, beta, Ytest, FALSE)
+    error = yhat != Ytest
+    accuracy = as.matrix(accuracy)
+    if (writeError) {
+      [probTr, yhatTr, accuracyTr] = multiLogRegPredict(X, beta, Y, FALSE)
+      error = yhatTr != Y;
+      print("Writing errors for slicefinder")
+      write(error, "eeg_e.csv", format="csv");
+    }
+  }
+  output = cbind(accuracy, evalFunHp)
+  print("output: "+toString(output))
+}
+
+
+accuracy = function(Matrix[Double] X, Matrix[Double] y, Matrix[Double] B) return (Matrix[Double] err) {
+  [M,yhat,acc] = multiLogRegPredict(X=X, B=B, Y=y, verbose=FALSE);
+  err = as.matrix(1-(acc/100));
+}
+# UDF for evaluation  
+# choice of parameters provided by API, X, Y, clone_X, evalFunHp (hyper-param), trainML (boolean for optimizing hp internally or passed by externally )
+evalRegression = function(Matrix[Double] X, Matrix[Double] Y, Matrix[Double] Xtest, Matrix[Double] Ytest, Matrix[Double] Xorig=as.matrix(0),
+  Matrix[Double] evalFunHp)
+return(Matrix[Double] output, Matrix[Double] error)
+{
+  Xtest = replace(target=Xtest, pattern = NaN, replacement = 0)
+  X = replace(target=X, pattern = NaN, replacement = 0)
+  if(is.na(as.scalar(evalFunHp[1,1])))
+  {
+    # do the gridsearch for hyper-parameters
+    params = list("icpt","reg", "tol");
+    paramRanges = list(seq(0,2,1),10^seq(0,-4), 10^seq(-6,-12));
+    t1 = time()
+    [B1, opt] = gridSearch(X=X, y=Y, train="lm", predict="RsquaredLoss",
+      numB=ncol(X)+1, params=params, paramValues=paramRanges, cv=TRUE, cvk=3);
+    print("time taken for gridsearch "+ (time() - t1)/1e9+"s")
+    evalFunHp = as.matrix(opt)  
+  }
+  beta = lm(X=X, y=Y, icpt=as.scalar(evalFunHp[1,1]), reg=as.scalar(evalFunHp[1,2]), tol=as.scalar(evalFunHp[1,3]), 
+    maxi=1000, verbose = TRUE);
+  pred = lmPredict(X=Xtest, B=beta, ytest=Ytest, icpt=as.scalar(evalFunHp[1,1]));
+  error = pred != Ytest  
+  accuracy = Rsquared(Xtest, Ytest, beta)
+  print("r-squared: "+toString(accuracy))
+#  rms = rmse(Xtest, Ytest, beta)
+#  print("rmse: "+toString(rms))
+  output = cbind(accuracy, evalFunHp)
+}
+# # # adjusted R-square
+Rsquared = function(Matrix[Double] X, Matrix[Double] y, Matrix[Double] B) return (Matrix[Double] gain) {
+  # loss = as.matrix(sum((y - X%*%B)^2));
+  n = nrow(y)
+  k = ncol(X)
+  pred = lmPredict(X=X, B=B, ytest=y, verbose = TRUE);
+  Rsqu = sum((y - pred)^2)/sum((y - mean(y))^2) #this will give the lose into range of [0,1]
+  Rsqu = 1 - (Rsqu)
+  # adjRsqu = 1 - (((n - 1)/(n - k - 1)) * (1 - Rsqu))
+  gain = ifelse(is.na(as.matrix(Rsqu)), as.matrix(0), as.matrix(Rsqu))  
+}
+
+
+RsquaredLoss = function(Matrix[Double] X, Matrix[Double] y, Matrix[Double] B) return (Matrix[Double] loss) {
+  n = nrow(y)
+  k = ncol(X)
+  pred = lmPredict(X=X, B=B, ytest=y);
+  Rsqu = sum((y - pred)^2)/sum((y - mean(y))^2)
+  Rsqu = 1 - (Rsqu)
+  loss = ifelse(is.na(as.matrix(Rsqu)), as.matrix(0), as.matrix(Rsqu))  
+}
